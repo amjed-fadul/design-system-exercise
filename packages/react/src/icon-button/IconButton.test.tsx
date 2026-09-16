@@ -21,14 +21,16 @@ const closeIcon = (
 );
 
 describe('IconButton public API', () => {
-  it('renders a native button with a safe default type and required accessible name', async () => {
+  it('renders a native, enabled button with a safe default type and required accessible name', async () => {
     const module = await loadIconButtonModule();
     if (!module) return;
 
     const { IconButton } = module;
     render(<IconButton icon={closeIcon} aria-label="Close member details" />);
 
-    expect(screen.getByRole('button', { name: 'Close member details' })).toHaveAttribute('type', 'button');
+    const button = screen.getByRole('button', { name: 'Close member details' });
+    expect(button).toHaveAttribute('type', 'button');
+    expect(button).not.toBeDisabled();
   });
 
   it('keeps icon content decorative so aria-label owns the accessible name', async () => {
