@@ -6,8 +6,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 afterEach(cleanup);
 
+const buttonModulePath = './Button';
+
 async function loadButtonModule() {
-  const module = await import('./Button').catch(() => null);
+  const module = await import(/* @vite-ignore */ buttonModulePath).catch(() => null);
   expect(module).not.toBeNull();
   return module;
 }
