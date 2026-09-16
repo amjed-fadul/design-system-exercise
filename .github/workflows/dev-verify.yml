@@ -15,6 +15,7 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
       - name: Materialize implementation
+        if: ${{ hashFiles('.github/bootstrap.py') != '' }}
         run: python .github/bootstrap.py
       - uses: pnpm/action-setup@v4
         with:
