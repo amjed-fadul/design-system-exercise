@@ -14,6 +14,14 @@ export type ButtonEmphasis = (typeof buttonEmphases)[number];
 export type ButtonTone = (typeof buttonTones)[number];
 export type ButtonIconPosition = (typeof buttonIconPositions)[number];
 
+export const buttonDefaults = {
+  emphasis: 'primary',
+  tone: 'default',
+  loading: false,
+  loadingLabel: 'Loading…',
+  iconPosition: 'leading',
+} as const;
+
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   emphasis?: ButtonEmphasis;
@@ -28,12 +36,12 @@ const loaderUrl = new URL('../assets/loader-circle.svg', import.meta.url).href;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
-    emphasis = 'primary',
-    tone = 'default',
-    loading = false,
-    loadingLabel = 'Loading…',
+    emphasis = buttonDefaults.emphasis,
+    tone = buttonDefaults.tone,
+    loading = buttonDefaults.loading,
+    loadingLabel = buttonDefaults.loadingLabel,
     icon,
-    iconPosition = 'leading',
+    iconPosition = buttonDefaults.iconPosition,
     type = 'button',
     className,
     children,
