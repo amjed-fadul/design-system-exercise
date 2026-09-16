@@ -1,31 +1,34 @@
-# Button React Implementation Progress
+# Button Contract + React Implementation Progress
 
 **Plan:** `docs/superpowers/plans/2026-09-16-button-react-implementation.md`  
-**Figma source:** Button component set `93:1230`  
+**Contract architecture:** `docs/superpowers/specs/2026-09-17-component-contracts-design.md`  
+**Figma source:** Button component set `93:1230` in `tYCXBBYoQ92AUKVbND5WkG`  
+**Planned contract:** `dse.button@1.0.0`  
 **Foundations base:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Planning branch:** `plan/button-react-milestone`  
 **Implementation status:** PLANNED — implementation has not started  
-**Scope:** Button only
+**Scope:** Contract infrastructure + Button only
 
 ## Branch and PR strategy
 
-The planning branch descends from the verified foundations HEAD. When implementation starts, create the implementation branch from the final planning-branch HEAD so both planning documents travel with the work.
+The planning branch descends from the verified foundations HEAD. When implementation starts, create the implementation branch from the final planning-branch HEAD so the contract spec, implementation plan, and progress tracker travel with the work.
 
 Until foundations PR #1 is merged, the Button PR should be stacked against `feat/foundations-storybook`. After PR #1 lands, retarget the Button PR to `main` without changing implementation history.
 
-Do not merge PR #1, merge the Button work, or publish npm packages as part of executing this plan unless separately requested.
+Do not merge PR #1, merge Button work, or publish npm packages as part of executing this plan unless separately requested.
 
 ## Task tracker
 
-| Task | Deliverable | Status | Implementation commit | Fresh review | Verification evidence |
-| --- | --- | --- | --- | --- | --- |
-| 1 | Activate React package + semantic Button API | Not started | — | — | — |
-| 2 | Token-driven Button visual contract | Not started | — | — | — |
-| 3 | Loading, icons, width preservation, RTL-safe behavior | Not started | — | — | — |
-| 4 | Storybook documentation + four-context Figma parity | Not started | — | — | — |
-| 5 | Package build, packed-consumer CI, final milestone gate | Not started | — | — | — |
+| Task | Deliverable | Status | Contract verification | Implementation commit | Fresh review | Verification evidence |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | Contract schemas + validator + `dse.button@1.0.0` | Not started | — | — | — | — |
+| 2 | React package + contract-backed semantic Button API | Not started | — | — | — | — |
+| 3 | Token-driven visual states within contract | Not started | — | — | — | — |
+| 4 | Loading, icons, intrinsic width, RTL + package assets | Not started | — | — | — | — |
+| 5 | Storybook contract docs + four-context Figma parity | Not started | — | — | — | — |
+| 6 | CI, packed-consumer proof + final milestone gate | Not started | — | — | — | — |
 
-**Progress:** 0 / 5 tasks complete.
+**Progress:** 0 / 6 tasks complete.
 
 ## Required record after every task
 
@@ -34,22 +37,43 @@ Update this document before starting the next task with:
 - starting HEAD;
 - resulting HEAD and commit SHA;
 - exact changed files;
+- contract IDs/versions added or changed;
+- exact `contracts:validate` result where relevant;
 - focused tests run and their result;
-- relevant package/repo typecheck result;
+- relevant package/repo typecheck/build result;
 - fresh reviewer identity and verdict;
 - any correction commit produced by review;
 - remaining known risk or blocker.
 
-A task is not `Complete` while its focused test, typecheck, or fresh review is unresolved.
+A task is not `Complete` while contract validation, focused tests, typecheck/build, or fresh review required by that task is unresolved.
+
+## Contract governance checklist
+
+- [ ] `component-contract.schema.json` exists and rejects unknown/malformed governed fields.
+- [ ] `pattern-contract.schema.json` exists and validates real pattern fixtures without creating fake pattern contracts.
+- [ ] `pnpm contracts:validate` is deterministic and offline.
+- [ ] Exactly one real component contract exists in this milestone: `dse.button@1.0.0`.
+- [ ] No placeholder future component contracts exist.
+- [ ] No product pattern contract is invented before its implementation milestone.
+- [ ] `dse.button` records current Figma source `tYCXBBYoQ92AUKVbND5WkG / 93:1230`.
+- [ ] Button contract legal enums are exactly `emphasis=primary|secondary|text`, `tone=default|critical`, `iconPosition=leading|trailing`.
+- [ ] Contract explicitly excludes public `state`, `focusVisible`, `showIcon`, `size`, `danger`, and `success` APIs.
+- [ ] Contract distinguishes native/derived/public/Figma-only state representation.
+- [ ] Contract token dependencies contain only public token namespaces, not excluded Figma internal collections.
+- [ ] React Button package has no production dependency on the private contracts package.
 
 ## Final verification checklist
 
+- [ ] `pnpm contracts:validate` passes on final HEAD.
+- [ ] Contracts package tests pass.
+- [ ] Contracts package typecheck passes.
 - [ ] React package build passes.
-- [ ] Button focused tests pass.
+- [ ] Button focused tests pass, including contract parity tests.
 - [ ] Full `pnpm test` passes.
 - [ ] Full `pnpm typecheck` passes.
-- [ ] `pnpm tokens:validate` passes with the existing 223-token contract unchanged unless an explicitly reviewed foundation amendment was required.
+- [ ] `pnpm tokens:validate` passes with the existing 223 public code-token contract unchanged unless an explicitly reviewed foundation amendment was required.
 - [ ] `pnpm tokens:build` passes.
+- [ ] Storybook contract-control test passes.
 - [ ] Storybook production build passes.
 - [ ] Light + English manually matches Figma.
 - [ ] Dark + English manually matches Figma.
@@ -59,22 +83,39 @@ A task is not `Complete` while its focused test, typecheck, or fresh review is u
 - [ ] Packed React package installs in the same clean scratch consumer.
 - [ ] Scratch consumer can SSR-render Button through the public package export.
 - [ ] Public React stylesheet export resolves from the packed package.
+- [ ] React tarball does not contain source contracts or contract package files.
 - [ ] Fresh final review reports no unresolved findings.
 - [ ] GitHub Actions passes on the exact final implementation HEAD.
+
+## AI knowledge-pack alignment record
+
+The Figma AI knowledge pack is a guidance/evidence surface, not the contract source of truth. It must distinguish:
+
+```text
+Contract       = legal supported boundary
+Implementation = runtime behavior
+Figma snapshot = factual design representation
+Knowledge      = when/why/how to choose supported capabilities
+Reference      = external principle/provenance
+```
+
+Current inventory language must distinguish 247 local Figma variables across 15 collections from the 223 public code tokens in the foundations milestone; those inventories are intentionally not assumed to be 1:1 because Figma contains internal/helper variables excluded from the public code API.
 
 ## Scope guard
 
 The following remain outside this plan:
 
-- Icon Button, Link, fields, Radio Group, feedback components, surfaces, navigation components, Table, and all patterns;
+- implementation of Icon Button, Link, fields, Radio Group, feedback components, surfaces, navigation components, Table, and all product patterns;
+- placeholder contracts for those future units;
 - npm publication;
-- Figma edits or automatic Figma/code synchronization;
-- Code Connect setup;
+- contract-driven React/Figma generation;
+- Code Connect rollout;
+- automatic Figma/code synchronization;
 - loader animation;
 - new Button size variants;
 - `danger` or `success` Button variants;
-- changes to the existing 223 public foundation-token model unless a missing public semantic is proven and reviewed first.
+- changes to the existing 223 public foundation-token model unless a missing public semantic is proven and separately reviewed.
 
 ## Current state
 
-No implementation code has been changed by this planning work. The first execution action is Task 1 from the linked implementation plan.
+Planning documents now define the contract-first architecture and six-task Button milestone. No production contract package, React implementation, or CI contract gate has been implemented yet. The first execution action is Task 1: contract schemas, deterministic validator, and the real `dse.button@1.0.0` contract.
