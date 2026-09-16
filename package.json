@@ -9,6 +9,7 @@
   "scripts": {
     "tokens:validate": "pnpm --filter @design-system-exercise/tokens validate",
     "tokens:build": "pnpm --filter @design-system-exercise/tokens build",
+    "contracts:validate": "pnpm --filter @design-system-exercise/contracts validate",
     "test": "pnpm -r --if-present test",
     "typecheck": "pnpm -r --if-present typecheck",
     "storybook": "pnpm tokens:build && pnpm --filter @design-system-exercise/storybook storybook",

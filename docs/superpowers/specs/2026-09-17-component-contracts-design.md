@@ -1,9 +1,9 @@
 # Component Contracts Architecture
 
 **Date:** 2026-09-17  
-**Status:** Approved design; implementation not started  
+**Status:** Implemented for C01 Button; future component/pattern contracts remain milestone-scoped  
 **Repository:** `amjed-fadul/design-system-exercise`  
-**First governed implementation:** Button
+**First governed implementation:** Button — `dse.button@1.0.0` validated
 
 ## 1. Purpose
 
@@ -46,7 +46,7 @@ The first goal is a governed boundary that fits the existing React/Figma archite
 
 ## 3. Package boundary
 
-Add a private workspace package:
+The first milestone implements a private workspace package:
 
 ```text
 packages/contracts/
@@ -69,7 +69,7 @@ packages/contracts/
 
 Package name: `@design-system-exercise/contracts`.
 
-It stays `private: true` for the first milestone. It is governance/build input, not a public npm promise.
+It remains `private: true`. It is governance/build input, not a public npm promise.
 
 Do not add empty contract stubs for future components or patterns. Each future implementation milestone starts by authoring and validating that unit's real contract.
 
@@ -124,7 +124,7 @@ Required response behavior:
 3. show the supported alternative if one exists;
 4. surface an open requirement if the system genuinely needs a new capability.
 
-Example after Button is validated:
+Current Button example:
 
 ```text
 Rejected: Button tone="danger" and size="large".
@@ -132,7 +132,7 @@ Contract dse.button@1.0.0 permits tone="default" | "critical" and has no public 
 Use tone="critical" for destructive/high-risk actions; request a contract change if a size axis is required.
 ```
 
-Before a validated contract exists, report `contract_validation=unavailable`. Planned IDs/versions may be named only when clearly labeled **planned/unvalidated**; they must never be presented as validated authority.
+For a unit without a validated contract, report `contract_validation=unavailable`. Planned IDs/versions may be named only when clearly labeled **planned/unvalidated**; they must never be presented as validated authority.
 
 ## 6. Component contract model
 
@@ -165,7 +165,7 @@ provenance
 
 Records traceability without making every source equivalent authority.
 
-For the planned Button contract:
+Button currently records:
 
 ```json
 {
@@ -229,7 +229,7 @@ A contract requirement is not proof that accessibility behavior passed runtime t
 
 Defines legal children/slots, cardinality, optionality, and whether a child is internal or public.
 
-Internal helpers such as `_Input Control`, `_Radio Option`, `_Navigation Item`, `_Breadcrumb Link Item`, `_Table Header`, and `_Table Row` may receive internal contracts when needed by a parent implementation, but they are not exported publicly merely because a contract exists.
+Internal helpers such as `_Input Control`, `_Radio Option`, `_Navigation Item`, `_Breadcrumb Link Item`, `_Table Header`, and `_Table Row` may receive internal contracts when needed by a parent implementation, but they are not exported publicly merely because a contract exists. Schema support for internal visibility remains a later planned extension before the first such helper milestone.
 
 ### 6.9 `events`
 
@@ -239,21 +239,21 @@ Declares component-owned interaction events only. Product operations and backend
 
 Records common unsupported inventions when they are likely agent failure modes. This is an explanatory guardrail in addition to strict schema/API validation.
 
-## 7. Planned Button contract v1
+## 7. Validated Button contract v1
 
-Planned ID/version: `dse.button@1.0.0`.  
-Current validation status: **unavailable** until Task 1 creates the JSON source and `pnpm contracts:validate` passes.
+Validated ID/version: `dse.button@1.0.0`.  
+Current validation status: **passed**. The JSON source exists, `pnpm contracts:validate` passes, implementation parity checks pass, Storybook controls are contract-backed, and the packed React consumer proof passes in CI.
 
-Planned public API:
+Current public API:
 
 ```text
-children         visible content/label
+children         required visible content/label
 emphasis         primary | secondary | text      default primary
 tone             default | critical              default default
 loading          boolean                         default false
 loadingLabel     content                         default "Loading…"
 icon             optional content
-iconPosition     leading | trailing               default leading
+iconPosition     leading | trailing              default leading
 disabled         native button attribute
 native button attributes are forwarded unless they conflict with governed behavior
 ```
@@ -269,10 +269,12 @@ danger
 success
 ```
 
-Planned runtime semantics:
+Runtime semantics:
 
 - native `<button>`;
+- required visible `children` is enforced by the TypeScript public API;
 - default `type="button"` when consumer omits type;
+- contract enum values and governed defaults have direct implementation parity tests;
 - keyboard activation remains native;
 - native `disabled` is actual disabled state;
 - `loading` remains focusable, sets `aria-busy="true"` and `aria-disabled="true"`, and suppresses duplicate activation;
@@ -286,6 +288,8 @@ Representation mapping:
 - `tone="critical"` is the destructive/high-risk semantic axis; there is no separate Critical Button component;
 - hover, pressed, and focus are runtime/CSS states despite existing as Figma representation states;
 - no public size axis exists.
+
+Implementation evidence is tracked in `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
 
 ## 8. Pattern contract model
 
@@ -340,35 +344,37 @@ Patterns may coordinate request state, recovery, selection, navigation, and draf
 
 ## 9. Validation model
 
-Add `pnpm contracts:validate` at repository root.
+`pnpm contracts:validate` exists at repository root.
 
 Validation layers:
 
 1. JSON Schema validation for component and pattern documents.
 2. Unique IDs and valid semantic versions.
 3. Cross-reference validation for component dependencies.
-4. Public/internal visibility validation.
+4. Public/internal visibility validation; internal helper support is deliberately deferred until the dedicated schema-extension milestone.
 5. Contract-specific invariant checks that JSON Schema alone cannot express.
-6. Button implementation parity tests during the Button milestone.
+6. Implementation parity tests for governed units, starting with Button.
 
 Validation is deterministic and offline. No LLM or network call is part of the contract validation/build path.
 
 ## 10. Contract-to-implementation parity for Button
 
-The first milestone does not build a generic reflection engine. It adds focused tests proving public Button implementation agrees with the validated Button contract on:
+The first milestone does not build a generic reflection engine. Focused tests prove the public Button implementation agrees with the validated contract on:
 
-- public enum values and defaults;
-- exclusion of Figma-only/unsupported public props;
+- public enum values and governed defaults;
+- required `children` and exclusion of Figma-only/unsupported public props;
 - native element semantics;
 - loading and disabled behavior;
 - declared token dependencies;
 - Storybook controls using the same legal enum values rather than inventing variants.
 
+The packed-consumer CI also verifies the distributable React package independently of the workspace source tree.
+
 Future milestones may generalize these checks after multiple components demonstrate a stable repeated shape.
 
 ## 11. AI knowledge pack changes
 
-The Figma AI knowledge pack must use the word **contract** precisely rather than for API snapshots or prose pattern guidance.
+The Figma AI knowledge pack uses the word **contract** precisely rather than for API snapshots or prose pattern guidance.
 
 Reading order:
 
@@ -395,12 +401,14 @@ Inventory distinction:
 - 223 public code tokens in the foundations repository milestone;
 - the counts are intentionally not assumed to be 1:1 because Figma contains internal/helper variables excluded from public code API.
 
+After the Button implementation gate passed, the AI knowledge pack was updated so `dse.button@1.0.0` is described as validated and `contract_validation=passed`; later component and pattern contracts remain unavailable until individually implemented and validated.
+
 ## 12. Migration order
 
-1. Add schemas, deterministic validator, and real Button contract.
-2. Make React Button implementation/tests verify the Button contract.
-3. Show contract facts in Storybook documentation.
-4. Add `contracts:validate` to CI.
+1. Add schemas, deterministic validator, and real Button contract. **Complete for C01.**
+2. Make React Button implementation/tests verify the Button contract. **Complete for C01.**
+3. Show contract facts in Storybook documentation. **Complete for C01.**
+4. Add `contracts:validate` to CI. **Complete for C01.**
 5. For every later public component, author its contract before implementation completion.
 6. For internal helpers, add contracts only when needed by a parent contract/implementation; never publish them by default.
 7. When pattern implementation begins, author the relevant pattern contract before product-flow code.
@@ -420,13 +428,19 @@ Do not create placeholder contracts for all future units up front.
 
 ## 14. Acceptance criteria
 
-The first contract milestone is complete only when:
+The first contract milestone is complete when:
 
 - both JSON Schemas exist and reject malformed contracts;
 - `dse.button@1.0.0` exists and validates;
 - contract references are deterministic and offline;
-- Button React API is demonstrably within the contract;
+- Button React API is demonstrably within the contract, including requiredness, enums, defaults, semantics, and forbidden API boundaries;
 - Storybook presents contract-backed legal controls without inventing variants;
+- Light/Dark × English/Arabic visual parity evidence has been reviewed against the live Figma Button;
 - CI runs contract validation before React package verification;
-- the AI knowledge pack distinguishes contract, implementation, Figma API snapshot, guidance, and external reference;
-- no validated-contract claim is made for future components/patterns without real validated JSON sources.
+- clean packed-consumer CI verifies the public React package, stylesheet, and loader asset;
+- the AI knowledge pack distinguishes contract, implementation, Figma API snapshot, guidance, and external reference, and records Button as validated;
+- no validated-contract claim is made for future components/patterns without real validated JSON sources;
+- inline final review has no unresolved Critical or Important findings;
+- GitHub Actions passes on the exact final milestone record HEAD.
+
+The implementation gate passed on `c05a4940014cd2e78e7f94aa7ddfb589388a4b90` in CI run 58. The exact final documentation-record HEAD must also pass its PR CI check before C01 is treated as fully recorded.

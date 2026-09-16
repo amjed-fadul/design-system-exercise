@@ -1,0 +1,230 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.button",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "name": "Button",
+  "description": "Action control for deliberate commands. Emphasis controls hierarchy, tone distinguishes default from critical intent, and loading is a public semantic state; browser interaction states remain derived.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "93:1230"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "children",
+        "description": "Visible button label/content and primary accessible-name source.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "emphasis",
+        "description": "Visual hierarchy of the action.",
+        "default": "primary",
+        "type": { "enum": ["primary", "secondary", "text"] }
+      },
+      {
+        "name": "tone",
+        "description": "Semantic action tone. Critical is reserved for destructive or high-risk commands.",
+        "default": "default",
+        "type": { "enum": ["default", "critical"] }
+      },
+      {
+        "name": "loading",
+        "description": "Marks an unresolved action while preserving focus and preventing duplicate activation.",
+        "default": false,
+        "type": { "boolean": true }
+      },
+      {
+        "name": "loadingLabel",
+        "description": "Visible label announced while loading.",
+        "default": "Loading…",
+        "type": { "content": true }
+      },
+      {
+        "name": "icon",
+        "description": "Optional decorative icon content.",
+        "type": { "content": true }
+      },
+      {
+        "name": "iconPosition",
+        "description": "Logical placement of optional icon relative to label.",
+        "default": "leading",
+        "type": { "enum": ["leading", "trailing"] }
+      },
+      {
+        "name": "disabled",
+        "description": "Native unavailable state using the HTML disabled attribute.",
+        "default": false,
+        "type": { "native": true }
+      }
+    ],
+    "forwardNativeAttributes": true
+  },
+  "representations": [
+    {
+      "source": "figma.state.hover",
+      "kind": "derived",
+      "mapsTo": "css:hover"
+    },
+    {
+      "source": "figma.state.pressed",
+      "kind": "derived",
+      "mapsTo": "css:active"
+    },
+    {
+      "source": "figma.focusVisible",
+      "kind": "derived",
+      "mapsTo": "css:focus-visible"
+    },
+    {
+      "source": "figma.showIcon",
+      "kind": "figma-only",
+      "mapsTo": "publicApi.icon presence"
+    },
+    {
+      "source": "figma.state.disabled",
+      "kind": "native",
+      "mapsTo": "native disabled"
+    },
+    {
+      "source": "figma.state.loading",
+      "kind": "public",
+      "mapsTo": "publicApi.loading"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "root",
+      "required": true,
+      "description": "Native button element and visual container."
+    },
+    {
+      "name": "label",
+      "required": true,
+      "description": "Visible action label and accessible-name owner."
+    },
+    {
+      "name": "icon",
+      "required": false,
+      "description": "Optional decorative icon rendered at logical leading or trailing position."
+    },
+    {
+      "name": "busy-indicator",
+      "required": false,
+      "description": "Static loading glyph shown only for the public loading state."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-action-primary-bg",
+    "--dse-color-semantic-action-primary-fg",
+    "--dse-color-semantic-action-primary-hover",
+    "--dse-color-semantic-action-primary-pressed",
+    "--dse-color-semantic-action-secondary-bg",
+    "--dse-color-semantic-action-secondary-fg",
+    "--dse-color-semantic-action-secondary-border",
+    "--dse-color-semantic-action-secondary-hover",
+    "--dse-color-semantic-action-secondary-pressed",
+    "--dse-color-semantic-action-ghost-fg",
+    "--dse-color-semantic-action-ghost-hover",
+    "--dse-color-semantic-action-ghost-pressed",
+    "--dse-color-semantic-action-critical-bg",
+    "--dse-color-semantic-action-critical-on-bg",
+    "--dse-color-semantic-action-critical-fg",
+    "--dse-color-semantic-action-critical-hover",
+    "--dse-color-semantic-action-critical-pressed",
+    "--dse-color-semantic-action-critical-border",
+    "--dse-color-semantic-surface-disabled",
+    "--dse-color-semantic-fg-disabled",
+    "--dse-color-semantic-border-subtle",
+    "--dse-color-semantic-focus-default",
+    "--dse-border-role-base",
+    "--dse-border-role-focus",
+    "--dse-radius-shape-control",
+    "--dse-spacing-primitive-space-300",
+    "--dse-spacing-semantic-inset-md",
+    "--dse-spacing-semantic-gap-sm",
+    "--dse-spacing-primitive-space-800",
+    "--dse-icons-size-md",
+    "--dse-typography-semantic-label-default-family",
+    "--dse-typography-semantic-label-default-size",
+    "--dse-typography-semantic-label-default-weight",
+    "--dse-typography-semantic-label-default-line-height",
+    "--dse-typography-semantic-label-default-letter-spacing"
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "ownership": "derived",
+      "description": "Pointer hover rendered with CSS; not a public state prop."
+    },
+    {
+      "name": "pressed",
+      "ownership": "derived",
+      "description": "Active pointer/keyboard visual rendered with CSS; not a public state prop."
+    },
+    {
+      "name": "focus-visible",
+      "ownership": "derived",
+      "description": "Keyboard focus indicator derived from browser focus-visible state."
+    },
+    {
+      "name": "disabled",
+      "ownership": "native",
+      "description": "Native HTML disabled state."
+    },
+    {
+      "name": "loading",
+      "ownership": "public",
+      "description": "Public unresolved-action state that remains focusable and suppresses duplicate activation."
+    }
+  ],
+  "semantics": {
+    "element": "button",
+    "accessibleName": "Visible children provide the normal name; loadingLabel provides the loading name; decorative icons never own the name.",
+    "keyboardActivation": "native button activation",
+    "focus": "native focus with visible :focus-visible indicator",
+    "requirements": [
+      "Default type is button when consumer omits type.",
+      "Native disabled uses the disabled attribute.",
+      "Loading sets aria-busy=true and aria-disabled=true while remaining focusable.",
+      "Loading suppresses duplicate activation without switching to native disabled styling.",
+      "Normal and loading content both participate in intrinsic width so the button does not shrink or jump between labels."
+    ]
+  },
+  "composition": {
+    "icon": {
+      "optional": true,
+      "description": "Optional decorative icon content; presence derives the Figma showIcon representation.",
+      "accessibleNameOwner": "label"
+    }
+  },
+  "events": [
+    {
+      "name": "click",
+      "trigger": "native button activation",
+      "suppressedWhen": "loading or disabled"
+    }
+  ],
+  "forbidden": [
+    "state",
+    "focusVisible",
+    "showIcon",
+    "size",
+    "danger",
+    "success"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:93:1230",
+      "https://equinor.github.io/component-contracts/",
+      "https://github.com/equinor/component-contracts",
+      "https://www.w3.org/WAI/ARIA/apg/patterns/button/"
+    ]
+  }
+}
