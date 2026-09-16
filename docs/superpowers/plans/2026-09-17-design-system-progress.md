@@ -3,10 +3,10 @@
 **Master roadmap:** `docs/superpowers/plans/2026-09-17-design-system-master-roadmap.md`  
 **Contract architecture:** `docs/superpowers/specs/2026-09-17-component-contracts-design.md`  
 **Planning branch:** `plan/all-components-patterns`  
-**Active implementation branch:** `feat/contracts-button`  
+**Active implementation branch:** `feat/icon-button`  
 **Foundations baseline:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Figma source:** `tYCXBBYoQ92AUKVbND5WkG`  
-**Status:** C01 BUTTON IMPLEMENTATION COMPLETE — exact final documentation HEAD CI is the remaining record gate; C02 has not started
+**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK is next and has not started
 
 ## Review policy
 
@@ -14,19 +14,19 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 
 ## Progress summary
 
-- Public components complete: **1 / 17** — C01 Button
+- Public components complete: **2 / 17** — C01 Button, C02 Icon Button
 - Public components in progress: **0 / 17**
 - Internal helpers governed with parent milestones: **0 / 6 complete**
 - Product patterns: **0 / 5 complete**
-- Overall public milestones complete: **1 / 22**
-- Next planned milestone: **C02 Icon Button — not started**
+- Overall public milestones complete: **2 / 22**
+- Next planned milestone: **C03 Link — not started**
 
 ## Component milestones
 
 | ID | Component | Contract | Figma | Depends on | Status | Latest implementation SHA | Review | CI evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| C01 | Button | `dse.button@1.0.0` | `93:1230` | contract infrastructure | Complete — final record HEAD CI pending | `c05a494` | Inline self-review APPROVED; no unresolved Critical/Important findings | Implementation run 58 PASS on `c05a494`; final docs HEAD must also PASS |
-| C02 | Icon Button | `dse.icon-button` | `110:1339` | C01 package infrastructure | Not started | — | — | — |
+| C01 | Button | `dse.button@1.0.0` | `93:1230` | contract infrastructure | Complete | `5514dcb5ff83cf90587fb27ecafb7cc972eec02f` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 61 PASS on exact final C01 HEAD |
+| C02 | Icon Button | `dse.icon-button@1.0.0` | `110:1339` | C01 package infrastructure | Complete | `520483c8a33ab80eb0bf0289fca397935e04e70c` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 86 PASS on strengthened implementation HEAD; final PR record HEAD must also pass before merge |
 | C03 | Link | `dse.link` | `114:13` | C01 package infrastructure | Not started | — | — | — |
 | C04 | Text Field | `dse.text-field` | `112:263` | internal `_Input Control` | Not started | — | — | — |
 | C05 | Search Field | `dse.search-field` | `112:1710` | C02, C04 internal input shell | Not started | — | — | — |
@@ -75,19 +75,34 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 - **Assets:** exact Figma loader source `86:11830`, deterministic CSS/SVG package output.
 - **Storybook:** contract-backed controls and stories; Light/Dark × English/Arabic Chromium parity plus loading/disabled/RTL icon evidence reviewed against live Figma.
 - **Packaging:** permanent clean-consumer CI packs tokens + React, rejects source/test/story/contract leakage, SSR-renders Button, and resolves public CSS/loader assets.
-- **Final review corrections:** required-children mismatch caught RED in run 55 and fixed GREEN in run 56; missing contract-default parity caught RED in run 57 and fixed GREEN in run 58.
-- **Implementation HEAD:** `c05a4940014cd2e78e7f94aa7ddfb589388a4b90`; GitHub Actions run 58 PASS.
-- **AI knowledge pack:** updated so Button is `contract_validation=passed`; later component/pattern contracts remain unavailable until individually implemented and validated.
-- **Review:** inline self-review APPROVED after fixes; no unresolved Critical or Important findings.
+- **Final review corrections:** required-children mismatch and contract-default drift were caught by RED tests before the final C01 record.
+- **Final HEAD:** `5514dcb5ff83cf90587fb27ecafb7cc972eec02f`; GitHub Actions run 61 PASS.
+- **AI knowledge pack:** Button is recorded as validated with `contract_validation=passed`.
+- **Review:** inline self-review APPROVED; no unresolved Critical or Important findings.
 
 Detailed evidence: `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
+
+## C02 evidence summary
+
+- **Figma audit:** canonical Icon Button `110:1339` re-audited live. Four 40 × 40 variants are present: default `110:1322`, hover `110:1327`, pressed `110:1331`, disabled `110:1335`; the icon is 20 × 20 and `focusVisible` remains an independent Figma representation control.
+- **Public token mapping:** Figma-only `Component / Icon Render` foreground helpers were resolved to public semantic `fg/primary` and `fg/disabled` rather than exported. Hover, pressed and focus use public `action/ghost/hover`, `action/ghost/pressed` and `focus/default` roles.
+- **Contract:** `dse.icon-button@1.0.0` requires `icon` and native `aria-label`, supports native `disabled` and forwarded native button attributes, and explicitly forbids public `state`, `focusVisible`, duplicate `accessibleLabel`, `loading`, `success` and `size` APIs.
+- **React API:** native `<button>`, safe `type=button`, ref/native-attribute forwarding, required accessible name, decorative icon semantics and native disabled activation suppression.
+- **Visuals:** fixed 40 × 40 target, 20 × 20 icon, token-driven radius/foreground/hover/pressed/focus/disabled styling, no raw colors and logical direction-safe CSS. No generic icon mirroring is introduced.
+- **Storybook:** `Components/Controls/Icon Button` includes real Close, Clear Search and Disabled examples, English/Arabic accessible names and the existing Light/Dark × English/Arabic globals. Hover/pressed/focus are documented and exercised as derived CSS/browser states rather than fake public controls.
+- **Packaging:** React package exports `IconButton`/`IconButtonProps`; built `styles.css` includes Icon Button; clean-consumer CI imports and SSR-renders the installed Icon Button tarball, verifies accessible name/safe type/decorative icon semantics and confirms packaged CSS.
+- **RED/GREEN evidence:** contract RED run 62 on `462139f04184162c8e20b273efc9619ed17a3acd`; contract GREEN run 64 on `0e636b60756060fc284a46547a655d489ee2b0a9`; runtime/CSS RED run 66 on `8dcf7b34eaa3c05c0c4dde86c3d41a2a1183d753`.
+- **Debug correction:** full-suite CI exposed an unstable `fileURLToPath(import.meta.url)` assumption in the new CSS test. GitHub Actions logs isolated `ERR_INVALID_URL_SCHEME`; the test harness now resolves from the package working directory. Production Icon Button code did not require correction.
+- **Self-review hardening:** all contract-declared token dependencies are now checked directly against CSS; default enabled behavior is explicitly protected; compile-time guards keep `icon` and `aria-label` required and unsupported APIs absent.
+- **Implementation HEAD:** `520483c8a33ab80eb0bf0289fca397935e04e70c`; GitHub Actions run 86 PASS with contract validation, 223-token validation/build, full tests, typecheck, Storybook production build and packed clean-consumer verification.
+- **Review:** inline self-review APPROVED; no unresolved Critical or Important findings.
 
 ## Milestone completion rule
 
 For every task/milestone record RED/GREEN evidence, contract validation, focused/full tests, typecheck/build, visual parity when applicable, packed-consumer proof when applicable, inline self-review verdict, corrections, and exact-HEAD CI. Do not mark a milestone complete with an unresolved gate.
 
-For C01 specifically, the implementation gate is complete on `c05a494` / run 58. The documentation-only final record commit that contains this tracker and the Button tracker/spec must also receive a passing PR CI check; that exact-HEAD check is the authoritative completion record and does not require another tracker mutation.
+Documentation/knowledge-only record commits after a verified implementation milestone must also pass PR CI before merge. The passing PR HEAD is the authoritative record check; it does not require another tracker mutation solely to record its own run number.
 
 ## Scope guard
 
-This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. C02 must not start without explicit user authorization.
+This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. C03 must not start without explicit user authorization.

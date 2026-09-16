@@ -71,7 +71,7 @@ jobs:
           import { existsSync, readFileSync } from 'node:fs';
           import { renderToStaticMarkup } from 'react-dom/server';
           import { tokens } from '@design-system-exercise/tokens';
-          import { Button } from '@design-system-exercise/react';
+          import { Button, IconButton } from '@design-system-exercise/react';
 
           if (tokens.color.primitive.brand['600'] !== '#005DCC') throw new Error('brand/600 export mismatch');
           if (tokens.typography.semantic.arabic.body.default.family !== 'IBM Plex Sans Arabic') throw new Error('Arabic body font export mismatch');
@@ -80,19 +80,32 @@ jobs:
           if (!tokenCssUrl.endsWith('/dist/tokens.css')) throw new Error(`Unexpected token CSS export: ${tokenCssUrl}`);
           if (!existsSync(new URL(tokenCssUrl))) throw new Error('Token CSS export missing');
 
-          const html = renderToStaticMarkup(
+          const buttonHtml = renderToStaticMarkup(
             React.createElement(Button, { emphasis: 'secondary', tone: 'critical' }, 'Remove'),
           );
-          if (!html.includes('<button')) throw new Error('Button did not render a native button');
-          if (!html.includes('data-emphasis="secondary"')) throw new Error('Button emphasis missing');
-          if (!html.includes('data-tone="critical"')) throw new Error('Button tone missing');
-          if (!html.includes('type="button"')) throw new Error('Button safe default type missing');
+          if (!buttonHtml.includes('<button')) throw new Error('Button did not render a native button');
+          if (!buttonHtml.includes('data-emphasis="secondary"')) throw new Error('Button emphasis missing');
+          if (!buttonHtml.includes('data-tone="critical"')) throw new Error('Button tone missing');
+          if (!buttonHtml.includes('type="button"')) throw new Error('Button safe default type missing');
+
+          const iconButtonHtml = renderToStaticMarkup(
+            React.createElement(IconButton, {
+              icon: React.createElement('svg', { viewBox: '0 0 20 20' }),
+              'aria-label': 'Close',
+            }),
+          );
+          if (!iconButtonHtml.includes('<button')) throw new Error('Icon Button did not render a native button');
+          if (!iconButtonHtml.includes('aria-label="Close"')) throw new Error('Icon Button accessible name missing');
+          if (!iconButtonHtml.includes('type="button"')) throw new Error('Icon Button safe default type missing');
+          if (!iconButtonHtml.includes('class="dse-icon-button"')) throw new Error('Icon Button class missing');
+          if (!iconButtonHtml.includes('aria-hidden="true"')) throw new Error('Icon Button decorative icon semantics missing');
 
           const reactCssUrl = import.meta.resolve('@design-system-exercise/react/styles.css');
           if (!reactCssUrl.endsWith('/dist/styles.css')) throw new Error(`Unexpected React CSS export: ${reactCssUrl}`);
           if (!existsSync(new URL(reactCssUrl))) throw new Error('React CSS export missing');
           const reactCss = readFileSync(new URL(reactCssUrl), 'utf8');
           if (!reactCss.includes('.dse-button')) throw new Error('Button stylesheet content missing');
+          if (!reactCss.includes('.dse-icon-button')) throw new Error('Icon Button stylesheet content missing');
 
           const loaderUrl = new URL('./assets/loader-circle.svg', reactCssUrl);
           if (!existsSync(loaderUrl)) throw new Error('Button loader asset missing from installed package');

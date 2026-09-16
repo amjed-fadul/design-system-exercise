@@ -5,3 +5,6 @@ export type {
   ButtonProps,
   ButtonTone,
 } from './button/Button.js';
+
+export { IconButton } from './icon-button/IconButton.js';
+export type { IconButtonProps } from './icon-button/IconButton.js';
