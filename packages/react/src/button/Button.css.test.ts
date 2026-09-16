@@ -37,4 +37,12 @@ describe('Button visual contract', () => {
     expect(css).not.toMatch(/\b(margin|padding|border)-(left|right)\b/i);
     expect(css).not.toMatch(/\b(left|right)\s*:/i);
   });
+
+  it('keeps normal and loading layers in one intrinsic grid track', () => {
+    const css = readCss();
+    expect(css).toMatch(/\.dse-button__content\s*\{[^}]*display:\s*inline-grid;/s);
+    expect(css).toMatch(/\.dse-button__layer\s*\{[^}]*grid-area:\s*1\s*\/\s*1;/s);
+    expect(css).toMatch(/\.dse-button__layer\[aria-hidden=['"]true['"]\]\s*\{[^}]*visibility:\s*hidden;/s);
+    expect(css).not.toMatch(/\.dse-button__layer\[aria-hidden=['"]true['"]\]\s*\{[^}]*display:\s*none;/s);
+  });
 });
