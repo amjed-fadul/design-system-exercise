@@ -3,22 +3,24 @@
 **Master roadmap:** `docs/superpowers/plans/2026-09-17-design-system-master-roadmap.md`  
 **Contract architecture:** `docs/superpowers/specs/2026-09-17-component-contracts-design.md`  
 **Planning branch:** `plan/all-components-patterns`  
+**Active implementation branch:** `feat/contracts-button`  
 **Foundations baseline:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Figma source:** `tYCXBBYoQ92AUKVbND5WkG`  
-**Status:** PLANNED — no component/pattern implementation from this master roadmap has started
+**Status:** IMPLEMENTATION STARTED — C01 contract infrastructure is green; fresh review pending
 
 ## Progress summary
 
-- Public components: **0 / 17 complete**
+- Public components complete: **0 / 17**
+- Public components in progress: **1 / 17** — C01 Button
 - Internal helpers governed with parent milestones: **0 / 6 complete**
 - Product patterns: **0 / 5 complete**
-- Overall public milestones: **0 / 22 complete**
+- Overall public milestones complete: **0 / 22**
 
 ## Component milestones
 
 | ID | Component | Contract | Figma | Depends on | Status | Implementation SHA | Fresh review | CI exact HEAD |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| C01 | Button | `dse.button` | `93:1230` | contract infrastructure | Not started | — | — | — |
+| C01 | Button | `dse.button@1.0.0` | `93:1230` | contract infrastructure | In progress — Task 1 green, review pending | `96db3df` Task 1 automation HEAD | Pending independent review | Run 9 PASS on `96db3df` |
 | C02 | Icon Button | `dse.icon-button` | `110:1339` | C01 package infrastructure | Not started | — | — | — |
 | C03 | Link | `dse.link` | `114:13` | C01 package infrastructure | Not started | — | — | — |
 | C04 | Text Field | `dse.text-field` | `112:263` | internal `_Input Control` | Not started | — | — | — |
@@ -38,8 +40,6 @@
 
 ## Internal helper tracking
 
-Internal helper completion is recorded inside the parent public milestone, not as a separate public PR.
-
 | Helper | Internal contract | Figma | Parent milestone | Status | Evidence |
 | --- | --- | --- | --- | --- | --- |
 | `_Input Control` | `dse._input-control` | `111:22` | C04 | Not started | — |
@@ -49,7 +49,7 @@ Internal helper completion is recorded inside the parent public milestone, not a
 | `_Table Header` | `dse._table-header` | `152:3685` | C17 | Not started | — |
 | `_Table Row` | `dse._table-row` | `152:3729` | C17 | Not started | — |
 
-`_Button / Busy indicator` (`93:24`) is an implementation detail inside C01 and is not counted as an independent helper contract milestone.
+`_Button / Busy indicator` (`93:24`) remains an implementation detail inside C01 and is not counted as an independent helper-contract milestone.
 
 ## Pattern milestones
 
@@ -61,40 +61,49 @@ Internal helper completion is recorded inside the parent public milestone, not a
 | P04 | Edit, Save and Recover | `dse.pattern.edit-save-recover` | `68:240` | C01, C06, C07, C11, P03 | Not started | — | — | — |
 | P05 | Search, List and Detail | `dse.pattern.search-list-detail` | `68:121` | C05, C11, C12, C17, P01, P03, P04 | Not started | — | — | — |
 
-## Required evidence after every milestone
+## C01 Task 1 evidence
 
-Record these before the next milestone starts:
+- Starting HEAD: `4b27aa4ae9490f13f964bee04b95211872cd6bfa`.
+- RED commit: `1b0b0c220bd1557a4842e3a2fb760f54e8942b12`.
+- RED CI: run 6 — contract package **7/7 tests failed intentionally** because schemas/validator/Button contract did not yet exist; frozen install and token gates passed first.
+- Lockfile commit: `ff8431e2993398a0a9dfecda47d98fc439000d73`.
+- Main implementation: `cb6e1877234bc5294b5f93bd01900265c12ddee9`.
+- Type correction after root-cause analysis: `21454f9b6cf16705e8f49dc288653d9043eff9f5`.
+- Permanent contract CI gate: `96db3df893f6351f290c5684ad76528646b604a7`.
+- Exact automated verification: CI run 9 PASS on `96db3df` — frozen install, `contracts:validate`, 223-token validate/build, full tests, typecheck, Storybook build, token pack/consumer smoke.
+- Independent fresh review: **pending** because this chat has no reviewer/subagent capability. No independent verdict is being fabricated.
 
-- starting HEAD;
-- resulting HEAD and implementation commit SHA;
-- contract ID + version;
+See `2026-09-16-button-react-progress.md` for the detailed Task 1 record.
+
+## Milestone completion rule
+
+Before the next public milestone, record:
+
+- starting and resulting HEADs;
+- contract ID/version;
 - exact files changed;
-- focused RED command/result;
-- focused GREEN command/result;
-- package test result;
-- package typecheck result;
-- relevant package build result;
-- `pnpm contracts:validate` result;
-- full `pnpm test` result;
-- full `pnpm typecheck` result;
-- Storybook production-build result;
-- visual parity contexts checked;
-- packed-consumer result when a public package changed;
-- fresh reviewer identity and verdict;
-- correction commit(s), if any;
-- GitHub Actions run/status on exact final HEAD;
+- focused RED and GREEN evidence;
+- package tests/typecheck/build;
+- `pnpm contracts:validate`;
+- full repo tests/typecheck;
+- Storybook production build;
+- visual parity contexts when applicable;
+- packed-consumer proof when a public package changed;
+- fresh reviewer identity/verdict;
+- correction commits;
+- exact-HEAD GitHub Actions result;
 - remaining risk/blocker.
 
-A milestone must not be marked `Complete` while any required focused test, typecheck, build, fresh review, or exact-HEAD CI gate is unresolved.
+A milestone is not `Complete` while required verification or fresh review is unresolved.
 
 ## Global final acceptance checklist
 
 - [ ] 17/17 public component contracts validate.
-- [ ] 6/6 internal helper contracts are present only where needed and remain non-public.
+- [ ] 6/6 internal helper contracts exist only where required and remain non-public.
 - [ ] 5/5 pattern contracts validate.
 - [ ] `@design-system-exercise/react` exports exactly the approved public components and no underscore helper.
 - [ ] `@design-system-exercise/patterns` exports exactly the approved public patterns.
-- [ ] No public API directly copies Figma-only state controls unless its contract explicitly approves that mapping.
+- [ ] No public API directly copies Figma-only state controls unless its contract approves that mapping.
 - [ ] All component CSS consumes public token variables and contains no unauthorized raw foundation color values.
 - [ ] Light/Dark Storybook coverage exists for every public component.
 - [ ] English/Arabic/RTL Storybook coverage exists for every text-bearing public component.
@@ -109,14 +118,4 @@ A milestone must not be marked `Complete` while any required focused test, typec
 
 ## Scope guard
 
-This roadmap does not authorize:
-
-- npm publication;
-- merging PRs or `main` without separate instruction;
-- automatic Figma-to-code or code-to-Figma generation;
-- a generic contract CLI/service;
-- product backend, authorization, persistence, or real data services;
-- new component variants not present in a reviewed contract change;
-- mobile-specific components beyond the current responsive pattern guidance;
-- sorting, pagination, bulk selection, or generic data-grid behavior for Table;
-- fake placeholder contracts for future components/patterns.
+This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units.
