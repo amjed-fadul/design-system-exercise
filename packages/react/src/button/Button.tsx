@@ -15,6 +15,7 @@ export type ButtonTone = (typeof buttonTones)[number];
 export type ButtonIconPosition = (typeof buttonIconPositions)[number];
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
   emphasis?: ButtonEmphasis;
   tone?: ButtonTone;
   loading?: boolean;
