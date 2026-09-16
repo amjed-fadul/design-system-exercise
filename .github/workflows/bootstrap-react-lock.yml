@@ -1,0 +1,37 @@
+name: Bootstrap React lockfile
+
+on:
+  push:
+    branches: [feat/contracts-button]
+    paths:
+      - packages/react/package.json
+
+permissions:
+  contents: write
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/contracts-button
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.21.0
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --lockfile-only --no-frozen-lockfile
+      - name: Commit generated lockfile and remove bootstrap workflow
+        shell: bash
+        run: |
+          rm .github/workflows/bootstrap-react-lock.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pnpm-lock.yaml .github/workflows/bootstrap-react-lock.yml
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: update React package lockfile"
+          git push origin HEAD:feat/contracts-button
