@@ -7,7 +7,7 @@
 **Foundations base:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Planning branch:** `plan/all-components-patterns`  
 **Implementation branch:** `feat/contracts-button`  
-**Implementation status:** IN PROGRESS — Tasks 1-4 complete; Task 5 next  
+**Implementation status:** COMPLETE — 6 / 6 tasks implemented and reviewed; final record commit still requires its exact-HEAD PR CI check  
 **Scope:** Contract infrastructure + Button only
 
 ## Review policy
@@ -21,11 +21,11 @@ Per user direction, this implementation uses no sub-agents. Reviews are performe
 | 1 | Contract schemas + validator + `dse.button@1.0.0` | Complete | PASS | `cb6e187` + corrections | Inline self-review APPROVED | RED run 6; GREEN runs 9/11; reviewed HEAD `bd114d4` PASS |
 | 2 | React package + contract-backed semantic Button API | Complete | PASS | `f632aa8` + export `04d5474` | Inline self-review APPROVED | RED `fc382d1` / run 23; GREEN `04d5474` / run 25 PASS |
 | 3 | Token-driven visual states within contract | Complete | PASS | CSS `81c9804` + class binding `bfa9b28` | Inline self-review APPROVED | RED `8a1d8a0` / run 28; GREEN `bfa9b28` / run 30 PASS |
-| 4 | Loading, icons, intrinsic width, RTL + package assets | Complete | PASS | behavior/assets through `e457b65`; React build CI gate `9f2572b` | Inline self-review APPROVED; no Critical/Important findings | RED `dcc425c` / run 33 (+ busy guard RED run 35); GREEN `9f2572b` / run 40 PASS |
-| 5 | Storybook contract docs + four-context Figma parity | Not started | — | — | — | — |
-| 6 | CI, packed-consumer proof + final milestone gate | Not started | — | — | — | — |
+| 4 | Loading, icons, intrinsic width, RTL + package assets | Complete | PASS | behavior/assets through `e457b65`; CI build gate `9f2572b` | Inline self-review APPROVED | RED `dcc425c` / run 33 (+ busy guard run 35); GREEN `9f2572b` / run 40 PASS |
+| 5 | Storybook contract docs + four-context Figma parity | Complete | PASS | stories `3bcafbd`; CSF correction `392cdd1` | Inline self-review APPROVED | Story RED run 48; CI run 50 PASS; hydrated parity capture run 2 PASS |
+| 6 | CI, packed-consumer proof + final milestone gate | Complete | PASS | package gate `219dea7`; review fixes through `c05a494` | Inline self-review APPROVED after 2 Important findings fixed | Run 54 PASS; required-children RED 55/GREEN 56; defaults RED 57/GREEN 58 |
 
-**Progress:** 4 / 6 implementation tasks complete.
+**Progress:** 6 / 6 implementation tasks complete.
 
 ## Task 1 evidence
 
@@ -52,28 +52,58 @@ Per user direction, this implementation uses no sub-agents. Reviews are performe
 ## Task 4 evidence
 
 - RED HEAD `dcc425ccc208332ead2b0c0e037018ef3456c077`, CI run 33: prior tests remained green; 4 Task-4 failures proved missing intrinsic layering, loading accessible state, icon composition, and disabled+loading behavior. A separate busy-state CSS guard was added test-first and observed red in run 35.
-- Exact loader source was read from Figma node `86:11830` using the Figma Plugin API `SVG_STRING` export and stored at `packages/react/src/assets/loader-circle.svg` without redrawing its path.
-- Runtime behavior implemented from `8bb61c2`: loading remains focusable, sets `aria-busy=true` + `aria-disabled=true`, blocks consumer activation/default action, and preserves native disabled when `disabled` is also true.
-- Normal/loading content layers occupy the same intrinsic grid cell; inactive layer uses `visibility:hidden` + `aria-hidden`, never `display:none`.
-- Optional icons are decorative, render only when supplied, and use logical DOM order for leading/trailing; flex/inherited direction handles RTL without left/right swapping.
-- The exact black source SVG is used as a CSS mask inside a `currentColor` busy glyph, preserving source geometry while inheriting the Button foreground across default/critical and light/dark contexts.
-- Build copies `Button.css` to `dist/styles.css` and the exact loader to `dist/assets/loader-circle.svg`; missing sources fail via `copyFile`.
-- Permanent CI now runs `pnpm --filter @design-system-exercise/react build` before tests.
-- GREEN HEAD `9f2572b5039e25d1e020fb8c4fcb25049dfbbeb4`, CI run 40: PASS — frozen install, contract validation, 223-token validate/build, React package build, all tests, full typecheck, Storybook production build, existing token consumer smoke.
-- Inline self-review: APPROVED; no unresolved Critical/Important findings.
+- Exact loader source was read from Figma node `86:11830` and stored at `packages/react/src/assets/loader-circle.svg` without redrawing its path.
+- Loading remains focusable, sets `aria-busy=true` + `aria-disabled=true`, blocks consumer activation/default action, and preserves native disabled when `disabled` is also true.
+- Normal/loading content layers occupy the same intrinsic grid cell; inactive content uses `visibility:hidden` + `aria-hidden`, never `display:none`.
+- Optional icons are decorative and use logical leading/trailing DOM order; inherited direction handles RTL without physical left/right rules.
+- The exact source SVG is used as a `currentColor` CSS mask, preserving source geometry while inheriting Button foreground.
+- Build copies `Button.css` to `dist/styles.css` and the loader to `dist/assets/loader-circle.svg`; missing sources fail the build.
+- GREEN HEAD `9f2572b5039e25d1e020fb8c4fcb25049dfbbeb4`, CI run 40 PASS.
+- Inline self-review APPROVED.
+
+## Task 5 evidence
+
+- Storybook consumes the workspace React package and its public stylesheet after token CSS; it does not add Button-specific theme/language props.
+- Contract-backed controls expose exactly `emphasis`, `tone`, and `iconPosition` legal enums and exclude `state`, `focusVisible`, `showIcon`, `size`, `danger`, and `success`.
+- Correct Storybook RED was captured in CI run 48 when `Button.stories.tsx` was absent.
+- Stories added: Playground, EmphasisMatrix, CriticalTone, Disabled, Loading, WithLeadingIcon, WithTrailingIcon.
+- Production Storybook indexing exposed a real CSF issue; `export default meta` was made literal in `392cdd121c34e33e4051ab64bb798873281af8f9`. CI run 50 then passed tests, typecheck, and production Storybook build.
+- Four inherited contexts were rendered from the built Storybook in Chromium after fixing the temporary capture harness to wait for hydration: Light+English/LTR, Dark+English/LTR, Light+Arabic/RTL, Dark+Arabic/RTL. Extra captures covered loading, disabled, Arabic leading icon, and Arabic trailing icon.
+- Visual review against live Figma Button instances confirmed ~123×48 geometry, hierarchy, critical tone, disabled/loading presentation, theme inheritance, Arabic typography/RTL, and logical icon order. No parity blocker remained.
+- Temporary screenshot-capture workflow was removed after evidence collection; it is not a permanent CI dependency.
+- Inline self-review APPROVED.
+
+## Task 6 evidence
+
+- Permanent CI order is: frozen install → contract validation → 223-token validate/build → React build → all tests → full typecheck → Storybook build → package consumer smoke.
+- Commit `219dea73c5c3a928a63ecfa1be4adb75013c6478` extended the consumer gate to pack both tokens and React, reject source/test/story/contract leakage, install both tarballs in a clean npm consumer, SSR-render Button, resolve `styles.css`, and verify the loader asset. CI run 54 passed all gates.
+- Final inline self-review found **Important #1:** contract `children` was required but `ButtonProps.children` was optional through `ButtonHTMLAttributes`. RED commit `8669b894af7db38569e5720f411db81b5be0085c` made CI run 55 fail only at the compile-time contract assertion. Fix `a81c993558a69620df3742152f3f02ebe3780ee9` makes `children: ReactNode` explicitly required; run 56 passed all gates.
+- Final inline self-review found **Important #2:** architecture requires default parity but the implementation parity test covered only enums. RED commit `4144ad4a391d330c8d16d280e1a33de5d52802b0` made run 57 fail only because `buttonDefaults` was absent. Fix `c05a4940014cd2e78e7f94aa7ddfb589388a4b90` introduced an internal default source used by runtime destructuring and parity tests; run 58 passed all gates.
+- `buttonDefaults` and enum arrays remain module-internal implementation evidence because `src/index.ts` does not re-export them.
+- The Figma AI knowledge pack was updated after run 56/58 evidence so `dse.button@1.0.0` is now described as validated; later component/pattern contracts remain unavailable until their own JSON sources validate.
+- Final inline self-review after both corrections: **APPROVED — no unresolved Critical or Important findings.**
 
 ## Contract governance checklist
 
-- [x] Deterministic component/pattern schemas and validation.
-- [x] Exactly one real C01 contract: `dse.button@1.0.0`.
-- [x] Current Figma source/legal enums represented accurately.
-- [x] Figma-only/unsupported keys excluded from public React API.
+- [x] Deterministic component/pattern schemas and offline validation.
+- [x] Exactly one real C01 contract exists: `dse.button@1.0.0`; no future placeholder contracts.
+- [x] Current Figma source and legal enum axes are represented accurately.
+- [x] Contract enums and governed runtime defaults have parity tests.
+- [x] Required `children` is enforced in the TypeScript public API.
+- [x] Figma-only/unsupported keys are excluded from public React API.
 - [x] React package has no production dependency on private contracts.
-- [x] Button visual CSS uses governed public token variables and logical properties only.
-- [x] Loading, icon composition, intrinsic width, RTL-safe layout and deterministic package assets implemented.
-- [ ] Storybook contract documentation + four-context parity — Task 5.
-- [ ] Packed React consumer proof + final milestone gate — Task 6.
+- [x] Button CSS consumes governed public tokens, contains no raw color literals, and uses logical properties.
+- [x] Native/default/loading/disabled semantics and duplicate-activation guard are tested.
+- [x] Intrinsic loading width, icons, RTL-safe composition, and deterministic package assets are implemented.
+- [x] Storybook contract documentation and four-context Figma parity are verified.
+- [x] Packed tokens + React clean-consumer SSR/CSS/asset proof is permanent in CI.
+- [x] AI knowledge pack records Button as validated without promoting later planned contracts.
+- [x] Inline final review has no unresolved Critical or Important findings.
+
+## Final record gate
+
+The implementation HEAD `c05a4940014cd2e78e7f94aa7ddfb589388a4b90` passed CI run 58. This progress-record update is documentation-only, but the C01 milestone is not considered fully recorded until GitHub Actions also passes on the exact final documentation HEAD containing this tracker/spec/master update. The PR check on that final HEAD is the authoritative final record.
 
 ## Scope guard
 
-Icon Button, Link, fields, Radio Group, feedback/surface/navigation/data-display components, patterns, npm publication, contract-driven Figma/React generation, Code Connect, and new Button variants remain outside this C01 plan.
+Icon Button, Link, fields, Radio Group, feedback/surface/navigation/data-display components, patterns, npm publication, contract-driven Figma/React generation, Code Connect, and new Button variants remain outside this C01 implementation. Do not start C02 automatically.
