@@ -29,6 +29,18 @@ jobs:
       - name: Diagnostic Icon Button CSS test
         continue-on-error: true
         run: pnpm --filter @design-system-exercise/react test -- IconButton.css.test.ts
+      - name: Diagnostic contracts tests
+        continue-on-error: true
+        run: pnpm --filter @design-system-exercise/contracts test
+      - name: Diagnostic token tests
+        continue-on-error: true
+        run: pnpm --filter @design-system-exercise/tokens test
+      - name: Diagnostic React full tests
+        continue-on-error: true
+        run: pnpm --filter @design-system-exercise/react test
+      - name: Diagnostic Storybook tests
+        continue-on-error: true
+        run: pnpm --filter @design-system-exercise/storybook test
       - run: pnpm test
       - run: pnpm typecheck
       - run: pnpm build-storybook
