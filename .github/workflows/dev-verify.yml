@@ -1,0 +1,44 @@
+name: Dev Verify
+
+on:
+  push:
+    branches: [feat/foundations-storybook]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.21.0
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --no-frozen-lockfile
+      - name: Persist lockfile
+        shell: bash
+        run: |
+          if ! git diff --quiet -- pnpm-lock.yaml || [ -n "$(git ls-files --others --exclude-standard pnpm-lock.yaml)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add pnpm-lock.yaml
+            git commit -m "chore: refresh pnpm lockfile"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
+      - run: pnpm -r list --depth -1
+      - if: ${{ hashFiles('packages/tokens/scripts/validate.ts') != '' }}
+        run: pnpm tokens:validate
+      - if: ${{ hashFiles('packages/tokens/tests/**/*.test.ts') != '' }}
+        run: pnpm --filter @design-system-exercise/tokens test
+      - if: ${{ hashFiles('packages/tokens/scripts/**/*.ts') != '' }}
+        run: pnpm --filter @design-system-exercise/tokens typecheck
+      - if: ${{ hashFiles('apps/storybook/package.json') != '' }}
+        run: pnpm build-storybook

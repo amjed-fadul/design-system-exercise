@@ -1,0 +1,21 @@
+{
+  "name": "design-system-exercise",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@12.4.2",
+  "engines": {
+    "node": ">=24.21.0 <25"
+  },
+  "scripts": {
+    "tokens:validate": "pnpm --filter @design-system-exercise/tokens validate",
+    "tokens:build": "pnpm --filter @design-system-exercise/tokens build",
+    "test": "pnpm -r --if-present test",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "storybook": "pnpm tokens:build && pnpm --filter @design-system-exercise/storybook storybook",
+    "build-storybook": "pnpm tokens:build && pnpm --filter @design-system-exercise/storybook build-storybook",
+    "build": "pnpm tokens:build && pnpm --filter @design-system-exercise/storybook build-storybook"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}

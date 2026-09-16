@@ -1,0 +1,6 @@
+node_modules/
+.pnpm-store/
+packages/tokens/.generated/
+packages/*/dist/
+apps/storybook/storybook-static/
+.DS_Store
