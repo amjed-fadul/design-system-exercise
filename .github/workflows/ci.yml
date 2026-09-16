@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.21.0
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm tokens:validate
+      - run: pnpm tokens:build
+      - run: pnpm test
+      - run: pnpm typecheck
+      - run: pnpm build-storybook
+      - name: Pack and smoke-test tokens package
+        shell: bash
+        run: |
+          PACK_DIR="$RUNNER_TEMP/design-system-exercise-pack"
+          CONSUMER_DIR="$RUNNER_TEMP/design-system-exercise-consumer"
+          mkdir -p "$PACK_DIR" "$CONSUMER_DIR"
+          pnpm --dir packages/tokens pack --pack-destination "$PACK_DIR"
+          TARBALL="$(find "$PACK_DIR" -maxdepth 1 -name '*.tgz' -print -quit)"
+          test -n "$TARBALL"
+
+          CONTENTS="$(tar -tzf "$TARBALL")"
+          printf '%s\n' "$CONTENTS"
+          printf '%s\n' "$CONTENTS" | grep -qx 'package/package.json'
+          printf '%s\n' "$CONTENTS" | grep -qx 'package/dist/index.js'
+          printf '%s\n' "$CONTENTS" | grep -qx 'package/dist/index.d.ts'
+          printf '%s\n' "$CONTENTS" | grep -qx 'package/dist/tokens.css'
+          ! printf '%s\n' "$CONTENTS" | grep -Eq 'package/(scripts|tests|\.generated|storybook)/'
+
+          cd "$CONSUMER_DIR"
+          npm init -y >/dev/null
+          npm install "$TARBALL" --ignore-scripts >/dev/null
+          node --input-type=module <<'NODE'
+          import { tokens } from '@design-system-exercise/tokens';
+          import { existsSync } from 'node:fs';
+          if (tokens.color.primitive.brand['600'] !== '#005DCC') throw new Error('brand/600 export mismatch');
+          if (tokens.typography.semantic.arabic.body.default.family !== 'IBM Plex Sans Arabic') throw new Error('Arabic body font export mismatch');
+          const cssUrl = import.meta.resolve('@design-system-exercise/tokens/css');
+          if (!cssUrl.endsWith('/dist/tokens.css')) throw new Error(`Unexpected CSS export: ${cssUrl}`);
+          if (!existsSync(new URL(cssUrl))) throw new Error('CSS export missing');
+          NODE

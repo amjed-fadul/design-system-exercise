@@ -1,0 +1,1334 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`generates stable CSS selectors, aliases, and variables 1`] = `
+":root {
+  --dse-border-role-base: var(--dse-border-width-base);
+  --dse-border-role-container: var(--dse-border-width-base);
+  --dse-border-role-divider: var(--dse-border-width-base);
+  --dse-border-role-focus: var(--dse-border-width-strong);
+  --dse-border-width-base: 1px;
+  --dse-border-width-none: 0px;
+  --dse-border-width-strong: 2px;
+  --dse-color-primitive-alpha-black-100: #0000001A;
+  --dse-color-primitive-alpha-black-400: #00000066;
+  --dse-color-primitive-alpha-black-50: #0000000D;
+  --dse-color-primitive-alpha-black-600: #00000099;
+  --dse-color-primitive-alpha-transparent: #00000000;
+  --dse-color-primitive-alpha-white-100: #FFFFFF1A;
+  --dse-color-primitive-alpha-white-50: #FFFFFF0F;
+  --dse-color-primitive-brand-100: #CCE3FF;
+  --dse-color-primitive-brand-300: #66ACFF;
+  --dse-color-primitive-brand-400: #3390FF;
+  --dse-color-primitive-brand-50: #E5F1FF;
+  --dse-color-primitive-brand-500: #0074FF;
+  --dse-color-primitive-brand-600: #005DCC;
+  --dse-color-primitive-brand-700: #004699;
+  --dse-color-primitive-brand-800: #002E66;
+  --dse-color-primitive-brand-900: #001733;
+  --dse-color-primitive-green-300: #A8E57B;
+  --dse-color-primitive-green-400: #8CDD50;
+  --dse-color-primitive-green-50: #EBF9E1;
+  --dse-color-primitive-green-700: #458019;
+  --dse-color-primitive-green-800: #2F5711;
+  --dse-color-primitive-green-900: #172B08;
+  --dse-color-primitive-neutral-0: #FFFFFF;
+  --dse-color-primitive-neutral-100: #E6E6E6;
+  --dse-color-primitive-neutral-1000: #0D0D0D;
+  --dse-color-primitive-neutral-200: #CCCCCC;
+  --dse-color-primitive-neutral-25: #FAFAFA;
+  --dse-color-primitive-neutral-300: #B3B3B3;
+  --dse-color-primitive-neutral-400: #999999;
+  --dse-color-primitive-neutral-50: #F2F2F2;
+  --dse-color-primitive-neutral-500: #808080;
+  --dse-color-primitive-neutral-600: #666666;
+  --dse-color-primitive-neutral-700: #4D4D4D;
+  --dse-color-primitive-neutral-800: #333333;
+  --dse-color-primitive-neutral-900: #1A1A1A;
+  --dse-color-primitive-red-300: #F5897A;
+  --dse-color-primitive-red-400: #F16450;
+  --dse-color-primitive-red-50: #FDEAE7;
+  --dse-color-primitive-red-600: #D52910;
+  --dse-color-primitive-red-700: #A8200D;
+  --dse-color-primitive-red-900: #390B04;
+  --dse-elevation-plane-canvas: 0;
+  --dse-elevation-plane-elevated: 4;
+  --dse-elevation-plane-overlay: 3;
+  --dse-elevation-plane-surface: 1;
+  --dse-icons-size-lg: 24px;
+  --dse-icons-size-md: 20px;
+  --dse-icons-size-sm: 16px;
+  --dse-icons-stroke-default: 1.5px;
+  --dse-icons-stroke-strong: 2px;
+  --dse-layout-primitive-breakpoint-expanded-shell: 1200px;
+  --dse-layout-primitive-content-narrow-width: 832px;
+  --dse-layout-primitive-content-wide-width: 1168px;
+  --dse-layout-primitive-detail-inline-width: 408px;
+  --dse-layout-primitive-detail-narrow-width: 832px;
+  --dse-layout-primitive-nav-compact: 64px;
+  --dse-layout-primitive-nav-expanded: 208px;
+  --dse-layout-primitive-page-inset: 32px;
+  --dse-layout-primitive-region-gap: 24px;
+  --dse-layout-primitive-top-height: 64px;
+  --dse-layout-primitive-viewport-narrow: 960px;
+  --dse-layout-primitive-viewport-wide: 1440px;
+  --dse-radius-radius-full: 999px;
+  --dse-radius-radius-lg: 12px;
+  --dse-radius-radius-md: 8px;
+  --dse-radius-radius-none: 0px;
+  --dse-radius-radius-sm: 4px;
+  --dse-radius-radius-xl: 16px;
+  --dse-radius-shape-control: var(--dse-radius-radius-md);
+  --dse-radius-shape-overlay: var(--dse-radius-radius-xl);
+  --dse-radius-shape-rounded: var(--dse-radius-radius-full);
+  --dse-radius-shape-surface: var(--dse-radius-radius-lg);
+  --dse-spacing-primitive-space-0: 0px;
+  --dse-spacing-primitive-space-100: 4px;
+  --dse-spacing-primitive-space-200: 8px;
+  --dse-spacing-primitive-space-300: 12px;
+  --dse-spacing-primitive-space-400: 16px;
+  --dse-spacing-primitive-space-500: 24px;
+  --dse-spacing-primitive-space-600: 32px;
+  --dse-spacing-primitive-space-700: 40px;
+  --dse-spacing-primitive-space-800: 48px;
+  --dse-spacing-primitive-space-900: 64px;
+  --dse-spacing-semantic-container-lg: var(--dse-spacing-primitive-space-900);
+  --dse-spacing-semantic-container-md: var(--dse-spacing-primitive-space-600);
+  --dse-spacing-semantic-container-sm: var(--dse-spacing-primitive-space-400);
+  --dse-spacing-semantic-gap-lg: var(--dse-spacing-primitive-space-500);
+  --dse-spacing-semantic-gap-md: var(--dse-spacing-primitive-space-400);
+  --dse-spacing-semantic-gap-sm: var(--dse-spacing-primitive-space-200);
+  --dse-spacing-semantic-inline-lg: var(--dse-spacing-primitive-space-400);
+  --dse-spacing-semantic-inline-md: var(--dse-spacing-primitive-space-200);
+  --dse-spacing-semantic-inline-sm: var(--dse-spacing-primitive-space-100);
+  --dse-spacing-semantic-inset-lg: var(--dse-spacing-primitive-space-500);
+  --dse-spacing-semantic-inset-md: var(--dse-spacing-primitive-space-400);
+  --dse-spacing-semantic-inset-sm: var(--dse-spacing-primitive-space-200);
+  --dse-spacing-semantic-section-lg: var(--dse-spacing-primitive-space-800);
+  --dse-spacing-semantic-section-md: var(--dse-spacing-primitive-space-600);
+  --dse-spacing-semantic-section-sm: var(--dse-spacing-primitive-space-500);
+  --dse-spacing-semantic-section-xl: var(--dse-spacing-primitive-space-900);
+  --dse-spacing-semantic-stack-lg: var(--dse-spacing-primitive-space-400);
+  --dse-spacing-semantic-stack-md: var(--dse-spacing-primitive-space-200);
+  --dse-spacing-semantic-stack-sm: var(--dse-spacing-primitive-space-100);
+  --dse-typography-primitive-family-arabic: IBM Plex Sans Arabic;
+  --dse-typography-primitive-family-latin: Geist;
+  --dse-typography-primitive-letter-spacing-none: 0px;
+  --dse-typography-primitive-line-height-18: 18px;
+  --dse-typography-primitive-line-height-20: 20px;
+  --dse-typography-primitive-line-height-22: 22px;
+  --dse-typography-primitive-line-height-24: 24px;
+  --dse-typography-primitive-line-height-28: 28px;
+  --dse-typography-primitive-line-height-32: 32px;
+  --dse-typography-primitive-line-height-36: 36px;
+  --dse-typography-primitive-line-height-40: 40px;
+  --dse-typography-primitive-line-height-42: 42px;
+  --dse-typography-primitive-size-12: 12px;
+  --dse-typography-primitive-size-14: 14px;
+  --dse-typography-primitive-size-16: 16px;
+  --dse-typography-primitive-size-20: 20px;
+  --dse-typography-primitive-size-24: 24px;
+  --dse-typography-primitive-size-30: 30px;
+  --dse-typography-primitive-weight-medium: 500;
+  --dse-typography-primitive-weight-regular: 400;
+  --dse-typography-primitive-weight-semibold: 600;
+}
+
+:root, [data-theme="light"] {
+  --dse-color-semantic-action-critical-bg: var(--dse-color-primitive-red-600);
+  --dse-color-semantic-action-critical-border: var(--dse-color-semantic-feedback-negative-border);
+  --dse-color-semantic-action-critical-fg: var(--dse-color-semantic-feedback-negative-fg);
+  --dse-color-semantic-action-critical-hover: var(--dse-color-primitive-red-700);
+  --dse-color-semantic-action-critical-on-bg: var(--dse-color-primitive-neutral-0);
+  --dse-color-semantic-action-critical-pressed: var(--dse-color-primitive-red-900);
+  --dse-color-semantic-action-ghost-fg: var(--dse-color-primitive-neutral-700);
+  --dse-color-semantic-action-ghost-hover: var(--dse-color-primitive-alpha-black-50);
+  --dse-color-semantic-action-ghost-pressed: var(--dse-color-primitive-alpha-black-100);
+  --dse-color-semantic-action-primary-bg: var(--dse-color-primitive-brand-600);
+  --dse-color-semantic-action-primary-fg: var(--dse-color-primitive-neutral-0);
+  --dse-color-semantic-action-primary-hover: var(--dse-color-primitive-brand-700);
+  --dse-color-semantic-action-primary-pressed: var(--dse-color-primitive-brand-800);
+  --dse-color-semantic-action-secondary-bg: var(--dse-color-primitive-neutral-0);
+  --dse-color-semantic-action-secondary-border: var(--dse-color-semantic-border-strong);
+  --dse-color-semantic-action-secondary-fg: var(--dse-color-primitive-neutral-1000);
+  --dse-color-semantic-action-secondary-hover: var(--dse-color-primitive-neutral-50);
+  --dse-color-semantic-action-secondary-pressed: var(--dse-color-primitive-neutral-100);
+  --dse-color-semantic-border-default: var(--dse-color-primitive-neutral-300);
+  --dse-color-semantic-border-strong: var(--dse-color-primitive-neutral-500);
+  --dse-color-semantic-border-subtle: var(--dse-color-primitive-neutral-100);
+  --dse-color-semantic-control-border: var(--dse-color-primitive-neutral-500);
+  --dse-color-semantic-control-border-hover: var(--dse-color-primitive-neutral-700);
+  --dse-color-semantic-control-selected: var(--dse-color-primitive-brand-600);
+  --dse-color-semantic-feedback-negative-border: var(--dse-color-primitive-red-600);
+  --dse-color-semantic-feedback-negative-fg: var(--dse-color-primitive-red-700);
+  --dse-color-semantic-feedback-negative-surface: var(--dse-color-primitive-red-50);
+  --dse-color-semantic-feedback-positive-border: var(--dse-color-primitive-green-300);
+  --dse-color-semantic-feedback-positive-fg: var(--dse-color-primitive-green-800);
+  --dse-color-semantic-feedback-positive-surface: var(--dse-color-primitive-green-50);
+  --dse-color-semantic-fg-disabled: var(--dse-color-primitive-neutral-400);
+  --dse-color-semantic-fg-on-accent: var(--dse-color-primitive-neutral-0);
+  --dse-color-semantic-fg-primary: var(--dse-color-primitive-neutral-1000);
+  --dse-color-semantic-fg-secondary: var(--dse-color-primitive-neutral-700);
+  --dse-color-semantic-fg-tertiary: var(--dse-color-primitive-neutral-600);
+  --dse-color-semantic-focus-default: var(--dse-color-primitive-brand-600);
+  --dse-color-semantic-link-default: var(--dse-color-primitive-brand-700);
+  --dse-color-semantic-link-hover: var(--dse-color-primitive-brand-800);
+  --dse-color-semantic-link-pressed: var(--dse-color-semantic-fg-primary);
+  --dse-color-semantic-state-hover: var(--dse-color-primitive-alpha-black-50);
+  --dse-color-semantic-state-selected: var(--dse-color-primitive-brand-50);
+  --dse-color-semantic-surface-canvas: var(--dse-color-primitive-neutral-25);
+  --dse-color-semantic-surface-default: var(--dse-color-primitive-neutral-0);
+  --dse-color-semantic-surface-disabled: var(--dse-color-primitive-neutral-100);
+  --dse-color-semantic-surface-elevated: var(--dse-color-primitive-neutral-0);
+  --dse-color-semantic-surface-overlay: var(--dse-color-primitive-alpha-black-400);
+  --dse-color-semantic-surface-raised: var(--dse-color-primitive-neutral-0);
+  --dse-color-semantic-surface-section: var(--dse-color-primitive-neutral-50);
+}
+
+[data-theme="dark"] {
+  --dse-color-semantic-action-critical-bg: var(--dse-color-primitive-red-600);
+  --dse-color-semantic-action-critical-border: var(--dse-color-semantic-feedback-negative-border);
+  --dse-color-semantic-action-critical-fg: var(--dse-color-semantic-feedback-negative-fg);
+  --dse-color-semantic-action-critical-hover: var(--dse-color-primitive-red-700);
+  --dse-color-semantic-action-critical-on-bg: var(--dse-color-primitive-neutral-0);
+  --dse-color-semantic-action-critical-pressed: var(--dse-color-primitive-red-900);
+  --dse-color-semantic-action-ghost-fg: var(--dse-color-primitive-neutral-200);
+  --dse-color-semantic-action-ghost-hover: var(--dse-color-primitive-alpha-white-50);
+  --dse-color-semantic-action-ghost-pressed: var(--dse-color-primitive-alpha-white-100);
+  --dse-color-semantic-action-primary-bg: var(--dse-color-primitive-brand-500);
+  --dse-color-semantic-action-primary-fg: var(--dse-color-primitive-neutral-1000);
+  --dse-color-semantic-action-primary-hover: var(--dse-color-primitive-brand-400);
+  --dse-color-semantic-action-primary-pressed: var(--dse-color-primitive-brand-300);
+  --dse-color-semantic-action-secondary-bg: var(--dse-color-primitive-neutral-900);
+  --dse-color-semantic-action-secondary-border: var(--dse-color-semantic-border-strong);
+  --dse-color-semantic-action-secondary-fg: var(--dse-color-primitive-neutral-0);
+  --dse-color-semantic-action-secondary-hover: var(--dse-color-primitive-neutral-800);
+  --dse-color-semantic-action-secondary-pressed: var(--dse-color-primitive-neutral-700);
+  --dse-color-semantic-border-default: var(--dse-color-primitive-neutral-600);
+  --dse-color-semantic-border-strong: var(--dse-color-primitive-neutral-500);
+  --dse-color-semantic-border-subtle: var(--dse-color-primitive-neutral-700);
+  --dse-color-semantic-control-border: var(--dse-color-primitive-neutral-500);
+  --dse-color-semantic-control-border-hover: var(--dse-color-primitive-neutral-300);
+  --dse-color-semantic-control-selected: var(--dse-color-primitive-brand-400);
+  --dse-color-semantic-feedback-negative-border: var(--dse-color-primitive-red-600);
+  --dse-color-semantic-feedback-negative-fg: var(--dse-color-primitive-red-400);
+  --dse-color-semantic-feedback-negative-surface: var(--dse-color-primitive-red-900);
+  --dse-color-semantic-feedback-positive-border: var(--dse-color-primitive-green-700);
+  --dse-color-semantic-feedback-positive-fg: var(--dse-color-primitive-green-400);
+  --dse-color-semantic-feedback-positive-surface: var(--dse-color-primitive-green-900);
+  --dse-color-semantic-fg-disabled: var(--dse-color-primitive-neutral-600);
+  --dse-color-semantic-fg-on-accent: var(--dse-color-primitive-neutral-1000);
+  --dse-color-semantic-fg-primary: var(--dse-color-primitive-neutral-0);
+  --dse-color-semantic-fg-secondary: var(--dse-color-primitive-neutral-200);
+  --dse-color-semantic-fg-tertiary: var(--dse-color-primitive-neutral-300);
+  --dse-color-semantic-focus-default: var(--dse-color-primitive-brand-400);
+  --dse-color-semantic-link-default: var(--dse-color-primitive-brand-400);
+  --dse-color-semantic-link-hover: var(--dse-color-primitive-brand-300);
+  --dse-color-semantic-link-pressed: var(--dse-color-semantic-fg-primary);
+  --dse-color-semantic-state-hover: var(--dse-color-primitive-alpha-white-50);
+  --dse-color-semantic-state-selected: var(--dse-color-primitive-brand-900);
+  --dse-color-semantic-surface-canvas: var(--dse-color-primitive-neutral-1000);
+  --dse-color-semantic-surface-default: var(--dse-color-primitive-neutral-900);
+  --dse-color-semantic-surface-disabled: var(--dse-color-primitive-neutral-900);
+  --dse-color-semantic-surface-elevated: var(--dse-color-primitive-neutral-800);
+  --dse-color-semantic-surface-overlay: var(--dse-color-primitive-alpha-black-600);
+  --dse-color-semantic-surface-raised: var(--dse-color-primitive-neutral-800);
+  --dse-color-semantic-surface-section: var(--dse-color-primitive-neutral-800);
+}
+
+:root, [data-language="en"] {
+  --dse-typography-semantic-body-default-family: var(--dse-typography-primitive-family-latin);
+  --dse-typography-semantic-body-default-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-body-default-line-height: var(--dse-typography-primitive-line-height-24);
+  --dse-typography-semantic-body-default-size: var(--dse-typography-primitive-size-16);
+  --dse-typography-semantic-body-default-weight: var(--dse-typography-primitive-weight-regular);
+  --dse-typography-semantic-body-small-family: var(--dse-typography-primitive-family-latin);
+  --dse-typography-semantic-body-small-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-body-small-line-height: var(--dse-typography-primitive-line-height-20);
+  --dse-typography-semantic-body-small-size: var(--dse-typography-primitive-size-14);
+  --dse-typography-semantic-body-small-weight: var(--dse-typography-primitive-weight-regular);
+  --dse-typography-semantic-caption-default-family: var(--dse-typography-primitive-family-latin);
+  --dse-typography-semantic-caption-default-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-caption-default-line-height: var(--dse-typography-primitive-line-height-18);
+  --dse-typography-semantic-caption-default-size: var(--dse-typography-primitive-size-12);
+  --dse-typography-semantic-caption-default-weight: var(--dse-typography-primitive-weight-regular);
+  --dse-typography-semantic-headline-page-family: var(--dse-typography-primitive-family-latin);
+  --dse-typography-semantic-headline-page-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-headline-page-line-height: var(--dse-typography-primitive-line-height-36);
+  --dse-typography-semantic-headline-page-size: var(--dse-typography-primitive-size-30);
+  --dse-typography-semantic-headline-page-weight: var(--dse-typography-primitive-weight-semibold);
+  --dse-typography-semantic-label-default-family: var(--dse-typography-primitive-family-latin);
+  --dse-typography-semantic-label-default-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-label-default-line-height: var(--dse-typography-primitive-line-height-20);
+  --dse-typography-semantic-label-default-size: var(--dse-typography-primitive-size-14);
+  --dse-typography-semantic-label-default-weight: var(--dse-typography-primitive-weight-medium);
+  --dse-typography-semantic-label-small-family: var(--dse-typography-primitive-family-latin);
+  --dse-typography-semantic-label-small-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-label-small-line-height: var(--dse-typography-primitive-line-height-18);
+  --dse-typography-semantic-label-small-size: var(--dse-typography-primitive-size-12);
+  --dse-typography-semantic-label-small-weight: var(--dse-typography-primitive-weight-medium);
+  --dse-typography-semantic-title-component-family: var(--dse-typography-primitive-family-latin);
+  --dse-typography-semantic-title-component-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-title-component-line-height: var(--dse-typography-primitive-line-height-28);
+  --dse-typography-semantic-title-component-size: var(--dse-typography-primitive-size-20);
+  --dse-typography-semantic-title-component-weight: var(--dse-typography-primitive-weight-semibold);
+  --dse-typography-semantic-title-section-family: var(--dse-typography-primitive-family-latin);
+  --dse-typography-semantic-title-section-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-title-section-line-height: var(--dse-typography-primitive-line-height-32);
+  --dse-typography-semantic-title-section-size: var(--dse-typography-primitive-size-24);
+  --dse-typography-semantic-title-section-weight: var(--dse-typography-primitive-weight-semibold);
+}
+
+[data-language="ar"] {
+  --dse-typography-semantic-body-default-family: var(--dse-typography-primitive-family-arabic);
+  --dse-typography-semantic-body-default-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-body-default-line-height: var(--dse-typography-primitive-line-height-28);
+  --dse-typography-semantic-body-default-size: var(--dse-typography-primitive-size-16);
+  --dse-typography-semantic-body-default-weight: var(--dse-typography-primitive-weight-regular);
+  --dse-typography-semantic-body-small-family: var(--dse-typography-primitive-family-arabic);
+  --dse-typography-semantic-body-small-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-body-small-line-height: var(--dse-typography-primitive-line-height-24);
+  --dse-typography-semantic-body-small-size: var(--dse-typography-primitive-size-14);
+  --dse-typography-semantic-body-small-weight: var(--dse-typography-primitive-weight-regular);
+  --dse-typography-semantic-caption-default-family: var(--dse-typography-primitive-family-arabic);
+  --dse-typography-semantic-caption-default-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-caption-default-line-height: var(--dse-typography-primitive-line-height-22);
+  --dse-typography-semantic-caption-default-size: var(--dse-typography-primitive-size-12);
+  --dse-typography-semantic-caption-default-weight: var(--dse-typography-primitive-weight-regular);
+  --dse-typography-semantic-headline-page-family: var(--dse-typography-primitive-family-arabic);
+  --dse-typography-semantic-headline-page-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-headline-page-line-height: var(--dse-typography-primitive-line-height-42);
+  --dse-typography-semantic-headline-page-size: var(--dse-typography-primitive-size-30);
+  --dse-typography-semantic-headline-page-weight: var(--dse-typography-primitive-weight-semibold);
+  --dse-typography-semantic-label-default-family: var(--dse-typography-primitive-family-arabic);
+  --dse-typography-semantic-label-default-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-label-default-line-height: var(--dse-typography-primitive-line-height-24);
+  --dse-typography-semantic-label-default-size: var(--dse-typography-primitive-size-14);
+  --dse-typography-semantic-label-default-weight: var(--dse-typography-primitive-weight-medium);
+  --dse-typography-semantic-label-small-family: var(--dse-typography-primitive-family-arabic);
+  --dse-typography-semantic-label-small-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-label-small-line-height: var(--dse-typography-primitive-line-height-22);
+  --dse-typography-semantic-label-small-size: var(--dse-typography-primitive-size-12);
+  --dse-typography-semantic-label-small-weight: var(--dse-typography-primitive-weight-medium);
+  --dse-typography-semantic-title-component-family: var(--dse-typography-primitive-family-arabic);
+  --dse-typography-semantic-title-component-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-title-component-line-height: var(--dse-typography-primitive-line-height-32);
+  --dse-typography-semantic-title-component-size: var(--dse-typography-primitive-size-20);
+  --dse-typography-semantic-title-component-weight: var(--dse-typography-primitive-weight-semibold);
+  --dse-typography-semantic-title-section-family: var(--dse-typography-primitive-family-arabic);
+  --dse-typography-semantic-title-section-letter-spacing: var(--dse-typography-primitive-letter-spacing-none);
+  --dse-typography-semantic-title-section-line-height: var(--dse-typography-primitive-line-height-36);
+  --dse-typography-semantic-title-section-size: var(--dse-typography-primitive-size-24);
+  --dse-typography-semantic-title-section-weight: var(--dse-typography-primitive-weight-semibold);
+}
+
+:root, [data-layout="wide"] {
+  --dse-layout-semantic-content-available-width: var(--dse-layout-primitive-content-wide-width);
+  --dse-layout-semantic-detail-available-width: var(--dse-layout-primitive-detail-inline-width);
+  --dse-layout-semantic-nav-width: var(--dse-layout-primitive-nav-expanded);
+  --dse-layout-semantic-page-inset: var(--dse-layout-primitive-page-inset);
+  --dse-layout-semantic-region-gap: var(--dse-layout-primitive-region-gap);
+  --dse-layout-semantic-top-height: var(--dse-layout-primitive-top-height);
+}
+
+[data-layout="narrow"] {
+  --dse-layout-semantic-content-available-width: var(--dse-layout-primitive-content-narrow-width);
+  --dse-layout-semantic-detail-available-width: var(--dse-layout-primitive-detail-narrow-width);
+  --dse-layout-semantic-nav-width: var(--dse-layout-primitive-nav-compact);
+  --dse-layout-semantic-page-inset: var(--dse-layout-primitive-page-inset);
+  --dse-layout-semantic-region-gap: var(--dse-layout-primitive-region-gap);
+  --dse-layout-semantic-top-height: var(--dse-layout-primitive-top-height);
+}
+
+"
+`;
+
+exports[`generates typed runtime token output 1`] = `
+"export const tokens = {
+  "border": {
+    "role": {
+      "base": {
+        "value": 1,
+        "unit": "px"
+      },
+      "container": {
+        "value": 1,
+        "unit": "px"
+      },
+      "divider": {
+        "value": 1,
+        "unit": "px"
+      },
+      "focus": {
+        "value": 2,
+        "unit": "px"
+      }
+    },
+    "width": {
+      "base": {
+        "value": 1,
+        "unit": "px"
+      },
+      "none": {
+        "value": 0,
+        "unit": "px"
+      },
+      "strong": {
+        "value": 2,
+        "unit": "px"
+      }
+    }
+  },
+  "color": {
+    "primitive": {
+      "alpha": {
+        "black": {
+          "50": "#0000000D",
+          "100": "#0000001A",
+          "400": "#00000066",
+          "600": "#00000099"
+        },
+        "transparent": "#00000000",
+        "white": {
+          "50": "#FFFFFF0F",
+          "100": "#FFFFFF1A"
+        }
+      },
+      "brand": {
+        "50": "#E5F1FF",
+        "100": "#CCE3FF",
+        "300": "#66ACFF",
+        "400": "#3390FF",
+        "500": "#0074FF",
+        "600": "#005DCC",
+        "700": "#004699",
+        "800": "#002E66",
+        "900": "#001733"
+      },
+      "green": {
+        "50": "#EBF9E1",
+        "300": "#A8E57B",
+        "400": "#8CDD50",
+        "700": "#458019",
+        "800": "#2F5711",
+        "900": "#172B08"
+      },
+      "neutral": {
+        "0": "#FFFFFF",
+        "25": "#FAFAFA",
+        "50": "#F2F2F2",
+        "100": "#E6E6E6",
+        "200": "#CCCCCC",
+        "300": "#B3B3B3",
+        "400": "#999999",
+        "500": "#808080",
+        "600": "#666666",
+        "700": "#4D4D4D",
+        "800": "#333333",
+        "900": "#1A1A1A",
+        "1000": "#0D0D0D"
+      },
+      "red": {
+        "50": "#FDEAE7",
+        "300": "#F5897A",
+        "400": "#F16450",
+        "600": "#D52910",
+        "700": "#A8200D",
+        "900": "#390B04"
+      }
+    },
+    "semantic": {
+      "dark": {
+        "action": {
+          "critical": {
+            "bg": "#D52910",
+            "border": "#D52910",
+            "fg": "#F16450",
+            "hover": "#A8200D",
+            "on-bg": "#FFFFFF",
+            "pressed": "#390B04"
+          },
+          "ghost": {
+            "fg": "#CCCCCC",
+            "hover": "#FFFFFF0F",
+            "pressed": "#FFFFFF1A"
+          },
+          "primary": {
+            "bg": "#0074FF",
+            "fg": "#0D0D0D",
+            "hover": "#3390FF",
+            "pressed": "#66ACFF"
+          },
+          "secondary": {
+            "bg": "#1A1A1A",
+            "border": "#808080",
+            "fg": "#FFFFFF",
+            "hover": "#333333",
+            "pressed": "#4D4D4D"
+          }
+        },
+        "border": {
+          "default": "#666666",
+          "strong": "#808080",
+          "subtle": "#4D4D4D"
+        },
+        "control": {
+          "border": "#808080",
+          "border-hover": "#B3B3B3",
+          "selected": "#3390FF"
+        },
+        "feedback": {
+          "negative": {
+            "border": "#D52910",
+            "fg": "#F16450",
+            "surface": "#390B04"
+          },
+          "positive": {
+            "border": "#458019",
+            "fg": "#8CDD50",
+            "surface": "#172B08"
+          }
+        },
+        "fg": {
+          "disabled": "#666666",
+          "on-accent": "#0D0D0D",
+          "primary": "#FFFFFF",
+          "secondary": "#CCCCCC",
+          "tertiary": "#B3B3B3"
+        },
+        "focus": {
+          "default": "#3390FF"
+        },
+        "link": {
+          "default": "#3390FF",
+          "hover": "#66ACFF",
+          "pressed": "#FFFFFF"
+        },
+        "state": {
+          "hover": "#FFFFFF0F",
+          "selected": "#001733"
+        },
+        "surface": {
+          "canvas": "#0D0D0D",
+          "default": "#1A1A1A",
+          "disabled": "#1A1A1A",
+          "elevated": "#333333",
+          "overlay": "#00000099",
+          "raised": "#333333",
+          "section": "#333333"
+        }
+      },
+      "light": {
+        "action": {
+          "critical": {
+            "bg": "#D52910",
+            "border": "#D52910",
+            "fg": "#A8200D",
+            "hover": "#A8200D",
+            "on-bg": "#FFFFFF",
+            "pressed": "#390B04"
+          },
+          "ghost": {
+            "fg": "#4D4D4D",
+            "hover": "#0000000D",
+            "pressed": "#0000001A"
+          },
+          "primary": {
+            "bg": "#005DCC",
+            "fg": "#FFFFFF",
+            "hover": "#004699",
+            "pressed": "#002E66"
+          },
+          "secondary": {
+            "bg": "#FFFFFF",
+            "border": "#808080",
+            "fg": "#0D0D0D",
+            "hover": "#F2F2F2",
+            "pressed": "#E6E6E6"
+          }
+        },
+        "border": {
+          "default": "#B3B3B3",
+          "strong": "#808080",
+          "subtle": "#E6E6E6"
+        },
+        "control": {
+          "border": "#808080",
+          "border-hover": "#4D4D4D",
+          "selected": "#005DCC"
+        },
+        "feedback": {
+          "negative": {
+            "border": "#D52910",
+            "fg": "#A8200D",
+            "surface": "#FDEAE7"
+          },
+          "positive": {
+            "border": "#A8E57B",
+            "fg": "#2F5711",
+            "surface": "#EBF9E1"
+          }
+        },
+        "fg": {
+          "disabled": "#999999",
+          "on-accent": "#FFFFFF",
+          "primary": "#0D0D0D",
+          "secondary": "#4D4D4D",
+          "tertiary": "#666666"
+        },
+        "focus": {
+          "default": "#005DCC"
+        },
+        "link": {
+          "default": "#004699",
+          "hover": "#002E66",
+          "pressed": "#0D0D0D"
+        },
+        "state": {
+          "hover": "#0000000D",
+          "selected": "#E5F1FF"
+        },
+        "surface": {
+          "canvas": "#FAFAFA",
+          "default": "#FFFFFF",
+          "disabled": "#E6E6E6",
+          "elevated": "#FFFFFF",
+          "overlay": "#00000066",
+          "raised": "#FFFFFF",
+          "section": "#F2F2F2"
+        }
+      }
+    }
+  },
+  "elevation": {
+    "plane": {
+      "canvas": 0,
+      "elevated": 4,
+      "overlay": 3,
+      "surface": 1
+    }
+  },
+  "icons": {
+    "size": {
+      "lg": {
+        "value": 24,
+        "unit": "px"
+      },
+      "md": {
+        "value": 20,
+        "unit": "px"
+      },
+      "sm": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "stroke": {
+      "default": {
+        "value": 1.5,
+        "unit": "px"
+      },
+      "strong": {
+        "value": 2,
+        "unit": "px"
+      }
+    }
+  },
+  "layout": {
+    "primitive": {
+      "breakpoint": {
+        "expanded-shell": {
+          "value": 1200,
+          "unit": "px"
+        }
+      },
+      "content": {
+        "narrow-width": {
+          "value": 832,
+          "unit": "px"
+        },
+        "wide-width": {
+          "value": 1168,
+          "unit": "px"
+        }
+      },
+      "detail": {
+        "inline-width": {
+          "value": 408,
+          "unit": "px"
+        },
+        "narrow-width": {
+          "value": 832,
+          "unit": "px"
+        }
+      },
+      "nav": {
+        "compact": {
+          "value": 64,
+          "unit": "px"
+        },
+        "expanded": {
+          "value": 208,
+          "unit": "px"
+        }
+      },
+      "page": {
+        "inset": {
+          "value": 32,
+          "unit": "px"
+        }
+      },
+      "region": {
+        "gap": {
+          "value": 24,
+          "unit": "px"
+        }
+      },
+      "top": {
+        "height": {
+          "value": 64,
+          "unit": "px"
+        }
+      },
+      "viewport": {
+        "narrow": {
+          "value": 960,
+          "unit": "px"
+        },
+        "wide": {
+          "value": 1440,
+          "unit": "px"
+        }
+      }
+    },
+    "semantic": {
+      "narrow": {
+        "content": {
+          "available-width": {
+            "value": 832,
+            "unit": "px"
+          }
+        },
+        "detail": {
+          "available-width": {
+            "value": 832,
+            "unit": "px"
+          }
+        },
+        "nav": {
+          "width": {
+            "value": 64,
+            "unit": "px"
+          }
+        },
+        "page": {
+          "inset": {
+            "value": 32,
+            "unit": "px"
+          }
+        },
+        "region": {
+          "gap": {
+            "value": 24,
+            "unit": "px"
+          }
+        },
+        "top": {
+          "height": {
+            "value": 64,
+            "unit": "px"
+          }
+        }
+      },
+      "wide": {
+        "content": {
+          "available-width": {
+            "value": 1168,
+            "unit": "px"
+          }
+        },
+        "detail": {
+          "available-width": {
+            "value": 408,
+            "unit": "px"
+          }
+        },
+        "nav": {
+          "width": {
+            "value": 208,
+            "unit": "px"
+          }
+        },
+        "page": {
+          "inset": {
+            "value": 32,
+            "unit": "px"
+          }
+        },
+        "region": {
+          "gap": {
+            "value": 24,
+            "unit": "px"
+          }
+        },
+        "top": {
+          "height": {
+            "value": 64,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  },
+  "radius": {
+    "radius": {
+      "full": {
+        "value": 999,
+        "unit": "px"
+      },
+      "lg": {
+        "value": 12,
+        "unit": "px"
+      },
+      "md": {
+        "value": 8,
+        "unit": "px"
+      },
+      "none": {
+        "value": 0,
+        "unit": "px"
+      },
+      "sm": {
+        "value": 4,
+        "unit": "px"
+      },
+      "xl": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "shape": {
+      "control": {
+        "value": 8,
+        "unit": "px"
+      },
+      "overlay": {
+        "value": 16,
+        "unit": "px"
+      },
+      "rounded": {
+        "value": 999,
+        "unit": "px"
+      },
+      "surface": {
+        "value": 12,
+        "unit": "px"
+      }
+    }
+  },
+  "spacing": {
+    "primitive": {
+      "space": {
+        "0": {
+          "value": 0,
+          "unit": "px"
+        },
+        "100": {
+          "value": 4,
+          "unit": "px"
+        },
+        "200": {
+          "value": 8,
+          "unit": "px"
+        },
+        "300": {
+          "value": 12,
+          "unit": "px"
+        },
+        "400": {
+          "value": 16,
+          "unit": "px"
+        },
+        "500": {
+          "value": 24,
+          "unit": "px"
+        },
+        "600": {
+          "value": 32,
+          "unit": "px"
+        },
+        "700": {
+          "value": 40,
+          "unit": "px"
+        },
+        "800": {
+          "value": 48,
+          "unit": "px"
+        },
+        "900": {
+          "value": 64,
+          "unit": "px"
+        }
+      }
+    },
+    "semantic": {
+      "container": {
+        "lg": {
+          "value": 64,
+          "unit": "px"
+        },
+        "md": {
+          "value": 32,
+          "unit": "px"
+        },
+        "sm": {
+          "value": 16,
+          "unit": "px"
+        }
+      },
+      "gap": {
+        "lg": {
+          "value": 24,
+          "unit": "px"
+        },
+        "md": {
+          "value": 16,
+          "unit": "px"
+        },
+        "sm": {
+          "value": 8,
+          "unit": "px"
+        }
+      },
+      "inline": {
+        "lg": {
+          "value": 16,
+          "unit": "px"
+        },
+        "md": {
+          "value": 8,
+          "unit": "px"
+        },
+        "sm": {
+          "value": 4,
+          "unit": "px"
+        }
+      },
+      "inset": {
+        "lg": {
+          "value": 24,
+          "unit": "px"
+        },
+        "md": {
+          "value": 16,
+          "unit": "px"
+        },
+        "sm": {
+          "value": 8,
+          "unit": "px"
+        }
+      },
+      "section": {
+        "lg": {
+          "value": 48,
+          "unit": "px"
+        },
+        "md": {
+          "value": 32,
+          "unit": "px"
+        },
+        "sm": {
+          "value": 24,
+          "unit": "px"
+        },
+        "xl": {
+          "value": 64,
+          "unit": "px"
+        }
+      },
+      "stack": {
+        "lg": {
+          "value": 16,
+          "unit": "px"
+        },
+        "md": {
+          "value": 8,
+          "unit": "px"
+        },
+        "sm": {
+          "value": 4,
+          "unit": "px"
+        }
+      }
+    }
+  },
+  "typography": {
+    "primitive": {
+      "family": {
+        "arabic": "IBM Plex Sans Arabic",
+        "latin": "Geist"
+      },
+      "letter-spacing": {
+        "none": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "line-height": {
+        "18": {
+          "value": 18,
+          "unit": "px"
+        },
+        "20": {
+          "value": 20,
+          "unit": "px"
+        },
+        "22": {
+          "value": 22,
+          "unit": "px"
+        },
+        "24": {
+          "value": 24,
+          "unit": "px"
+        },
+        "28": {
+          "value": 28,
+          "unit": "px"
+        },
+        "32": {
+          "value": 32,
+          "unit": "px"
+        },
+        "36": {
+          "value": 36,
+          "unit": "px"
+        },
+        "40": {
+          "value": 40,
+          "unit": "px"
+        },
+        "42": {
+          "value": 42,
+          "unit": "px"
+        }
+      },
+      "size": {
+        "12": {
+          "value": 12,
+          "unit": "px"
+        },
+        "14": {
+          "value": 14,
+          "unit": "px"
+        },
+        "16": {
+          "value": 16,
+          "unit": "px"
+        },
+        "20": {
+          "value": 20,
+          "unit": "px"
+        },
+        "24": {
+          "value": 24,
+          "unit": "px"
+        },
+        "30": {
+          "value": 30,
+          "unit": "px"
+        }
+      },
+      "weight": {
+        "medium": 500,
+        "regular": 400,
+        "semibold": 600
+      }
+    },
+    "semantic": {
+      "arabic": {
+        "body": {
+          "default": {
+            "family": "IBM Plex Sans Arabic",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 28,
+              "unit": "px"
+            },
+            "size": {
+              "value": 16,
+              "unit": "px"
+            },
+            "weight": 400
+          },
+          "small": {
+            "family": "IBM Plex Sans Arabic",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 24,
+              "unit": "px"
+            },
+            "size": {
+              "value": 14,
+              "unit": "px"
+            },
+            "weight": 400
+          }
+        },
+        "caption": {
+          "default": {
+            "family": "IBM Plex Sans Arabic",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 22,
+              "unit": "px"
+            },
+            "size": {
+              "value": 12,
+              "unit": "px"
+            },
+            "weight": 400
+          }
+        },
+        "headline": {
+          "page": {
+            "family": "IBM Plex Sans Arabic",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 42,
+              "unit": "px"
+            },
+            "size": {
+              "value": 30,
+              "unit": "px"
+            },
+            "weight": 600
+          }
+        },
+        "label": {
+          "default": {
+            "family": "IBM Plex Sans Arabic",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 24,
+              "unit": "px"
+            },
+            "size": {
+              "value": 14,
+              "unit": "px"
+            },
+            "weight": 500
+          },
+          "small": {
+            "family": "IBM Plex Sans Arabic",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 22,
+              "unit": "px"
+            },
+            "size": {
+              "value": 12,
+              "unit": "px"
+            },
+            "weight": 500
+          }
+        },
+        "title": {
+          "component": {
+            "family": "IBM Plex Sans Arabic",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 32,
+              "unit": "px"
+            },
+            "size": {
+              "value": 20,
+              "unit": "px"
+            },
+            "weight": 600
+          },
+          "section": {
+            "family": "IBM Plex Sans Arabic",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 36,
+              "unit": "px"
+            },
+            "size": {
+              "value": 24,
+              "unit": "px"
+            },
+            "weight": 600
+          }
+        }
+      },
+      "english": {
+        "body": {
+          "default": {
+            "family": "Geist",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 24,
+              "unit": "px"
+            },
+            "size": {
+              "value": 16,
+              "unit": "px"
+            },
+            "weight": 400
+          },
+          "small": {
+            "family": "Geist",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 20,
+              "unit": "px"
+            },
+            "size": {
+              "value": 14,
+              "unit": "px"
+            },
+            "weight": 400
+          }
+        },
+        "caption": {
+          "default": {
+            "family": "Geist",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 18,
+              "unit": "px"
+            },
+            "size": {
+              "value": 12,
+              "unit": "px"
+            },
+            "weight": 400
+          }
+        },
+        "headline": {
+          "page": {
+            "family": "Geist",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 36,
+              "unit": "px"
+            },
+            "size": {
+              "value": 30,
+              "unit": "px"
+            },
+            "weight": 600
+          }
+        },
+        "label": {
+          "default": {
+            "family": "Geist",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 20,
+              "unit": "px"
+            },
+            "size": {
+              "value": 14,
+              "unit": "px"
+            },
+            "weight": 500
+          },
+          "small": {
+            "family": "Geist",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 18,
+              "unit": "px"
+            },
+            "size": {
+              "value": 12,
+              "unit": "px"
+            },
+            "weight": 500
+          }
+        },
+        "title": {
+          "component": {
+            "family": "Geist",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 28,
+              "unit": "px"
+            },
+            "size": {
+              "value": 20,
+              "unit": "px"
+            },
+            "weight": 600
+          },
+          "section": {
+            "family": "Geist",
+            "letter-spacing": {
+              "value": 0,
+              "unit": "px"
+            },
+            "line-height": {
+              "value": 32,
+              "unit": "px"
+            },
+            "size": {
+              "value": 24,
+              "unit": "px"
+            },
+            "weight": 600
+          }
+        }
+      }
+    }
+  }
+} as const;
+export type ThemeMode = 'light' | 'dark';
+export type LanguageMode = 'english' | 'arabic';
+export type LayoutMode = 'wide' | 'narrow';
+"
+`;

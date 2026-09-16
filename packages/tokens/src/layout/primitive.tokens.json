@@ -1,0 +1,102 @@
+{
+  "viewport": {
+    "narrow": {
+      "$type": "dimension",
+      "$value": {
+        "value": 960,
+        "unit": "px"
+      }
+    },
+    "wide": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1440,
+        "unit": "px"
+      }
+    }
+  },
+  "top": {
+    "height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      }
+    }
+  },
+  "nav": {
+    "compact": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      }
+    },
+    "expanded": {
+      "$type": "dimension",
+      "$value": {
+        "value": 208,
+        "unit": "px"
+      }
+    }
+  },
+  "page": {
+    "inset": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      }
+    }
+  },
+  "detail": {
+    "inline-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 408,
+        "unit": "px"
+      }
+    },
+    "narrow-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 832,
+        "unit": "px"
+      }
+    }
+  },
+  "region": {
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      }
+    }
+  },
+  "content": {
+    "narrow-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 832,
+        "unit": "px"
+      }
+    },
+    "wide-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1168,
+        "unit": "px"
+      }
+    }
+  },
+  "breakpoint": {
+    "expanded-shell": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1200,
+        "unit": "px"
+      }
+    }
+  }
+}
