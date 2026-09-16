@@ -29,7 +29,7 @@ function localizedArgs(args: ButtonProps, language: string | undefined): ButtonP
   };
 }
 
-export const buttonMeta = {
+const meta = {
   title: 'Components/Controls/Button',
   component: Button,
   args: {
@@ -61,8 +61,9 @@ export const buttonMeta = {
   },
 } satisfies Meta<typeof Button>;
 
-export default buttonMeta;
-type Story = StoryObj<typeof buttonMeta>;
+export const buttonMeta = meta;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   render: (args, context) => <Button {...localizedArgs(args, context.globals.language)} />,
