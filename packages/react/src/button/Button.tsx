@@ -30,6 +30,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     icon,
     iconPosition = 'leading',
     type = 'button',
+    className,
     children,
     ...buttonProps
   },
@@ -42,11 +43,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   void loadingLabel;
   void icon;
 
+  const classes = className ? `dse-button ${className}` : 'dse-button';
+
   return (
     <button
       {...buttonProps}
       ref={ref}
       type={type}
+      className={classes}
       data-emphasis={emphasis}
       data-tone={tone}
       data-icon-position={iconPosition}
