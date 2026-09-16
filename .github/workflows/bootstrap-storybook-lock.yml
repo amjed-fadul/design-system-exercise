@@ -5,6 +5,7 @@ on:
     branches: [feat/contracts-button]
     paths:
       - apps/storybook/package.json
+      - .github/workflows/bootstrap-storybook-lock.yml
 
 permissions:
   contents: write
@@ -34,4 +35,6 @@ jobs:
           git add pnpm-lock.yaml .github/workflows/bootstrap-storybook-lock.yml
           git diff --cached --quiet && exit 0
           git commit -m "chore: update Storybook lockfile"
+          git fetch origin feat/contracts-button
+          git rebase origin/feat/contracts-button
           git push origin HEAD:feat/contracts-button
