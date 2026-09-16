@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 const contractPath = fileURLToPath(
   new URL('../../../contracts/components/button.contract.json', import.meta.url),
 );
+const buttonModulePath = './Button';
 
 function readContract() {
   return JSON.parse(readFileSync(contractPath, 'utf8')) as any;
@@ -16,7 +17,7 @@ function enumFor(contract: any, name: string): string[] {
 }
 
 async function loadButtonModule() {
-  const module = await import('./Button').catch(() => null);
+  const module = await import(/* @vite-ignore */ buttonModulePath).catch(() => null);
   expect(module).not.toBeNull();
   return module;
 }
