@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
+// Runtime enum arrays must remain an exact projection of the validated contract.
 const contractPath = fileURLToPath(
   new URL('../../../contracts/components/button.contract.json', import.meta.url),
 );
