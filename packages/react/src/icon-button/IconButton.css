@@ -1,0 +1,50 @@
+.dse-icon-button {
+  appearance: none;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--dse-spacing-primitive-space-700);
+  block-size: var(--dse-spacing-primitive-space-700);
+  padding: 0;
+  border: 0;
+  border-radius: var(--dse-radius-radius-sm);
+  background: transparent;
+  color: var(--dse-color-semantic-fg-primary);
+  cursor: pointer;
+}
+
+.dse-icon-button:hover:not(:disabled) {
+  background: var(--dse-color-semantic-action-ghost-hover);
+}
+
+.dse-icon-button:active:not(:disabled) {
+  background: var(--dse-color-semantic-action-ghost-pressed);
+}
+
+.dse-icon-button:focus-visible {
+  outline: var(--dse-border-role-focus) solid var(--dse-color-semantic-focus-default);
+  outline-offset: var(--dse-border-role-focus);
+}
+
+.dse-icon-button:disabled {
+  background: transparent;
+  color: var(--dse-color-semantic-fg-disabled);
+  cursor: default;
+}
+
+.dse-icon-button__icon {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--dse-icons-size-md);
+  block-size: var(--dse-icons-size-md);
+  flex: 0 0 var(--dse-icons-size-md);
+  pointer-events: none;
+}
+
+.dse-icon-button__icon > svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
