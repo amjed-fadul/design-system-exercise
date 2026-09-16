@@ -48,17 +48,17 @@
 
 - [ ] **Step 1: Configure the package and test harness**
 
-Set `packages/react/package.json` to an npm-ready ESM package with `files: ["dist"]`, root export `./dist/index.js`, types `./dist/index.d.ts`, and `./styles.css` reserved for Task 2. Add scripts:
+Set `packages/react/package.json` to an npm-ready ESM package with `files: ["dist"]`, root export `./dist/index.js`, types `./dist/index.d.ts`, and `./styles.css` pointing to the style artifact Task 3 will add. Start with these scripts:
 
 ```json
 {
-  "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
+  "build": "tsc -p tsconfig.build.json",
   "test": "vitest run",
   "typecheck": "tsc --noEmit -p tsconfig.json"
 }
 ```
 
-Use `@design-system-exercise/tokens: "workspace:*"` as a dependency, React as a peer supporting React 18.3+ and 19, and React 19.3.0 plus Testing Library/jsdom/Vitest/TypeScript as development dependencies.
+Use `@design-system-exercise/tokens: "workspace:*"` as a dependency, `react: ">=18.3.0 <20"` as a peer dependency, and React 19.3.0 plus React DOM 19.3.0, their types, Testing Library, user-event, jest-dom, jsdom, Vitest 5.0.1, and TypeScript 7.0.2 as development dependencies.
 
 `tsconfig.json` extends the root config, sets `jsx: "react-jsx"`, includes `src`, tests, and `vitest.config.ts`. `tsconfig.build.json` emits declarations and JS from `src` into `dist` and excludes test files.
 
@@ -172,14 +172,15 @@ Read `Button.css` as text and assert it contains the required public token varia
 --dse-color-semantic-action-critical-border
 --dse-color-semantic-surface-disabled
 --dse-color-semantic-fg-disabled
+--dse-color-semantic-border-subtle
 --dse-color-semantic-focus-default
 --dse-border-role-base
 --dse-border-role-focus
 --dse-radius-shape-control
---dse-spacing-space-300
---dse-spacing-inline-md
---dse-spacing-gap-sm
---dse-spacing-space-800
+--dse-spacing-primitive-space-300
+--dse-spacing-semantic-inline-md
+--dse-spacing-semantic-gap-sm
+--dse-spacing-primitive-space-800
 --dse-icons-size-md
 --dse-typography-semantic-label-default-family
 --dse-typography-semantic-label-default-size
@@ -202,9 +203,9 @@ Implement `.dse-button` using token variables only:
 
 ```css
 .dse-button {
-  min-block-size: var(--dse-spacing-space-800);
-  padding-block: var(--dse-spacing-space-300);
-  padding-inline: var(--dse-spacing-inline-md);
+  min-block-size: var(--dse-spacing-primitive-space-800);
+  padding-block: var(--dse-spacing-primitive-space-300);
+  padding-inline: var(--dse-spacing-semantic-inline-md);
   border-radius: var(--dse-radius-shape-control);
   font-family: var(--dse-typography-semantic-label-default-family);
   font-size: var(--dse-typography-semantic-label-default-size);
@@ -214,22 +215,27 @@ Implement `.dse-button` using token variables only:
 }
 ```
 
-Use logical properties so RTL is inherited naturally.
+Use logical properties so RTL is inherited naturally. Use `--dse-spacing-semantic-gap-sm` for the content gap and `--dse-icons-size-md` for the icon/loading glyph box.
 
 - [ ] **Step 4: Implement the emphasis/tone state matrix**
 
 Required mapping:
 
 ```text
-primary/default:   primary bg + primary fg; hover/pressed use primary hover/pressed
-primary/critical:  critical bg + critical on-bg; hover/pressed use critical hover/pressed
-secondary/default: secondary bg + secondary fg + secondary border; hover/pressed use secondary hover/pressed
+primary/default:    primary bg + primary fg; hover/pressed use primary hover/pressed
+primary/critical:   critical bg + critical on-bg; hover/pressed use critical hover/pressed
+secondary/default:  secondary bg + secondary fg + secondary border; hover/pressed use secondary hover/pressed
 secondary/critical: secondary bg + critical fg + critical border; hover/pressed still use secondary hover/pressed
-text/default:      transparent surface + ghost fg; hover/pressed use ghost hover/pressed surfaces
-text/critical:     transparent surface + critical fg; hover/pressed use ghost hover/pressed surfaces
+text/default:       transparent surface + ghost fg; hover/pressed use ghost hover/pressed surfaces
+text/critical:      transparent surface + critical fg; hover/pressed use ghost hover/pressed surfaces
 ```
 
-Use `:hover`, `:active`, and `:focus-visible`; do not expose these as props. Implement the Figma focus overlay as an outline using `--dse-border-role-focus`, `--dse-color-semantic-focus-default`, and a logical 2 px-equivalent gap derived from the existing spacing system rather than a raw color or raw foundation value.
+Use `:hover`, `:active`, and `:focus-visible`; do not expose these as props. Implement the Figma focus overlay with:
+
+```css
+outline: var(--dse-border-role-focus) solid var(--dse-color-semantic-focus-default);
+outline-offset: var(--dse-border-role-focus);
+```
 
 Disabled mapping:
 
@@ -262,21 +268,23 @@ git commit -m "feat(react): style Button from design tokens"
 ### Task 3: Add loading, icon composition, width preservation and RTL-safe behavior
 
 **Files:**
+- Modify: `packages/react/package.json`
 - Modify: `packages/react/src/button/Button.tsx`
 - Modify: `packages/react/src/button/Button.css`
 - Modify: `packages/react/src/button/Button.test.tsx`
 - Create: `packages/react/src/assets/loader-circle.svg`
+- Create: `packages/react/scripts/copy-assets.mjs`
 
 **Interfaces:**
 - Consumes: Button semantic props from Task 1 and Figma loader-circle source `86:11830`.
-- Produces: stable-width loading behavior, leading/trailing icon composition and non-activating busy state.
+- Produces: stable-width loading behavior, leading/trailing icon composition, non-activating busy state, and a buildable package with deterministic CSS/asset outputs.
 
 - [ ] **Step 1: Add failing interaction tests**
 
 Add tests for:
 
 ```tsx
-it('announces loading and blocks activation without using disabled styling', async () => {
+it('announces loading and blocks activation without using native disabled', async () => {
   const onClick = vi.fn();
   render(<Button loading loadingLabel="Sending…" onClick={onClick}>Send invite</Button>);
   const button = screen.getByRole('button', { name: 'Sending…' });
@@ -308,15 +316,43 @@ Expected: FAIL on loading and composition behavior.
 
 Export the existing Figma `Lucide / loader-circle` source (`86:11830`) and store its exact SVG bytes as `packages/react/src/assets/loader-circle.svg`. Do not redraw or hand-author the path. Motion remains intentionally absent.
 
+Reference the packaged asset from `Button.tsx` with a relative `new URL('../assets/loader-circle.svg', import.meta.url)` so the same relative structure works in source and compiled `dist` output.
+
 - [ ] **Step 4: Implement width-preserving layered content**
 
-Use one grid cell with both normal and loading content participating in intrinsic sizing. Hide only the inactive visual layer with `visibility: hidden` plus `aria-hidden`; do not use `display: none` for the measurement layer. Loading content always includes the static 20 px loader using `--dse-icons-size-md` and the loading label.
+Use one grid cell with both normal and loading content participating in intrinsic sizing. Hide only the inactive visual layer with `visibility: hidden` plus `aria-hidden`; do not use `display: none` for the measurement layer. Loading content always includes the static loader sized with `--dse-icons-size-md` and the loading label.
 
 - [ ] **Step 5: Implement logical icon placement and loading activation guard**
 
 Render the optional icon before or after the label according to `iconPosition`. Use logical flex/gap behavior only, so `dir="rtl"` inherited from the document naturally mirrors leading/trailing. While `loading`, prevent the component's click activation and expose `aria-disabled`; preserve focusability and loading visuals.
 
-- [ ] **Step 6: Run tests, typecheck, and build**
+- [ ] **Step 6: Add deterministic style and asset copying**
+
+Create `packages/react/scripts/copy-assets.mjs` with this behavior:
+
+```js
+import { copyFile, mkdir } from 'node:fs/promises';
+
+await mkdir(new URL('../dist/assets/', import.meta.url), { recursive: true });
+await copyFile(
+  new URL('../src/button/Button.css', import.meta.url),
+  new URL('../dist/styles.css', import.meta.url),
+);
+await copyFile(
+  new URL('../src/assets/loader-circle.svg', import.meta.url),
+  new URL('../dist/assets/loader-circle.svg', import.meta.url),
+);
+```
+
+Update the React package build script to:
+
+```json
+"build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs"
+```
+
+Missing required CSS/SVG sources must make the build fail through `copyFile`; do not silently skip them.
+
+- [ ] **Step 7: Run tests, typecheck, and build**
 
 ```bash
 pnpm --filter @design-system-exercise/react test
@@ -324,9 +360,9 @@ pnpm --filter @design-system-exercise/react typecheck
 pnpm --filter @design-system-exercise/react build
 ```
 
-Expected: PASS.
+Expected: PASS and `dist/` contains JS, declarations, `styles.css`, and `assets/loader-circle.svg`.
 
-- [ ] **Step 7: Commit Task 3**
+- [ ] **Step 8: Commit Task 3**
 
 ```bash
 git add packages/react
@@ -369,7 +405,7 @@ TrailingIcon
 StateMatrix
 ```
 
-`StateMatrix` should render the semantic variants together for visual review; pointer states remain interactive CSS states rather than fake `state` props. Use Arabic copy in at least one story so the global Arabic control visibly exercises RTL and Arabic typography.
+`StateMatrix` should render the semantic variants together for visual review; pointer states remain interactive CSS states rather than fake `state` props. Use Arabic copy in at least one story so the global Arabic control visibly exercises RTL and Arabic typography. For the icon-placement stories, use a real exported/shared icon asset rather than a hand-drawn replacement.
 
 - [ ] **Step 3: Verify Figma parity manually in four global contexts**
 
@@ -412,34 +448,16 @@ git commit -m "docs(storybook): add Button documentation"
 ### Task 5: Make the React package consumer-verifiable in CI and close the milestone
 
 **Files:**
-- Create: `packages/react/scripts/copy-assets.mjs`
-- Modify: `packages/react/package.json`
 - Modify: `packages/react/README.md`
 - Modify: `package.json`
 - Modify: `.github/workflows/ci.yml`
 - Modify: `docs/superpowers/plans/2026-09-16-button-react-progress.md`
 
 **Interfaces:**
-- Consumes: compiled React package, token tarball, current CI pipeline.
+- Consumes: compiled React package, packed token package, and current CI pipeline.
 - Produces: deterministic packed React package plus clean-consumer smoke verification.
 
-- [ ] **Step 1: Add deterministic style/asset copying to the package build**
-
-`copy-assets.mjs` must copy the component stylesheet into `dist/styles.css` and the exact loader asset into `dist/assets/loader-circle.svg`. It must fail if a required source file is missing. Keep generated `dist` content out of hand-edit workflows.
-
-- [ ] **Step 2: Finalize package exports and README consumer instructions**
-
-The package exports must include:
-
-```json
-{
-  ".": {
-    "types": "./dist/index.d.ts",
-    "import": "./dist/index.js"
-  },
-  "./styles.css": "./dist/styles.css"
-}
-```
+- [ ] **Step 1: Finalize README consumer instructions**
 
 README usage must show both required stylesheet imports:
 
@@ -448,29 +466,32 @@ import '@design-system-exercise/tokens/css';
 import '@design-system-exercise/react/styles.css';
 ```
 
-and a normal semantic use:
+and a semantic use:
 
 ```tsx
 <Button emphasis="primary" tone="critical">Delete invitation</Button>
 ```
 
-- [ ] **Step 3: Wire root build commands to build React before Storybook**
+Document that consumers should use native `disabled`, `loading` for pending requests, and `iconPosition` as logical leading/trailing placement. Explicitly state that size, danger/success, and public visual-state props are unsupported.
+
+- [ ] **Step 2: Wire root build commands to build React before Storybook**
 
 Update root scripts so `storybook`, `build-storybook`, and `build` run token build first, React build second, then Storybook. Do not remove existing token validation gates.
 
-- [ ] **Step 4: Extend GitHub Actions with a packed React consumer smoke test**
+- [ ] **Step 3: Extend GitHub Actions with a packed React consumer smoke test**
 
 After the existing token pack check:
 1. build and pack `packages/react`;
-2. verify tar contents include `package.json`, `dist/index.js`, `dist/index.d.ts`, `dist/styles.css`, and the loader asset;
+2. verify tar contents include `package.json`, `dist/index.js`, `dist/index.d.ts`, `dist/styles.css`, and `dist/assets/loader-circle.svg`;
 3. initialize a clean npm consumer;
 4. install the packed token tarball first, then the packed React tarball;
-5. SSR-render `<Button tone="critical">Delete</Button>` with `react-dom/server` and assert the output contains a native `<button` plus the expected semantic data attribute;
-6. resolve `@design-system-exercise/react/styles.css` and verify the file exists.
+5. install React/React DOM only as scratch-consumer runtime dependencies when the React package peer dependency requires them;
+6. SSR-render `<Button tone="critical">Delete</Button>` with `react-dom/server` and assert the output contains a native `<button` plus `data-tone="critical"`;
+7. resolve `@design-system-exercise/react/styles.css` and verify the file exists.
 
 Do not publish either package.
 
-- [ ] **Step 5: Run the full milestone verification locally**
+- [ ] **Step 4: Run the full milestone verification locally**
 
 ```bash
 pnpm install --frozen-lockfile
@@ -485,14 +506,14 @@ Then run the same local pack/consumer smoke flow used by CI for tokens and React
 
 Expected: every command exits 0.
 
-- [ ] **Step 6: Update the progress tracker with final evidence**
+- [ ] **Step 5: Update the progress tracker with final evidence**
 
 Record Task 1–5 commit SHAs, reviewer outcomes, exact verification commands, final HEAD, and whether GitHub Actions passed on that exact HEAD. Do not mark the plan complete until CI is green on the final commit.
 
-- [ ] **Step 7: Commit Task 5**
+- [ ] **Step 6: Commit Task 5**
 
 ```bash
-git add packages/react package.json .github/workflows/ci.yml docs/superpowers/plans/2026-09-16-button-react-progress.md
+git add packages/react/README.md package.json .github/workflows/ci.yml docs/superpowers/plans/2026-09-16-button-react-progress.md
 git commit -m "ci: verify packed React Button package"
 ```
 
