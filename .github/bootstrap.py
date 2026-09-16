@@ -1,6 +1,5 @@
 import base64
 import io
-import json
 import tarfile
 from pathlib import Path
 
@@ -9,10 +8,11 @@ archive = base64.b64decode(''.join(p.read_text().strip() for p in sorted(parts.g
 with tarfile.open(fileobj=io.BytesIO(archive), mode='r:gz') as tar:
     tar.extractall(Path.cwd(), filter='data')
 
-package_path = Path('package.json')
-package = json.loads(package_path.read_text())
-package['pnpm'] = {'onlyBuiltDependencies': ['esbuild']}
-package_path.write_text(json.dumps(package, indent=2) + '\n')
+workspace_path = Path('pnpm-workspace.yaml')
+workspace = workspace_path.read_text()
+if 'onlyBuiltDependencies:' not in workspace:
+    workspace += '\nonlyBuiltDependencies:\n  - esbuild\n'
+workspace_path.write_text(workspace)
 
 for path in parts.glob('part-*'):
     path.unlink()
