@@ -9,10 +9,13 @@ with tarfile.open(fileobj=io.BytesIO(archive), mode='r:gz') as tar:
     tar.extractall(Path.cwd(), filter='data')
 
 workspace_path = Path('pnpm-workspace.yaml')
-workspace = workspace_path.read_text()
-if 'onlyBuiltDependencies:' not in workspace:
-    workspace += '\nonlyBuiltDependencies:\n  - esbuild\n'
-workspace_path.write_text(workspace)
+workspace_path.write_text(
+    'packages:\n'
+    '  - packages/*\n'
+    '  - apps/*\n'
+    'allowBuilds:\n'
+    '  esbuild: true\n'
+)
 
 for path in parts.glob('part-*'):
     path.unlink()
