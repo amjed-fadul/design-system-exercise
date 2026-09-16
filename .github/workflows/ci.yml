@@ -19,6 +19,7 @@ jobs:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
+      - run: pnpm contracts:validate
       - run: pnpm tokens:validate
       - run: pnpm tokens:build
       - run: pnpm test
