@@ -45,4 +45,12 @@ describe('Button visual contract', () => {
     expect(css).toMatch(/\.dse-button__layer\[aria-hidden=['"]true['"]\]\s*\{[^}]*visibility:\s*hidden;/s);
     expect(css).not.toMatch(/\.dse-button__layer\[aria-hidden=['"]true['"]\]\s*\{[^}]*display:\s*none;/s);
   });
+
+  it('does not apply hover or active visuals while aria-busy', () => {
+    const css = readCss();
+    expect(css).not.toContain(':hover:not(:disabled) {');
+    expect(css).not.toContain(':active:not(:disabled) {');
+    expect(css).toContain(":hover:not(:disabled):not([aria-busy='true'])");
+    expect(css).toContain(":active:not(:disabled):not([aria-busy='true'])");
+  });
 });
