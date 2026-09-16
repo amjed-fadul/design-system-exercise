@@ -4,9 +4,9 @@
 
 **Goal:** Ship Button as the first production component in `@design-system-exercise/react`, matching the audited Figma Button contract while preserving the existing foundation-token architecture.
 
-**Architecture:** Activate the reserved React package with a small public Button API built on the native `<button>` element. Browser/CSS state drives hover, pressed and focus; component props express semantic choices (`emphasis`, `tone`, `loading`, `icon`, `iconPosition`). Styling consumes only `@design-system-exercise/tokens` CSS variables. Storybook documents the real package API, and CI packs the React package and verifies a clean consumer can install and render it.
+**Architecture:** Activate the reserved React package with a small semantic API built on the native `<button>` element. Browser/CSS state owns hover, pressed and focus; public props own semantic choices (`emphasis`, `tone`, `loading`, `icon`, `iconPosition`). Styling uses only generated `@design-system-exercise/tokens` CSS variables. Storybook consumes the public package, and CI packs both tokens and React into a clean scratch consumer.
 
-**Tech Stack:** React, TypeScript 7.0.2, plain CSS custom properties, `@design-system-exercise/tokens`, Vitest 5, Testing Library, jsdom, Storybook 10.6, pnpm 12.4.2, Node 24.21.0.
+**Tech Stack:** React, TypeScript 7.0.2, plain CSS custom properties, Vitest 5, Testing Library, jsdom, Storybook 10.6, pnpm 12.4.2, Node 24.21.0.
 
 **Spec:** `docs/superpowers/specs/2026-09-16-design-system-exercise-design.md` plus Figma Button component set `93:1230` in `Design System Exercise (Arabic/English, Light/Dark)`.
 
@@ -16,16 +16,16 @@
 - Scope is Button only. Do not start Icon Button, Link, fields, patterns, or any other component.
 - Do not merge PR #1, merge to `main`, or publish to npm as part of this plan.
 - `tone="critical"` is a Button tone, not a separate `ButtonCritical` component.
-- Public API must not expose Figma-only controls: `state`, `focusVisible`, or `showIcon`.
-- Do not add `size`, `danger`, or `success` variants; Figma explicitly does not support them.
-- Hover, pressed, focus-visible, and disabled visuals must come from native browser/CSS semantics rather than public state props.
-- `disabled` uses the native `disabled` attribute. `loading` remains focusable, exposes `aria-busy="true"` and `aria-disabled="true"`, and suppresses activation without switching to disabled styling.
+- Do not expose Figma-only `state`, `focusVisible`, or `showIcon` props.
+- Do not add `size`, `danger`, or `success`; Figma explicitly does not support them.
+- Native/CSS semantics own hover, pressed, focus-visible and disabled visuals.
+- Native `disabled` uses the real `disabled` attribute. `loading` stays focusable, exposes `aria-busy="true"` and `aria-disabled="true"`, and blocks activation without adopting disabled styling.
 - Loading must preserve the greater of normal-label width and loading-label width, matching the Figma hidden-measurement intent.
-- Loader motion is out of scope. The Figma busy indicator is static in this milestone.
-- All color, spacing, typography, radius, border and icon-size values must come from generated `--dse-*` variables. Do not copy raw foundation values into component CSS.
-- English/Arabic and Light/Dark remain mode dimensions owned by the token package and Storybook decorators; Button must inherit them rather than create parallel theme or language props.
-- Component CSS remains package-local. Do not create new global foundation tokens unless a real missing semantic is proven during implementation and explicitly reviewed.
-- Execution branch should descend from this planning branch. Until PR #1 lands, any Button PR should target `feat/foundations-storybook` as a stacked PR.
+- Loader motion is out of scope; the Figma busy indicator is static.
+- All component dimensions, color, type, radius, border and icon sizes must reference generated `--dse-*` variables; no copied raw foundation values.
+- Light/Dark and English/Arabic are inherited token modes, not Button props.
+- Component-private decisions remain local; do not create new public foundation tokens unless a missing semantic is proven and separately reviewed.
+- Execution should branch from the final planning-branch HEAD. Until PR #1 lands, target `feat/foundations-storybook` with a stacked Button PR.
 
 ---
 
@@ -43,28 +43,32 @@
 - Modify: `pnpm-lock.yaml`
 
 **Interfaces:**
-- Consumes: native `button` attributes and `@design-system-exercise/tokens` as a workspace dependency.
-- Produces: `Button`, `ButtonProps`, `ButtonEmphasis`, `ButtonTone`, and `ButtonIconPosition` from `@design-system-exercise/react`.
+- Consumes: native button attributes and `@design-system-exercise/tokens`.
+- Produces: `Button`, `ButtonProps`, `ButtonEmphasis`, `ButtonTone`, `ButtonIconPosition`.
 
 - [ ] **Step 1: Configure the package and test harness**
 
-Set `packages/react/package.json` to an npm-ready ESM package with `files: ["dist"]`, root export `./dist/index.js`, types `./dist/index.d.ts`, and `./styles.css` pointing to the style artifact Task 3 will add. Start with these scripts:
+Make `packages/react/package.json` an npm-ready ESM package. Keep `files: ["dist"]`; export `./dist/index.js` with `./dist/index.d.ts`; reserve `./styles.css` for the Task 3 artifact. Start with:
 
 ```json
 {
-  "build": "tsc -p tsconfig.build.json",
-  "test": "vitest run",
-  "typecheck": "tsc --noEmit -p tsconfig.json"
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@design-system-exercise/tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18.3.0 <20"
+  }
 }
 ```
 
-Use `@design-system-exercise/tokens: "workspace:*"` as a dependency, `react: ">=18.3.0 <20"` as a peer dependency, and React 19.3.0 plus React DOM 19.3.0, their types, Testing Library, user-event, jest-dom, jsdom, Vitest 5.0.1, and TypeScript 7.0.2 as development dependencies.
+Use React/React DOM 19.3.0 for local tests, with their type packages plus Testing Library, user-event, jest-dom, jsdom, Vitest 5.0.1 and TypeScript 7.0.2 as dev dependencies. `tsconfig.json` extends the root config and sets `jsx: "react-jsx"`; `tsconfig.build.json` emits JS + declarations from `src` to `dist` and excludes tests.
 
-`tsconfig.json` extends the root config, sets `jsx: "react-jsx"`, includes `src`, tests, and `vitest.config.ts`. `tsconfig.build.json` emits declarations and JS from `src` into `dist` and excludes test files.
-
-- [ ] **Step 2: Write the failing semantic API tests**
-
-Cover these behaviors in `Button.test.tsx` before implementation:
+- [ ] **Step 2: Write failing semantic API tests**
 
 ```tsx
 it('renders a native button with safe default type', () => {
@@ -77,7 +81,7 @@ it('uses native disabled semantics', () => {
   expect(screen.getByRole('button')).toBeDisabled();
 });
 
-it('exposes semantic emphasis and tone as data attributes', () => {
+it('exposes semantic emphasis and tone', () => {
   render(<Button emphasis="secondary" tone="critical">Remove</Button>);
   const button = screen.getByRole('button', { name: 'Remove' });
   expect(button).toHaveAttribute('data-emphasis', 'secondary');
@@ -85,21 +89,17 @@ it('exposes semantic emphasis and tone as data attributes', () => {
 });
 ```
 
-Also verify native props (`name`, `value`, `aria-*`, `onClick`) are forwarded and a forwarded ref resolves to `HTMLButtonElement`.
+Also test native prop forwarding (`name`, `value`, `aria-*`, `onClick`) and `forwardRef<HTMLButtonElement>`.
 
-- [ ] **Step 3: Run the focused tests and confirm RED**
-
-Run:
+- [ ] **Step 3: Confirm RED**
 
 ```bash
 pnpm --filter @design-system-exercise/react test -- Button.test.tsx
 ```
 
-Expected: FAIL because `Button` and its package implementation do not exist yet.
+Expected: FAIL because Button does not exist.
 
-- [ ] **Step 4: Implement the minimal semantic Button component**
-
-Use this public shape:
+- [ ] **Step 4: Implement the minimal semantic API**
 
 ```tsx
 export type ButtonEmphasis = 'primary' | 'secondary' | 'text';
@@ -116,9 +116,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 ```
 
-Defaults: `emphasis="primary"`, `tone="default"`, `loading=false`, `loadingLabel="Loading…"`, `iconPosition="leading"`, and `type="button"` when `type` is omitted. Use `forwardRef`. Do not add public state/focus/showIcon props.
+Defaults: `emphasis="primary"`, `tone="default"`, `loading=false`, `loadingLabel="Loading…"`, `iconPosition="leading"`, and `type="button"` when omitted. Export the component and types from `src/index.ts`. Do not add public state/focus/showIcon props.
 
-- [ ] **Step 5: Run package tests and typecheck**
+- [ ] **Step 5: Verify Task 1**
 
 ```bash
 pnpm --filter @design-system-exercise/react test
@@ -144,12 +144,12 @@ git commit -m "feat(react): establish Button API"
 - Modify: `packages/react/src/button/Button.tsx`
 
 **Interfaces:**
-- Consumes: generated CSS variables from `@design-system-exercise/tokens/css`.
-- Produces: Figma-matched Button visuals for emphasis, tone, native pointer state, focus-visible and disabled.
+- Consumes: generated variables from `@design-system-exercise/tokens/css`.
+- Produces: Figma-matched emphasis/tone, pointer, focus and disabled visuals.
 
 - [ ] **Step 1: Write a failing CSS contract test**
 
-Read `Button.css` as text and assert it contains the required public token variables and contains no raw hex/rgb color literals. Required variables include:
+Read `Button.css` as text. Assert there are no hex/rgb color literals and that these public variables are used:
 
 ```text
 --dse-color-semantic-action-primary-bg
@@ -178,7 +178,7 @@ Read `Button.css` as text and assert it contains the required public token varia
 --dse-border-role-focus
 --dse-radius-shape-control
 --dse-spacing-primitive-space-300
---dse-spacing-semantic-inline-md
+--dse-spacing-semantic-inset-md
 --dse-spacing-semantic-gap-sm
 --dse-spacing-primitive-space-800
 --dse-icons-size-md
@@ -189,7 +189,7 @@ Read `Button.css` as text and assert it contains the required public token varia
 --dse-typography-semantic-label-default-letter-spacing
 ```
 
-- [ ] **Step 2: Run the CSS contract test and confirm RED**
+- [ ] **Step 2: Confirm RED**
 
 ```bash
 pnpm --filter @design-system-exercise/react test -- Button.css.test.ts
@@ -197,15 +197,13 @@ pnpm --filter @design-system-exercise/react test -- Button.css.test.ts
 
 Expected: FAIL because the stylesheet does not exist.
 
-- [ ] **Step 3: Implement the base geometry and typography**
-
-Implement `.dse-button` using token variables only:
+- [ ] **Step 3: Implement geometry and typography**
 
 ```css
 .dse-button {
   min-block-size: var(--dse-spacing-primitive-space-800);
   padding-block: var(--dse-spacing-primitive-space-300);
-  padding-inline: var(--dse-spacing-semantic-inline-md);
+  padding-inline: var(--dse-spacing-semantic-inset-md);
   border-radius: var(--dse-radius-shape-control);
   font-family: var(--dse-typography-semantic-label-default-family);
   font-size: var(--dse-typography-semantic-label-default-size);
@@ -215,22 +213,20 @@ Implement `.dse-button` using token variables only:
 }
 ```
 
-Use logical properties so RTL is inherited naturally. Use `--dse-spacing-semantic-gap-sm` for the content gap and `--dse-icons-size-md` for the icon/loading glyph box.
+Use `--dse-spacing-semantic-gap-sm` for the content gap and `--dse-icons-size-md` for icon/busy glyph boxes. Use logical CSS properties only for directional spacing.
 
 - [ ] **Step 4: Implement the emphasis/tone state matrix**
 
-Required mapping:
-
 ```text
-primary/default:    primary bg + primary fg; hover/pressed use primary hover/pressed
-primary/critical:   critical bg + critical on-bg; hover/pressed use critical hover/pressed
-secondary/default:  secondary bg + secondary fg + secondary border; hover/pressed use secondary hover/pressed
-secondary/critical: secondary bg + critical fg + critical border; hover/pressed still use secondary hover/pressed
-text/default:       transparent surface + ghost fg; hover/pressed use ghost hover/pressed surfaces
-text/critical:      transparent surface + critical fg; hover/pressed use ghost hover/pressed surfaces
+primary/default:    primary bg + primary fg; primary hover/pressed
+primary/critical:   critical bg + critical on-bg; critical hover/pressed
+secondary/default:  secondary bg + secondary fg + secondary border; secondary hover/pressed
+secondary/critical: secondary bg + critical fg + critical border; secondary hover/pressed
+text/default:       transparent + ghost fg; ghost hover/pressed surfaces
+text/critical:      transparent + critical fg; ghost hover/pressed surfaces
 ```
 
-Use `:hover`, `:active`, and `:focus-visible`; do not expose these as props. Implement the Figma focus overlay with:
+Use `:hover`, `:active`, and `:focus-visible`, never a visual-state prop. Match the Figma independent focus overlay with:
 
 ```css
 outline: var(--dse-border-role-focus) solid var(--dse-color-semantic-focus-default);
@@ -245,9 +241,9 @@ secondary: surface.disabled + fg.disabled + border.subtle
 text:      transparent + fg.disabled
 ```
 
-Apply disabled visuals only to actual native `:disabled`, not to loading.
+Apply disabled visuals only to native `:disabled`.
 
-- [ ] **Step 5: Run focused tests and typecheck**
+- [ ] **Step 5: Verify Task 2**
 
 ```bash
 pnpm --filter @design-system-exercise/react test
@@ -276,15 +272,13 @@ git commit -m "feat(react): style Button from design tokens"
 - Create: `packages/react/scripts/copy-assets.mjs`
 
 **Interfaces:**
-- Consumes: Button semantic props from Task 1 and Figma loader-circle source `86:11830`.
-- Produces: stable-width loading behavior, leading/trailing icon composition, non-activating busy state, and a buildable package with deterministic CSS/asset outputs.
+- Consumes: Task 1 public props and Figma `Lucide / loader-circle` source `86:11830`.
+- Produces: stable-width loading, logical icon placement, busy-state semantics and deterministic style/asset build output.
 
-- [ ] **Step 1: Add failing interaction tests**
-
-Add tests for:
+- [ ] **Step 1: Add failing behavior tests**
 
 ```tsx
-it('announces loading and blocks activation without using native disabled', async () => {
+it('announces loading and blocks activation without native disabled', async () => {
   const onClick = vi.fn();
   render(<Button loading loadingLabel="Sending…" onClick={onClick}>Send invite</Button>);
   const button = screen.getByRole('button', { name: 'Sending…' });
@@ -296,39 +290,37 @@ it('announces loading and blocks activation without using native disabled', asyn
 });
 ```
 
-Also verify:
-- normal and loading layers both remain in layout so width is based on the wider label;
-- the inactive layer is `aria-hidden`;
-- `icon` is absent when no icon prop is provided;
-- leading/trailing changes semantic DOM order without an LTR-only margin;
-- icons are `aria-hidden` because the button label owns the accessible name;
-- a real native `disabled` button still wins over loading interaction.
+Also test that both normal/loading layers remain in intrinsic layout; the inactive layer is `aria-hidden`; icon output exists only when `icon` exists; leading/trailing changes DOM order without left/right margins; icons are `aria-hidden`; and real native `disabled` remains disabled even if `loading` is also true.
 
-- [ ] **Step 2: Run the focused tests and confirm RED**
+- [ ] **Step 2: Confirm RED**
 
 ```bash
 pnpm --filter @design-system-exercise/react test -- Button.test.tsx
 ```
 
-Expected: FAIL on loading and composition behavior.
+Expected: FAIL on loading/composition behavior.
 
 - [ ] **Step 3: Add the exact static loader asset**
 
-Export the existing Figma `Lucide / loader-circle` source (`86:11830`) and store its exact SVG bytes as `packages/react/src/assets/loader-circle.svg`. Do not redraw or hand-author the path. Motion remains intentionally absent.
+Export Figma node `86:11830` and store its exact SVG bytes at `packages/react/src/assets/loader-circle.svg`. Do not redraw or hand-author the path. Reference it from `Button.tsx` with:
 
-Reference the packaged asset from `Button.tsx` with a relative `new URL('../assets/loader-circle.svg', import.meta.url)` so the same relative structure works in source and compiled `dist` output.
+```ts
+const loaderUrl = new URL('../assets/loader-circle.svg', import.meta.url).href;
+```
+
+This relative path must remain valid after compilation from `dist/button` to `dist/assets`.
 
 - [ ] **Step 4: Implement width-preserving layered content**
 
-Use one grid cell with both normal and loading content participating in intrinsic sizing. Hide only the inactive visual layer with `visibility: hidden` plus `aria-hidden`; do not use `display: none` for the measurement layer. Loading content always includes the static loader sized with `--dse-icons-size-md` and the loading label.
+Put normal and loading content in the same grid cell so both contribute intrinsic width. Hide only the inactive visual layer with `visibility: hidden` plus `aria-hidden`; never `display: none` the measurement layer. Loading always shows the static loader at `--dse-icons-size-md` plus `loadingLabel`.
 
-- [ ] **Step 5: Implement logical icon placement and loading activation guard**
+- [ ] **Step 5: Implement logical icon placement and activation guard**
 
-Render the optional icon before or after the label according to `iconPosition`. Use logical flex/gap behavior only, so `dir="rtl"` inherited from the document naturally mirrors leading/trailing. While `loading`, prevent the component's click activation and expose `aria-disabled`; preserve focusability and loading visuals.
+Render the optional icon before/after the label according to `iconPosition`. Use flex `gap` and inherited direction so RTL mirrors logical leading/trailing automatically. During loading, wrap `onClick`: call `event.preventDefault()` and do not call the consumer handler; do not set native `disabled` solely because loading is true.
 
-- [ ] **Step 6: Add deterministic style and asset copying**
+- [ ] **Step 6: Add deterministic CSS/SVG copying**
 
-Create `packages/react/scripts/copy-assets.mjs` with this behavior:
+Create `packages/react/scripts/copy-assets.mjs`:
 
 ```js
 import { copyFile, mkdir } from 'node:fs/promises';
@@ -344,15 +336,15 @@ await copyFile(
 );
 ```
 
-Update the React package build script to:
+Then change the package build script to:
 
 ```json
 "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs"
 ```
 
-Missing required CSS/SVG sources must make the build fail through `copyFile`; do not silently skip them.
+`copyFile` must be allowed to fail if a required source is missing.
 
-- [ ] **Step 7: Run tests, typecheck, and build**
+- [ ] **Step 7: Verify Task 3**
 
 ```bash
 pnpm --filter @design-system-exercise/react test
@@ -377,19 +369,24 @@ git commit -m "feat(react): complete Button interaction behavior"
 - Modify: `apps/storybook/package.json`
 - Modify: `apps/storybook/.storybook/preview.tsx`
 - Create: `apps/storybook/src/components/Button.stories.tsx`
+- Create: `apps/storybook/src/assets/system-plus.svg`
 - Modify: `pnpm-lock.yaml`
 
 **Interfaces:**
-- Consumes: public `Button` export and `@design-system-exercise/react/styles.css`.
-- Produces: Storybook documentation and parity surface for Light/Dark and English/Arabic.
+- Consumes: public Button export and `@design-system-exercise/react/styles.css`.
+- Produces: Storybook documentation and four-context parity surface.
 
-- [ ] **Step 1: Add the React package to Storybook and load its public stylesheet**
+- [ ] **Step 1: Wire Storybook to the public React package**
 
-Add `@design-system-exercise/react: "workspace:*"` to Storybook dependencies. In `preview.tsx`, import `@design-system-exercise/react/styles.css` immediately after `@design-system-exercise/tokens/css`. Keep the existing theme/language decorators unchanged.
+Add `@design-system-exercise/react: "workspace:*"` to Storybook dependencies. In `preview.tsx`, import `@design-system-exercise/react/styles.css` immediately after `@design-system-exercise/tokens/css`. Keep the current theme/language decorators unchanged.
 
-- [ ] **Step 2: Create Button stories using only the public API**
+- [ ] **Step 2: Add the real shared Plus story asset**
 
-Add stories for:
+Export the existing Figma `System Plus / shared` instance/source represented at node `121:1220` and store the exact SVG bytes at `apps/storybook/src/assets/system-plus.svg`. Use that asset in icon-placement stories; do not hand-draw a replacement.
+
+- [ ] **Step 3: Create stories using only the public API**
+
+Create:
 
 ```text
 Primary
@@ -405,17 +402,15 @@ TrailingIcon
 StateMatrix
 ```
 
-`StateMatrix` should render the semantic variants together for visual review; pointer states remain interactive CSS states rather than fake `state` props. Use Arabic copy in at least one story so the global Arabic control visibly exercises RTL and Arabic typography. For the icon-placement stories, use a real exported/shared icon asset rather than a hand-drawn replacement.
+`StateMatrix` renders semantic variants; pointer states remain real CSS interactions rather than fake `state` args. Include Arabic copy in at least one story so the global Arabic control visibly exercises RTL and Arabic typography.
 
-- [ ] **Step 3: Verify Figma parity manually in four global contexts**
-
-Run:
+- [ ] **Step 4: Manually verify Figma parity**
 
 ```bash
 pnpm storybook
 ```
 
-Compare against Figma Button component set `93:1230` in:
+Review Button `93:1230` in:
 
 ```text
 Light + English
@@ -424,9 +419,9 @@ Light + Arabic
 Dark + Arabic
 ```
 
-Check 48 px minimum control height, 16/12 logical padding, 8 px content gap, 8 px control radius, label typography, critical hierarchy, disabled treatment, focus ring, loading width preservation, and logical icon placement.
+Check minimum height 48, inline/block padding 16/12, gap 8, radius 8, label typography, critical hierarchy, disabled treatment, focus ring, loading width preservation and logical icon placement. Also inspect the Storybook a11y panel for the public stories.
 
-- [ ] **Step 4: Run Storybook production build and package checks**
+- [ ] **Step 5: Verify Task 4**
 
 ```bash
 pnpm --filter @design-system-exercise/react test
@@ -434,9 +429,9 @@ pnpm typecheck
 pnpm build-storybook
 ```
 
-Expected: PASS with no Storybook import or accessibility build errors.
+Expected: PASS.
 
-- [ ] **Step 5: Commit Task 4**
+- [ ] **Step 6: Commit Task 4**
 
 ```bash
 git add apps/storybook pnpm-lock.yaml
@@ -454,44 +449,44 @@ git commit -m "docs(storybook): add Button documentation"
 - Modify: `docs/superpowers/plans/2026-09-16-button-react-progress.md`
 
 **Interfaces:**
-- Consumes: compiled React package, packed token package, and current CI pipeline.
-- Produces: deterministic packed React package plus clean-consumer smoke verification.
+- Consumes: compiled React package, packed token package and existing CI.
+- Produces: clean-consumer package proof and final milestone evidence.
 
-- [ ] **Step 1: Finalize README consumer instructions**
+- [ ] **Step 1: Finish consumer documentation**
 
-README usage must show both required stylesheet imports:
+README must show:
 
 ```ts
 import '@design-system-exercise/tokens/css';
 import '@design-system-exercise/react/styles.css';
 ```
 
-and a semantic use:
+and:
 
 ```tsx
 <Button emphasis="primary" tone="critical">Delete invitation</Button>
 ```
 
-Document that consumers should use native `disabled`, `loading` for pending requests, and `iconPosition` as logical leading/trailing placement. Explicitly state that size, danger/success, and public visual-state props are unsupported.
+Document native `disabled`, `loading`, and logical `iconPosition`. Explicitly list size, danger/success, and public visual-state props as unsupported.
 
-- [ ] **Step 2: Wire root build commands to build React before Storybook**
+- [ ] **Step 2: Build React before Storybook from root scripts**
 
-Update root scripts so `storybook`, `build-storybook`, and `build` run token build first, React build second, then Storybook. Do not remove existing token validation gates.
+Update root `storybook`, `build-storybook`, and `build` so they run token build, React build, then Storybook. Preserve all existing token validation gates.
 
 - [ ] **Step 3: Extend GitHub Actions with a packed React consumer smoke test**
 
-After the existing token pack check:
+After the token pack check:
 1. build and pack `packages/react`;
-2. verify tar contents include `package.json`, `dist/index.js`, `dist/index.d.ts`, `dist/styles.css`, and `dist/assets/loader-circle.svg`;
-3. initialize a clean npm consumer;
+2. assert the tar contains `package/package.json`, `package/dist/index.js`, `package/dist/index.d.ts`, `package/dist/styles.css`, and `package/dist/assets/loader-circle.svg`;
+3. create a clean npm consumer;
 4. install the packed token tarball first, then the packed React tarball;
-5. install React/React DOM only as scratch-consumer runtime dependencies when the React package peer dependency requires them;
-6. SSR-render `<Button tone="critical">Delete</Button>` with `react-dom/server` and assert the output contains a native `<button` plus `data-tone="critical"`;
+5. install React/React DOM only as scratch-consumer peer runtime dependencies;
+6. SSR-render `<Button tone="critical">Delete</Button>` with `react-dom/server` and assert native `<button` plus `data-tone="critical"` appear;
 7. resolve `@design-system-exercise/react/styles.css` and verify the file exists.
 
-Do not publish either package.
+Do not publish anything.
 
-- [ ] **Step 4: Run the full milestone verification locally**
+- [ ] **Step 4: Run full local verification**
 
 ```bash
 pnpm install --frozen-lockfile
@@ -502,13 +497,11 @@ pnpm typecheck
 pnpm build-storybook
 ```
 
-Then run the same local pack/consumer smoke flow used by CI for tokens and React.
+Then run the same local pack/clean-consumer smoke flow used by CI for both packages. Expected: every command exits 0.
 
-Expected: every command exits 0.
+- [ ] **Step 5: Update the progress tracker**
 
-- [ ] **Step 5: Update the progress tracker with final evidence**
-
-Record Task 1–5 commit SHAs, reviewer outcomes, exact verification commands, final HEAD, and whether GitHub Actions passed on that exact HEAD. Do not mark the plan complete until CI is green on the final commit.
+Record Task 1–5 commit SHAs, reviewer verdicts, exact verification commands, corrections, final HEAD and GitHub Actions status for that exact HEAD. Do not mark complete until CI is green on the final implementation commit.
 
 - [ ] **Step 6: Commit Task 5**
 
@@ -521,7 +514,7 @@ git commit -m "ci: verify packed React Button package"
 
 ## Final Review Gate
 
-Before opening or updating the Button PR:
+Run fresh:
 
 ```bash
 git diff --check
@@ -532,20 +525,20 @@ pnpm typecheck
 pnpm build-storybook
 ```
 
-Then have a fresh reviewer check only this milestone for:
+Then use a fresh reviewer to check:
 
 ```text
 - public API matches the approved semantic contract
 - no Figma-only state props leaked into React
 - critical remains a tone, not a duplicate component
 - no unsupported size/danger/success variants
-- no raw foundation colors/spacing/type values copied into Button CSS
+- no raw foundation values copied into Button CSS
 - Light/Dark and English/Arabic inheritance works
-- loading preserves width and blocks activation
+- loading preserves width and blocks activation while remaining focusable
 - native disabled semantics work
 - RTL leading/trailing behavior is logical
-- package exports and scratch-consumer install work
-- no changes to patterns or unrelated components
+- package exports and clean-consumer install work
+- no patterns or unrelated components changed
 ```
 
-The implementation is complete only when focused tests, full repo tests, typecheck, Storybook production build, package smoke checks, manual Figma parity review, fresh code review, and GitHub Actions all pass on the same final HEAD.
+The milestone is complete only when focused tests, full repo tests, typecheck, Storybook production build, package smoke checks, manual Figma parity review, fresh review and GitHub Actions all pass on the same final HEAD.
