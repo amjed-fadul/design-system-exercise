@@ -1,9 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-const cssUrl = new URL('./IconButton.css', import.meta.url);
-const cssPath = fileURLToPath(cssUrl);
+const cssPath = resolve(process.cwd(), 'src/icon-button/IconButton.css');
 
 function readCss() {
   expect(existsSync(cssPath)).toBe(true);
