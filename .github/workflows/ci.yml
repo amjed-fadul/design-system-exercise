@@ -26,33 +26,74 @@ jobs:
       - run: pnpm test
       - run: pnpm typecheck
       - run: pnpm build-storybook
-      - name: Pack and smoke-test tokens package
+      - name: Pack and smoke-test tokens and React packages
         shell: bash
         run: |
+          set -euo pipefail
           PACK_DIR="$RUNNER_TEMP/design-system-exercise-pack"
           CONSUMER_DIR="$RUNNER_TEMP/design-system-exercise-consumer"
           mkdir -p "$PACK_DIR" "$CONSUMER_DIR"
-          pnpm --dir packages/tokens pack --pack-destination "$PACK_DIR"
-          TARBALL="$(find "$PACK_DIR" -maxdepth 1 -name '*.tgz' -print -quit)"
-          test -n "$TARBALL"
 
-          CONTENTS="$(tar -tzf "$TARBALL")"
-          printf '%s\n' "$CONTENTS"
-          printf '%s\n' "$CONTENTS" | grep -qx 'package/package.json'
-          printf '%s\n' "$CONTENTS" | grep -qx 'package/dist/index.js'
-          printf '%s\n' "$CONTENTS" | grep -qx 'package/dist/index.d.ts'
-          printf '%s\n' "$CONTENTS" | grep -qx 'package/dist/tokens.css'
-          ! printf '%s\n' "$CONTENTS" | grep -Eq 'package/(scripts|tests|\.generated|storybook)/'
+          pnpm --dir packages/tokens pack --pack-destination "$PACK_DIR"
+          pnpm --dir packages/react pack --pack-destination "$PACK_DIR"
+
+          TOKEN_TARBALL="$(find "$PACK_DIR" -maxdepth 1 -name '*tokens*.tgz' -print -quit)"
+          REACT_TARBALL="$(find "$PACK_DIR" -maxdepth 1 -name '*react*.tgz' -print -quit)"
+          test -n "$TOKEN_TARBALL"
+          test -n "$REACT_TARBALL"
+
+          TOKEN_CONTENTS="$(tar -tzf "$TOKEN_TARBALL")"
+          printf '%s\n' "$TOKEN_CONTENTS"
+          printf '%s\n' "$TOKEN_CONTENTS" | grep -qx 'package/package.json'
+          printf '%s\n' "$TOKEN_CONTENTS" | grep -qx 'package/dist/index.js'
+          printf '%s\n' "$TOKEN_CONTENTS" | grep -qx 'package/dist/index.d.ts'
+          printf '%s\n' "$TOKEN_CONTENTS" | grep -qx 'package/dist/tokens.css'
+          ! printf '%s\n' "$TOKEN_CONTENTS" | grep -Eq 'package/(scripts|tests|\.generated|storybook)/'
+
+          REACT_CONTENTS="$(tar -tzf "$REACT_TARBALL")"
+          printf '%s\n' "$REACT_CONTENTS"
+          printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/package.json'
+          printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/index.js'
+          printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/index.d.ts'
+          printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/styles.css'
+          printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/assets/loader-circle.svg'
+          ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq 'package/(src|scripts|tests|storybook|contracts)/'
+          ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq '\.(test|stories)\.'
+          ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq '\.contract\.json$'
 
           cd "$CONSUMER_DIR"
           npm init -y >/dev/null
-          npm install "$TARBALL" --ignore-scripts >/dev/null
+          npm install "$TOKEN_TARBALL" react@19.3.0 react-dom@19.3.0 --ignore-scripts >/dev/null
+          npm install "$REACT_TARBALL" --ignore-scripts >/dev/null
+
           node --input-type=module <<'NODE'
+          import React from 'react';
+          import { existsSync, readFileSync } from 'node:fs';
+          import { renderToStaticMarkup } from 'react-dom/server';
           import { tokens } from '@design-system-exercise/tokens';
-          import { existsSync } from 'node:fs';
+          import { Button } from '@design-system-exercise/react';
+
           if (tokens.color.primitive.brand['600'] !== '#005DCC') throw new Error('brand/600 export mismatch');
           if (tokens.typography.semantic.arabic.body.default.family !== 'IBM Plex Sans Arabic') throw new Error('Arabic body font export mismatch');
-          const cssUrl = import.meta.resolve('@design-system-exercise/tokens/css');
-          if (!cssUrl.endsWith('/dist/tokens.css')) throw new Error(`Unexpected CSS export: ${cssUrl}`);
-          if (!existsSync(new URL(cssUrl))) throw new Error('CSS export missing');
+
+          const tokenCssUrl = import.meta.resolve('@design-system-exercise/tokens/css');
+          if (!tokenCssUrl.endsWith('/dist/tokens.css')) throw new Error(`Unexpected token CSS export: ${tokenCssUrl}`);
+          if (!existsSync(new URL(tokenCssUrl))) throw new Error('Token CSS export missing');
+
+          const html = renderToStaticMarkup(
+            React.createElement(Button, { emphasis: 'secondary', tone: 'critical' }, 'Remove'),
+          );
+          if (!html.includes('<button')) throw new Error('Button did not render a native button');
+          if (!html.includes('data-emphasis="secondary"')) throw new Error('Button emphasis missing');
+          if (!html.includes('data-tone="critical"')) throw new Error('Button tone missing');
+          if (!html.includes('type="button"')) throw new Error('Button safe default type missing');
+
+          const reactCssUrl = import.meta.resolve('@design-system-exercise/react/styles.css');
+          if (!reactCssUrl.endsWith('/dist/styles.css')) throw new Error(`Unexpected React CSS export: ${reactCssUrl}`);
+          if (!existsSync(new URL(reactCssUrl))) throw new Error('React CSS export missing');
+          const reactCss = readFileSync(new URL(reactCssUrl), 'utf8');
+          if (!reactCss.includes('.dse-button')) throw new Error('Button stylesheet content missing');
+
+          const loaderUrl = new URL('./assets/loader-circle.svg', reactCssUrl);
+          if (!existsSync(loaderUrl)) throw new Error('Button loader asset missing from installed package');
           NODE
