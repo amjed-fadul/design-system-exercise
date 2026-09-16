@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
+// The story controls must be an exact documentation projection of dse.button.
 const contractPath = resolve(
   process.cwd(),
   '../../packages/contracts/components/button.contract.json',
