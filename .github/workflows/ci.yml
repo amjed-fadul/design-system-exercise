@@ -23,14 +23,7 @@ jobs:
       - run: pnpm tokens:validate
       - run: pnpm tokens:build
       - run: pnpm --filter @design-system-exercise/react build
-      - name: Test contracts
-        run: pnpm --filter @design-system-exercise/contracts test
-      - name: Test tokens
-        run: pnpm --filter @design-system-exercise/tokens test
-      - name: Test React package
-        run: pnpm --filter @design-system-exercise/react test
-      - name: Test Storybook
-        run: pnpm --filter @design-system-exercise/storybook test
+      - run: pnpm test
       - run: pnpm typecheck
       - run: pnpm build-storybook
       - name: Pack and smoke-test tokens and React packages
