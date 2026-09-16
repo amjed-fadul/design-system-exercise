@@ -1,12 +1,12 @@
 import { readFileSync } from 'node:fs';
 import { basename, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import Ajv, { type ErrorObject, type ValidateFunction } from 'ajv';
+import Ajv, { type AnySchema, type ErrorObject, type ValidateFunction } from 'ajv';
 import { loadComponentContracts, loadPatternContracts } from './load.js';
 import type { ComponentContract, PatternContract, ValidationResult } from './types.js';
 
-function readJson(url: URL): unknown {
-  return JSON.parse(readFileSync(fileURLToPath(url), 'utf8')) as unknown;
+function readJson(url: URL): AnySchema {
+  return JSON.parse(readFileSync(fileURLToPath(url), 'utf8')) as AnySchema;
 }
 
 const ajv = new Ajv({ allErrors: true, strict: true });
