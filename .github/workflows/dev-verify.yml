@@ -28,7 +28,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git restore --source=HEAD -- .github/workflows/dev-verify.yml
           git add -A
+          git reset -- .github/workflows/ci.yml
           if ! git diff --cached --quiet; then
             git commit -m "feat: implement foundations and Storybook"
             git push origin HEAD:${GITHUB_REF_NAME}
