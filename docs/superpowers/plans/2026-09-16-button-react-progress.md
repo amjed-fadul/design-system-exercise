@@ -3,138 +3,119 @@
 **Plan:** `docs/superpowers/plans/2026-09-16-button-react-implementation.md`  
 **Contract architecture:** `docs/superpowers/specs/2026-09-17-component-contracts-design.md`  
 **Figma source:** Button component set `93:1230` in `tYCXBBYoQ92AUKVbND5WkG`  
-**Planned contract:** `dse.button@1.0.0`  
+**Contract:** `dse.button@1.0.0`  
 **Foundations base:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
-**Planning branch:** `plan/button-react-milestone`  
-**Implementation status:** PLANNED — implementation has not started  
+**Planning branch:** `plan/all-components-patterns`  
+**Implementation branch:** `feat/contracts-button`  
+**Draft PR:** #2 `Contracts: govern Button API`  
+**Implementation status:** Task 1 implementation and verification complete; independent fresh review pending  
 **Scope:** Contract infrastructure + Button only
-
-## Branch and PR strategy
-
-The planning branch descends from the verified foundations HEAD. When implementation starts, create the implementation branch from the final planning-branch HEAD so the contract spec, implementation plan, and progress tracker travel with the work.
-
-Until foundations PR #1 is merged, the Button PR should be stacked against `feat/foundations-storybook`. After PR #1 lands, retarget the Button PR to `main` without changing implementation history.
-
-Do not merge PR #1, merge Button work, or publish npm packages as part of executing this plan unless separately requested.
-
-## Planning + knowledge-pack update evidence
-
-The contract architecture was approved and incorporated before implementation starts.
-
-Figma AI knowledge pack updates completed on 2026-09-17:
-
-- added `contracts.md · governed machine boundary` at frame `3032:19`;
-- updated `INDEX.md` to v1.5 and added contract-first reading/authority rules;
-- regenerated `foundations.md` from the live Figma variable inventory: **247 local variables / 15 collections**;
-- explicitly distinguished that Figma inventory from the **223 public code tokens** in the foundations milestone;
-- refreshed Button from the live source: **60 variants = 3 emphasis × 2 tone × 5 state × 2 iconPosition**;
-- added live Button `tone=default|critical` facts and public-vs-Figma representation mapping;
-- updated controls, feedback/surfaces, structure, pattern guidance, agent instructions, checks/limitations, references, and intent-map terminology;
-- added Equinor Component Contracts as governance reference `CC01`;
-- replaced stale prior-file source links with current file `tYCXBBYoQ92AUKVbND5WkG`;
-- final Figma scan found zero occurrences of the stale prior file key, `exact source contracts`, `Current pattern contracts`, `patterns.md contract`, `222 variables`, or `not a running React library`.
-
-This documentation update does **not** count as contract implementation evidence. `dse.button@1.0.0` remains planned/unvalidated until Task 1 creates the JSON contract and `pnpm contracts:validate` passes.
 
 ## Task tracker
 
 | Task | Deliverable | Status | Contract verification | Implementation commit | Fresh review | Verification evidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Contract schemas + validator + `dse.button@1.0.0` | Not started | — | — | — | — |
+| 1 | Contract schemas + validator + `dse.button@1.0.0` | Awaiting fresh review | PASS | `cb6e187` + `21454f9` + `96db3df` | Pending — no reviewer subagent is available in this chat | CI run 9 PASS on `96db3df` |
 | 2 | React package + contract-backed semantic Button API | Not started | — | — | — | — |
 | 3 | Token-driven visual states within contract | Not started | — | — | — | — |
 | 4 | Loading, icons, intrinsic width, RTL + package assets | Not started | — | — | — | — |
 | 5 | Storybook contract docs + four-context Figma parity | Not started | — | — | — | — |
 | 6 | CI, packed-consumer proof + final milestone gate | Not started | — | — | — | — |
 
-**Progress:** 0 / 6 implementation tasks complete.
+**Strict progress:** 0 / 6 tasks complete because Task 1 still requires a fresh independent review.  
+**Implementation progress:** Task 1 code and automated gates are green.
 
-## Required record after every task
+## Task 1 execution record
 
-Update this document before starting the next task with:
+### Branch and commits
 
-- starting HEAD;
-- resulting HEAD and commit SHA;
-- exact changed files;
-- contract IDs/versions added or changed;
-- exact `contracts:validate` result where relevant;
-- focused tests run and their result;
-- relevant package/repo typecheck/build result;
-- fresh reviewer identity and verdict;
-- any correction commit produced by review;
-- remaining known risk or blocker.
+- Starting HEAD: `4b27aa4ae9490f13f964bee04b95211872cd6bfa` (`plan/all-components-patterns`).
+- TDD RED commit: `1b0b0c220bd1557a4842e3a2fb760f54e8942b12` — `test(contracts): add failing Button contract gates`.
+- Generated frozen-lockfile commit: `ff8431e2993398a0a9dfecda47d98fc439000d73`.
+- Main Task 1 implementation commit: `cb6e1877234bc5294b5f93bd01900265c12ddee9` — `feat(contracts): govern Button API`.
+- Type correction: `21454f9b6cf16705e8f49dc288653d9043eff9f5` — Ajv schemas typed as `AnySchema` after the first GREEN candidate exposed a TypeScript compile error.
+- CI contract-validation gate: `96db3df893f6351f290c5684ad76528646b604a7`.
+- Current Task 1 HEAD: `96db3df893f6351f290c5684ad76528646b604a7`.
 
-A task is not `Complete` while contract validation, focused tests, typecheck/build, or fresh review required by that task is unresolved.
+### TDD RED evidence
+
+PR CI run 6 on `ff8431e2993398a0a9dfecda47d98fc439000d73` reached `pnpm test` and failed exactly on the intentionally missing contract implementation:
+
+- contracts package: **3 test files failed / 7 tests failed**;
+- schema tests failed because `src/validate.ts` did not exist;
+- Button contract tests failed because `components/button.contract.json` did not exist;
+- inventory/reference tests failed because the governed Button contract did not exist;
+- frozen install, 223-token validation, and token build passed before the RED gate.
+
+This establishes a real RED state rather than tests written after the implementation.
+
+### GREEN implementation
+
+Task 1 added:
+
+- private package `@design-system-exercise/contracts`;
+- component JSON Schema;
+- pattern JSON Schema;
+- deterministic sorted contract loader;
+- Ajv validators and repository-level validation;
+- duplicate ID/version detection;
+- pattern-to-component reference validation;
+- public token-dependency namespace validation;
+- `dse.button@1.0.0` with current Figma provenance and public/derived/native/Figma-only mappings;
+- root `pnpm contracts:validate` command;
+- permanent `pnpm contracts:validate` CI gate;
+- frozen lockfile entries for Ajv and the contracts package.
+
+### Debugging record
+
+The first GREEN candidate passed all contract tests but failed TypeScript at `Ajv.compile()` because parsed schema JSON was typed as `unknown`. The error was reproduced in CI run 7 and traced to `readJson(): unknown`. The minimal correction changed only the schema parse type to Ajv `AnySchema`. CI run 8 then passed tests, typecheck, Storybook build, and package smoke checks.
+
+### Exact-HEAD verification
+
+GitHub Actions **CI run 9** on exact HEAD `96db3df893f6351f290c5684ad76528646b604a7` passed all configured gates:
+
+- `pnpm install --frozen-lockfile` — PASS;
+- `pnpm contracts:validate` — PASS;
+- `pnpm tokens:validate` — PASS, **223 logical tokens**;
+- `pnpm tokens:build` — PASS;
+- `pnpm test` — PASS, including contracts **3 files / 7 tests** and tokens **5 files / 17 tests**;
+- `pnpm typecheck` — PASS;
+- Storybook production build — PASS;
+- packed token-package consumer smoke test — PASS.
+
+Task 1 does not change the React package, so React package build/consumer checks are not applicable yet.
+
+### Fresh-review gate
+
+The required independent/fresh reviewer gate is still unresolved. The available tools in this chat do not provide a reviewer/subagent, so no independent verdict is being fabricated. Task 2 must not be treated as started under the strict plan until this gate is satisfied or the user explicitly waives it.
 
 ## Contract governance checklist
 
-- [ ] `component-contract.schema.json` exists and rejects unknown/malformed governed fields.
-- [ ] `pattern-contract.schema.json` exists and validates real pattern fixtures without creating fake pattern contracts.
-- [ ] `pnpm contracts:validate` is deterministic and offline.
-- [ ] Exactly one real component contract exists in this milestone: `dse.button@1.0.0`.
-- [ ] No placeholder future component contracts exist.
-- [ ] No product pattern contract is invented before its implementation milestone.
-- [ ] `dse.button` records current Figma source `tYCXBBYoQ92AUKVbND5WkG / 93:1230`.
-- [ ] Button contract legal enums are exactly `emphasis=primary|secondary|text`, `tone=default|critical`, `iconPosition=leading|trailing`.
-- [ ] Contract explicitly excludes public `state`, `focusVisible`, `showIcon`, `size`, `danger`, and `success` APIs.
-- [ ] Contract distinguishes native/derived/public/Figma-only state representation.
-- [ ] Contract token dependencies contain only public token namespaces, not excluded Figma internal collections.
-- [ ] React Button package has no production dependency on the private contracts package.
+- [x] `component-contract.schema.json` exists and rejects unknown/malformed governed fields.
+- [x] `pattern-contract.schema.json` exists and validates pattern fixtures without creating fake pattern contracts.
+- [x] `pnpm contracts:validate` is deterministic/offline and passes on Task 1 HEAD.
+- [x] Exactly one real component contract exists: `dse.button@1.0.0`.
+- [x] No placeholder future component contracts exist.
+- [x] No product pattern contract was invented.
+- [x] `dse.button` records `tYCXBBYoQ92AUKVbND5WkG / 93:1230`.
+- [x] Legal enums are exactly `emphasis=primary|secondary|text`, `tone=default|critical`, `iconPosition=leading|trailing`.
+- [x] Contract excludes public `state`, `focusVisible`, `showIcon`, `size`, `danger`, and `success` APIs.
+- [x] Contract distinguishes native/derived/public/Figma-only representation.
+- [x] Contract token dependencies use public `--dse-*` names rather than excluded Figma internal collections.
+- [ ] Fresh independent Task 1 review completed with no unresolved Important/Critical findings.
+- [ ] React package remains free of a production dependency on contracts — verified when Task 2 creates the React package.
 
-## Final verification checklist
+## Remaining Button milestone checklist
 
-- [ ] `pnpm contracts:validate` passes on final HEAD.
-- [ ] Contracts package tests pass.
-- [ ] Contracts package typecheck passes.
-- [ ] React package build passes.
-- [ ] Button focused tests pass, including contract parity tests.
-- [ ] Full `pnpm test` passes.
-- [ ] Full `pnpm typecheck` passes.
-- [ ] `pnpm tokens:validate` passes with the existing 223 public code-token contract unchanged unless an explicitly reviewed foundation amendment was required.
-- [ ] `pnpm tokens:build` passes.
-- [ ] Storybook contract-control test passes.
-- [ ] Storybook production build passes.
-- [ ] Light + English manually matches Figma.
-- [ ] Dark + English manually matches Figma.
-- [ ] Light + Arabic/RTL manually matches Figma.
-- [ ] Dark + Arabic/RTL manually matches Figma.
-- [ ] Packed token package installs in a clean scratch consumer.
-- [ ] Packed React package installs in the same clean scratch consumer.
-- [ ] Scratch consumer can SSR-render Button through the public package export.
-- [ ] Public React stylesheet export resolves from the packed package.
-- [ ] React tarball does not contain source contracts or contract package files.
-- [ ] Fresh final review reports no unresolved findings.
-- [ ] GitHub Actions passes on the exact final implementation HEAD.
-
-## AI knowledge-pack alignment record
-
-The Figma AI knowledge pack is a guidance/evidence surface, not the contract source of truth. It now distinguishes:
-
-```text
-Contract       = legal supported boundary
-Implementation = runtime behavior
-Figma snapshot = factual design representation
-Knowledge      = when/why/how to choose supported capabilities
-Reference      = external principle/provenance
-```
-
-Current inventory language distinguishes 247 local Figma variables across 15 collections from the 223 public code tokens in the foundations milestone; those inventories are intentionally not assumed to be 1:1 because Figma contains internal/helper variables excluded from the public code API.
+- [ ] Task 1 fresh review resolved.
+- [ ] React Button API implemented against the contract.
+- [ ] Token-driven Button visual states implemented.
+- [ ] Loading/icons/intrinsic width/RTL behavior implemented.
+- [ ] Storybook contract documentation and Light/Dark × English/Arabic parity completed.
+- [ ] Packed React consumer proof completed.
+- [ ] Fresh final Button review completed.
+- [ ] Exact final Button HEAD passes GitHub Actions.
 
 ## Scope guard
 
-The following remain outside this plan:
-
-- implementation of Icon Button, Link, fields, Radio Group, feedback components, surfaces, navigation components, Table, and all product patterns;
-- placeholder contracts for those future units;
-- npm publication;
-- contract-driven React/Figma generation;
-- Code Connect rollout;
-- automatic Figma/code synchronization;
-- loader animation;
-- new Button size variants;
-- `danger` or `success` Button variants;
-- changes to the existing 223 public foundation-token model unless a missing public semantic is proven and separately reviewed.
-
-## Current state
-
-The contract architecture, six-task plan, progress tracker, and Figma AI knowledge pack are aligned for a contract-first Button milestone. No production contract package, React implementation, or CI contract gate has been implemented yet. The first execution action remains Task 1: contract schemas, deterministic validator, and the real `dse.button@1.0.0` contract.
+Still outside the Button milestone: Icon Button, Link, fields, Radio Group, feedback/surface/structure components, product patterns, npm publication, contract-driven Figma/React generation, Code Connect rollout, loader animation, Button size variants, `danger`/`success` variants, and unreviewed foundation-token changes.
