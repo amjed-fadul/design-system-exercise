@@ -6,7 +6,11 @@
 **Active implementation branch:** `feat/contracts-button`  
 **Foundations baseline:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Figma source:** `tYCXBBYoQ92AUKVbND5WkG`  
-**Status:** IMPLEMENTATION STARTED — C01 contract infrastructure is green; fresh review pending
+**Status:** IMPLEMENTATION IN PROGRESS — C01 Button Tasks 1-2 complete; Task 3 next
+
+## Review policy
+
+Per user direction, implementation reviews are performed inline by ChatGPT without sub-agents. They are recorded as **inline self-review**, not independent review.
 
 ## Progress summary
 
@@ -18,9 +22,9 @@
 
 ## Component milestones
 
-| ID | Component | Contract | Figma | Depends on | Status | Implementation SHA | Fresh review | CI exact HEAD |
+| ID | Component | Contract | Figma | Depends on | Status | Latest implementation SHA | Review | CI evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| C01 | Button | `dse.button@1.0.0` | `93:1230` | contract infrastructure | In progress — Task 1 green, review pending | `96db3df` Task 1 automation HEAD | Pending independent review | Run 9 PASS on `96db3df` |
+| C01 | Button | `dse.button@1.0.0` | `93:1230` | contract infrastructure | In progress — Tasks 1-2 complete, Task 3 next | `04d5474` Task 2 GREEN | Inline self-review APPROVED through Task 2 | Run 25 PASS on `04d5474` |
 | C02 | Icon Button | `dse.icon-button` | `110:1339` | C01 package infrastructure | Not started | — | — | — |
 | C03 | Link | `dse.link` | `114:13` | C01 package infrastructure | Not started | — | — | — |
 | C04 | Text Field | `dse.text-field` | `112:263` | internal `_Input Control` | Not started | — | — | — |
@@ -40,81 +44,38 @@
 
 ## Internal helper tracking
 
-| Helper | Internal contract | Figma | Parent milestone | Status | Evidence |
-| --- | --- | --- | --- | --- | --- |
-| `_Input Control` | `dse._input-control` | `111:22` | C04 | Not started | — |
-| `_Radio Option` | `dse._radio-option` | `116:174` | C06 | Not started | — |
-| `_Navigation Item` | `dse._navigation-item` | `143:2948` | C13 | Not started | — |
-| `_Breadcrumb Link Item` | `dse._breadcrumb-link-item` | `139:16` | C15 | Not started | — |
-| `_Table Header` | `dse._table-header` | `152:3685` | C17 | Not started | — |
-| `_Table Row` | `dse._table-row` | `152:3729` | C17 | Not started | — |
+| Helper | Internal contract | Figma | Parent milestone | Status |
+| --- | --- | --- | --- | --- |
+| `_Input Control` | `dse._input-control` | `111:22` | C04 | Not started |
+| `_Radio Option` | `dse._radio-option` | `116:174` | C06 | Not started |
+| `_Navigation Item` | `dse._navigation-item` | `143:2948` | C13 | Not started |
+| `_Breadcrumb Link Item` | `dse._breadcrumb-link-item` | `139:16` | C15 | Not started |
+| `_Table Header` | `dse._table-header` | `152:3685` | C17 | Not started |
+| `_Table Row` | `dse._table-row` | `152:3729` | C17 | Not started |
 
-`_Button / Busy indicator` (`93:24`) remains an implementation detail inside C01 and is not counted as an independent helper-contract milestone.
+`_Button / Busy indicator` (`93:24`) remains a C01 implementation detail, not an independent helper-contract milestone.
 
 ## Pattern milestones
 
-| ID | Pattern | Contract | Figma guide | Depends on | Status | Implementation SHA | Fresh review | CI exact HEAD |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P01 | Application Shell | `dse.pattern.application-shell` | `68:494` | C13-C16; content can host C17 | Not started | — | — | — |
-| P02 | Form Submit and Recover | `dse.pattern.form-submit-recover` | `68:2` | C01, C04, C06, C07, C10 | Not started | — | — | — |
-| P03 | Unsaved-change Guard | `dse.pattern.unsaved-change-guard` | `68:371` | C01, C10 | Not started | — | — | — |
-| P04 | Edit, Save and Recover | `dse.pattern.edit-save-recover` | `68:240` | C01, C06, C07, C11, P03 | Not started | — | — | — |
-| P05 | Search, List and Detail | `dse.pattern.search-list-detail` | `68:121` | C05, C11, C12, C17, P01, P03, P04 | Not started | — | — | — |
+| ID | Pattern | Contract | Figma guide | Depends on | Status |
+| --- | --- | --- | --- | --- | --- |
+| P01 | Application Shell | `dse.pattern.application-shell` | `68:494` | C13-C16; content can host C17 | Not started |
+| P02 | Form Submit and Recover | `dse.pattern.form-submit-recover` | `68:2` | C01, C04, C06, C07, C10 | Not started |
+| P03 | Unsaved-change Guard | `dse.pattern.unsaved-change-guard` | `68:371` | C01, C10 | Not started |
+| P04 | Edit, Save and Recover | `dse.pattern.edit-save-recover` | `68:240` | C01, C06, C07, C11, P03 | Not started |
+| P05 | Search, List and Detail | `dse.pattern.search-list-detail` | `68:121` | C05, C11, C12, C17, P01, P03, P04 | Not started |
 
-## C01 Task 1 evidence
+## C01 evidence summary
 
-- Starting HEAD: `4b27aa4ae9490f13f964bee04b95211872cd6bfa`.
-- RED commit: `1b0b0c220bd1557a4842e3a2fb760f54e8942b12`.
-- RED CI: run 6 — contract package **7/7 tests failed intentionally** because schemas/validator/Button contract did not yet exist; frozen install and token gates passed first.
-- Lockfile commit: `ff8431e2993398a0a9dfecda47d98fc439000d73`.
-- Main implementation: `cb6e1877234bc5294b5f93bd01900265c12ddee9`.
-- Type correction after root-cause analysis: `21454f9b6cf16705e8f49dc288653d9043eff9f5`.
-- Permanent contract CI gate: `96db3df893f6351f290c5684ad76528646b604a7`.
-- Exact automated verification: CI run 9 PASS on `96db3df` — frozen install, `contracts:validate`, 223-token validate/build, full tests, typecheck, Storybook build, token pack/consumer smoke.
-- Independent fresh review: **pending** because this chat has no reviewer/subagent capability. No independent verdict is being fabricated.
+Task 1: correct RED captured; schemas/validator/`dse.button@1.0.0` implemented; Ajv type issue fixed from root cause; permanent `contracts:validate` CI gate added; exact reviewed HEAD `bd114d4`, CI run 11 PASS; inline self-review APPROVED.
 
-See `2026-09-16-button-react-progress.md` for the detailed Task 1 record.
+Task 2: React package activated; correct RED captured at `fc382d1` with 5/5 tests failing solely because Button was absent; minimal Button API implemented at `f632aa8`, public export at `04d5474`; CI run 25 PASS on exact `04d5474`; inline self-review APPROVED. Contracts remain governance/test input only and are not a runtime dependency.
+
+Detailed evidence: `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
 
 ## Milestone completion rule
 
-Before the next public milestone, record:
-
-- starting and resulting HEADs;
-- contract ID/version;
-- exact files changed;
-- focused RED and GREEN evidence;
-- package tests/typecheck/build;
-- `pnpm contracts:validate`;
-- full repo tests/typecheck;
-- Storybook production build;
-- visual parity contexts when applicable;
-- packed-consumer proof when a public package changed;
-- fresh reviewer identity/verdict;
-- correction commits;
-- exact-HEAD GitHub Actions result;
-- remaining risk/blocker.
-
-A milestone is not `Complete` while required verification or fresh review is unresolved.
-
-## Global final acceptance checklist
-
-- [ ] 17/17 public component contracts validate.
-- [ ] 6/6 internal helper contracts exist only where required and remain non-public.
-- [ ] 5/5 pattern contracts validate.
-- [ ] `@design-system-exercise/react` exports exactly the approved public components and no underscore helper.
-- [ ] `@design-system-exercise/patterns` exports exactly the approved public patterns.
-- [ ] No public API directly copies Figma-only state controls unless its contract approves that mapping.
-- [ ] All component CSS consumes public token variables and contains no unauthorized raw foundation color values.
-- [ ] Light/Dark Storybook coverage exists for every public component.
-- [ ] English/Arabic/RTL Storybook coverage exists for every text-bearing public component.
-- [ ] Wide/Narrow coverage exists for every responsive pattern that declares it.
-- [ ] All contract/component/pattern tests pass.
-- [ ] Full repo typecheck passes.
-- [ ] Storybook production build passes.
-- [ ] Clean consumer can install packed tokens, React, and patterns packages and render representative exports.
-- [ ] AI knowledge pack references validated contract IDs only after those contracts exist.
-- [ ] Fresh final system review reports no unresolved Critical/Important findings.
-- [ ] GitHub Actions passes on the exact final system HEAD.
+For every task/milestone record RED/GREEN evidence, contract validation, focused/full tests, typecheck/build, visual parity when applicable, packed-consumer proof when applicable, inline self-review verdict, corrections, and exact-HEAD CI. Do not mark a milestone complete with an unresolved gate.
 
 ## Scope guard
 
