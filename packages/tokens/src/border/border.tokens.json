@@ -1,0 +1,43 @@
+{
+  "width": {
+    "none": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      }
+    },
+    "base": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      }
+    },
+    "strong": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      }
+    }
+  },
+  "role": {
+    "base": {
+      "$type": "dimension",
+      "$value": "{border.width.base}"
+    },
+    "divider": {
+      "$type": "dimension",
+      "$value": "{border.width.base}"
+    },
+    "container": {
+      "$type": "dimension",
+      "$value": "{border.width.base}"
+    },
+    "focus": {
+      "$type": "dimension",
+      "$value": "{border.width.strong}"
+    }
+  }
+}

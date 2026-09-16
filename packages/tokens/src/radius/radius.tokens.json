@@ -1,0 +1,64 @@
+{
+  "radius": {
+    "none": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "full": {
+      "$type": "dimension",
+      "$value": {
+        "value": 999,
+        "unit": "px"
+      }
+    }
+  },
+  "shape": {
+    "control": {
+      "$type": "dimension",
+      "$value": "{radius.radius.md}"
+    },
+    "surface": {
+      "$type": "dimension",
+      "$value": "{radius.radius.lg}"
+    },
+    "overlay": {
+      "$type": "dimension",
+      "$value": "{radius.radius.xl}"
+    },
+    "rounded": {
+      "$type": "dimension",
+      "$value": "{radius.radius.full}"
+    }
+  }
+}

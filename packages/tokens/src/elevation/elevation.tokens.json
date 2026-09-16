@@ -1,0 +1,20 @@
+{
+  "plane": {
+    "canvas": {
+      "$type": "number",
+      "$value": 0
+    },
+    "surface": {
+      "$type": "number",
+      "$value": 1
+    },
+    "overlay": {
+      "$type": "number",
+      "$value": 3
+    },
+    "elevated": {
+      "$type": "number",
+      "$value": 4
+    }
+  }
+}
