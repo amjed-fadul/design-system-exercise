@@ -24,19 +24,28 @@ jobs:
         with:
           node-version: 24.21.0
       - run: pnpm install --no-frozen-lockfile
-      - name: Commit implementation and lockfile
+      - name: Persist lockfile changes
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ -f .github/bootstrap.py ]; then
-            git restore --source=HEAD -- .github/workflows/dev-verify.yml
-            git add -A
-            git reset -- .github/workflows/ci.yml
-            if ! git diff --cached --quiet; then
-              git commit -m "feat: implement foundations and Storybook"
-              git push origin HEAD:${GITHUB_REF_NAME}
-            fi
+          git add pnpm-lock.yaml
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: refresh pnpm lockfile"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
+      - name: Commit implementation
+        if: ${{ hashFiles('.github/bootstrap.py') != '' }}
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git restore --source=HEAD -- .github/workflows/dev-verify.yml
+          git add -A
+          git reset -- .github/workflows/ci.yml
+          if ! git diff --cached --quiet; then
+            git commit -m "feat: implement foundations and Storybook"
+            git push origin HEAD:${GITHUB_REF_NAME}
           fi
       - run: pnpm -r list --depth -1
       - run: pnpm tokens:validate
