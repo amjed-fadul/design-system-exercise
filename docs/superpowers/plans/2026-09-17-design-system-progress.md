@@ -6,7 +6,7 @@
 **Active implementation branch:** `feat/contracts-button`  
 **Foundations baseline:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Figma source:** `tYCXBBYoQ92AUKVbND5WkG`  
-**Status:** IMPLEMENTATION IN PROGRESS — C01 Button Tasks 1-2 complete; Task 3 next
+**Status:** C01 BUTTON IMPLEMENTATION COMPLETE — exact final documentation HEAD CI is the remaining record gate; C02 has not started
 
 ## Review policy
 
@@ -14,17 +14,18 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 
 ## Progress summary
 
-- Public components complete: **0 / 17**
-- Public components in progress: **1 / 17** — C01 Button
+- Public components complete: **1 / 17** — C01 Button
+- Public components in progress: **0 / 17**
 - Internal helpers governed with parent milestones: **0 / 6 complete**
 - Product patterns: **0 / 5 complete**
-- Overall public milestones complete: **0 / 22**
+- Overall public milestones complete: **1 / 22**
+- Next planned milestone: **C02 Icon Button — not started**
 
 ## Component milestones
 
 | ID | Component | Contract | Figma | Depends on | Status | Latest implementation SHA | Review | CI evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| C01 | Button | `dse.button@1.0.0` | `93:1230` | contract infrastructure | In progress — Tasks 1-2 complete, Task 3 next | `04d5474` Task 2 GREEN | Inline self-review APPROVED through Task 2 | Run 25 PASS on `04d5474` |
+| C01 | Button | `dse.button@1.0.0` | `93:1230` | contract infrastructure | Complete — final record HEAD CI pending | `c05a494` | Inline self-review APPROVED; no unresolved Critical/Important findings | Implementation run 58 PASS on `c05a494`; final docs HEAD must also PASS |
 | C02 | Icon Button | `dse.icon-button` | `110:1339` | C01 package infrastructure | Not started | — | — | — |
 | C03 | Link | `dse.link` | `114:13` | C01 package infrastructure | Not started | — | — | — |
 | C04 | Text Field | `dse.text-field` | `112:263` | internal `_Input Control` | Not started | — | — | — |
@@ -67,9 +68,17 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 
 ## C01 evidence summary
 
-Task 1: correct RED captured; schemas/validator/`dse.button@1.0.0` implemented; Ajv type issue fixed from root cause; permanent `contracts:validate` CI gate added; exact reviewed HEAD `bd114d4`, CI run 11 PASS; inline self-review APPROVED.
-
-Task 2: React package activated; correct RED captured at `fc382d1` with 5/5 tests failing solely because Button was absent; minimal Button API implemented at `f632aa8`, public export at `04d5474`; CI run 25 PASS on exact `04d5474`; inline self-review APPROVED. Contracts remain governance/test input only and are not a runtime dependency.
+- **Contract:** deterministic private contract package, component/pattern schemas, `dse.button@1.0.0`, offline `contracts:validate`, no placeholder future contracts.
+- **React API:** native Button with contract-backed `emphasis`, `tone`, `loading`, `loadingLabel`, `icon`, `iconPosition`, native `disabled`, forwarded native attributes, required visible `children`, and safe `type=button` default.
+- **Visuals:** all contract token dependencies, no raw colors, logical CSS, legal emphasis/tone matrix, native/derived visual states.
+- **Behavior:** focusable loading with `aria-busy` + `aria-disabled`, duplicate activation suppression, native disabled preservation, intrinsic normal/loading width, decorative logical icons, RTL-safe order.
+- **Assets:** exact Figma loader source `86:11830`, deterministic CSS/SVG package output.
+- **Storybook:** contract-backed controls and stories; Light/Dark × English/Arabic Chromium parity plus loading/disabled/RTL icon evidence reviewed against live Figma.
+- **Packaging:** permanent clean-consumer CI packs tokens + React, rejects source/test/story/contract leakage, SSR-renders Button, and resolves public CSS/loader assets.
+- **Final review corrections:** required-children mismatch caught RED in run 55 and fixed GREEN in run 56; missing contract-default parity caught RED in run 57 and fixed GREEN in run 58.
+- **Implementation HEAD:** `c05a4940014cd2e78e7f94aa7ddfb589388a4b90`; GitHub Actions run 58 PASS.
+- **AI knowledge pack:** updated so Button is `contract_validation=passed`; later component/pattern contracts remain unavailable until individually implemented and validated.
+- **Review:** inline self-review APPROVED after fixes; no unresolved Critical or Important findings.
 
 Detailed evidence: `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
 
@@ -77,6 +86,8 @@ Detailed evidence: `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
 
 For every task/milestone record RED/GREEN evidence, contract validation, focused/full tests, typecheck/build, visual parity when applicable, packed-consumer proof when applicable, inline self-review verdict, corrections, and exact-HEAD CI. Do not mark a milestone complete with an unresolved gate.
 
+For C01 specifically, the implementation gate is complete on `c05a494` / run 58. The documentation-only final record commit that contains this tracker and the Button tracker/spec must also receive a passing PR CI check; that exact-HEAD check is the authoritative completion record and does not require another tracker mutation.
+
 ## Scope guard
 
-This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units.
+This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. C02 must not start without explicit user authorization.
