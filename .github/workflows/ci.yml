@@ -23,6 +23,12 @@ jobs:
       - run: pnpm tokens:validate
       - run: pnpm tokens:build
       - run: pnpm --filter @design-system-exercise/react build
+      - name: Diagnostic Icon Button runtime test
+        continue-on-error: true
+        run: pnpm --filter @design-system-exercise/react test -- IconButton.test.tsx
+      - name: Diagnostic Icon Button CSS test
+        continue-on-error: true
+        run: pnpm --filter @design-system-exercise/react test -- IconButton.css.test.ts
       - run: pnpm test
       - run: pnpm typecheck
       - run: pnpm build-storybook
