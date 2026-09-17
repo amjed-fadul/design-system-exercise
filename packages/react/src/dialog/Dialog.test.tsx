@@ -49,7 +49,7 @@ describe('Dialog public runtime', () => {
     if (!module) return;
     const { Dialog } = module;
 
-    const { container } = render(
+    render(
       <Dialog open onOpenChange={() => {}} title="Confirm change">
         <p>Body</p>
       </Dialog>,
@@ -57,7 +57,7 @@ describe('Dialog public runtime', () => {
 
     const dialog = screen.getByRole('dialog', { name: 'Confirm change' });
     expect(dialog).not.toHaveAttribute('aria-describedby');
-    expect(container.querySelector('.dse-dialog__description')).toBeNull();
+    expect(document.querySelector('.dse-dialog__description')).toBeNull();
   });
 
   it('uses a named governed close control and requests close on activation', async () => {
@@ -86,7 +86,7 @@ describe('Dialog public runtime', () => {
     const onOpenChange = vi.fn();
     const user = userEvent.setup();
 
-    const { container } = render(
+    render(
       <Dialog open onOpenChange={onOpenChange} title="Pending task" showClose={false}>
         <button>Only action</button>
       </Dialog>,
@@ -101,7 +101,6 @@ describe('Dialog public runtime', () => {
     expect(backdrop).not.toBeNull();
     await user.click(backdrop!);
     expect(onOpenChange).not.toHaveBeenCalled();
-    expect(container).toBeDefined();
   });
 
   it('composes body and actions without interpreting their product behavior', async () => {
@@ -143,7 +142,13 @@ describe('Dialog public runtime', () => {
     function Harness() {
       const firstRef = useRef<HTMLInputElement>(null);
       return (
-        <Dialog open onOpenChange={() => {}} title="Invite" initialFocusRef={firstRef}>
+        <Dialog
+          open
+          onOpenChange={() => {}}
+          title="Invite"
+          initialFocusRef={firstRef}
+          showClose={false}
+        >
           <input ref={firstRef} aria-label="Email" />
           <button>Last action</button>
         </Dialog>
