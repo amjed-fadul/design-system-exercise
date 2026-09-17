@@ -191,7 +191,7 @@ export const DedicatedDetail: Story = {
     header: (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <MemberHeader />
-        <StatusBadge>Active</StatusBadge>
+        <StatusBadge label="Active" />
       </div>
     ),
     children: <MemberBody />,
