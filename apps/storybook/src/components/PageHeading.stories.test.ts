@@ -1,3 +1,4 @@
+import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 const storyModulePath = './PageHeading.stories';
@@ -57,6 +58,18 @@ describe('Page Heading Storybook contract', () => {
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.Arabic.args?.title).toMatch(/[\u0600-\u06FF]/);
+  });
+
+  it('keeps the temporary Breadcrumbs fixture semantic and token-aligned without implementing C16', async () => {
+    const module = await loadStories();
+    if (!module) return;
+
+    const breadcrumbHtml = renderToStaticMarkup(module.pageHeadingMeta.args?.breadcrumbs);
+    expect(breadcrumbHtml).toContain('<nav');
+    expect(breadcrumbHtml).toContain('aria-label="Breadcrumbs"');
+    expect(breadcrumbHtml).toContain('aria-current="page"');
+    expect(breadcrumbHtml).toContain('--dse-typography-semantic-label-small-family');
+    expect(breadcrumbHtml).toContain('--dse-color-semantic-fg-secondary');
   });
 
   it('documents the Figma authority, slot limits, and the Breadcrumbs dependency boundary', async () => {
