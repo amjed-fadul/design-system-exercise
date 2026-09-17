@@ -20,3 +20,6 @@ export type { SearchFieldProps } from './search-field/SearchField.js';
 
 export { RadioGroup } from './radio-group/RadioGroup.js';
 export type { RadioGroupOption, RadioGroupProps } from './radio-group/RadioGroup.js';
+
+export { InlineFeedback } from './inline-feedback/InlineFeedback.js';
+export type { InlineFeedbackIntent, InlineFeedbackProps } from './inline-feedback/InlineFeedback.js';
