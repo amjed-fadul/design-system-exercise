@@ -50,3 +50,6 @@ export type { PageHeadingProps } from './page-heading/PageHeading.js';
 
 export { Breadcrumbs } from './breadcrumbs/Breadcrumbs.js';
 export type { BreadcrumbAncestor, BreadcrumbsProps } from './breadcrumbs/Breadcrumbs.js';
+
+export { Table } from './table/Table.js';
+export type { TableProps, TableRowData } from './table/Table.js';

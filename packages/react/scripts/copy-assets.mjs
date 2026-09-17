@@ -49,10 +49,11 @@ const breadcrumbsCss = await readFile(
   new URL('../src/breadcrumbs/Breadcrumbs.css', import.meta.url),
   'utf8',
 );
+const tableCss = await readFile(new URL('../src/table/Table.css', import.meta.url), 'utf8');
 
 await writeFile(
   new URL('../dist/styles.css', import.meta.url),
-  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n\n${searchFieldCss.trimEnd()}\n\n${radioGroupCss.trimEnd()}\n\n${inlineFeedbackCss.trimEnd()}\n\n${avatarCss.trimEnd()}\n\n${statusBadgeCss.trimEnd()}\n\n${dialogCss.trimEnd()}\n\n${sidePanelCss.trimEnd()}\n\n${emptyStateCss.trimEnd()}\n\n${sidebarCss.trimEnd()}\n\n${topNavbarCss.trimEnd()}\n\n${pageHeadingCss.trimEnd()}\n\n${breadcrumbsCss.trimEnd()}\n`,
+  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n\n${searchFieldCss.trimEnd()}\n\n${radioGroupCss.trimEnd()}\n\n${inlineFeedbackCss.trimEnd()}\n\n${avatarCss.trimEnd()}\n\n${statusBadgeCss.trimEnd()}\n\n${dialogCss.trimEnd()}\n\n${sidePanelCss.trimEnd()}\n\n${emptyStateCss.trimEnd()}\n\n${sidebarCss.trimEnd()}\n\n${topNavbarCss.trimEnd()}\n\n${pageHeadingCss.trimEnd()}\n\n${breadcrumbsCss.trimEnd()}\n\n${tableCss.trimEnd()}\n`,
 );
 
 for (const asset of [

@@ -1,0 +1,127 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse._table-header",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "internal",
+  "name": "_Table Header",
+  "description": "Private semantic header renderer for the Table's four fixed column meanings. It owns header geometry and native column-header semantics but is never a public composition primitive.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "152:3685"
+    }
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "primaryLabel",
+        "description": "Primary column label supplied by Table.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "secondaryLabel",
+        "description": "Secondary column label supplied by Table.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "statusLabel",
+        "description": "Status column label supplied by Table.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "actionLabel",
+        "description": "Action column label supplied by Table.",
+        "required": true,
+        "type": { "native": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.primaryLabel#152:5",
+      "kind": "public",
+      "mapsTo": "internalApi.primaryLabel"
+    },
+    {
+      "source": "figma.secondaryLabel#152:6",
+      "kind": "public",
+      "mapsTo": "internalApi.secondaryLabel"
+    },
+    {
+      "source": "figma.statusLabel#152:7",
+      "kind": "public",
+      "mapsTo": "internalApi.statusLabel"
+    },
+    {
+      "source": "figma.actionLabel#152:8",
+      "kind": "public",
+      "mapsTo": "internalApi.actionLabel"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "header-row",
+      "required": true,
+      "description": "Single native table header row."
+    },
+    {
+      "name": "column-headers",
+      "required": true,
+      "description": "Exactly four th scope=col cells in Primary / Secondary / Status / Action order."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-surface-section",
+    "--dse-color-semantic-fg-secondary",
+    "--dse-typography-semantic-label-default-family",
+    "--dse-typography-semantic-label-default-size",
+    "--dse-typography-semantic-label-default-weight",
+    "--dse-typography-semantic-label-default-line-height",
+    "--dse-typography-semantic-label-default-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "native thead containing one tr with four th scope=col column headers",
+    "accessibleName": "Each non-empty visible label names its corresponding column.",
+    "keyboardActivation": "none; header cells are not interactive",
+    "focus": "The private header does not create focusable elements.",
+    "requirements": [
+      "Exactly four native column headers are rendered in Primary / Secondary / Status / Action order.",
+      "Changing label copy never adds, removes, reorders, sorts, or changes a column's semantic role.",
+      "Primary flexes while Secondary / Status / Action match the row's reviewed 100px / 160px / 128px content widths.",
+      "The reviewed header is 44px tall with 20px inline insets and shared 24px / 24px / 8px inter-region gaps.",
+      "No sort state, icon, select-all control, arbitrary Header Cell API, or data-grid toolbar behavior exists.",
+      "The helper remains private and must not appear in the public React barrel or package exports."
+    ]
+  },
+  "composition": {
+    "content": {
+      "optional": false,
+      "description": "Fixed private semantic header anatomy only.",
+      "allowedChildren": ["four native th scope=col cells"]
+    }
+  },
+  "events": [],
+  "forbidden": [
+    "sorting",
+    "sort icon",
+    "select all",
+    "checkbox",
+    "arbitrary columns",
+    "public package export"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-18",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:152:3685",
+      "https://carbondesignsystem.com/components/data-table/usage/",
+      "https://www.w3.org/WAI/tutorials/tables/"
+    ]
+  }
+}
