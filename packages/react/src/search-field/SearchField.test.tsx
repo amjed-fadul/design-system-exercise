@@ -163,14 +163,14 @@ describe('SearchField public runtime', () => {
     expect(onClear).not.toHaveBeenCalled();
   });
 
-  it('locks search semantics and strips validation semantics even when forced by untyped input', async () => {
+  it('locks search semantics and strips validation/result semantics even when forced by untyped input', async () => {
     const module = await loadSearchFieldModule();
     if (!module) return;
 
     const { SearchField } = module;
     render(
       <SearchField
-        {...({ type: 'email', 'aria-invalid': 'true' } as any)}
+        {...({ type: 'email', 'aria-invalid': 'true', results: 5 } as any)}
         aria-label="Search team"
         clearButtonLabel="Clear search"
       />,
@@ -179,6 +179,7 @@ describe('SearchField public runtime', () => {
     const input = screen.getByRole('searchbox', { name: 'Search team' });
     expect(input).toHaveAttribute('type', 'search');
     expect(input).not.toHaveAttribute('aria-invalid');
+    expect(input).not.toHaveAttribute('results');
   });
 
   it('forwards onChange exactly once per native query change', async () => {
