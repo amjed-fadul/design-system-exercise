@@ -1,0 +1,71 @@
+.dse-inline-feedback {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  min-inline-size: 0;
+  min-block-size: 48px;
+  padding: var(--dse-spacing-primitive-space-400);
+  gap: var(--dse-spacing-primitive-space-200);
+  border: var(--dse-border-width-default) solid;
+  border-radius: var(--dse-radius-shape-surface);
+}
+
+.dse-inline-feedback[data-intent='error'] {
+  color: var(--dse-color-semantic-feedback-negative-fg);
+  background: var(--dse-color-semantic-feedback-negative-surface);
+  border-color: var(--dse-color-semantic-feedback-negative-border);
+}
+
+.dse-inline-feedback[data-intent='success'] {
+  color: var(--dse-color-semantic-feedback-positive-fg);
+  background: var(--dse-color-semantic-feedback-positive-surface);
+  border-color: var(--dse-color-semantic-feedback-positive-border);
+}
+
+.dse-inline-feedback__icon {
+  inline-size: var(--dse-icons-size-md);
+  block-size: var(--dse-icons-size-md);
+  flex: 0 0 var(--dse-icons-size-md);
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+.dse-inline-feedback[data-intent='error'] .dse-inline-feedback__icon {
+  mask-image: url('./assets/inline-feedback-alert.svg');
+}
+
+.dse-inline-feedback[data-intent='success'] .dse-inline-feedback__icon {
+  mask-image: url('./assets/inline-feedback-check.svg');
+}
+
+.dse-inline-feedback__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  gap: var(--dse-spacing-primitive-space-100);
+  overflow-wrap: anywhere;
+}
+
+.dse-inline-feedback__title,
+.dse-inline-feedback__message {
+  margin: 0;
+}
+
+.dse-inline-feedback__title {
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+}
+
+.dse-inline-feedback__message {
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+}
