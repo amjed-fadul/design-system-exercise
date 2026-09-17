@@ -2,6 +2,7 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  inline-size: fit-content;
   max-inline-size: 100%;
 }
 
