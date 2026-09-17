@@ -1,0 +1,126 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.link",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "name": "Link",
+  "description": "Native anchor for navigation. Visible content owns the accessible name while hover, active, and focus presentation remain browser-derived from the live Figma state axis.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "114:13"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "children",
+        "description": "Required visible link content and normal accessible-name source.",
+        "required": true,
+        "type": { "content": true }
+      }
+    ],
+    "forwardNativeAttributes": true
+  },
+  "representations": [
+    {
+      "source": "figma.label",
+      "kind": "public",
+      "mapsTo": "publicApi.children"
+    },
+    {
+      "source": "figma.state.hover",
+      "kind": "derived",
+      "mapsTo": "css:hover"
+    },
+    {
+      "source": "figma.state.focus",
+      "kind": "derived",
+      "mapsTo": "css:focus-visible"
+    },
+    {
+      "source": "figma.state.pressed",
+      "kind": "derived",
+      "mapsTo": "css:active"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "root",
+      "required": true,
+      "description": "Native anchor element and interaction surface."
+    },
+    {
+      "name": "label",
+      "required": true,
+      "description": "Visible link content rendered with semantic small-label typography."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-link-default",
+    "--dse-color-semantic-link-hover",
+    "--dse-color-semantic-link-pressed",
+    "--dse-color-semantic-focus-default",
+    "--dse-border-role-focus",
+    "--dse-radius-radius-sm",
+    "--dse-spacing-primitive-space-500",
+    "--dse-typography-semantic-label-small-family",
+    "--dse-typography-semantic-label-small-size",
+    "--dse-typography-semantic-label-small-weight",
+    "--dse-typography-semantic-label-small-line-height",
+    "--dse-typography-semantic-label-small-letter-spacing"
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "ownership": "derived",
+      "description": "Pointer hover rendered with CSS; not a public state prop."
+    },
+    {
+      "name": "focus-visible",
+      "ownership": "derived",
+      "description": "Visible keyboard focus presentation derived from browser focus-visible state."
+    },
+    {
+      "name": "pressed",
+      "ownership": "derived",
+      "description": "Active pointer/keyboard presentation rendered with CSS; not a public state prop."
+    }
+  ],
+  "semantics": {
+    "element": "a",
+    "accessibleName": "Visible children provide the normal accessible name; consumers may forward native aria-* attributes when product context requires them.",
+    "keyboardActivation": "native anchor activation when href is present",
+    "focus": "native focus with visible :focus-visible indicator",
+    "requirements": [
+      "Navigational Link examples provide an href so the element has native link semantics.",
+      "Native anchor attributes including href, target, rel, download, and aria-* are forwarded unchanged.",
+      "Browser hover, active, and focus-visible states are derived in CSS with no JavaScript state machine.",
+      "No disabled, visited, icon, size, or loading component API exists in version 1.0.0."
+    ]
+  },
+  "composition": {},
+  "events": [
+    {
+      "name": "click",
+      "trigger": "native anchor activation"
+    }
+  ],
+  "forbidden": [
+    "state",
+    "disabled",
+    "visited",
+    "icon",
+    "size",
+    "loading"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:114:13",
+      "https://www.w3.org/WAI/ARIA/apg/patterns/link/"
+    ]
+  }
+}
