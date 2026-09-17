@@ -20,7 +20,7 @@ describe('Inline Feedback Storybook contract', () => {
     }
   });
 
-  it('includes error, success, titleless, wrapping, dark, and Arabic evidence', async () => {
+  it('includes error, success, titleless, wrapping, and Light/Dark × English/Arabic evidence', async () => {
     const module = await loadStories();
     if (!module) return;
 
@@ -33,6 +33,8 @@ describe('Inline Feedback Storybook contract', () => {
       'DarkSuccess',
       'ArabicError',
       'ArabicSuccess',
+      'DarkArabicError',
+      'DarkArabicSuccess',
     ]) {
       expect(module[story], `missing story ${story}`).toBeDefined();
     }
@@ -41,6 +43,12 @@ describe('Inline Feedback Storybook contract', () => {
     expect(module.DarkSuccess.globals?.theme).toBe('dark');
     expect(module.ArabicError.globals?.language).toBe('arabic');
     expect(module.ArabicSuccess.globals?.language).toBe('arabic');
+    expect(module.DarkArabicError.globals).toEqual(
+      expect.objectContaining({ theme: 'dark', language: 'arabic' }),
+    );
+    expect(module.DarkArabicSuccess.globals).toEqual(
+      expect.objectContaining({ theme: 'dark', language: 'arabic' }),
+    );
   });
 
   it('documents the exact Figma authority and semantic announcement boundary', async () => {
