@@ -4,10 +4,10 @@
 **Contract architecture:** `docs/superpowers/specs/2026-09-17-component-contracts-design.md`  
 **Internal-visibility amendment:** `docs/superpowers/specs/2026-09-17-component-contracts-visibility-amendment.md`  
 **Planning branch:** `plan/all-components-patterns`  
-**Active implementation branch:** `feat/dialog`  
+**Active implementation branch:** `feat/side-panel`  
 **Foundations baseline:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Figma source:** `tYCXBBYoQ92AUKVbND5WkG`  
-**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE; C04 TEXT FIELD COMPLETE; C05 SEARCH FIELD COMPLETE; C06 RADIO GROUP COMPLETE; C07 INLINE FEEDBACK COMPLETE; C08 AVATAR COMPLETE; C09 STATUS BADGE COMPLETE; C10 DIALOG COMPLETE — final record HEAD CI pending; C11 has not started
+**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE; C04 TEXT FIELD COMPLETE; C05 SEARCH FIELD COMPLETE; C06 RADIO GROUP COMPLETE; C07 INLINE FEEDBACK COMPLETE; C08 AVATAR COMPLETE; C09 STATUS BADGE COMPLETE; C10 DIALOG COMPLETE; C11 SIDE PANEL COMPLETE — final record HEAD CI pending; C12 has not started
 
 ## Review policy
 
@@ -15,12 +15,12 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 
 ## Progress summary
 
-- Public components implemented through C10: **10 / 17** — C01 Button, C02 Icon Button, C03 Link, C04 Text Field, C05 Search Field, C06 Radio Group, C07 Inline Feedback, C08 Avatar, C09 Status Badge, C10 Dialog
-- Public components in progress: **0 / 17**; C10 awaits only the exact final-record CI check for this documentation commit
+- Public components implemented through C11: **11 / 17** — C01 Button, C02 Icon Button, C03 Link, C04 Text Field, C05 Search Field, C06 Radio Group, C07 Inline Feedback, C08 Avatar, C09 Status Badge, C10 Dialog, C11 Side Panel
+- Public components in progress: **0 / 17**; C11 awaits only the exact final-record CI check for this documentation commit
 - Internal helpers governed with parent milestones: **2 / 6 complete** — `_Input Control`, `_Radio Option`
 - Product patterns: **0 / 5 complete**
-- Overall public milestones implemented: **10 / 22**
-- Next planned milestone: **C11 Side Panel — not started**
+- Overall public milestones implemented: **11 / 22**
+- Next planned milestone: **C12 Empty State — not started**
 
 ## Component milestones
 
@@ -35,8 +35,8 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 | C07 | Inline Feedback | `dse.inline-feedback@1.0.0` | `127:30` | component package infrastructure | Complete | `6aa208229a277e6d1314f6c391a94c32800eca38` | Inline self-review APPROVED; width-fill, WebKit mask, and Dark × Arabic evidence gaps corrected | Run 203 PASS on exact final C07 HEAD |
 | C08 | Avatar | `dse.avatar@1.0.0` | `128:14` | component package infrastructure | Complete | `e5c2491d028f1c27b99ed79ac383c0575ba59c9c` | Inline self-review APPROVED; source-inventory and self-contained prepack corrections applied; no unresolved Critical/Important findings | Run 218 PASS on implementation/package HEAD; run 219 PASS on exact final C08 record HEAD `f9ea71fb7839c7a9701b07b130be01fbd68145d5` |
 | C09 | Status Badge | `dse.status-badge@1.0.0` | `128:1821` | component package infrastructure | Complete | `367d462812a47525c8bdf3207ed7ab4c08c6aee8` | Inline self-review APPROVED; package verifier existence and contract-alignment corrections applied; no unresolved Critical/Important findings | Run 229 PASS on implementation/package HEAD; run 231 PASS on exact final C09 record HEAD `db5d10b1f09631ca9f49fdc3b3a520b09aea4025` |
-| C10 | Dialog | `dse.dialog@1.0.0` | `133:6` | C01, C02 | Complete — final record HEAD CI pending | `57a02ff8100527321432dbf72cbc1a5639e0aab0` | Inline self-review APPROVED; focus test, native close-label mapping, null description/actions, token inventory, and runtime-default parity corrections applied; no unresolved Critical/Important findings | Run 248 PASS on exact implementation/package HEAD; this record commit must also PASS |
-| C11 | Side Panel | `dse.side-panel` | `137:2` | C01, C02 | Not started | — | — | — |
+| C10 | Dialog | `dse.dialog@1.0.0` | `133:6` | C01, C02 | Complete | `57a02ff8100527321432dbf72cbc1a5639e0aab0` | Inline self-review APPROVED; focus test, native close-label mapping, null description/actions, token inventory, and runtime-default parity corrections applied; no unresolved Critical/Important findings | Run 248 PASS on implementation/package HEAD; run 249 PASS on exact final C10 record HEAD `ae3dd7cfdc06901a984fc40357baee311b450ab2` |
+| C11 | Side Panel | `dse.side-panel@1.0.0` | `137:2` | C01, C02 | Complete — final record HEAD CI pending | `6e7ebee39b93bcb55b405835ee109ccd4787e4bc` | Inline self-review APPROVED; exact height/scrolling, persistent structural slots, 240px Body minimum, Actions/top-bar/eyebrow parity, and test-order correction applied; no unresolved Critical/Important findings | Run 276 PASS on exact implementation/package HEAD; this record commit must also PASS |
 | C12 | Empty State | `dse.empty-state` | `131:2` | C01/C03 for action stories | Not started | — | — | — |
 | C13 | Sidebar | `dse.sidebar` | `146:166` | internal `_Navigation Item`, C03 | Not started | — | — | — |
 | C14 | Top Navbar | `dse.top-navbar` | `228:18954` | C08 for account story | Not started | — | — | — |
@@ -60,7 +60,7 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 ## Pattern milestones
 
 | ID | Pattern | Contract | Figma guide | Depends on | Status |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- |
 | P01 | Application Shell | `dse.pattern.application-shell` | `68:494` | C13-C16; content can host C17 | Not started |
 | P02 | Form Submit and Recover | `dse.pattern.form-submit-recover` | `68:2` | C01, C04, C06, C07, C10 | Not started |
 | P03 | Unsaved-change Guard | `dse.pattern.unsaved-change-guard` | `68:371` | C01, C10 | Not started |
@@ -314,7 +314,34 @@ Detailed evidence: `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
 - Run 248 PASS on exact implementation/package HEAD `57a02ff8100527321432dbf72cbc1a5639e0aab0` across frozen install, 12-component contract validation, 223-token validation/build, full automated tests, TypeScript typecheck, Storybook production build, and packed-package smoke/prepack verification.
 - Figma source authority and the AI knowledge-pack frame were re-read during C10. No C10 knowledge-pack write/read-back is claimed in this record because the available Figma connection in this chat did not expose its required write guidance safely; the code/contract evidence remains authoritative until that separate sync can be performed.
 - Inline self-review: **APPROVED — no unresolved Critical or Important findings.** Final scope comparison from C09 to C10 contains only Dialog contract/runtime/CSS/Storybook/export/package work plus the deliberate source-inventory advance and `react-dom` peer required by the portal implementation.
-- Final implementation/package HEAD `57a02ff8100527321432dbf72cbc1a5639e0aab0`; run 248 PASS. This documentation record commit must also pass PR CI on its exact HEAD before the C10 record is authoritative.
+- Final implementation/package HEAD `57a02ff8100527321432dbf72cbc1a5639e0aab0`; run 248 PASS.
+- Final C10 record HEAD `ae3dd7cfdc06901a984fc40357baee311b450ab2`; run 249 PASS on that exact commit.
+
+## C11 evidence summary
+
+### Figma authority and contract
+
+- Fresh Figma audit and a final live Plugin API reread used Side Panel `137:2` as the authority. The component is explicitly a **non-modal contextual detail surface**; portal/backdrop, focus containment/restoration, inert background, Escape policy, dirty-exit policy, selection, save/request state, and responsive navigation remain outside the component.
+- `dse.side-panel@1.0.0` is public. Required `onClose` is invoked only by the governed close Icon Button. Optional public content is `eyebrow` default `MEMBER DETAILS`, `header`, `children` for Body, `actions`, `showClose` default `true`, `closeLabel` default `Close panel`, plus composition-level `className`/`style` sizing. Arbitrary native attributes are not forwarded.
+- Forbidden modal/workflow API includes `open`, `onOpenChange`, `modal`, `ariaModal`, backdrop dismissal, focus-trap/restoration props, Escape-close props, request/status/validation/dirty state, `showHeader`, and a fake component `size` variant.
+- Final Figma reread confirmed the structural regions are always present even when authored slot content is empty: 64px top bar → Header → divider → Body → divider → 80px Actions. Body has a 240px minimum; the default surface is 408 × 612px with a 612px minimum height.
+
+### Runtime, accessibility, CSS, and Storybook
+
+- Runtime exposes a named `role="region"` through the visible non-empty eyebrow and deliberately has no `aria-modal`, portal, backdrop, focus movement/trap/restoration, inert background, or Escape handler. Hiding the close Icon Button does not invent an alternate dismissal mechanism.
+- The exact governed X asset and public Icon Button provide the 40×40 close target and localized accessible name. Runtime default values are locked against contract drift.
+- CSS matches the final live Figma geometry: 408×612 default surface, 64px clipping top bar, single-line ellipsized eyebrow, persistent Header/Body/Actions structure, 240px Body minimum with independent overflow scrolling, exact 20px Body inset/gap, and fixed 80px Actions with centered cross-axis, `space-between`, 24px inline / 16px block padding, 12px gap, and no wrapping. Logical properties keep RTL direction-safe.
+- Storybook covers Light/Dark × English/Arabic/RTL plus long-body scrolling and a host-sized dedicated-detail example. The 640px dedicated width remains host composition evidence rather than a Side Panel size variant.
+
+### Package, TDD corrections, knowledge, and review
+
+- C11 extends the self-contained React `prepack` verifier chain with `verify-side-panel-dist.mjs`. Distribution verification checks the public export, non-modal region semantics, packaged CSS, governed width/surface/radius token references, and packaged X asset.
+- TDD exercised real gates rather than only the final happy path: contract RED, runtime RED, visual RED, public-export RED, bundled-CSS RED, Storybook RED, and a Storybook TypeScript API defect. Each was corrected before the final review.
+- The fresh final self-review then found and corrected three Important parity defects: contract/body minimum drift, missing definite 612px surface height needed for scrolling, and invented conditional Header/Actions anatomy. Re-review found another Important visual drift in Actions/top-bar/eyebrow/body geometry. Regression tests were added before the fixes; run 269 proved the structural-contract RED, run 273 passed that correction, run 274 proved the exact geometry RED, run 275 exposed only an order-sensitive test assertion after the product CSS was correct, and run 276 passed after correcting that test harness.
+- Final implementation/package HEAD `6e7ebee39b93bcb55b405835ee109ccd4787e4bc`; run 276 PASS across frozen install, 13-component contract validation, 223-token validation/build, **59/59 contract tests**, **17/17 token tests**, **132/132 React tests**, **33/33 Storybook tests** = **241 automated tests passing**, TypeScript typecheck, Storybook production build, and packed-package smoke/prepack verification.
+- Figma source authority was re-read directly during final review, including exact node geometry and slot behavior. No C11 AI knowledge-pack write/read-back is claimed in this record; like C10, code/contract/Figma-source parity is authoritative until that separate documentation sync is safely performed.
+- Inline self-review: **APPROVED — no unresolved Critical or Important findings.** Final scope comparison from C10 to C11 contains only Side Panel contract/runtime/CSS/Storybook/export/package-verifier work plus the deliberate implemented-contract inventory advance and narrow review corrections above.
+- This documentation record commit must also pass PR CI on its exact HEAD before C11 is treated as the authoritative completed record.
 
 ## Milestone completion rule
 
@@ -324,4 +351,4 @@ Documentation/knowledge-only record commits after a verified implementation mile
 
 ## Scope guard
 
-This roadmap does not authorize npm publication, PR/main merges, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. Figma implementation-knowledge synchronization remains authorized only for the milestone being completed and has been performed through C09; C10 source parity is complete but knowledge-pack write/read-back remains pending as noted above. **C11 Side Panel has not been started.**
+This roadmap does not authorize npm publication, PR/main merges, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. Figma implementation-knowledge synchronization remains authorized only for the milestone being completed and has been performed through C09; C10 and C11 source parity are complete but their knowledge-pack write/read-back remains pending as noted above. **C12 Empty State has not been started.**
