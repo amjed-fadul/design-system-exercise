@@ -1,3 +1,4 @@
+import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 const storyModulePath = './TopNavbar.stories';
@@ -55,6 +56,16 @@ describe('Top Navbar Storybook contract', () => {
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.Arabic.args?.contextLabel).toMatch(/[\u0600-\u06FF]/);
+  });
+
+  it('composes the Figma appearance control inside the product-owned Account slot without adding it to Top Navbar API', async () => {
+    const module = await loadStories();
+    if (!module) return;
+
+    const accountHtml = renderToStaticMarkup(module.topNavbarMeta.args?.account ?? null);
+    expect(accountHtml).toContain('<button');
+    expect(accountHtml).toContain('aria-label="Switch to dark mode"');
+    expect(accountHtml).toContain('Amal Hassan · Admin');
   });
 
   it('documents the Figma authority and shell/product/page ownership split', async () => {
