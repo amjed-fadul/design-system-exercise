@@ -1,0 +1,157 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.inline-feedback",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Inline Feedback",
+  "description": "Semantic in-context outcome message for recoverable failures and completed actions. It owns outcome presentation and announcement behavior while product logic, retry actions, saved/draft truth, and transient toast behavior remain outside the component.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "127:30"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "intent",
+        "description": "Required semantic outcome intent. Error announces a failed outcome; success confirms a completed outcome.",
+        "required": true,
+        "type": { "enum": ["error", "success"] }
+      },
+      {
+        "name": "message",
+        "description": "Required non-empty outcome message. Write outcome, consequence, then next step where useful.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "title",
+        "description": "Optional non-empty title. When omitted, title anatomy is not rendered and Figma showTitle is derived false.",
+        "required": false,
+        "type": { "content": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.intent",
+      "kind": "public",
+      "mapsTo": "publicApi.intent"
+    },
+    {
+      "source": "figma.message",
+      "kind": "public",
+      "mapsTo": "publicApi.message"
+    },
+    {
+      "source": "figma.title",
+      "kind": "public",
+      "mapsTo": "publicApi.title when present"
+    },
+    {
+      "source": "figma.showTitle",
+      "kind": "derived",
+      "mapsTo": "publicApi.title presence"
+    },
+    {
+      "source": "figma.intent-icon",
+      "kind": "derived",
+      "mapsTo": "fixed decorative Alert or Check asset selected by intent"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "root",
+      "required": true,
+      "description": "Semantic outcome surface with intent-specific border, surface, text tone, and live-region role."
+    },
+    {
+      "name": "intent-icon",
+      "required": true,
+      "description": "Decorative 20px outcome icon selected by intent and hidden from assistive technology."
+    },
+    {
+      "name": "title",
+      "required": false,
+      "description": "Optional visible label text."
+    },
+    {
+      "name": "message",
+      "required": true,
+      "description": "Required wrapping body message that may grow to any needed height."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-feedback-negative-surface",
+    "--dse-color-semantic-feedback-negative-fg",
+    "--dse-color-semantic-feedback-negative-border",
+    "--dse-color-semantic-feedback-positive-surface",
+    "--dse-color-semantic-feedback-positive-fg",
+    "--dse-color-semantic-feedback-positive-border",
+    "--dse-spacing-primitive-space-100",
+    "--dse-spacing-primitive-space-200",
+    "--dse-spacing-primitive-space-400",
+    "--dse-radius-semantic-shape-surface",
+    "--dse-icons-size-md",
+    "--dse-typography-semantic-label-default-family",
+    "--dse-typography-semantic-label-default-size",
+    "--dse-typography-semantic-label-default-weight",
+    "--dse-typography-semantic-label-default-line-height",
+    "--dse-typography-semantic-label-default-letter-spacing",
+    "--dse-typography-semantic-body-small-family",
+    "--dse-typography-semantic-body-small-size",
+    "--dse-typography-semantic-body-small-weight",
+    "--dse-typography-semantic-body-small-line-height",
+    "--dse-typography-semantic-body-small-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "div",
+    "accessibleName": "The visible title and message provide the announced outcome text; the icon is decorative and never contributes an accessible name.",
+    "keyboardActivation": "none",
+    "focus": "Inline Feedback never moves focus or introduces a focus target.",
+    "requirements": [
+      "intent=error renders role=alert so a newly inserted failed outcome is announced assertively.",
+      "intent=success renders role=status so a newly inserted completed outcome is announced politely.",
+      "The component never moves focus when it appears or changes.",
+      "The outcome icon is decorative and aria-hidden; meaning remains available in text and is not color-only.",
+      "message must be a non-empty string after trimming whitespace.",
+      "title is optional; when supplied it must be a non-empty string after trimming whitespace.",
+      "Figma showTitle is derived solely from title presence and is not a public prop.",
+      "Messages wrap and grow naturally; no fixed two-line height or truncation is imposed.",
+      "A retry Button is a sibling owned by the containing pattern and is never embedded by Inline Feedback.",
+      "Product or backend logic owns whether the operation actually succeeded and must keep the message consistent with saved data shown elsewhere.",
+      "There are no warning, info, loading, dismiss, or toast variants in this API."
+    ]
+  },
+  "composition": {},
+  "events": [],
+  "forbidden": [
+    "children",
+    "showTitle",
+    "action",
+    "actionLabel",
+    "onAction",
+    "dismissible",
+    "onDismiss",
+    "role",
+    "aria-live",
+    "warning",
+    "info",
+    "loading",
+    "toast"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:127:30",
+      "https://carbondesignsystem.com/components/notification/usage/",
+      "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html"
+    ]
+  }
+}
