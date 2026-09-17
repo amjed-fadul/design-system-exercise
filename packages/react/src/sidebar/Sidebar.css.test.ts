@@ -22,14 +22,14 @@ describe('Sidebar CSS parity', () => {
 
   it('matches the authoritative expanded and compact rail geometry with private layout values', () => {
     const css = readCss();
-    expect(css).toMatch(/data-mode=['"]expanded['"][\s\S]*inline-size\s*:\s*208px/);
-    expect(css).toMatch(/data-mode=['"]expanded['"][\s\S]*padding-block-start\s*:\s*30px/);
-    expect(css).toMatch(/data-mode=['"]expanded['"][\s\S]*padding-block-end\s*:\s*40px/);
-    expect(css).toMatch(/data-mode=['"]expanded['"][\s\S]*padding-inline\s*:\s*12px/);
+    expect(css).toMatch(/data-mode=['"]expanded['"]\][\s\S]*inline-size\s*:\s*208px/);
+    expect(css).toMatch(/data-mode=['"]expanded['"]\][\s\S]*padding-block-start\s*:\s*30px/);
+    expect(css).toMatch(/data-mode=['"]expanded['"]\][\s\S]*padding-block-end\s*:\s*40px/);
+    expect(css).toMatch(/data-mode=['"]expanded['"]\][\s\S]*padding-inline\s*:\s*12px/);
 
-    expect(css).toMatch(/data-mode=['"]compact['"][\s\S]*inline-size\s*:\s*64px/);
-    expect(css).toMatch(/data-mode=['"]compact['"][\s\S]*padding-block-start\s*:\s*48px/);
-    expect(css).toMatch(/data-mode=['"]compact['"][\s\S]*padding-inline\s*:\s*10px/);
+    expect(css).toMatch(/data-mode=['"]compact['"]\][\s\S]*inline-size\s*:\s*64px/);
+    expect(css).toMatch(/data-mode=['"]compact['"]\][\s\S]*padding-block-start\s*:\s*48px/);
+    expect(css).toMatch(/data-mode=['"]compact['"]\][\s\S]*padding-inline\s*:\s*10px/);
 
     expect(css).toMatch(/dse-sidebar__navigation-list[\s\S]*gap\s*:\s*8px/);
     expect(css).toMatch(/dse-sidebar__navigation-section[\s\S]*gap\s*:\s*18px/);
@@ -45,13 +45,13 @@ describe('Sidebar CSS parity', () => {
     expect(css).toContain('var(--dse-typography-semantic-label-default-line-height)');
     expect(css).toContain('var(--dse-typography-semantic-label-default-letter-spacing)');
 
-    expect(css).toMatch(/data-mode=['"]expanded['"]\s*\.dse-navigation-item[\s\S]*min-block-size\s*:\s*40px/);
-    expect(css).toMatch(/data-mode=['"]expanded['"]\s*\.dse-navigation-item[\s\S]*padding-inline-start\s*:\s*12px/);
-    expect(css).toMatch(/data-mode=['"]expanded['"]\s*\.dse-navigation-item[\s\S]*padding-inline-end\s*:\s*10px/);
-    expect(css).toMatch(/data-mode=['"]expanded['"]\s*\.dse-navigation-item[\s\S]*gap\s*:\s*12px/);
+    expect(css).toMatch(/data-mode=['"]expanded['"]\]\s*\.dse-navigation-item[\s\S]*min-block-size\s*:\s*40px/);
+    expect(css).toMatch(/data-mode=['"]expanded['"]\]\s*\.dse-navigation-item[\s\S]*padding-inline-start\s*:\s*12px/);
+    expect(css).toMatch(/data-mode=['"]expanded['"]\]\s*\.dse-navigation-item[\s\S]*padding-inline-end\s*:\s*10px/);
+    expect(css).toMatch(/data-mode=['"]expanded['"]\]\s*\.dse-navigation-item[\s\S]*gap\s*:\s*12px/);
 
-    expect(css).toMatch(/data-mode=['"]compact['"]\s*\.dse-navigation-item[\s\S]*inline-size\s*:\s*44px/);
-    expect(css).toMatch(/data-mode=['"]compact['"]\s*\.dse-navigation-item[\s\S]*block-size\s*:\s*44px/);
+    expect(css).toMatch(/data-mode=['"]compact['"]\]\s*\.dse-navigation-item[\s\S]*inline-size\s*:\s*44px/);
+    expect(css).toMatch(/data-mode=['"]compact['"]\]\s*\.dse-navigation-item[\s\S]*block-size\s*:\s*44px/);
     expect(css).toMatch(/dse-navigation-item__icon[\s\S]*inline-size\s*:\s*var\(--dse-icons-size-md\)/);
     expect(css).toMatch(/dse-navigation-item__icon[\s\S]*block-size\s*:\s*var\(--dse-icons-size-md\)/);
   });
@@ -79,9 +79,9 @@ describe('Sidebar CSS parity', () => {
     expect(css).toContain('var(--dse-typography-semantic-label-small-line-height)');
     expect(css).toContain('var(--dse-typography-semantic-label-small-letter-spacing)');
 
-    expect(css).toMatch(/data-mode=['"]compact['"]\s*\.dse-navigation-item__label[\s\S]*position\s*:\s*absolute/);
-    expect(css).toMatch(/data-mode=['"]compact['"]\s*\.dse-navigation-item__label[\s\S]*inline-size\s*:\s*1px/);
-    expect(css).toMatch(/data-mode=['"]compact['"]\s*\.dse-navigation-item__label[\s\S]*overflow\s*:\s*hidden/);
-    expect(css).not.toMatch(/data-mode=['"]compact['"]\s*\.dse-navigation-item__label[\s\S]*display\s*:\s*none/);
+    expect(css).toMatch(/data-mode=['"]compact['"]\]\s*\.dse-navigation-item__label[\s\S]*position\s*:\s*absolute/);
+    expect(css).toMatch(/data-mode=['"]compact['"]\]\s*\.dse-navigation-item__label[\s\S]*inline-size\s*:\s*1px/);
+    expect(css).toMatch(/data-mode=['"]compact['"]\]\s*\.dse-navigation-item__label[\s\S]*overflow\s*:\s*hidden/);
+    expect(css).not.toMatch(/data-mode=['"]compact['"]\]\s*\.dse-navigation-item__label[\s\S]*display\s*:\s*none/);
   });
 });
