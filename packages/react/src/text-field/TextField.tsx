@@ -7,7 +7,7 @@ import {
 import { InputControl } from '../internal/input-control/InputControl.js';
 
 export interface TextFieldProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'children'> {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'children' | 'content'> {
   label: ReactNode;
   supportingText?: ReactNode;
   invalid?: boolean;
