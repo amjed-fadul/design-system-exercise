@@ -25,7 +25,9 @@ describe('SidePanel visual contract', () => {
     const css = readCss();
 
     expect(css).toMatch(/\.dse-side-panel__top-bar\s*\{[^}]*block-size:\s*64px;[^}]*padding-block:\s*var\(--dse-spacing-primitive-space-300\);[^}]*padding-inline-start:\s*var\(--dse-spacing-primitive-space-500\);[^}]*padding-inline-end:\s*var\(--dse-spacing-primitive-space-400\);[^}]*overflow:\s*hidden;/s);
-    expect(css).toMatch(/\.dse-side-panel__eyebrow\s*\{[^}]*white-space:\s*nowrap;[^}]*overflow:\s*hidden;[^}]*text-overflow:\s*ellipsis;/s);
+    expect(css).toMatch(/\.dse-side-panel__eyebrow\s*\{[^}]*overflow:\s*hidden;/s);
+    expect(css).toMatch(/\.dse-side-panel__eyebrow\s*\{[^}]*white-space:\s*nowrap;/s);
+    expect(css).toMatch(/\.dse-side-panel__eyebrow\s*\{[^}]*text-overflow:\s*ellipsis;/s);
     for (const token of [
       '--dse-color-semantic-fg-secondary',
       '--dse-typography-semantic-label-small-family',
