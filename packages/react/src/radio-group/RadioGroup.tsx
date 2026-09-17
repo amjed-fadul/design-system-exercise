@@ -18,6 +18,12 @@ export interface RadioGroupProps {
   required?: boolean;
 }
 
+function assertValidName(name: string) {
+  if (typeof name !== 'string' || name.trim().length === 0) {
+    throw new Error('RadioGroup requires a non-empty shared name.');
+  }
+}
+
 function assertValidOptions(options: readonly RadioGroupOption[]) {
   if (options.length < 2) {
     throw new Error('RadioGroup requires at least two options.');
@@ -46,6 +52,7 @@ export function RadioGroup({
 }: RadioGroupProps) {
   const [uncontrolledValue, setUncontrolledValue] = useState<string | undefined>(defaultValue);
 
+  assertValidName(name);
   assertValidOptions(options);
   if (value !== undefined && defaultValue !== undefined) {
     throw new Error('RadioGroup cannot receive both value and defaultValue; choose controlled or uncontrolled selection.');
