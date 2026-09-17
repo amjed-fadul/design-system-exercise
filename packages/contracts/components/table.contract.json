@@ -18,7 +18,7 @@
     "props": [
       {
         "name": "rows",
-        "description": "Required structured row data. Runtime accepts 1–100 rows; each row supplies a stable non-empty id plus Primary, Secondary, Status, Action, and optional selected presentation.",
+        "description": "Required structured row data. Runtime accepts 1–100 rows; each row supplies a stable unique non-empty id plus Primary, Secondary, Status, Action, and optional selected presentation.",
         "required": true,
         "type": { "content": true }
       },
@@ -158,8 +158,8 @@
       "Hover presentation is CSS-derived for scanning; it never makes the entire row an activation target and no state or hover prop exists.",
       "footerText is optional supplied copy. The component never derives counts, pagination state, filtered totals, or other business data.",
       "Header labels are required to be non-empty strings when supplied and default to Person / Role / Status / Details.",
-      "Each row requires a stable non-empty id. Product/list-detail composition owns which row is selected and the meaning/accessibility of repeated row actions.",
-      "Writing direction and theme are inherited. No order, rtl, theme, sorting, pagination, search, bulk-selection, expansion, editable-cell, or data-grid API is introduced."
+      "Each row requires a stable unique non-empty id; duplicate ids are rejected. Product/list-detail composition owns which row is selected and the meaning/accessibility of repeated row actions.",
+      "The reviewed table shell preserves a 736px minimum inline width so the fixed column geometry is not compressed below the narrow reviewed table width; Primary continues to absorb additional width through 1168px and beyond. Writing direction and theme are inherited. No order, rtl, theme, sorting, pagination, search, bulk-selection, expansion, editable-cell, or data-grid API is introduced."
     ]
   },
   "composition": {

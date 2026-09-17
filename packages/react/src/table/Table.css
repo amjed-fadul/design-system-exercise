@@ -1,0 +1,115 @@
+.dse-table-shell {
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 736px;
+  overflow: clip;
+  background: var(--dse-color-semantic-surface-default);
+  border-radius: var(--dse-radius-shape-surface);
+  box-shadow: inset 0 0 0 1px var(--dse-color-semantic-border-subtle);
+}
+
+.dse-table {
+  box-sizing: border-box;
+  inline-size: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  background: var(--dse-color-semantic-surface-default);
+}
+
+.dse-table__col-primary {
+  inline-size: auto;
+}
+
+.dse-table__col-secondary {
+  inline-size: 124px;
+}
+
+.dse-table__col-status {
+  inline-size: 184px;
+}
+
+.dse-table__col-action {
+  inline-size: 156px;
+}
+
+.dse-table__header-row {
+  block-size: 44px;
+}
+
+.dse-table__header-cell {
+  box-sizing: border-box;
+  block-size: 44px;
+  padding-block: 12px;
+  color: var(--dse-color-semantic-fg-secondary);
+  background: var(--dse-color-semantic-surface-section);
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+  text-align: start;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.dse-table__header-cell-action {
+  text-align: center;
+}
+
+.dse-table__row {
+  block-size: 60px;
+  min-block-size: 60px;
+}
+
+.dse-table__body-cell {
+  box-sizing: border-box;
+  padding-block: 6px;
+  vertical-align: middle;
+  background: var(--dse-color-semantic-surface-default);
+  border-block-end: 1px solid var(--dse-color-semantic-border-subtle);
+}
+
+.dse-table__cell-primary {
+  padding-inline-start: 20px;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.dse-table__cell-secondary {
+  padding-inline-start: 24px;
+}
+
+.dse-table__cell-status {
+  padding-inline-start: 24px;
+}
+
+.dse-table__cell-action {
+  padding-inline-start: 8px;
+  padding-inline-end: 20px;
+}
+
+.dse-table__row:not([data-selected='true']):hover > .dse-table__body-cell {
+  background: var(--dse-color-semantic-state-hover);
+}
+
+.dse-table__row[data-selected='true'] > .dse-table__body-cell {
+  background: var(--dse-color-semantic-state-selected);
+}
+
+.dse-table__footer-cell {
+  box-sizing: border-box;
+  block-size: 48px;
+  padding-block-start: 14px;
+  padding-block-end: 16px;
+  padding-inline: 20px;
+  color: var(--dse-color-semantic-fg-secondary);
+  background: var(--dse-color-semantic-surface-default);
+  font-family: var(--dse-typography-semantic-caption-default-family);
+  font-size: var(--dse-typography-semantic-caption-default-size);
+  font-weight: var(--dse-typography-semantic-caption-default-weight);
+  line-height: var(--dse-typography-semantic-caption-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-caption-default-letter-spacing);
+  text-align: start;
+  vertical-align: top;
+}
