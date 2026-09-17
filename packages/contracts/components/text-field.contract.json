@@ -138,6 +138,7 @@
     }
   ],
   "tokenDependencies": [
+    "--dse-spacing-primitive-space-100",
     "--dse-spacing-primitive-space-200",
     "--dse-spacing-primitive-space-300",
     "--dse-color-semantic-fg-primary",
@@ -200,6 +201,7 @@
       "invalid=true sets aria-invalid=true and uses errorMessage when supplied, otherwise supportingText remains the described message.",
       "Controlled value and uncontrolled defaultValue usage are both supported through native input attributes.",
       "required and disabled remain native input semantics and native attributes are forwarded.",
+      "The required indicator remains 4 CSS pixels from the label using the governed 4px spacing token.",
       "The Text Field always composes the default 44 CSS pixel private input-control shell; no public size prop exists.",
       "Figma content=empty|filled is derived from native value/placeholder behavior rather than a public content prop."
     ]
