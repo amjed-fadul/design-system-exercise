@@ -46,8 +46,6 @@ export function SidePanel({
   assertCloseLabel(showClose, closeLabel);
 
   const eyebrowId = useId();
-  const hasHeader = header !== null && header !== undefined && header !== false;
-  const hasActions = actions !== null && actions !== undefined && actions !== false;
   const classes = className ? `dse-side-panel ${className}` : 'dse-side-panel';
 
   return (
@@ -65,21 +63,13 @@ export function SidePanel({
         ) : null}
       </div>
 
-      {hasHeader ? (
-        <>
-          <div className="dse-side-panel__header">{header}</div>
-          <div className="dse-side-panel__header-divider" aria-hidden="true" />
-        </>
-      ) : null}
+      <div className="dse-side-panel__header">{header}</div>
+      <div className="dse-side-panel__header-divider" aria-hidden="true" />
 
       <div className="dse-side-panel__body">{children}</div>
 
-      {hasActions ? (
-        <>
-          <div className="dse-side-panel__footer-divider" aria-hidden="true" />
-          <div className="dse-side-panel__actions">{actions}</div>
-        </>
-      ) : null}
+      <div className="dse-side-panel__footer-divider" aria-hidden="true" />
+      <div className="dse-side-panel__actions">{actions}</div>
     </section>
   );
 }
