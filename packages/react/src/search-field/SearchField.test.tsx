@@ -63,6 +63,32 @@ describe('SearchField public runtime', () => {
     expect(screen.queryByRole('button', { name: 'Clear search' })).toBeNull();
   });
 
+  it('keeps the private input-control content limited to the native input', async () => {
+    const module = await loadSearchFieldModule();
+    if (!module) return;
+
+    const { SearchField } = module;
+    const { container } = render(
+      <SearchField
+        aria-label="Search team"
+        clearButtonLabel="Clear search"
+        defaultValue="sara"
+      />,
+    );
+
+    const shell = container.querySelector('.dse-input-control');
+    expect(shell?.children).toHaveLength(1);
+    expect(shell?.firstElementChild?.tagName).toBe('INPUT');
+    expect(shell?.querySelector('.dse-search-field__search-icon')).toBeNull();
+    expect(shell?.querySelector('.dse-search-field__clear-action')).toBeNull();
+    expect(
+      container.querySelector('.dse-search-field > .dse-search-field__search-icon'),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector('.dse-search-field > .dse-search-field__clear-action'),
+    ).toBeInTheDocument();
+  });
+
   it('derives clear-action presence from the live query instead of a content prop', async () => {
     const module = await loadSearchFieldModule();
     if (!module) return;
