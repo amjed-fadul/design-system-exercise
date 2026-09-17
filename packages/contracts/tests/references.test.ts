@@ -16,13 +16,17 @@ function componentContracts() {
 }
 
 describe('contract source integrity', () => {
-  it('contains only the component contracts implemented through C02 and no placeholder patterns', () => {
+  it('contains only the component contracts implemented through C03 and no placeholder patterns', () => {
     const components = componentContracts();
     const patterns = existsSync(patternsDir)
       ? readdirSync(patternsDir).filter((name) => name.endsWith('.contract.json')).sort()
       : [];
 
-    expect(components).toEqual(['button.contract.json', 'icon-button.contract.json']);
+    expect(components).toEqual([
+      'button.contract.json',
+      'icon-button.contract.json',
+      'link.contract.json',
+    ]);
     expect(patterns).toEqual([]);
   });
 

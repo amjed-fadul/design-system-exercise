@@ -71,7 +71,7 @@ jobs:
           import { existsSync, readFileSync } from 'node:fs';
           import { renderToStaticMarkup } from 'react-dom/server';
           import { tokens } from '@design-system-exercise/tokens';
-          import { Button, IconButton } from '@design-system-exercise/react';
+          import { Button, IconButton, Link } from '@design-system-exercise/react';
 
           if (tokens.color.primitive.brand['600'] !== '#005DCC') throw new Error('brand/600 export mismatch');
           if (tokens.typography.semantic.arabic.body.default.family !== 'IBM Plex Sans Arabic') throw new Error('Arabic body font export mismatch');
@@ -100,12 +100,27 @@ jobs:
           if (!iconButtonHtml.includes('class="dse-icon-button"')) throw new Error('Icon Button class missing');
           if (!iconButtonHtml.includes('aria-hidden="true"')) throw new Error('Icon Button decorative icon semantics missing');
 
+          const linkHtml = renderToStaticMarkup(
+            React.createElement(
+              Link,
+              { href: '/workspace', target: '_self', 'aria-current': 'page' },
+              'Workspace',
+            ),
+          );
+          if (!linkHtml.includes('<a')) throw new Error('Link did not render a native anchor');
+          if (!linkHtml.includes('href="/workspace"')) throw new Error('Link href missing');
+          if (!linkHtml.includes('target="_self"')) throw new Error('Link native target missing');
+          if (!linkHtml.includes('aria-current="page"')) throw new Error('Link native aria attribute missing');
+          if (!linkHtml.includes('class="dse-link"')) throw new Error('Link class missing');
+          if (!linkHtml.includes('>Workspace</a>')) throw new Error('Link visible content missing');
+
           const reactCssUrl = import.meta.resolve('@design-system-exercise/react/styles.css');
           if (!reactCssUrl.endsWith('/dist/styles.css')) throw new Error(`Unexpected React CSS export: ${reactCssUrl}`);
           if (!existsSync(new URL(reactCssUrl))) throw new Error('React CSS export missing');
           const reactCss = readFileSync(new URL(reactCssUrl), 'utf8');
           if (!reactCss.includes('.dse-button')) throw new Error('Button stylesheet content missing');
           if (!reactCss.includes('.dse-icon-button')) throw new Error('Icon Button stylesheet content missing');
+          if (!reactCss.includes('.dse-link')) throw new Error('Link stylesheet content missing');
 
           const loaderUrl = new URL('./assets/loader-circle.svg', reactCssUrl);
           if (!existsSync(loaderUrl)) throw new Error('Button loader asset missing from installed package');
