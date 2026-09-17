@@ -3,10 +3,10 @@
 **Master roadmap:** `docs/superpowers/plans/2026-09-17-design-system-master-roadmap.md`  
 **Contract architecture:** `docs/superpowers/specs/2026-09-17-component-contracts-design.md`  
 **Planning branch:** `plan/all-components-patterns`  
-**Active implementation branch:** `feat/link`  
+**Active implementation branch:** `feat/text-field`  
 **Foundations baseline:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Figma source:** `tYCXBBYoQ92AUKVbND5WkG`  
-**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE — final record HEAD CI pending; C04 has not started
+**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE; C04 TEXT FIELD IN PROGRESS — internal contract visibility extension complete; contract RED next
 
 ## Review policy
 
@@ -15,11 +15,11 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 ## Progress summary
 
 - Public components complete: **3 / 17** — C01 Button, C02 Icon Button, C03 Link
-- Public components in progress: **0 / 17**
-- Internal helpers governed with parent milestones: **0 / 6 complete**
+- Public components in progress: **1 / 17** — C04 Text Field
+- Internal helpers governed with parent milestones: **0 / 6 complete** — `_Input Control` is now eligible for an internal contract under the verified visibility schema, but its contract has not been authored yet
 - Product patterns: **0 / 5 complete**
 - Overall public milestones complete: **3 / 22**
-- Next planned milestone: **C04 Text Field + internal `_Input Control` — not started**
+- Active milestone: **C04 Text Field + internal `_Input Control` — in progress**
 
 ## Component milestones
 
@@ -27,8 +27,8 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | C01 | Button | `dse.button@1.0.0` | `93:1230` | contract infrastructure | Complete | `5514dcb5ff83cf90587fb27ecafb7cc972eec02f` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 61 PASS on exact final C01 HEAD |
 | C02 | Icon Button | `dse.icon-button@1.0.0` | `110:1339` | C01 package infrastructure | Complete | `7c5e27ea123c31706d920bb5b6d6ffc1036c63b3` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 87 PASS on exact final C02 record HEAD |
-| C03 | Link | `dse.link@1.0.0` | `114:13` | C01 package infrastructure | Complete — final record HEAD CI pending | `f137d77190dee78aba55744885015a95b5ecea8f` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 100 PASS on implementation/package HEAD; final record HEAD must also PASS |
-| C04 | Text Field | `dse.text-field` | `112:263` | internal `_Input Control` | Not started | — | — | — |
+| C03 | Link | `dse.link@1.0.0` | `114:13` | C01 package infrastructure | Complete | `7e28ce06542e257a2e0edab492d3eec58dcc92e6` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 101 PASS on exact final C03 record HEAD |
+| C04 | Text Field | `dse.text-field` | `112:263` | internal `_Input Control` | In progress — visibility schema extension complete; C04 contracts not yet authored | `497116b7c96c7d126fd29bc9a69fded1c69d1dde` | Task 0 inline review pending milestone review | Visibility RED run 102 on `a496b87`; visibility GREEN run 110 on `497116b` |
 | C05 | Search Field | `dse.search-field` | `112:1710` | C02, C04 internal input shell | Not started | — | — | — |
 | C06 | Radio Group | `dse.radio-group` | `116:175` | internal `_Radio Option` | Not started | — | — | — |
 | C07 | Inline Feedback | `dse.inline-feedback` | `127:30` | component package infrastructure | Not started | — | — | — |
@@ -47,7 +47,7 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 
 | Helper | Internal contract | Figma | Parent milestone | Status |
 | --- | --- | --- | --- | --- |
-| `_Input Control` | `dse._input-control` | `111:22` | C04 | Not started |
+| `_Input Control` | `dse._input-control` | `111:22` | C04 | In progress — visibility schema enabled and verified; internal contract not yet authored |
 | `_Radio Option` | `dse._radio-option` | `116:174` | C06 | Not started |
 | `_Navigation Item` | `dse._navigation-item` | `143:2948` | C13 | Not started |
 | `_Breadcrumb Link Item` | `dse._breadcrumb-link-item` | `139:16` | C15 | Not started |
@@ -59,7 +59,7 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 ## Pattern milestones
 
 | ID | Pattern | Contract | Figma guide | Depends on | Status |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- |
 | P01 | Application Shell | `dse.pattern.application-shell` | `68:494` | C13-C16; content can host C17 | Not started |
 | P02 | Form Submit and Recover | `dse.pattern.form-submit-recover` | `68:2` | C01, C04, C06, C07, C10 | Not started |
 | P03 | Unsaved-change Guard | `dse.pattern.unsaved-change-guard` | `68:371` | C01, C10 | Not started |
@@ -109,7 +109,17 @@ Detailed evidence: `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
 - **Packaging:** React package exports `Link`/`LinkProps`; built `styles.css` includes Link; clean-consumer CI imports and SSR-renders the installed Link tarball and verifies native anchor output, href/target/ARIA forwarding, visible content, and packaged CSS.
 - **RED/GREEN evidence:** contract RED run 88 on `923451748735278278cc9427e81cc355c1fcbc9f`; contract GREEN run 90 on `16c6a0de5010932d68d76a884e82095f0838ebc3`; runtime/CSS RED run 92 on `24a135a92df8711492d4e3eebcbf2834e92d86d0`; runtime GREEN run 97 on `3dffe87c053842fb0ee8a92ff987685cce0c0457`; Storybook RED run 98 on `67d22dd2dad8d7faee9cfba9683224664db2b8de`; Storybook GREEN run 99 on `1235c98ade92d9dc1d42bbe24fe158863526eb14`.
 - **Implementation/package HEAD:** `f137d77190dee78aba55744885015a95b5ecea8f`; GitHub Actions run 100 PASS with contract validation, 223-token validation/build, full tests, typecheck, Storybook production build and packed clean-consumer verification.
+- **Final record HEAD:** `7e28ce06542e257a2e0edab492d3eec58dcc92e6`; GitHub Actions run 101 PASS.
+- **AI knowledge pack:** Link is recorded as validated with `contract_validation=passed`.
 - **Review:** inline self-review APPROVED; no unresolved Critical or Important findings.
+
+## C04 evidence summary — in progress
+
+- **Figma audit:** `_Input Control` `111:22` is 12 variants = `size=compact|default` × `state=default|hover|focus|disabled|invalid|invalid-focus`; compact is 40 px high and default is 44 px. Text Field `112:263` is 12 variants = six states × `content=empty|filled`, with `label`, `value`, `placeholder`, `supportingText`, `required`, and `showSupportingText` properties. Text Field uses the default 44 px internal shell.
+- **Token audit:** `_Input Control` resolves to public surface/control-border/focus/disabled/negative-border roles, `shape/control`, and base/focus border roles. Text Field additionally uses `fg/primary`, `fg/secondary`, `fg/tertiary`, `fg/disabled`, `feedback/negative/fg`, semantic label/default typography, body/default typography, and body/small typography.
+- **Visibility schema prerequisite:** component contracts now require `visibility=public|internal`; public IDs cannot begin `dse._`; internal IDs must begin `dse._`; internal contracts cannot declare a public implementation package; pattern dependencies resolve only against public component contracts. Existing Button, Icon Button, and Link contracts were migrated explicitly to `visibility=public` without runtime changes.
+- **Visibility RED/GREEN evidence:** run 102 RED on `a496b8718b29b2406fb4f455a2463e2e35226121`; run 110 GREEN on exact extension HEAD `497116b7c96c7d126fd29bc9a69fded1c69d1dde` with full contracts/tokens/React tests, typecheck, Storybook build, and packed-consumer smoke.
+- **Next gate:** author contract RED for `dse._input-control@1.0.0` and `dse.text-field@1.0.0`. No C04 component contract exists yet at this record point.
 
 ## Milestone completion rule
 
@@ -119,4 +129,4 @@ Documentation/knowledge-only record commits after a verified implementation mile
 
 ## Scope guard
 
-This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. C04 must not start without explicit user authorization.
+This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. C04 is explicitly authorized and in progress. C05 must not start without explicit user authorization.
