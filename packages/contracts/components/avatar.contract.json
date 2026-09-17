@@ -1,0 +1,125 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.avatar",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Avatar",
+  "description": "Compact secondary identity cue using supplied initials or a neutral fallback. Avatar does not infer identity, status, role, presence, verification, or interaction behavior.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "128:14"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "initials",
+        "description": "Optional consumer-supplied short initials. Avatar never derives initials from a name, email, or other identity data.",
+        "required": false,
+        "type": { "content": true }
+      },
+      {
+        "name": "size",
+        "description": "Governed Avatar geometry. sm is 32 CSS pixels and lg is 48 CSS pixels.",
+        "required": false,
+        "default": "sm",
+        "type": { "enum": ["sm", "lg"] }
+      },
+      {
+        "name": "aria-label",
+        "description": "Optional native accessible label for a standalone meaningful identity visual. When omitted, Avatar is decorative and hidden from assistive technology.",
+        "required": false,
+        "type": { "native": true }
+      }
+    ],
+    "forwardNativeAttributes": true
+  },
+  "representations": [
+    {
+      "source": "figma.initials",
+      "kind": "public",
+      "mapsTo": "publicApi.initials when supplied"
+    },
+    {
+      "source": "figma.size",
+      "kind": "public",
+      "mapsTo": "publicApi.size"
+    },
+    {
+      "source": "figma.content",
+      "kind": "derived",
+      "mapsTo": "initials when non-empty initials are supplied; fallback otherwise"
+    },
+    {
+      "source": "runtime.accessibility",
+      "kind": "derived",
+      "mapsTo": "decorative aria-hidden semantics by default; role=img plus aria-label when labeled"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "root",
+      "required": true,
+      "description": "Circular 32px or 48px semantic-token surface with centered identity cue."
+    },
+    {
+      "name": "content",
+      "required": true,
+      "description": "Consumer-supplied initials or the governed neutral fallback character @."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-surface-section",
+    "--dse-color-semantic-fg-secondary",
+    "--dse-radius-shape-rounded",
+    "--dse-typography-semantic-label-small-family",
+    "--dse-typography-semantic-label-small-size",
+    "--dse-typography-semantic-label-small-weight",
+    "--dse-typography-semantic-label-small-line-height",
+    "--dse-typography-semantic-label-small-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "span",
+    "accessibleName": "By default the Avatar is decorative because adjacent visible identity text should own the person's accessible identity. A supplied aria-label makes a standalone Avatar image-like and names it explicitly.",
+    "keyboardActivation": "none",
+    "focus": "Avatar is non-interactive and does not create or move focus.",
+    "requirements": [
+      "When aria-label is omitted or empty, Avatar renders aria-hidden=true and does not expose decorative initials or fallback content to assistive technology.",
+      "When a non-empty aria-label is supplied, Avatar exposes image-like role=img semantics and uses that aria-label as its accessible name.",
+      "Avatar never infers initials from a name, email, gender, or any other personal attribute; product code supplies initials explicitly.",
+      "When initials are absent or whitespace-only, content is derived as the governed neutral @ fallback.",
+      "size=sm is exactly 32 by 32 CSS pixels and size=lg is exactly 48 by 48 CSS pixels.",
+      "The initials/fallback typography uses the label/small semantic typography and remains centered in both LTR and RTL contexts.",
+      "No photo, presence, status, role, verified, selected-person, or clickable account-menu variant exists in version 1.0.0."
+    ]
+  },
+  "composition": {},
+  "events": [],
+  "forbidden": [
+    "src",
+    "alt",
+    "photo",
+    "online",
+    "presence",
+    "role",
+    "status",
+    "verified",
+    "selected",
+    "name",
+    "onClick",
+    "href"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:128:14",
+      "https://atlassian.design/components/avatar",
+      "https://www.w3.org/WAI/tutorials/images/decorative/"
+    ]
+  }
+}
