@@ -1,0 +1,69 @@
+.dse-text-field {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--dse-spacing-primitive-space-200);
+  inline-size: 100%;
+}
+
+.dse-text-field__label {
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--dse-color-semantic-fg-primary);
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+}
+
+.dse-text-field__required-indicator {
+  color: var(--dse-color-semantic-fg-primary);
+}
+
+.dse-text-field__input {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  padding-block: 0;
+  padding-inline: var(--dse-spacing-primitive-space-300);
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--dse-color-semantic-fg-primary);
+  font-family: var(--dse-typography-semantic-body-default-family);
+  font-size: var(--dse-typography-semantic-body-default-size);
+  font-weight: var(--dse-typography-semantic-body-default-weight);
+  line-height: var(--dse-typography-semantic-body-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-default-letter-spacing);
+  text-align: start;
+}
+
+.dse-text-field__input::placeholder {
+  color: var(--dse-color-semantic-fg-tertiary);
+  opacity: 1;
+}
+
+.dse-text-field__message {
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+}
+
+.dse-text-field__message--invalid {
+  color: var(--dse-color-semantic-feedback-negative-fg);
+}
+
+.dse-text-field:has(.dse-text-field__input:disabled) .dse-text-field__label,
+.dse-text-field:has(.dse-text-field__input:disabled) .dse-text-field__required-indicator,
+.dse-text-field:has(.dse-text-field__input:disabled) .dse-text-field__message,
+.dse-text-field__input:disabled {
+  color: var(--dse-color-semantic-fg-disabled);
+}
+
+.dse-text-field__input:disabled::placeholder {
+  color: var(--dse-color-semantic-fg-disabled);
+}
