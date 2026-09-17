@@ -16,133 +16,34 @@
   },
   "publicApi": {
     "props": [
-      {
-        "name": "open",
-        "description": "Required controlled visibility state. The containing workflow owns the value and responds to close requests through onOpenChange.",
-        "required": true,
-        "type": { "boolean": true }
-      },
-      {
-        "name": "onOpenChange",
-        "description": "Required callback for component-owned close requests such as the close Icon Button or Escape key. The component never owns request or business progression.",
-        "required": true,
-        "type": { "callback": true }
-      },
-      {
-        "name": "title",
-        "description": "Required visible dialog heading and accessible name source.",
-        "required": true,
-        "type": { "content": true }
-      },
-      {
-        "name": "description",
-        "description": "Optional visible supporting context. Its presence derives Figma showDescription and the runtime aria-describedby relationship.",
-        "required": false,
-        "type": { "content": true }
-      },
-      {
-        "name": "children",
-        "description": "Required Body slot content. Product patterns compose fields, choices, explanatory content, and feedback here; Dialog does not interpret them.",
-        "required": true,
-        "type": { "content": true }
-      },
-      {
-        "name": "actions",
-        "description": "Optional Actions slot content. Use public Button composition; Dialog does not interpret labels, hierarchy, pending state, or outcomes.",
-        "required": false,
-        "type": { "content": true }
-      },
-      {
-        "name": "showClose",
-        "description": "Controls the visible close Icon Button only. Hiding it does not change Escape behavior or define workflow exit policy.",
-        "required": false,
-        "default": true,
-        "type": { "boolean": true }
-      },
-      {
-        "name": "closeLabel",
-        "description": "Accessible label for the close Icon Button. Defaults to Close dialog and should be localized by the consuming product when needed.",
-        "required": false,
-        "default": "Close dialog",
-        "type": { "content": true }
-      },
-      {
-        "name": "initialFocusRef",
-        "description": "Optional runtime focus target inside the Dialog. When absent, focus moves to the first focusable descendant or the dialog surface itself.",
-        "required": false,
-        "type": { "native": true }
-      }
+      { "name": "open", "description": "Required controlled visibility state. The containing workflow owns the value and responds to close requests through onOpenChange.", "required": true, "type": { "boolean": true } },
+      { "name": "onOpenChange", "description": "Required callback for component-owned close requests such as the close Icon Button or Escape key. The component never owns request or business progression.", "required": true, "type": { "callback": true } },
+      { "name": "title", "description": "Required visible dialog heading and accessible name source.", "required": true, "type": { "content": true } },
+      { "name": "description", "description": "Optional visible supporting context. Its presence derives Figma showDescription and the runtime aria-describedby relationship.", "required": false, "type": { "content": true } },
+      { "name": "children", "description": "Required Body slot content. Product patterns compose fields, choices, explanatory content, and feedback here; Dialog does not interpret them.", "required": true, "type": { "content": true } },
+      { "name": "actions", "description": "Optional Actions slot content. Use public Button composition; Dialog does not interpret labels, hierarchy, pending state, or outcomes.", "required": false, "type": { "content": true } },
+      { "name": "showClose", "description": "Controls the visible close Icon Button only. Hiding it does not change Escape behavior or define workflow exit policy.", "required": false, "default": true, "type": { "boolean": true } },
+      { "name": "closeLabel", "description": "Accessible label for the close Icon Button. Defaults to Close dialog and should be localized by the consuming product when needed.", "required": false, "default": "Close dialog", "type": { "content": true } },
+      { "name": "initialFocusRef", "description": "Optional runtime focus target inside the Dialog. When absent, focus moves to the first focusable descendant or the dialog surface itself.", "required": false, "type": { "native": true } }
     ],
     "forwardNativeAttributes": false
   },
   "representations": [
-    {
-      "source": "figma.title",
-      "kind": "public",
-      "mapsTo": "publicApi.title"
-    },
-    {
-      "source": "figma.description",
-      "kind": "public",
-      "mapsTo": "publicApi.description when present"
-    },
-    {
-      "source": "figma.showDescription",
-      "kind": "derived",
-      "mapsTo": "publicApi.description presence"
-    },
-    {
-      "source": "figma.showClose",
-      "kind": "public",
-      "mapsTo": "publicApi.showClose"
-    },
-    {
-      "source": "figma.Body",
-      "kind": "public",
-      "mapsTo": "publicApi.children"
-    },
-    {
-      "source": "figma.Actions",
-      "kind": "public",
-      "mapsTo": "publicApi.actions when present"
-    },
-    {
-      "source": "runtime.controlledVisibility",
-      "kind": "native",
-      "mapsTo": "publicApi.open + publicApi.onOpenChange"
-    }
+    { "source": "figma.title", "kind": "public", "mapsTo": "publicApi.title" },
+    { "source": "figma.description", "kind": "public", "mapsTo": "publicApi.description when present" },
+    { "source": "figma.showDescription", "kind": "derived", "mapsTo": "publicApi.description presence" },
+    { "source": "figma.showClose", "kind": "public", "mapsTo": "publicApi.showClose" },
+    { "source": "figma.Body", "kind": "public", "mapsTo": "publicApi.children" },
+    { "source": "figma.Actions", "kind": "public", "mapsTo": "publicApi.actions when present" },
+    { "source": "runtime.controlledVisibility", "kind": "native", "mapsTo": "publicApi.open + publicApi.onOpenChange" }
   ],
   "anatomy": [
-    {
-      "name": "backdrop",
-      "required": true,
-      "description": "Viewport-covering modal backdrop. Pointer activation on the backdrop does not dismiss Dialog in version 1.0.0."
-    },
-    {
-      "name": "surface",
-      "required": true,
-      "description": "520px maximum-width elevated modal surface with role=dialog and aria-modal=true."
-    },
-    {
-      "name": "header",
-      "required": true,
-      "description": "Title, optional description, and optional governed close Icon Button."
-    },
-    {
-      "name": "body",
-      "required": true,
-      "description": "Composable Body slot. Figma allows up to eight children; React runtime accepts authored public React content without inspecting business meaning."
-    },
-    {
-      "name": "divider",
-      "required": false,
-      "description": "Subtle divider rendered with the optional actions region."
-    },
-    {
-      "name": "actions",
-      "required": false,
-      "description": "Optional logical-end-aligned action region. Figma prefers Button sources and limits the design slot to three children; runtime leaves product action semantics to the workflow."
-    }
+    { "name": "backdrop", "required": true, "description": "Viewport-covering modal backdrop. Pointer activation on the backdrop does not dismiss Dialog in version 1.0.0." },
+    { "name": "surface", "required": true, "description": "520px maximum-width elevated modal surface with role=dialog and aria-modal=true." },
+    { "name": "header", "required": true, "description": "Title, optional description, and optional governed close Icon Button." },
+    { "name": "body", "required": true, "description": "Composable Body slot. Figma allows up to eight children; React runtime accepts authored public React content without inspecting business meaning." },
+    { "name": "divider", "required": false, "description": "Subtle divider rendered with the optional actions region." },
+    { "name": "actions", "required": false, "description": "Optional logical-end-aligned action region. Figma prefers Button sources and limits the design slot to three children; runtime leaves product action semantics to the workflow." }
   ],
   "tokenDependencies": [
     "--dse-color-semantic-surface-overlay",
@@ -156,6 +57,8 @@
     "--dse-spacing-primitive-space-300",
     "--dse-spacing-primitive-space-400",
     "--dse-spacing-primitive-space-500",
+    "--dse-spacing-primitive-space-800",
+    "--dse-icons-size-md",
     "--dse-typography-semantic-title-component-family",
     "--dse-typography-semantic-title-component-size",
     "--dse-typography-semantic-title-component-weight",
@@ -168,11 +71,7 @@
     "--dse-typography-semantic-body-small-letter-spacing"
   ],
   "states": [
-    {
-      "name": "open",
-      "ownership": "public",
-      "description": "Controlled visible modal state supplied through open."
-    }
+    { "name": "open", "ownership": "public", "description": "Controlled visible modal state supplied through open." }
   ],
   "semantics": {
     "element": "div with role=dialog",
@@ -195,34 +94,13 @@
     ]
   },
   "composition": {
-    "body": {
-      "optional": false,
-      "description": "Public React content rendered in the Figma Body slot. Dialog provides layout and modality only."
-    },
-    "actions": {
-      "optional": true,
-      "description": "Optional authored action content. Public Button composition is preferred; the workflow owns labels, hierarchy, enabled/pending behavior, and outcomes."
-    }
+    "body": { "optional": false, "description": "Public React content rendered in the Figma Body slot. Dialog provides layout and modality only." },
+    "actions": { "optional": true, "description": "Optional authored action content. Public Button composition is preferred; the workflow owns labels, hierarchy, enabled/pending behavior, and outcomes." }
   },
   "events": [
-    {
-      "name": "onOpenChange",
-      "trigger": "close Icon Button activation or Escape key while open"
-    }
+    { "name": "onOpenChange", "trigger": "close Icon Button activation or Escape key while open" }
   ],
-  "forbidden": [
-    "onSubmit",
-    "requestStatus",
-    "state",
-    "pending",
-    "validation",
-    "dirty",
-    "dismissOnBackdrop",
-    "showDescription",
-    "success",
-    "error",
-    "loading"
-  ],
+  "forbidden": ["onSubmit", "requestStatus", "state", "pending", "validation", "dirty", "dismissOnBackdrop", "showDescription", "success", "error", "loading"],
   "provenance": {
     "lastReviewed": "2026-09-17",
     "references": [
