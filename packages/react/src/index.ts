@@ -35,3 +35,6 @@ export type { DialogProps } from './dialog/Dialog.js';
 
 export { SidePanel } from './side-panel/SidePanel.js';
 export type { SidePanelProps } from './side-panel/SidePanel.js';
+
+export { EmptyState } from './empty-state/EmptyState.js';
+export type { EmptyStateProps } from './empty-state/EmptyState.js';
