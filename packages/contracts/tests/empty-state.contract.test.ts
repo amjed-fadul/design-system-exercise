@@ -96,6 +96,7 @@ describe('dse.empty-state contract', () => {
         '--dse-color-semantic-surface-default',
         '--dse-color-semantic-fg-primary',
         '--dse-color-semantic-fg-secondary',
+        '--dse-color-semantic-fg-tertiary',
         '--dse-spacing-primitive-space-300',
         '--dse-icons-size-lg',
         '--dse-typography-semantic-title-component-family',
