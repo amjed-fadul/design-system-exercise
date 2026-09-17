@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { basename, resolve } from 'node:path';
+import { resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import Ajv, { type AnySchema, type ErrorObject, type ValidateFunction } from 'ajv';
 import { loadComponentContracts, loadPatternContracts } from './load.js';
@@ -14,6 +14,8 @@ const componentSchema = readJson(new URL('../schema/component-contract.schema.js
 const patternSchema = readJson(new URL('../schema/pattern-contract.schema.json', import.meta.url));
 const componentValidator = ajv.compile(componentSchema);
 const patternValidator = ajv.compile(patternSchema);
+const publicComponentId = /^dse\.(?!_)[a-z0-9.-]+$/;
+const internalComponentId = /^dse\._[a-z0-9.-]+$/;
 
 function formatErrors(errors: ErrorObject[] | null | undefined): string[] {
   return (errors ?? [])
@@ -30,7 +32,26 @@ function runValidator(validator: ValidateFunction, candidate: unknown): Validati
 }
 
 export function validateComponent(candidate: unknown): ValidationResult {
-  return runValidator(componentValidator, candidate);
+  const schemaResult = runValidator(componentValidator, candidate);
+  if (!schemaResult.valid) return schemaResult;
+
+  const contract = candidate as ComponentContract;
+  const errors: string[] = [];
+
+  if (contract.visibility === 'public' && !publicComponentId.test(contract.id)) {
+    errors.push('/id: public component contract ids must match dse.<name> and must not begin dse._');
+  }
+
+  if (contract.visibility === 'internal' && !internalComponentId.test(contract.id)) {
+    errors.push('/id: internal component contract ids must begin dse._');
+  }
+
+  if (contract.visibility === 'internal' && contract.sources.implementationPackage) {
+    errors.push('/sources/implementationPackage: internal component contracts cannot declare a public implementation package');
+  }
+
+  errors.sort((a, b) => a.localeCompare(b));
+  return { valid: errors.length === 0, errors };
 }
 
 export function validatePattern(candidate: unknown): ValidationResult {
@@ -48,7 +69,7 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
   const errors: string[] = [];
   const seenIds = new Map<string, string>();
   const seenVersions = new Map<string, string>();
-  const componentIds = new Set<string>();
+  const publicComponentIds = new Set<string>();
 
   const recordIdentity = (id: string, version: string, path: string) => {
     const existingId = seenIds.get(id);
@@ -70,15 +91,12 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
     if (!result.valid) continue;
 
     const contract = loaded.contract as ComponentContract;
-    if (contract.id.startsWith('dse._')) {
-      errors.push(`${loaded.path}: /id: internal component contracts are not enabled in schema v1`);
-    }
     for (const token of contract.tokenDependencies) {
       if (!token.startsWith('--dse-')) {
-        errors.push(`${loaded.path}: /tokenDependencies: public token dependency must start with --dse-: ${token}`);
+        errors.push(`${loaded.path}: /tokenDependencies: token dependency must start with --dse-: ${token}`);
       }
     }
-    componentIds.add(contract.id);
+    if (contract.visibility === 'public') publicComponentIds.add(contract.id);
     recordIdentity(contract.id, contract.version, loaded.path);
   }
 
@@ -90,8 +108,8 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
     const contract = loaded.contract as PatternContract;
     recordIdentity(contract.id, contract.version, loaded.path);
     for (const dependency of contract.componentDependencies) {
-      if (!componentIds.has(dependency.id)) {
-        errors.push(`${loaded.path}: /componentDependencies: unresolved component contract ${dependency.id}`);
+      if (!publicComponentIds.has(dependency.id)) {
+        errors.push(`${loaded.path}: /componentDependencies: unresolved public component contract ${dependency.id}`);
       }
     }
   }
