@@ -1,0 +1,200 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse._navigation-item",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "internal",
+  "name": "_Navigation Item",
+  "description": "Private native destination-link renderer used only by Sidebar. It owns icon/label presentation, expanded/compact geometry, current-location styling, and browser-derived hover/focus/pressed states while Sidebar owns grouping, order, and the single current-route invariant.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "143:2948"
+    }
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "label",
+        "description": "Required non-empty destination name. It is visible in expanded mode and retained for assistive technology in compact mode.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "href",
+        "description": "Required non-empty native anchor destination supplied by the parent item data.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "icon",
+        "description": "Required compatible 20px icon content. The implementation expects an icon that can inherit currentColor so semantic foreground changes remain governed.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "mode",
+        "description": "Private presentation mode supplied by Sidebar; not independently consumer-configurable.",
+        "required": true,
+        "type": { "enum": ["expanded", "compact"] }
+      },
+      {
+        "name": "current",
+        "description": "Private current-location boolean derived by Sidebar from currentId; maps to aria-current and selected presentation.",
+        "required": true,
+        "type": { "boolean": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.label",
+      "kind": "public",
+      "mapsTo": "internalApi.label"
+    },
+    {
+      "source": "figma.icon",
+      "kind": "public",
+      "mapsTo": "internalApi.icon"
+    },
+    {
+      "source": "figma.mode",
+      "kind": "derived",
+      "mapsTo": "Sidebar mode passed to internalApi.mode"
+    },
+    {
+      "source": "figma.current",
+      "kind": "derived",
+      "mapsTo": "Sidebar currentId equality passed to internalApi.current"
+    },
+    {
+      "source": "figma.state.default",
+      "kind": "derived",
+      "mapsTo": "native anchor resting presentation"
+    },
+    {
+      "source": "figma.state.hover",
+      "kind": "derived",
+      "mapsTo": "CSS :hover"
+    },
+    {
+      "source": "figma.state.focus",
+      "kind": "derived",
+      "mapsTo": "CSS :focus-visible"
+    },
+    {
+      "source": "figma.state.pressed",
+      "kind": "derived",
+      "mapsTo": "CSS :active"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "link",
+      "required": true,
+      "description": "Native anchor that owns destination activation, accessible name, current-location semantics, and focusability."
+    },
+    {
+      "name": "content",
+      "required": true,
+      "description": "Inline icon-plus-label content in expanded mode and centered icon-only visible presentation in compact mode."
+    },
+    {
+      "name": "icon",
+      "required": true,
+      "description": "20px compatible destination icon that remains visible in both modes."
+    },
+    {
+      "name": "label",
+      "required": true,
+      "description": "Destination text visible in expanded mode and visually hidden but accessibility-retained in compact mode."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-fg-primary",
+    "--dse-color-semantic-fg-secondary",
+    "--dse-color-semantic-state-hover",
+    "--dse-color-semantic-state-selected",
+    "--dse-color-semantic-focus-default",
+    "--dse-radius-shape-control",
+    "--dse-border-role-focus",
+    "--dse-icons-size-md",
+    "--dse-typography-semantic-label-default-family",
+    "--dse-typography-semantic-label-default-size",
+    "--dse-typography-semantic-label-default-weight",
+    "--dse-typography-semantic-label-default-line-height",
+    "--dse-typography-semantic-label-default-letter-spacing"
+  ],
+  "states": [
+    {
+      "name": "current",
+      "ownership": "derived",
+      "description": "Current-location presentation derives from Sidebar currentId and is exposed semantically through aria-current=page."
+    },
+    {
+      "name": "hover",
+      "ownership": "derived",
+      "description": "Hover presentation is browser/CSS-derived and does not change the current route."
+    },
+    {
+      "name": "focus-visible",
+      "ownership": "derived",
+      "description": "Visible focus presentation derives from native anchor focus-visible and remains independent from current-route styling."
+    },
+    {
+      "name": "pressed",
+      "ownership": "derived",
+      "description": "Pressed presentation derives from native anchor active interaction and does not mutate current-route state."
+    }
+  ],
+  "semantics": {
+    "element": "native anchor destination link",
+    "accessibleName": "The required non-empty destination label names the link in both expanded and compact modes.",
+    "keyboardActivation": "Native anchor keyboard activation; no custom key handler or roving tabindex.",
+    "focus": "The native anchor remains the focusable element and receives the governed 2px focus-visible ring independently from selected/current presentation.",
+    "requirements": [
+      "The implementation uses a native anchor link as the semantic and focusable destination control.",
+      "When current is true the anchor exposes aria-current=page; non-current items omit aria-current.",
+      "Compact presentation hides only the visible label while retaining the same accessible destination name for assistive technology.",
+      "Focus-visible remains visually distinct from current-route selection and uses the semantic focus/default color with the governed strong focus border width.",
+      "Hover and pressed presentation are CSS-derived browser interaction states and never change which route is current.",
+      "Expanded source geometry is 184 by 40 CSS pixels with 12px logical-start and 10px logical-end padding; its icon-to-label content gap is 12px.",
+      "Compact source geometry is 44 by 44 CSS pixels with 12px padding on every side.",
+      "The destination icon is 20px by 20px in both modes and uses currentColor-compatible rendering so foreground semantics can follow item state.",
+      "Default non-current expanded text uses semantic fg/secondary; hover, focus, pressed, and current expanded text use fg/primary as authored in Figma.",
+      "Selected/current and pressed backgrounds use semantic state/selected; non-current hover uses semantic state/hover.",
+      "The private helper never appears in the public React package barrel, package exports map, or supported deep-import surface."
+    ]
+  },
+  "composition": {
+    "content": {
+      "optional": false,
+      "description": "Private governed destination anatomy supplied only by Sidebar item data.",
+      "allowedChildren": ["destination icon", "destination label"]
+    }
+  },
+  "events": [
+    {
+      "name": "navigate",
+      "trigger": "native anchor activation"
+    }
+  ],
+  "forbidden": [
+    "state",
+    "children",
+    "selected",
+    "onPress",
+    "button semantics",
+    "public package export"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:143:2948",
+      "https://carbondesignsystem.com/components/UI-shell-left-panel/usage/",
+      "https://www.w3.org/WAI/tutorials/page-structure/regions/"
+    ]
+  }
+}
