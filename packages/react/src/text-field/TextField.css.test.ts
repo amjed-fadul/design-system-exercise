@@ -37,7 +37,7 @@ describe('Text Field visual contract', () => {
       /\.dse-input-control\[data-size=['"]compact['"]\]\s*\{[^}]*block-size:\s*var\(--dse-spacing-primitive-space-700\)/s,
     );
     expect(css).toMatch(
-      /\.dse-input-control\[data-size=['"]default['"]\]\s*\{[^}]*block-size:\s*calc\(var\(--dse-spacing-primitive-space-700\)\s*\+\s*var\(--dse-spacing-primitive-space-100\)\)/s,
+      /\.dse-input-control\[data-size=['"]default['"]\]\s*\{[^}]*block-size:\s*calc\(\s*var\(--dse-spacing-primitive-space-700\)\s*\+\s*var\(--dse-spacing-primitive-space-100\)\s*\)/s,
     );
   });
 
