@@ -21,6 +21,22 @@ export interface SearchFieldProps
   onClear?: () => void;
 }
 
+type RuntimeForbiddenSearchFieldProps = {
+  state?: unknown;
+  content?: unknown;
+  size?: unknown;
+  children?: unknown;
+  type?: unknown;
+  invalid?: unknown;
+  'aria-invalid'?: unknown;
+  loading?: unknown;
+  results?: unknown;
+  resultCount?: unknown;
+  suggestions?: unknown;
+  selectedPerson?: unknown;
+  debounce?: unknown;
+};
+
 const searchIconUrl = new URL('../assets/search.svg', import.meta.url).href;
 const clearIconUrl = new URL('../assets/x.svg', import.meta.url).href;
 
@@ -58,15 +74,21 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
     disabled,
     className,
     onChange,
+    state: _ignoredState,
+    content: _ignoredContent,
+    size: _ignoredSize,
+    children: _ignoredChildren,
     type: _ignoredType,
+    invalid: _ignoredInvalid,
     'aria-invalid': _ignoredAriaInvalid,
+    loading: _ignoredLoading,
     results: _ignoredResults,
+    resultCount: _ignoredResultCount,
+    suggestions: _ignoredSuggestions,
+    selectedPerson: _ignoredSelectedPerson,
+    debounce: _ignoredDebounce,
     ...inputProps
-  } = props as SearchFieldProps & {
-    type?: InputHTMLAttributes<HTMLInputElement>['type'];
-    'aria-invalid'?: InputHTMLAttributes<HTMLInputElement>['aria-invalid'];
-    results?: InputHTMLAttributes<HTMLInputElement>['results'];
-  };
+  } = props as SearchFieldProps & RuntimeForbiddenSearchFieldProps;
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [uncontrolledQuery, setUncontrolledQuery] = useState(() => queryString(defaultValue));
