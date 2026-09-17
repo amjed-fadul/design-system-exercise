@@ -84,6 +84,7 @@ export function Dialog({
   const titleId = useId();
   const descriptionId = useId();
   const hasDescription = description !== null && description !== undefined && description !== false;
+  const hasActions = actions !== null && actions !== undefined && actions !== false;
   const surfaceRef = useRef<HTMLDivElement>(null);
   const [portalHost] = useState<HTMLElement | null>(() => {
     if (typeof document === 'undefined') return null;
@@ -229,7 +230,7 @@ export function Dialog({
 
         <div className="dse-dialog__body">{children}</div>
 
-        {actions !== undefined ? (
+        {hasActions ? (
           <>
             <div className="dse-dialog__divider" aria-hidden="true" />
             <div className="dse-dialog__actions">{actions}</div>
