@@ -143,7 +143,7 @@
       "Keyboard focus follows the destination list in logical source order. Sidebar does not trap focus and adds no backdrop, modal behavior, or Escape policy.",
       "The Figma authority fixes expanded Sidebar width at 208 CSS pixels and compact Sidebar width at 64 CSS pixels.",
       "The expanded internal item source is 184 by 40 CSS pixels with a 40px minimum target height; compact items are 44 by 44 CSS pixels.",
-      "Expanded mode uses a 30px top inset and 12px inline inset; compact mode uses a 48px top inset and 10px inline inset. These Component / Layout values remain private component layout decisions rather than public token API.",
+      "Expanded mode uses a 30px top inset and 12px inline inset; compact mode uses a 48px top inset and 10px inline inset. These Figma-only layout helper values remain private component layout decisions rather than public token API.",
       "The navigation list uses an 8px gap, the expanded group-to-list section gap is 18px, and the logical end border is 1px using the semantic subtle border color.",
       "Footer content is supplemental workspace/account context only, accepts up to two direct children by convention, and cannot be used to bypass the governed primary destination list.",
       "Application Shell owns physical placement and responsive mode selection; Sidebar does not expose a breakpoint, drawer/open state, placement, or collapse-control API.",
