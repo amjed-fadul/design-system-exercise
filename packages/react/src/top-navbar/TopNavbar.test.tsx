@@ -98,6 +98,39 @@ describe('Top Navbar public runtime', () => {
     ).toThrow(/account/i);
   });
 
+  it('does not allow a Fragment to bypass the single rendered-child slot boundary', async () => {
+    const module = await loadTopNavbarModule();
+    if (!module) return;
+
+    const { TopNavbar } = module;
+    expect(() =>
+      render(
+        <TopNavbar
+          brand={
+            <>
+              <span>One</span>
+              <span>Two</span>
+            </>
+          }
+          account={<span>Account</span>}
+        />,
+      ),
+    ).toThrow(/brand/i);
+    expect(() =>
+      render(
+        <TopNavbar
+          brand={<span>Brand</span>}
+          account={
+            <>
+              <span>One</span>
+              <span>Two</span>
+            </>
+          }
+        />,
+      ),
+    ).toThrow(/account/i);
+  });
+
   it('fails closed for Figma-only and product-owned untyped props and exports TopNavbar publicly', async () => {
     const module = await loadTopNavbarModule();
     if (!module) return;
