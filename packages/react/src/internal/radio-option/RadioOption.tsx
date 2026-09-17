@@ -23,6 +23,7 @@ export function RadioOption({
 }: RadioOptionProps) {
   const generatedId = useId();
   const inputId = `dse-radio-option-${generatedId}`;
+  const labelId = `${inputId}-label`;
   const hasDescription = description != null && description !== false;
   const descriptionId = hasDescription ? `${inputId}-description` : undefined;
 
@@ -37,6 +38,7 @@ export function RadioOption({
         checked={checked}
         disabled={disabled}
         required={required}
+        aria-labelledby={labelId}
         aria-describedby={descriptionId}
         onChange={(event) => {
           if (event.currentTarget.checked) onChange(value);
@@ -48,7 +50,9 @@ export function RadioOption({
       </span>
 
       <span className="dse-radio-option__text">
-        <span className="dse-radio-option__label">{label}</span>
+        <span id={labelId} className="dse-radio-option__label">
+          {label}
+        </span>
         {hasDescription ? (
           <span id={descriptionId} className="dse-radio-option__description">
             {description}
