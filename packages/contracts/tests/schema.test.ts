@@ -81,7 +81,7 @@ describe('contract schemas', () => {
     expect(validator).not.toBeNull();
     if (!validator) return;
 
-    const candidate = validComponentFixture();
+    const candidate = validComponentFixture() as any;
     candidate.publicApi.props = [
       {
         name: 'onClear',
