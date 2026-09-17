@@ -60,73 +60,26 @@
     "forwardNativeAttributes": false
   },
   "representations": [
-    {
-      "source": "figma.title",
-      "kind": "public",
-      "mapsTo": "publicApi.title"
-    },
-    {
-      "source": "figma.body",
-      "kind": "public",
-      "mapsTo": "publicApi.body"
-    },
-    {
-      "source": "figma.showBody",
-      "kind": "public",
-      "mapsTo": "publicApi.showBody"
-    },
-    {
-      "source": "figma.icon",
-      "kind": "public",
-      "mapsTo": "publicApi.icon"
-    },
-    {
-      "source": "figma.showIcon",
-      "kind": "public",
-      "mapsTo": "publicApi.showIcon"
-    },
-    {
-      "source": "figma.Actions",
-      "kind": "public",
-      "mapsTo": "publicApi.actions"
-    }
+    { "source": "figma.title", "kind": "public", "mapsTo": "publicApi.title" },
+    { "source": "figma.body", "kind": "public", "mapsTo": "publicApi.body" },
+    { "source": "figma.showBody", "kind": "public", "mapsTo": "publicApi.showBody" },
+    { "source": "figma.icon", "kind": "public", "mapsTo": "publicApi.icon" },
+    { "source": "figma.showIcon", "kind": "public", "mapsTo": "publicApi.showIcon" },
+    { "source": "figma.Actions", "kind": "public", "mapsTo": "publicApi.actions" }
   ],
   "anatomy": [
-    {
-      "name": "surface",
-      "required": true,
-      "description": "Host-filling default surface with a 440px minimum block size in the Figma authority."
-    },
-    {
-      "name": "content",
-      "required": true,
-      "description": "Centered vertical content stack with 12px gaps and a 680px maximum inline size."
-    },
-    {
-      "name": "icon",
-      "required": false,
-      "description": "Optional 40px decorative icon region containing a centered 24px compatible system icon."
-    },
-    {
-      "name": "title",
-      "required": true,
-      "description": "Visible non-empty heading that remains present even when optional icon and body context are hidden."
-    },
-    {
-      "name": "body",
-      "required": false,
-      "description": "Optional supporting text controlled by showBody and preserving authored line breaks."
-    },
-    {
-      "name": "actions",
-      "required": false,
-      "description": "Optional recovery controls composed from existing public Button or Link sources. Figma allows at most two preferred controls."
-    }
+    { "name": "surface", "required": true, "description": "Host-filling default surface with a 440px minimum block size in the Figma authority." },
+    { "name": "content", "required": true, "description": "Centered vertical content stack with 12px gaps and a 680px maximum inline size." },
+    { "name": "icon", "required": false, "description": "Optional 40px decorative icon region containing a centered 24px compatible system icon in the muted/tertiary semantic foreground tone." },
+    { "name": "title", "required": true, "description": "Visible non-empty heading that remains present even when optional icon and body context are hidden." },
+    { "name": "body", "required": false, "description": "Optional supporting text controlled by showBody and preserving authored line breaks." },
+    { "name": "actions", "required": false, "description": "Optional recovery controls composed from existing public Button or Link sources. Figma allows at most two preferred controls." }
   ],
   "tokenDependencies": [
     "--dse-color-semantic-surface-default",
     "--dse-color-semantic-fg-primary",
     "--dse-color-semantic-fg-secondary",
+    "--dse-color-semantic-fg-tertiary",
     "--dse-spacing-primitive-space-300",
     "--dse-icons-size-lg",
     "--dse-typography-semantic-title-component-family",
@@ -152,6 +105,7 @@
       "Recovery actions remain outside the status live region so interactive control labels are not repeatedly announced as message content.",
       "Showing the Empty State must not move focus unexpectedly; the containing pattern decides whether any separate focus management is required.",
       "The icon is decorative and hidden from assistive technology so it does not repeat or compete with the textual explanation.",
+      "The default Search icon uses the Figma Muted icon-render mode, resolved to the semantic fg/tertiary foreground.",
       "When showBody is true, body text remains non-empty; when showBody is false, the title alone remains the explanation.",
       "The Figma source uses a 440px minimum surface block size, a centered content stack capped at 680 CSS pixels, 12px inter-item gaps, and a 40px icon region containing a centered 24px glyph.",
       "The implementation fills the host inline size rather than turning the 1168px Figma example width into a fixed public component width.",
@@ -159,14 +113,8 @@
     ]
   },
   "composition": {
-    "icon": {
-      "optional": true,
-      "description": "Compatible decorative icon content rendered inside the governed icon region; the default uses the existing Search asset."
-    },
-    "actions": {
-      "optional": true,
-      "description": "Recovery or next-step controls supplied by the workflow. Prefer one existing Button or Link; Figma caps the preferred slot at two controls."
-    }
+    "icon": { "optional": true, "description": "Compatible decorative icon content rendered inside the governed icon region; the default uses the existing Search asset." },
+    "actions": { "optional": true, "description": "Recovery or next-step controls supplied by the workflow. Prefer one existing Button or Link; Figma caps the preferred slot at two controls." }
   },
   "events": [],
   "forbidden": [
