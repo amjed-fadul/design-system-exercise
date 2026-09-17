@@ -8,10 +8,7 @@
   "name": "Dialog",
   "description": "Controlled modal surface for a short blocking task or consequential choice. Dialog owns modal presentation, focus containment, dismissal requests, and composition; the containing workflow owns business state, request progression, validation, dirty checks, and action outcomes.",
   "sources": {
-    "figma": {
-      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
-      "nodeId": "133:6"
-    },
+    "figma": { "fileKey": "tYCXBBYoQ92AUKVbND5WkG", "nodeId": "133:6" },
     "implementationPackage": "@design-system-exercise/react"
   },
   "publicApi": {
@@ -23,7 +20,7 @@
       { "name": "children", "description": "Required Body slot content. Product patterns compose fields, choices, explanatory content, and feedback here; Dialog does not interpret them.", "required": true, "type": { "content": true } },
       { "name": "actions", "description": "Optional Actions slot content. Use public Button composition; Dialog does not interpret labels, hierarchy, pending state, or outcomes.", "required": false, "type": { "content": true } },
       { "name": "showClose", "description": "Controls the visible close Icon Button only. Hiding it does not change Escape behavior or define workflow exit policy.", "required": false, "default": true, "type": { "boolean": true } },
-      { "name": "closeLabel", "description": "Accessible label for the close Icon Button. Defaults to Close dialog and should be localized by the consuming product when needed.", "required": false, "default": "Close dialog", "type": { "content": true } },
+      { "name": "closeLabel", "description": "Accessible label for the close Icon Button. Defaults to Close dialog and should be localized by the consuming product when needed.", "required": false, "default": "Close dialog", "type": { "native": true } },
       { "name": "initialFocusRef", "description": "Optional runtime focus target inside the Dialog. When absent, focus moves to the first focusable descendant or the dialog surface itself.", "required": false, "type": { "native": true } }
     ],
     "forwardNativeAttributes": false
