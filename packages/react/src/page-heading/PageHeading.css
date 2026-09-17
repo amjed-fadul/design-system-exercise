@@ -1,0 +1,60 @@
+.dse-page-heading {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  gap: 10px;
+}
+
+.dse-page-heading__breadcrumbs {
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.dse-page-heading__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  inline-size: 100%;
+  gap: 24px;
+}
+
+.dse-page-heading__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-inline-size: 0;
+  gap: 4px;
+}
+
+.dse-page-heading__title {
+  margin: 0;
+  color: var(--dse-color-semantic-fg-primary);
+  font-family: var(--dse-typography-semantic-headline-page-family);
+  font-size: var(--dse-typography-semantic-headline-page-size);
+  font-weight: var(--dse-typography-semantic-headline-page-weight);
+  line-height: var(--dse-typography-semantic-headline-page-line-height);
+  letter-spacing: var(--dse-typography-semantic-headline-page-letter-spacing);
+  overflow-wrap: anywhere;
+}
+
+.dse-page-heading__description {
+  margin: 0;
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+  overflow-wrap: anywhere;
+}
+
+.dse-page-heading__actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
+}

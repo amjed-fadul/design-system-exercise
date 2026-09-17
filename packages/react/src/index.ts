@@ -44,3 +44,6 @@ export type { SidebarItem, SidebarMode, SidebarProps } from './sidebar/Sidebar.j
 
 export { TopNavbar } from './top-navbar/TopNavbar.js';
 export type { TopNavbarProps } from './top-navbar/TopNavbar.js';
+
+export { PageHeading } from './page-heading/PageHeading.js';
+export type { PageHeadingProps } from './page-heading/PageHeading.js';
