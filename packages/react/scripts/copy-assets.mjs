@@ -10,13 +10,25 @@ const inputControlCss = await readFile(
   'utf8',
 );
 const textFieldCss = await readFile(new URL('../src/text-field/TextField.css', import.meta.url), 'utf8');
+const searchFieldCss = await readFile(
+  new URL('../src/search-field/SearchField.css', import.meta.url),
+  'utf8',
+);
 
 await writeFile(
   new URL('../dist/styles.css', import.meta.url),
-  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n`,
+  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n\n${searchFieldCss.trimEnd()}\n`,
 );
 
 await copyFile(
   new URL('../src/assets/loader-circle.svg', import.meta.url),
   new URL('../dist/assets/loader-circle.svg', import.meta.url),
+);
+await copyFile(
+  new URL('../src/assets/search.svg', import.meta.url),
+  new URL('../dist/assets/search.svg', import.meta.url),
+);
+await copyFile(
+  new URL('../src/assets/x.svg', import.meta.url),
+  new URL('../dist/assets/x.svg', import.meta.url),
 );

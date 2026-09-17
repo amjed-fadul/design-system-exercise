@@ -1,0 +1,207 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.search-field",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Search Field",
+  "description": "Native search input for finding existing content. It owns query entry and clearing anatomy while result filtering, counts, empty results, debouncing, selection, and announcements remain pattern or product concerns.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "112:1710"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "aria-label",
+        "description": "Required native accessible name for the search input; the placeholder never substitutes for it.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "clearButtonLabel",
+        "description": "Required accessible name forwarded to the internal clear Icon Button, for example Clear search.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "disabled",
+        "description": "Forwarded native disabled state for the search input and its clear affordance.",
+        "default": false,
+        "type": { "native": true }
+      },
+      {
+        "name": "onClear",
+        "description": "Optional component-owned callback invoked when the enabled clear action is activated.",
+        "type": { "callback": true }
+      }
+    ],
+    "forwardNativeAttributes": true
+  },
+  "representations": [
+    {
+      "source": "figma.value",
+      "kind": "native",
+      "mapsTo": "native value/defaultValue"
+    },
+    {
+      "source": "figma.placeholder",
+      "kind": "native",
+      "mapsTo": "native placeholder"
+    },
+    {
+      "source": "figma.state.hover",
+      "kind": "derived",
+      "mapsTo": "private input-control CSS from native input:hover"
+    },
+    {
+      "source": "figma.state.focus",
+      "kind": "derived",
+      "mapsTo": "private input-control CSS from native input:focus-visible"
+    },
+    {
+      "source": "figma.state.disabled",
+      "kind": "native",
+      "mapsTo": "native disabled plus disabled clear Icon Button when query is filled"
+    },
+    {
+      "source": "figma.content",
+      "kind": "derived",
+      "mapsTo": "current native query empty/filled state"
+    },
+    {
+      "source": "figma.search-icon",
+      "kind": "derived",
+      "mapsTo": "fixed decorative search icon"
+    },
+    {
+      "source": "figma.clear-action",
+      "kind": "derived",
+      "mapsTo": "internal dse.icon-button presence when current query is non-empty"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "input-control",
+      "required": true,
+      "description": "Private dse._input-control shell using compact 40px size."
+    },
+    {
+      "name": "search-icon",
+      "required": true,
+      "description": "Fixed decorative 20px search icon at inline-start."
+    },
+    {
+      "name": "input",
+      "required": true,
+      "description": "Native type=search input that owns query value, focus, disabled state, and change behavior."
+    },
+    {
+      "name": "clear-action",
+      "required": false,
+      "description": "Governed Icon Button at inline-end, present only while the current query is non-empty."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-spacing-primitive-space-200",
+    "--dse-spacing-primitive-space-300",
+    "--dse-spacing-primitive-space-700",
+    "--dse-icons-size-md",
+    "--dse-color-semantic-fg-primary",
+    "--dse-color-semantic-fg-tertiary",
+    "--dse-color-semantic-fg-disabled",
+    "--dse-typography-semantic-body-default-family",
+    "--dse-typography-semantic-body-default-size",
+    "--dse-typography-semantic-body-default-weight",
+    "--dse-typography-semantic-body-default-line-height",
+    "--dse-typography-semantic-body-default-letter-spacing"
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "ownership": "derived",
+      "description": "Visual hover is derived from the native search input and private shell."
+    },
+    {
+      "name": "focus-visible",
+      "ownership": "derived",
+      "description": "Focus presentation is derived from native search-input focus-visible."
+    },
+    {
+      "name": "disabled",
+      "ownership": "native",
+      "description": "Native disabled input state also disables a visible clear action."
+    }
+  ],
+  "semantics": {
+    "element": "input",
+    "accessibleName": "Required native aria-label owns the search input accessible name independently from placeholder content.",
+    "keyboardActivation": "native search text-input behavior plus native button activation for the clear action",
+    "focus": "native input focus with visible private-shell focus treatment; focus returns to the search input after clearing",
+    "requirements": [
+      "The Search Field always composes the compact 40 CSS pixel private input-control shell; no public size prop exists.",
+      "The native input is always type=search and consumer type overrides are not supported.",
+      "The required aria-label names the search input independently from its placeholder.",
+      "Controlled value and uncontrolled defaultValue usage are both supported through native input behavior.",
+      "The clear action is present only while the current query is non-empty.",
+      "clearButtonLabel provides the clear button accessible name and is never replaced by the X glyph.",
+      "Activating the clear action clears uncontrolled query state, invokes onClear when supplied, and restores focus to the search input.",
+      "For controlled query state, onClear notifies the owner to update value and focus still returns to the search input.",
+      "When disabled and filled, the clear affordance remains visible but its Icon Button is disabled.",
+      "Logical inline positioning preserves RTL layout; search and X glyphs do not mirror.",
+      "The browser-provided search cancel affordance is suppressed so only the governed clear action is exposed.",
+      "No aria-invalid or validation/error presentation is accepted by Search Field; no-result status belongs outside the field."
+    ]
+  },
+  "composition": {
+    "input-control": {
+      "optional": false,
+      "description": "Private governed shell; consumers cannot replace it or import it through the public React package.",
+      "allowedChildren": ["dse._input-control"]
+    },
+    "clear-action": {
+      "optional": true,
+      "description": "Internal composition of the governed public Icon Button with a fixed X glyph and consumer-supplied accessible name.",
+      "accessibleNameOwner": "publicApi.clearButtonLabel",
+      "allowedChildren": ["dse.icon-button"]
+    }
+  },
+  "events": [
+    {
+      "name": "change",
+      "trigger": "native input change"
+    },
+    {
+      "name": "clear",
+      "trigger": "clear button activation",
+      "suppressedWhen": "disabled"
+    }
+  ],
+  "forbidden": [
+    "state",
+    "content",
+    "size",
+    "children",
+    "type",
+    "invalid",
+    "aria-invalid",
+    "loading",
+    "results",
+    "resultCount",
+    "suggestions",
+    "selectedPerson",
+    "debounce"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:112:1710",
+      "https://carbondesignsystem.com/components/search/usage/",
+      "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html"
+    ]
+  }
+}

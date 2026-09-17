@@ -16,7 +16,7 @@ function componentContracts() {
 }
 
 describe('contract source integrity', () => {
-  it('contains only the component contracts implemented through the C04 contract gate and no placeholder patterns', () => {
+  it('contains only the component contracts implemented through the C05 contract gate and no placeholder patterns', () => {
     const components = componentContracts();
     const patterns = existsSync(patternsDir)
       ? readdirSync(patternsDir).filter((name) => name.endsWith('.contract.json')).sort()
@@ -27,6 +27,7 @@ describe('contract source integrity', () => {
       'button.contract.json',
       'icon-button.contract.json',
       'link.contract.json',
+      'search-field.contract.json',
       'text-field.contract.json',
     ]);
     expect(patterns).toEqual([]);
