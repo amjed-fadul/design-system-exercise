@@ -92,3 +92,21 @@ export const ArabicSuccess: Story = {
   },
   globals: { language: 'arabic' },
 };
+
+export const DarkArabicError: Story = {
+  args: {
+    intent: 'error',
+    title: 'لم يتم حفظ التغييرات',
+    message: 'ما زالت التغييرات غير محفوظة. اختياراتك محفوظة هنا ويمكنك المحاولة مرة أخرى.',
+  },
+  globals: { theme: 'dark', language: 'arabic' },
+};
+
+export const DarkArabicSuccess: Story = {
+  args: {
+    intent: 'success',
+    title: 'تم حفظ التغييرات',
+    message: 'تم حفظ التغييرات بنجاح.',
+  },
+  globals: { theme: 'dark', language: 'arabic' },
+};
