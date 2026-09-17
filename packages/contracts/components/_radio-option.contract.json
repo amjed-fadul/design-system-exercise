@@ -1,0 +1,230 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse._radio-option",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "internal",
+  "name": "_Radio Option",
+  "description": "Private renderer for one native radio option inside Radio Group. It owns local indicator, label, optional description, and native option state while the parent Radio Group owns the single selected value.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "116:174"
+    }
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "label",
+        "description": "Required option label content associated with the native radio input.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "description",
+        "description": "Optional explanatory content associated to the native radio through aria-describedby.",
+        "type": { "content": true }
+      },
+      {
+        "name": "name",
+        "description": "Shared native radio-group name supplied by the parent.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "value",
+        "description": "Required unique native radio value supplied by option data.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "checked",
+        "description": "Private checked state derived from the parent Radio Group selected value.",
+        "default": false,
+        "type": { "boolean": true }
+      },
+      {
+        "name": "disabled",
+        "description": "Option-level native disabled state.",
+        "default": false,
+        "type": { "boolean": true }
+      },
+      {
+        "name": "required",
+        "description": "Native required state applied consistently to every radio in a required group.",
+        "default": true,
+        "type": { "boolean": true }
+      },
+      {
+        "name": "onChange",
+        "description": "Private callback from the native radio change event to the parent Radio Group.",
+        "type": { "callback": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.label",
+      "kind": "public",
+      "mapsTo": "internalApi.label"
+    },
+    {
+      "source": "figma.description",
+      "kind": "public",
+      "mapsTo": "internalApi.description"
+    },
+    {
+      "source": "figma.showDescription",
+      "kind": "derived",
+      "mapsTo": "description presence"
+    },
+    {
+      "source": "figma.selected",
+      "kind": "derived",
+      "mapsTo": "native input:checked derived from Radio Group value"
+    },
+    {
+      "source": "figma.state.hover",
+      "kind": "derived",
+      "mapsTo": "CSS from enabled option hover"
+    },
+    {
+      "source": "figma.state.focus",
+      "kind": "derived",
+      "mapsTo": "CSS from native input:focus-visible"
+    },
+    {
+      "source": "figma.state.pressed",
+      "kind": "derived",
+      "mapsTo": "CSS from enabled option :active"
+    },
+    {
+      "source": "figma.state.disabled",
+      "kind": "native",
+      "mapsTo": "native input disabled"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "radio-input",
+      "required": true,
+      "description": "Native type=radio input providing selection, focus, keyboard, disabled, required, and form semantics."
+    },
+    {
+      "name": "indicator",
+      "required": true,
+      "description": "Decorative 20px radio circle and selected dot driven entirely from the native input state."
+    },
+    {
+      "name": "label",
+      "required": true,
+      "description": "Visible option name within the native label target."
+    },
+    {
+      "name": "description",
+      "required": false,
+      "description": "Optional consequence/detail text that wraps and grows vertically."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-spacing-primitive-space-200",
+    "--dse-spacing-primitive-space-250",
+    "--dse-spacing-primitive-space-700",
+    "--dse-radius-shape-control",
+    "--dse-border-role-base",
+    "--dse-border-role-focus",
+    "--dse-color-semantic-control-border",
+    "--dse-color-semantic-control-border-hover",
+    "--dse-color-semantic-control-selected",
+    "--dse-color-semantic-focus-default",
+    "--dse-color-semantic-state-hover",
+    "--dse-color-semantic-action-ghost-pressed",
+    "--dse-color-semantic-fg-primary",
+    "--dse-color-semantic-fg-secondary",
+    "--dse-color-semantic-fg-disabled",
+    "--dse-color-semantic-border-subtle",
+    "--dse-typography-semantic-label-default-family",
+    "--dse-typography-semantic-label-default-size",
+    "--dse-typography-semantic-label-default-weight",
+    "--dse-typography-semantic-label-default-line-height",
+    "--dse-typography-semantic-label-default-letter-spacing",
+    "--dse-typography-semantic-body-small-family",
+    "--dse-typography-semantic-body-small-size",
+    "--dse-typography-semantic-body-small-weight",
+    "--dse-typography-semantic-body-small-line-height",
+    "--dse-typography-semantic-body-small-letter-spacing"
+  ],
+  "states": [
+    {
+      "name": "selected",
+      "ownership": "derived",
+      "description": "Presentation derives from the native checked state passed by Radio Group."
+    },
+    {
+      "name": "hover",
+      "ownership": "derived",
+      "description": "Option-row hover presentation is CSS-derived while enabled."
+    },
+    {
+      "name": "focus-visible",
+      "ownership": "derived",
+      "description": "Focus-ring presentation derives from the native radio focus-visible state."
+    },
+    {
+      "name": "pressed",
+      "ownership": "derived",
+      "description": "Pressed presentation is CSS-derived from active pointer/keyboard interaction."
+    },
+    {
+      "name": "disabled",
+      "ownership": "native",
+      "description": "Native radio disabled state is supplied per option."
+    }
+  ],
+  "semantics": {
+    "element": "native input type=radio inside label",
+    "accessibleName": "The visible option label owns the native radio accessible name.",
+    "keyboardActivation": "native radio behavior; no custom keyboard state machine",
+    "focus": "native radio focus with a CSS-derived visible focus ring",
+    "requirements": [
+      "The native radio remains the semantic and focusable control even when its visual circle is custom styled.",
+      "Description presence derives Figma showDescription; no showDescription prop exists.",
+      "Selected presentation derives from the native checked state; no selected visual prop exists.",
+      "Hover, focus, and pressed presentation are browser/CSS-derived; no state prop exists.",
+      "A selected option that later becomes disabled remains selected; disabled never clears checked state.",
+      "The option row is an understandable label target and description content is associated through aria-describedby.",
+      "The private helper must never create a public React package export."
+    ]
+  },
+  "composition": {
+    "content": {
+      "optional": false,
+      "description": "Private option anatomy controlled by Radio Group; consumers cannot compose arbitrary children into it.",
+      "allowedChildren": ["native input type=radio", "option label", "option description"]
+    }
+  },
+  "events": [
+    {
+      "name": "change",
+      "trigger": "native radio change",
+      "suppressedWhen": "option disabled"
+    }
+  ],
+  "forbidden": [
+    "selected",
+    "state",
+    "showDescription",
+    "children",
+    "public package export"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:116:174",
+      "https://carbondesignsystem.com/components/radio-button/usage/",
+      "https://www.w3.org/WAI/ARIA/apg/patterns/radio/"
+    ]
+  }
+}
