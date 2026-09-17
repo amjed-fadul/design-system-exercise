@@ -130,8 +130,8 @@
   ],
   "tokenDependencies": [
     "--dse-spacing-primitive-space-200",
-    "--dse-spacing-primitive-space-250",
-    "--dse-spacing-primitive-space-700",
+    "--dse-spacing-primitive-space-900",
+    "--dse-icons-size-md",
     "--dse-radius-shape-control",
     "--dse-border-role-base",
     "--dse-border-role-focus",
