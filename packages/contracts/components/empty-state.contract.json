@@ -128,7 +128,7 @@
     "--dse-color-semantic-fg-primary",
     "--dse-color-semantic-fg-secondary",
     "--dse-spacing-primitive-space-300",
-    "--dse-icons-size-md",
+    "--dse-icons-size-lg",
     "--dse-typography-semantic-title-component-family",
     "--dse-typography-semantic-title-component-size",
     "--dse-typography-semantic-title-component-weight",
