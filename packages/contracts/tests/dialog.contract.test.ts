@@ -51,7 +51,7 @@ describe('dse.dialog contract', () => {
       expect.objectContaining({ required: false, type: { content: true } }),
     );
     expect(propFor(contract, 'closeLabel')).toEqual(
-      expect.objectContaining({ required: false }),
+      expect.objectContaining({ required: false, default: 'Close dialog', type: { native: true } }),
     );
     expect(propFor(contract, 'initialFocusRef')).toEqual(
       expect.objectContaining({ required: false, type: { native: true } }),
@@ -105,6 +105,7 @@ describe('dse.dialog contract', () => {
         expect.stringMatching(/return.*focus|restore.*focus/i),
         expect.stringMatching(/background.*inert|inert.*background/i),
         expect.stringMatching(/outside|backdrop/i),
+        expect.stringMatching(/close.*label|label.*close/i),
       ]),
     );
   });
@@ -121,6 +122,13 @@ describe('dse.dialog contract', () => {
         '--dse-color-semantic-fg-secondary',
         '--dse-color-semantic-border-subtle',
         '--dse-radius-shape-overlay',
+        '--dse-spacing-primitive-space-100',
+        '--dse-spacing-primitive-space-200',
+        '--dse-spacing-primitive-space-300',
+        '--dse-spacing-primitive-space-400',
+        '--dse-spacing-primitive-space-500',
+        '--dse-spacing-primitive-space-800',
+        '--dse-icons-size-md',
         '--dse-typography-semantic-title-component-family',
         '--dse-typography-semantic-title-component-size',
         '--dse-typography-semantic-title-component-weight',
