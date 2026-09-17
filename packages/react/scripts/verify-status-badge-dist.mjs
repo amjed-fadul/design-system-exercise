@@ -16,11 +16,21 @@ if (activeHtml.includes('aria-live=')) throw new Error('Status Badge must not cr
 if (activeHtml.includes('tabindex=')) throw new Error('Status Badge must not become focusable');
 
 const pendingHtml = renderToStaticMarkup(
-  React.createElement(StatusBadge, { label: 'Invitation pending', dir: 'rtl', 'data-testid': 'status' }),
+  React.createElement(StatusBadge, {
+    label: 'Invitation pending',
+    role: 'alert',
+    'aria-live': 'assertive',
+    tabIndex: 0,
+    children: 'Injected',
+    tone: 'positive',
+  }),
 );
 if (!pendingHtml.includes('Invitation pending')) throw new Error('Status Badge must preserve product-supplied label text');
-if (!pendingHtml.includes('dir="rtl"')) throw new Error('Status Badge ordinary span attributes are not forwarded');
-if (!pendingHtml.includes('data-testid="status"')) throw new Error('Status Badge data attributes are not forwarded');
+if (pendingHtml.includes('role=')) throw new Error('Status Badge leaked an untyped role override');
+if (pendingHtml.includes('aria-live=')) throw new Error('Status Badge leaked an untyped live-region override');
+if (pendingHtml.includes('tabindex=')) throw new Error('Status Badge leaked an untyped focus override');
+if (pendingHtml.includes('Injected')) throw new Error('Status Badge leaked untyped children');
+if (pendingHtml.includes('data-tone=')) throw new Error('Status Badge invented a tone variant');
 
 let rejectedWhitespace = false;
 try {
@@ -36,12 +46,14 @@ if (!existsSync(cssUrl)) throw new Error('React distribution stylesheet missing'
 const css = readFileSync(cssUrl, 'utf8');
 if (!css.includes('.dse-status-badge')) throw new Error('Status Badge CSS missing from built distribution');
 if (!css.includes('block-size: 28px')) throw new Error('Status Badge 28px geometry missing from built distribution');
-if (!css.includes('padding-inline: var(--dse-spacing-primitive-space-200)')) {
-  throw new Error('Status Badge logical padding missing from built distribution');
-}
+if (!css.includes('padding-block: 5px')) throw new Error('Status Badge 5px block padding missing from built distribution');
+if (!css.includes('padding-inline: 10px')) throw new Error('Status Badge 10px logical padding missing from built distribution');
 if (!css.includes('var(--dse-color-semantic-surface-section)')) {
   throw new Error('Status Badge neutral surface token missing from built distribution');
 }
-if (!css.includes('var(--dse-color-semantic-fg-secondary)')) {
+if (!css.includes('var(--dse-color-semantic-fg-primary)')) {
   throw new Error('Status Badge neutral foreground token missing from built distribution');
+}
+if (!css.includes('var(--dse-radius-shape-surface)')) {
+  throw new Error('Status Badge shape token missing from built distribution');
 }
