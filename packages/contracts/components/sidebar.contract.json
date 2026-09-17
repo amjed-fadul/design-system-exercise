@@ -79,8 +79,8 @@
     },
     {
       "source": "figma.theme",
-      "kind": "context",
-      "mapsTo": "inherited Light/Dark token context"
+      "kind": "figma-only",
+      "mapsTo": "inherited Light/Dark token context; no theme prop"
     }
   ],
   "anatomy": [
