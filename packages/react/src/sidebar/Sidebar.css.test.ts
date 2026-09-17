@@ -1,8 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-const cssPath = fileURLToPath(new URL('./Sidebar.css', import.meta.url));
+const cssPath = resolve(process.cwd(), 'src/sidebar/Sidebar.css');
 
 function readCss() {
   expect(existsSync(cssPath)).toBe(true);
