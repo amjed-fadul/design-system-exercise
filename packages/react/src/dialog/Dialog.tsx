@@ -22,7 +22,7 @@ export interface DialogProps {
   initialFocusRef?: RefObject<HTMLElement | null>;
 }
 
-export const dialogDefaults = {
+const dialogDefaults = {
   showClose: true,
   closeLabel: 'Close dialog',
 } as const;
@@ -177,8 +177,8 @@ export function Dialog({
       return;
     }
 
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
+    const first = focusables[0]!;
+    const last = focusables[focusables.length - 1]!;
     const active = document.activeElement;
     const focusIsInside = active instanceof Node && surface.contains(active);
 
