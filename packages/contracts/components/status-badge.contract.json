@@ -1,0 +1,99 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.status-badge",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Status Badge",
+  "description": "Neutral, non-interactive text label for an entity's current product-defined state. The component owns the compact presentation only; product logic owns status definitions and current values.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "128:1821"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "label",
+        "description": "Required non-empty product-supplied state text such as Active or Invitation pending. The component does not interpret or map the label to a tone or status enum.",
+        "required": true,
+        "type": { "content": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.label",
+      "kind": "public",
+      "mapsTo": "publicApi.label"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "root",
+      "required": true,
+      "description": "Neutral semantic-token surface with content-driven width and a fixed 28px height."
+    },
+    {
+      "name": "label",
+      "required": true,
+      "description": "Concise visible product-defined state text."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-surface-section",
+    "--dse-color-semantic-fg-primary",
+    "--dse-radius-shape-surface",
+    "--dse-typography-semantic-label-small-family",
+    "--dse-typography-semantic-label-small-size",
+    "--dse-typography-semantic-label-small-weight",
+    "--dse-typography-semantic-label-small-line-height",
+    "--dse-typography-semantic-label-small-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "span",
+    "accessibleName": "The visible label text communicates the entity state directly; meaning never depends on color alone.",
+    "keyboardActivation": "none",
+    "focus": "Status Badge is non-interactive, is not a keyboard focus target, and never moves focus.",
+    "requirements": [
+      "label must be a non-empty string after trimming whitespace.",
+      "Status meaning remains understandable from visible text without color interpretation.",
+      "A static Status Badge is not an alert or live region; the containing workflow owns announcements for dynamic status changes when needed.",
+      "Status Badge is non-interactive, does not receive focus, and exposes no click, selection, dismiss, or keyboard behavior.",
+      "The root is exactly 28 CSS pixels high with 5 CSS pixels of block padding and 10 CSS pixels of inline padding; width grows with the label content.",
+      "The neutral surface uses surface/section, fg/primary, shape/surface, and label/small semantic tokens in Light and Dark modes.",
+      "Inline padding is direction-independent so English/LTR and Arabic/RTL use the same geometry.",
+      "Active and Invitation pending are example product-supplied labels, not component variants or a closed status enum.",
+      "No tone, size, icon, selected, dismissible, warning, success, critical, or interactive variant exists in version 1.0.0."
+    ]
+  },
+  "composition": {},
+  "events": [],
+  "forbidden": [
+    "children",
+    "status",
+    "tone",
+    "size",
+    "selected",
+    "icon",
+    "dismissible",
+    "onClick",
+    "href",
+    "role",
+    "aria-live",
+    "tabIndex"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:128:1821",
+      "https://atlassian.design/components/lozenge/",
+      "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html"
+    ]
+  }
+}
