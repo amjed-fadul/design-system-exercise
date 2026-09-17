@@ -11,6 +11,7 @@ function validComponentFixture() {
     kind: 'component',
     version: '1.0.0',
     status: 'approved',
+    visibility: 'public',
     name: 'Example',
     description: 'Example component contract.',
     sources: { figma: { fileKey: 'example', nodeId: '1:1' } },
