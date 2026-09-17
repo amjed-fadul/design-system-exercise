@@ -74,8 +74,8 @@ describe('TextField public API', () => {
     expect(input).toHaveAttribute('placeholder', 'name@example.com');
     expect(input).toHaveAttribute('autocomplete', 'email');
     expect(input).toHaveAttribute('data-product-field', 'member-email');
+    expect(input).toHaveClass('dse-text-field__input', 'member-email-field');
     expect(ref.current).toBe(input);
-    expect(input.closest('.dse-text-field')).toHaveClass('member-email-field');
   });
 
   it('supports uncontrolled defaultValue editing through native input behavior', async () => {
