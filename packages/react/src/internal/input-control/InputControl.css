@@ -1,0 +1,43 @@
+.dse-input-control {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  inline-size: 100%;
+  border: var(--dse-border-role-base) solid var(--dse-color-semantic-control-border);
+  border-radius: var(--dse-radius-shape-control);
+  background: var(--dse-color-semantic-surface-default);
+}
+
+.dse-input-control[data-size='compact'] {
+  block-size: var(--dse-spacing-primitive-space-700);
+}
+
+.dse-input-control[data-size='default'] {
+  block-size: calc(
+    var(--dse-spacing-primitive-space-700) + var(--dse-spacing-primitive-space-100)
+  );
+}
+
+.dse-input-control:has(input:hover:not(:disabled):not([aria-invalid='true'])) {
+  border-color: var(--dse-color-semantic-control-border-hover);
+}
+
+.dse-input-control:has(input[aria-invalid='true']) {
+  border-color: var(--dse-color-semantic-feedback-negative-border);
+}
+
+.dse-input-control:has(input:focus-visible) {
+  outline: var(--dse-border-role-focus) solid var(--dse-color-semantic-focus-default);
+  outline-offset: var(--dse-border-role-focus);
+}
+
+.dse-input-control:has(input[aria-invalid='true']:focus-visible) {
+  border-color: var(--dse-color-semantic-feedback-negative-border);
+  outline: var(--dse-border-role-focus) solid var(--dse-color-semantic-focus-default);
+  outline-offset: var(--dse-border-role-focus);
+}
+
+.dse-input-control:has(input:disabled) {
+  border-color: var(--dse-color-semantic-border-subtle);
+  background: var(--dse-color-semantic-surface-disabled);
+}
