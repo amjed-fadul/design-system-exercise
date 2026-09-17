@@ -140,7 +140,7 @@
       "The same current route remains discernible when mode changes; compact presentation never hides the selected destination from assistive technology.",
       "The navigation region is named in both modes. Expanded mode renders the short group label visibly; compact mode retains that label as the accessible navigation name.",
       "The current destination exposes aria-current=page through the internal native link and no non-current destination exposes aria-current.",
-      "Keyboard focus follows the destination list in logical source order and Sidebar never introduces a focus trap, backdrop, modal behavior, or Escape policy.",
+      "Keyboard focus follows the destination list in logical source order. Sidebar does not trap focus and adds no backdrop, modal behavior, or Escape policy.",
       "The Figma authority fixes expanded Sidebar width at 208 CSS pixels and compact Sidebar width at 64 CSS pixels.",
       "The expanded internal item source is 184 by 40 CSS pixels with a 40px minimum target height; compact items are 44 by 44 CSS pixels.",
       "Expanded mode uses a 30px top inset and 12px inline inset; compact mode uses a 48px top inset and 10px inline inset. These Component / Layout values remain private component layout decisions rather than public token API.",
