@@ -23,6 +23,21 @@ if (!html.includes('MEMBER DETAILS')) throw new Error('Side Panel default eyebro
 if (html.includes('aria-modal')) throw new Error('Side Panel incorrectly exposes modal semantics');
 if (!html.includes('class="dse-icon-button"')) throw new Error('Side Panel governed close Icon Button missing');
 
+const emptySlotsHtml = renderToStaticMarkup(
+  React.createElement(SidePanel, { onClose: () => {}, header: null, actions: null }),
+);
+for (const selector of [
+  'dse-side-panel__header',
+  'dse-side-panel__header-divider',
+  'dse-side-panel__body',
+  'dse-side-panel__footer-divider',
+  'dse-side-panel__actions',
+]) {
+  if (!emptySlotsHtml.includes(selector)) {
+    throw new Error(`Side Panel structural anatomy missing ${selector} from built distribution`);
+  }
+}
+
 const cssUrl = new URL('../dist/styles.css', import.meta.url);
 if (!existsSync(cssUrl)) throw new Error('React distribution stylesheet missing');
 const css = readFileSync(cssUrl, 'utf8');
@@ -37,6 +52,12 @@ for (const selector of [
 }
 if (!css.includes('var(--dse-layout-primitive-detail-inline-width)')) {
   throw new Error('Side Panel 408px governed width token missing from built distribution');
+}
+if (!css.includes('block-size: 612px')) {
+  throw new Error('Side Panel 612px default surface height missing from built distribution');
+}
+if (!css.includes('min-block-size: 240px')) {
+  throw new Error('Side Panel 240px Body minimum missing from built distribution');
 }
 if (!css.includes('var(--dse-color-semantic-surface-raised)')) {
   throw new Error('Side Panel raised surface token missing from built distribution');
