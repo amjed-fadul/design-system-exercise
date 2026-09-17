@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import {
   NavigationItem,
   type NavigationItemMode,
-} from '../internal/navigation-item/NavigationItem';
+} from '../internal/navigation-item/NavigationItem.js';
 
 export type SidebarMode = NavigationItemMode;
 
