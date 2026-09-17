@@ -64,7 +64,7 @@
     {
       "name": "navigation",
       "required": true,
-      "description": "Named breadcrumb navigation landmark containing the ordered route hierarchy."
+      "description": "Named content-sized breadcrumb navigation landmark containing the ordered route hierarchy."
     },
     {
       "name": "ancestors",
@@ -98,6 +98,7 @@
       "Each ancestor is a genuine native destination through the governed Link component; Breadcrumbs does not own router side effects or unsaved-change interception.",
       "Each slash separator is decorative, excluded from the accessibility tree, and never part of the interactive ancestor target.",
       "DOM and reading order remain ancestors first and current location last. Writing direction is inherited so RTL presentation follows the surrounding document without an RTL prop.",
+      "The Breadcrumbs root preserves the reviewed Figma HUG/HUG behavior by sizing to its route content while capping its inline size at the containing region; it does not deliberately stretch to full width.",
       "The reviewed source uses an 8px inline gap between breadcrumb units. Label/small typography is inherited from semantic tokens; current text uses fg/secondary and separators use fg/tertiary.",
       "No overflow, collapse, ellipsis, back-navigation, workflow-progress, disabled/current-link, visited, or custom-separator behavior is established by the reviewed Figma source."
     ]
