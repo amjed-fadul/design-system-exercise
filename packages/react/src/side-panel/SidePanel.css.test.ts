@@ -11,11 +11,11 @@ function readCss() {
 }
 
 describe('SidePanel visual contract', () => {
-  it('matches the Figma raised 408px surface and 12px surface shape', () => {
+  it('matches the Figma raised 408px × 612px surface and 12px surface shape', () => {
     const css = readCss();
 
     expect(css).toMatch(/\.dse-side-panel\s*\{[^}]*inline-size:\s*var\(--dse-layout-primitive-detail-inline-width\);/s);
-    expect(css).toMatch(/\.dse-side-panel\s*\{[^}]*min-block-size:\s*612px;/s);
+    expect(css).toMatch(/\.dse-side-panel\s*\{[^}]*block-size:\s*612px;[^}]*min-block-size:\s*612px;/s);
     expect(css).toContain('background: var(--dse-color-semantic-surface-raised)');
     expect(css).toContain('border: 1px solid var(--dse-color-semantic-border-subtle)');
     expect(css).toContain('border-radius: var(--dse-radius-shape-surface)');
