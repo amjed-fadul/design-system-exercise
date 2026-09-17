@@ -98,6 +98,12 @@
                     "additionalProperties": false,
                     "required": ["native"],
                     "properties": { "native": { "const": true } }
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["callback"],
+                    "properties": { "callback": { "const": true } }
                   }
                 ]
               }
