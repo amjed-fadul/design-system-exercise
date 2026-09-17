@@ -64,7 +64,7 @@ describe('Sidebar CSS parity', () => {
     expect(css).toContain('var(--dse-color-semantic-state-selected)');
     expect(css).toContain('var(--dse-color-semantic-focus-default)');
     expect(css).toContain('var(--dse-border-role-focus)');
-    expect(css).toMatch(/dse-navigation-item:hover/);
+    expect(css).toMatch(/dse-navigation-item\[data-current=['"]false['"]\]:hover/);
     expect(css).toMatch(/dse-navigation-item:active/);
     expect(css).toMatch(/dse-navigation-item:focus-visible/);
     expect(css).toMatch(/data-current=['"]true['"]/);
