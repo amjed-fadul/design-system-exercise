@@ -4,10 +4,10 @@
 **Contract architecture:** `docs/superpowers/specs/2026-09-17-component-contracts-design.md`  
 **Internal-visibility amendment:** `docs/superpowers/specs/2026-09-17-component-contracts-visibility-amendment.md`  
 **Planning branch:** `plan/all-components-patterns`  
-**Active implementation branch:** `feat/status-badge`  
+**Active implementation branch:** `feat/dialog`  
 **Foundations baseline:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Figma source:** `tYCXBBYoQ92AUKVbND5WkG`  
-**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE; C04 TEXT FIELD COMPLETE; C05 SEARCH FIELD COMPLETE; C06 RADIO GROUP COMPLETE; C07 INLINE FEEDBACK COMPLETE; C08 AVATAR COMPLETE; C09 STATUS BADGE COMPLETE — final record HEAD CI pending; C10 has not started
+**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE; C04 TEXT FIELD COMPLETE; C05 SEARCH FIELD COMPLETE; C06 RADIO GROUP COMPLETE; C07 INLINE FEEDBACK COMPLETE; C08 AVATAR COMPLETE; C09 STATUS BADGE COMPLETE; C10 DIALOG COMPLETE — final record HEAD CI pending; C11 has not started
 
 ## Review policy
 
@@ -15,12 +15,12 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 
 ## Progress summary
 
-- Public components implemented through C09: **9 / 17** — C01 Button, C02 Icon Button, C03 Link, C04 Text Field, C05 Search Field, C06 Radio Group, C07 Inline Feedback, C08 Avatar, C09 Status Badge
-- Public components in progress: **0 / 17**; C09 awaits only the exact final-record CI check for this documentation commit
+- Public components implemented through C10: **10 / 17** — C01 Button, C02 Icon Button, C03 Link, C04 Text Field, C05 Search Field, C06 Radio Group, C07 Inline Feedback, C08 Avatar, C09 Status Badge, C10 Dialog
+- Public components in progress: **0 / 17**; C10 awaits only the exact final-record CI check for this documentation commit
 - Internal helpers governed with parent milestones: **2 / 6 complete** — `_Input Control`, `_Radio Option`
 - Product patterns: **0 / 5 complete**
-- Overall public milestones implemented: **9 / 22**
-- Next planned milestone: **C10 Dialog — not started**
+- Overall public milestones implemented: **10 / 22**
+- Next planned milestone: **C11 Side Panel — not started**
 
 ## Component milestones
 
@@ -34,8 +34,8 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 | C06 | Radio Group | `dse.radio-group@1.0.0` | `116:175` | internal `_Radio Option` | Complete | `ed631c7c98e866becf453b0b6befbf2bfc7e6f05` | Inline self-review APPROVED; accessibility-name defect corrected; no unresolved Critical/Important findings | Run 169 PASS on exact final C06 record HEAD |
 | C07 | Inline Feedback | `dse.inline-feedback@1.0.0` | `127:30` | component package infrastructure | Complete | `6aa208229a277e6d1314f6c391a94c32800eca38` | Inline self-review APPROVED; width-fill, WebKit mask, and Dark × Arabic evidence gaps corrected | Run 203 PASS on exact final C07 HEAD |
 | C08 | Avatar | `dse.avatar@1.0.0` | `128:14` | component package infrastructure | Complete | `e5c2491d028f1c27b99ed79ac383c0575ba59c9c` | Inline self-review APPROVED; source-inventory and self-contained prepack corrections applied; no unresolved Critical/Important findings | Run 218 PASS on implementation/package HEAD; run 219 PASS on exact final C08 record HEAD `f9ea71fb7839c7a9701b07b130be01fbd68145d5` |
-| C09 | Status Badge | `dse.status-badge@1.0.0` | `128:1821` | component package infrastructure | Complete — final record HEAD CI pending | `367d462812a47525c8bdf3207ed7ab4c08c6aee8` | Inline self-review APPROVED; package verifier existence and contract-alignment corrections applied; no unresolved Critical/Important findings | Run 229 PASS on exact implementation/package HEAD; this record commit must also PASS |
-| C10 | Dialog | `dse.dialog` | `133:6` | C01, C02 | Not started | — | — | — |
+| C09 | Status Badge | `dse.status-badge@1.0.0` | `128:1821` | component package infrastructure | Complete | `367d462812a47525c8bdf3207ed7ab4c08c6aee8` | Inline self-review APPROVED; package verifier existence and contract-alignment corrections applied; no unresolved Critical/Important findings | Run 229 PASS on implementation/package HEAD; run 231 PASS on exact final C09 record HEAD `db5d10b1f09631ca9f49fdc3b3a520b09aea4025` |
+| C10 | Dialog | `dse.dialog@1.0.0` | `133:6` | C01, C02 | Complete — final record HEAD CI pending | `57a02ff8100527321432dbf72cbc1a5639e0aab0` | Inline self-review APPROVED; focus test, native close-label mapping, null description/actions, token inventory, and runtime-default parity corrections applied; no unresolved Critical/Important findings | Run 248 PASS on exact implementation/package HEAD; this record commit must also PASS |
 | C11 | Side Panel | `dse.side-panel` | `137:2` | C01, C02 | Not started | — | — | — |
 | C12 | Empty State | `dse.empty-state` | `131:2` | C01/C03 for action stories | Not started | — | — | — |
 | C13 | Sidebar | `dse.sidebar` | `146:166` | internal `_Navigation Item`, C03 | Not started | — | — | — |
@@ -60,7 +60,7 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 ## Pattern milestones
 
 | ID | Pattern | Contract | Figma guide | Depends on | Status |
-| --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | P01 | Application Shell | `dse.pattern.application-shell` | `68:494` | C13-C16; content can host C17 | Not started |
 | P02 | Form Submit and Recover | `dse.pattern.form-submit-recover` | `68:2` | C01, C04, C06, C07, C10 | Not started |
 | P03 | Unsaved-change Guard | `dse.pattern.unsaved-change-guard` | `68:371` | C01, C10 | Not started |
@@ -286,7 +286,35 @@ Detailed evidence: `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
 - Final implementation/package HEAD `367d462812a47525c8bdf3207ed7ab4c08c6aee8`; run 229 PASS across install, 11-contract validation, 223-token validation/build, **53/53 contract tests**, **17/17 token tests**, **106/106 React tests**, **27/27 Storybook tests** = **203 automated tests passing**, typecheck, Storybook production build, and packed package smoke/prepack verification.
 - Figma implementation knowledge was appended to Status Badge `128:1821` under `IMPLEMENTATION / C09 · dse.status-badge@1.0.0`; a separate read-back confirmed the marker, run 229 evidence, neutral-only boundary, exact geometry, semantic mapping, and runtime rules persisted.
 - Inline self-review: **APPROVED — no unresolved Critical or Important findings.** Scope comparison from C08 to the C09 implementation/package HEAD contains only C09 contract/runtime/CSS/Storybook/export/build/package-verifier work plus the deliberate source-inventory advance. C10 has not started.
-- This documentation/knowledge record commit must also pass PR CI on its exact HEAD before C09 is treated as the authoritative completed record.
+- Final C09 record HEAD `db5d10b1f09631ca9f49fdc3b3a520b09aea4025`; run 231 PASS on that exact commit.
+
+## C10 evidence summary
+
+### Figma authority and contract
+
+- Fresh Figma re-read used Dialog `133:6` as the authority before implementation. The locked component boundary is a modal surface with required title, optional description, optional close affordance, Body and Actions composition, and no product request/business-state ownership.
+- `dse.dialog@1.0.0` is public and controlled: required `open`, `onOpenChange`, `title`, and `children`; optional `description`, `actions`, `showClose` default `true`, native `closeLabel` default `Close dialog`, and optional `initialFocusRef`. Arbitrary native attributes are not forwarded.
+- Figma `showDescription` is derived from description presence. `showClose` remains a presentation affordance only; hiding it does not change Escape behavior or define pending-request exit policy.
+- Unsupported workflow APIs remain forbidden: `onSubmit`, `requestStatus`, visual/business `state`, `pending`, `validation`, `dirty`, `dismissOnBackdrop`, `showDescription`, success/error/loading state APIs.
+- Initial RED run 232 proved the contract/runtime source did not yet exist and the deliberate C10 source-inventory gate had not advanced.
+
+### Runtime, accessibility, CSS, and Storybook
+
+- Dialog renders through a body portal with `role="dialog"`, `aria-modal=true`, required title association, optional description association, background `inert` + `aria-hidden`, initial focus movement, contained Tab/Shift+Tab navigation, and focus restoration to the invoking control on controlled close.
+- Escape requests `onOpenChange(false)` whether the close Icon Button is visible or hidden. The governed close Icon Button uses a non-empty accessible label. Backdrop/outside pointer activation does not dismiss in v1.
+- Body and Actions are composition slots only; Dialog does not interpret product actions, validation, submission, pending state, dirty checks, or outcomes. `null`/`false` optional description/actions content is treated as absent so no empty accessibility relationship or divider/footer is created.
+- CSS follows the audited 520px maximum overlay surface, semantic overlay/elevated surfaces, overlay radius, title/body typography, subtle divider, exact local Figma elevation, responsive viewport maximum height, logical alignment, and RTL-safe layout.
+- Storybook composes existing public Button, Text Field, and Radio Group and covers Invite Member in Light/Dark × English/Arabic, plus confirm-discard and description-absent evidence. Production Storybook build passes.
+
+### Package, TDD corrections, knowledge, and review
+
+- React package now lists `react-dom` as a peer because Dialog uses `createPortal`, includes Dialog CSS in the built stylesheet, reuses packaged `x.svg`, and extends the self-contained `prepack` chain with `verify-dialog-dist.mjs`.
+- Packed verification checks the public Dialog export, SSR-safe closed output, packaged Dialog CSS, 520px surface rule, overlay/elevated/radius token references, and copied close asset.
+- Self-review corrections were each kept narrow and verified: TypeScript focus-array narrowing; the focus-trap test's incorrect assumption about visible Close tab order; missing spacing/icon token dependencies; `closeLabel` corrected from generic content to native accessibility data (RED run 242); `description={null}` treated as absent (RED run 243); `actions={null}` treated as absent (RED run 245); and runtime defaults locked against contract drift (RED run 247).
+- Run 248 PASS on exact implementation/package HEAD `57a02ff8100527321432dbf72cbc1a5639e0aab0` across frozen install, 12-component contract validation, 223-token validation/build, full automated tests, TypeScript typecheck, Storybook production build, and packed-package smoke/prepack verification.
+- Figma source authority and the AI knowledge-pack frame were re-read during C10. No C10 knowledge-pack write/read-back is claimed in this record because the available Figma connection in this chat did not expose its required write guidance safely; the code/contract evidence remains authoritative until that separate sync can be performed.
+- Inline self-review: **APPROVED — no unresolved Critical or Important findings.** Final scope comparison from C09 to C10 contains only Dialog contract/runtime/CSS/Storybook/export/package work plus the deliberate source-inventory advance and `react-dom` peer required by the portal implementation.
+- Final implementation/package HEAD `57a02ff8100527321432dbf72cbc1a5639e0aab0`; run 248 PASS. This documentation record commit must also pass PR CI on its exact HEAD before the C10 record is authoritative.
 
 ## Milestone completion rule
 
@@ -296,4 +324,4 @@ Documentation/knowledge-only record commits after a verified implementation mile
 
 ## Scope guard
 
-This roadmap does not authorize npm publication, PR/main merges, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. Figma implementation-knowledge synchronization is authorized only for the milestone being completed and has been performed through C09. **C10 Dialog has not been started.**
+This roadmap does not authorize npm publication, PR/main merges, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. Figma implementation-knowledge synchronization remains authorized only for the milestone being completed and has been performed through C09; C10 source parity is complete but knowledge-pack write/read-back remains pending as noted above. **C11 Side Panel has not been started.**
