@@ -6,6 +6,8 @@ import {
   type TopNavbarProps,
 } from '@design-system-exercise/react';
 
+const moonIconUrl = new URL('./assets/top-navbar-moon.svg', import.meta.url).href;
+
 function Brand() {
   return (
     <div
@@ -52,15 +54,22 @@ function Brand() {
 
 function MoonIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M20.7 15.1A8.5 8.5 0 0 1 8.9 3.3 8.5 8.5 0 1 0 20.7 15.1Z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <span
+      style={{
+        display: 'block',
+        inlineSize: 20,
+        blockSize: 20,
+        background: 'currentColor',
+        WebkitMaskImage: `url("${moonIconUrl}")`,
+        WebkitMaskPosition: 'center',
+        WebkitMaskRepeat: 'no-repeat',
+        WebkitMaskSize: 'contain',
+        maskImage: `url("${moonIconUrl}")`,
+        maskPosition: 'center',
+        maskRepeat: 'no-repeat',
+        maskSize: 'contain',
+      }}
+    />
   );
 }
 
@@ -68,6 +77,7 @@ function Account({ arabic = false }: { arabic?: boolean }) {
   return (
     <div
       style={{
+        direction: 'ltr',
         display: 'flex',
         alignItems: 'center',
         gap: 16,
@@ -79,11 +89,11 @@ function Account({ arabic = false }: { arabic?: boolean }) {
       }}
     >
       <IconButton
-        aria-label={arabic ? 'تغيير المظهر' : 'Change appearance'}
+        aria-label={arabic ? 'التبديل إلى الوضع الداكن' : 'Switch to dark mode'}
         icon={<MoonIcon />}
       />
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <span>{arabic ? 'أمل حسن · مشرفة' : 'Amal Hassan · Admin'}</span>
+        <span dir="auto">{arabic ? 'أمل حسن · مشرفة' : 'Amal Hassan · Admin'}</span>
         <Avatar initials={arabic ? 'أح' : 'AH'} />
       </div>
     </div>
@@ -126,7 +136,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Public contract: dse.top-navbar@1.0.0 from Figma 228:18954. Top Navbar is the persistent 64px Application Shell header: one Brand slot, optional concise context, flexible space, one Account slot, and a subtle bottom divider. The shell composition is fixed left-to-right even in Arabic contexts; text inside Brand, context, and Account can determine its own direction. Figma order=forward is a render selector, not a public prop, and theme is inherited through semantic tokens. Application Shell owns placement, Product owns Brand/Account data plus appearance or account interactions, and page patterns own page heading and task actions. The Storybook account example composes an existing IconButton and Avatar to mirror the Figma evidence without moving that behavior into Top Navbar.',
+          'Public contract: dse.top-navbar@1.0.0 from Figma 228:18954. Top Navbar is the persistent 64px Application Shell header: one Brand slot, optional concise context, flexible space, one Account slot, and a subtle bottom divider. The shell composition is fixed left-to-right even in Arabic contexts; text inside Brand, context, and Account can determine its own direction. Figma order=forward is a render selector, not a public prop, and theme is inherited through semantic tokens. Application Shell owns placement, Product owns Brand/Account data plus appearance or account interactions, and page patterns own page heading and task actions. The Storybook account example composes the existing IconButton and Avatar plus the exact Figma Moon source to mirror the reviewed evidence without moving that behavior into Top Navbar.',
       },
     },
   },
