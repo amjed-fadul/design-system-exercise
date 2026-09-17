@@ -16,6 +16,10 @@ function propFor(contract: any, name: string) {
   return contract?.publicApi?.props?.find((prop: any) => prop.name === name);
 }
 
+function anatomyFor(contract: any, name: string) {
+  return contract?.anatomy?.find((part: any) => part.name === name);
+}
+
 describe('dse.side-panel contract', () => {
   it('defines the approved public boundary and exact Figma provenance', () => {
     const contract = readContract();
@@ -50,5 +54,18 @@ describe('dse.side-panel contract', () => {
     expect(propFor(contract, 'onClose')).toEqual(
       expect.objectContaining({ required: true, type: { callback: true } }),
     );
+  });
+
+  it('keeps the Figma structural anatomy and 240px Body minimum explicit', () => {
+    const contract = readContract();
+    if (!contract) return;
+
+    expect(anatomyFor(contract, 'header')).toEqual(expect.objectContaining({ required: true }));
+    expect(anatomyFor(contract, 'body')).toEqual(expect.objectContaining({ required: true }));
+    expect(anatomyFor(contract, 'actions')).toEqual(expect.objectContaining({ required: true }));
+
+    const requirements = contract.semantics?.requirements ?? [];
+    expect(requirements.some((item: string) => /240px/.test(item))).toBe(true);
+    expect(requirements.some((item: string) => /min-block-size zero/i.test(item))).toBe(false);
   });
 });
