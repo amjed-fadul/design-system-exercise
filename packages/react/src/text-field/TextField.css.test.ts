@@ -65,11 +65,13 @@ describe('Text Field visual contract', () => {
     expect(css).not.toMatch(/\b(left|right)\s*:/i);
   });
 
-  it('styles invalid messaging separately from supporting messaging and preserves native input focus ownership', () => {
-    const css = readRequired(textFieldCssPath);
-    expect(css).toContain('.dse-text-field__message--invalid');
-    expect(css).toContain('var(--dse-color-semantic-feedback-negative-fg)');
-    expect(css).toContain('.dse-text-field__input');
-    expect(css).not.toContain('outline: none');
+  it('styles invalid messaging separately while the private shell owns visible focus presentation', () => {
+    const fieldCss = readRequired(textFieldCssPath);
+    const shellCss = readRequired(inputControlCssPath);
+    expect(fieldCss).toContain('.dse-text-field__message--invalid');
+    expect(fieldCss).toContain('var(--dse-color-semantic-feedback-negative-fg)');
+    expect(fieldCss).toContain('.dse-text-field__input');
+    expect(shellCss).toContain(':has(input:focus-visible)');
+    expect(shellCss).toContain('var(--dse-color-semantic-focus-default)');
   });
 });
