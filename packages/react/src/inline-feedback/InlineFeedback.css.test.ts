@@ -1,10 +1,10 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-const cssPath = fileURLToPath(new URL('./InlineFeedback.css', import.meta.url));
-const alertAssetPath = fileURLToPath(new URL('../assets/inline-feedback-alert.svg', import.meta.url));
-const checkAssetPath = fileURLToPath(new URL('../assets/inline-feedback-check.svg', import.meta.url));
+const cssPath = resolve(process.cwd(), 'src/inline-feedback/InlineFeedback.css');
+const alertAssetPath = resolve(process.cwd(), 'src/assets/inline-feedback-alert.svg');
+const checkAssetPath = resolve(process.cwd(), 'src/assets/inline-feedback-check.svg');
 
 function read(path: string) {
   expect(existsSync(path)).toBe(true);
