@@ -29,3 +29,6 @@ export type { AvatarProps, AvatarSize } from './avatar/Avatar.js';
 
 export { StatusBadge } from './status-badge/StatusBadge.js';
 export type { StatusBadgeProps } from './status-badge/StatusBadge.js';
+
+export { Dialog } from './dialog/Dialog.js';
+export type { DialogProps } from './dialog/Dialog.js';

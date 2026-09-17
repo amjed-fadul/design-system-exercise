@@ -1,0 +1,112 @@
+.dse-dialog__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--dse-spacing-primitive-space-500);
+  background: var(--dse-color-semantic-surface-overlay);
+}
+
+.dse-dialog__surface {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  max-inline-size: 520px;
+  max-block-size: calc(100dvh - var(--dse-spacing-primitive-space-800));
+  overflow: hidden;
+  color: var(--dse-color-semantic-fg-primary);
+  background: var(--dse-color-semantic-surface-elevated);
+  border-radius: var(--dse-radius-shape-overlay);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.14), 0 2px 8px -2px rgba(0, 0, 0, 0.06);
+}
+
+.dse-dialog__header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  padding-block-start: var(--dse-spacing-primitive-space-500);
+  padding-block-end: var(--dse-spacing-primitive-space-200);
+  padding-inline: 28px;
+  gap: var(--dse-spacing-primitive-space-300);
+}
+
+.dse-dialog__header-text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-inline-size: 0;
+  gap: var(--dse-spacing-primitive-space-100);
+}
+
+.dse-dialog__title,
+.dse-dialog__description {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.dse-dialog__title {
+  color: var(--dse-color-semantic-fg-primary);
+  font-family: var(--dse-typography-semantic-title-component-family);
+  font-size: var(--dse-typography-semantic-title-component-size);
+  font-weight: var(--dse-typography-semantic-title-component-weight);
+  line-height: var(--dse-typography-semantic-title-component-line-height);
+  letter-spacing: var(--dse-typography-semantic-title-component-letter-spacing);
+}
+
+.dse-dialog__description {
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+}
+
+.dse-dialog__close-icon {
+  display: block;
+  inline-size: var(--dse-icons-size-md);
+  block-size: var(--dse-icons-size-md);
+  background-color: currentColor;
+  -webkit-mask-image: url('./assets/x.svg');
+  mask-image: url('./assets/x.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.dse-dialog__body {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-block-size: 0;
+  overflow: auto;
+  padding-block-start: var(--dse-spacing-primitive-space-400);
+  padding-block-end: 20px;
+  padding-inline: 28px;
+  gap: var(--dse-spacing-primitive-space-400);
+}
+
+.dse-dialog__divider {
+  block-size: 1px;
+  flex: 0 0 1px;
+  background: var(--dse-color-semantic-border-subtle);
+}
+
+.dse-dialog__actions {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding-block: 20px;
+  padding-inline: 28px;
+  gap: var(--dse-spacing-primitive-space-300);
+}
