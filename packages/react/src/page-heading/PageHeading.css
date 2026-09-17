@@ -18,7 +18,6 @@
   align-items: flex-start;
   justify-content: space-between;
   inline-size: 100%;
-  gap: 24px;
 }
 
 .dse-page-heading__text {
