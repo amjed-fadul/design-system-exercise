@@ -1,0 +1,178 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.top-navbar",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Top Navbar",
+  "description": "Persistent application header that keeps product/workspace identity, optional shell context, and account/utility context visible while page content changes. Top Navbar owns the stable header regions, fixed forward physical composition, and divider; Application Shell owns placement, Product owns Brand/Account data and behavior, and page patterns own page-specific headings and task actions.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "228:18954"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "brand",
+        "description": "Optional product/workspace identity content for the single Brand slot. Product owns the mark, name, and any identity data.",
+        "required": false,
+        "type": { "content": true }
+      },
+      {
+        "name": "contextLabel",
+        "description": "Concise optional shell-context text shown between Brand and the flexible separator when showContext is true.",
+        "required": false,
+        "default": "Workspace administration",
+        "type": { "native": true }
+      },
+      {
+        "name": "showContext",
+        "description": "Controls whether the supporting shell-context label is visible. It does not change page title, navigation, or account state.",
+        "required": false,
+        "default": true,
+        "type": { "boolean": true }
+      },
+      {
+        "name": "account",
+        "description": "Optional product-owned account/utility composition for the single Account slot. Any interactive control supplied here must provide its own accessible semantics.",
+        "required": false,
+        "type": { "content": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.Brand#228:2",
+      "kind": "public",
+      "mapsTo": "publicApi.brand"
+    },
+    {
+      "source": "figma.contextLabel#228:0",
+      "kind": "public",
+      "mapsTo": "publicApi.contextLabel"
+    },
+    {
+      "source": "figma.showContext#228:1",
+      "kind": "public",
+      "mapsTo": "publicApi.showContext"
+    },
+    {
+      "source": "figma.Account#228:3",
+      "kind": "public",
+      "mapsTo": "publicApi.account"
+    },
+    {
+      "source": "figma.order",
+      "kind": "figma-only",
+      "mapsTo": "fixed forward physical composition; not a public React prop"
+    },
+    {
+      "source": "figma.theme",
+      "kind": "figma-only",
+      "mapsTo": "inherited Light/Dark semantic token context; no theme prop"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "header",
+      "required": true,
+      "description": "Host-filling persistent header surface fixed at 64 CSS pixels high in the reviewed shell."
+    },
+    {
+      "name": "brand",
+      "required": true,
+      "description": "Single Brand slot region at the physical left. Its content is optional and product-owned."
+    },
+    {
+      "name": "context",
+      "required": false,
+      "description": "Optional concise supporting context label controlled by showContext."
+    },
+    {
+      "name": "flexible-space",
+      "required": true,
+      "description": "Flexible separator that keeps account/utility content at the physical right as the host grows."
+    },
+    {
+      "name": "account",
+      "required": true,
+      "description": "Single Account slot region at the physical right. Product owns account identity, appearance controls, and any interaction."
+    },
+    {
+      "name": "bottom-divider",
+      "required": true,
+      "description": "One-pixel subtle divider along the physical bottom edge."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-surface-default",
+    "--dse-color-semantic-border-subtle",
+    "--dse-color-semantic-fg-secondary",
+    "--dse-spacing-primitive-space-500",
+    "--dse-typography-semantic-body-small-family",
+    "--dse-typography-semantic-body-small-size",
+    "--dse-typography-semantic-body-small-weight",
+    "--dse-typography-semantic-body-small-line-height",
+    "--dse-typography-semantic-body-small-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "native header landmark containing product identity, optional shell context, flexible space, and product-owned account/utility content",
+    "accessibleName": "The header landmark does not invent a redundant accessible label. Visible Brand, context, Account content, and any composed controls expose their own appropriate text or names.",
+    "keyboardActivation": "Top Navbar adds no custom keyboard model. Only separately composed interactive controls inside Brand or Account provide native keyboard activation.",
+    "focus": "Top Navbar never traps or moves focus; composed controls remain in normal document order after Brand/context content.",
+    "requirements": [
+      "The root renders a native header landmark and fills the available host inline size rather than fixing the 1440px Figma example width.",
+      "The reviewed bar remains exactly 64 CSS pixels high with 24px physical inline inset, a 20px internal region gap, and a 1px semantic subtle bottom divider.",
+      "The physical composition remains fixed left-to-right: Brand, optional context, flexible space, then Account. Language direction does not reverse these shell regions.",
+      "Brand, context text, and Account content may determine their own text direction inside the fixed forward shell so Arabic text remains readable without mirroring Latin artwork.",
+      "The Figma order=forward selector has only the reviewed forward value and is not a product decision or public React prop.",
+      "Light/Dark appearance is inherited from semantic tokens. Top Navbar exposes no theme prop.",
+      "When showContext is true, contextLabel must be a non-empty string; hiding context removes only that region and does not change Brand or Account identity.",
+      "Brand and Account each accept at most one direct React child to preserve the Figma one-slot boundary. Consumers can wrap richer compositions inside that one child.",
+      "Top Navbar does not invent Northstar, account identity, avatar data, or appearance behavior when Brand or Account content is omitted.",
+      "Any actual command supplied inside Account, including an appearance control or account menu trigger, is product-owned and must provide its own accessible control name and behavior.",
+      "Application Shell owns Top Navbar placement and the content area beneath it; Top Navbar does not own breakpoints, sticky positioning, or shell routing.",
+      "Page Heading and page patterns own page title, description, and task actions. Top Navbar must not absorb Invite member, Save changes, or other page-specific actions merely because it accepts content slots."
+    ]
+  },
+  "composition": {
+    "brand": {
+      "optional": true,
+      "description": "Single direct product/workspace identity child. Wrap multiple visual pieces inside one composition when needed."
+    },
+    "account": {
+      "optional": true,
+      "description": "Single direct product-owned account/utility child. Interactive controls retain their own component semantics and behavior."
+    }
+  },
+  "events": [],
+  "forbidden": [
+    "children",
+    "order",
+    "theme",
+    "navigation",
+    "pageTitle",
+    "actions",
+    "accountMenu",
+    "appearance",
+    "onAppearanceChange",
+    "breakpoint",
+    "sticky",
+    "onNavigate"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:228:18954",
+      "figma:tYCXBBYoQ92AUKVbND5WkG:147:2",
+      "https://carbondesignsystem.com/components/UI-shell-header/usage/",
+      "https://www.w3.org/WAI/tutorials/page-structure/regions/"
+    ]
+  }
+}

@@ -41,3 +41,6 @@ export type { EmptyStateProps } from './empty-state/EmptyState.js';
 
 export { Sidebar } from './sidebar/Sidebar.js';
 export type { SidebarItem, SidebarMode, SidebarProps } from './sidebar/Sidebar.js';
+
+export { TopNavbar } from './top-navbar/TopNavbar.js';
+export type { TopNavbarProps } from './top-navbar/TopNavbar.js';
