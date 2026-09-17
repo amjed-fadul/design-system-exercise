@@ -72,5 +72,6 @@ if (!css.includes('min-block-size: 440px')) throw new Error('Empty State 440px m
 if (!css.includes('max-inline-size: 680px')) throw new Error('Empty State 680px content cap missing');
 if (!css.includes('var(--dse-spacing-primitive-space-300)')) throw new Error('Empty State 12px spacing token missing');
 if (!css.includes('var(--dse-icons-size-lg)')) throw new Error('Empty State 24px icon token missing');
+if (!css.includes('var(--dse-color-semantic-fg-tertiary)')) throw new Error('Empty State muted icon tone missing');
 if (!css.includes('var(--dse-typography-semantic-title-component-family)')) throw new Error('Empty State title typography missing');
 if (!css.includes('var(--dse-typography-semantic-body-small-family)')) throw new Error('Empty State body typography missing');
