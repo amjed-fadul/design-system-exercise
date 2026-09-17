@@ -22,6 +22,7 @@ describe('dse.button contract', () => {
 
     expect(contract.id).toBe('dse.button');
     expect(contract.version).toBe('1.0.0');
+    expect(contract.visibility).toBe('public');
     expect(enumFor(contract, 'emphasis')).toEqual(['primary', 'secondary', 'text']);
     expect(enumFor(contract, 'tone')).toEqual(['default', 'critical']);
     expect(enumFor(contract, 'iconPosition')).toEqual(['leading', 'trailing']);
