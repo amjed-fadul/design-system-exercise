@@ -21,7 +21,7 @@ const forbiddenOrder: TopNavbarProps = { order: 'forward' };
 // @ts-expect-error theme is inherited from semantic tokens.
 const forbiddenTheme: TopNavbarProps = { theme: 'dark' };
 // @ts-expect-error page-specific task actions do not belong to Top Navbar.
-const forbiddenActions: TopNavbarProps = { actions: <button>Save</button> };
+const forbiddenActions: TopNavbarProps = { actions: 'Save' };
 // @ts-expect-error account menu behavior is product-owned.
 const forbiddenAccountMenu: TopNavbarProps = { accountMenu: true };
 // @ts-expect-error native/class styling is deliberately not forwarded.
