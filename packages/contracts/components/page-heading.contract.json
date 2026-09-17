@@ -133,7 +133,7 @@
     "element": "neutral page-heading container with one native h1 for the page title, optional supporting paragraph, optional Breadcrumbs composition, and optional Button actions",
     "accessibleName": "The required non-empty title is rendered as the page h1. Page Heading does not invent a second region label or duplicate the title in ARIA.",
     "keyboardActivation": "Page Heading adds no custom keyboard model. Breadcrumbs links and Button actions retain their own native/component keyboard behavior.",
-    "focus": "Page Heading never moves or traps focus. Focusable Breadcrumbs and Button descendants remain in normal document order after the title context they belong to.",
+    "focus": "Page Heading never moves or traps focus. When Breadcrumbs are present, their focusable ancestor links remain before the h1 in DOM order; page action controls remain after the title/description content in DOM order.",
     "requirements": [
       "title is required and must be a non-empty string; Page Heading renders exactly one native h1 and exposes no headingLevel override.",
       "description is optional. When description is omitted, showDescription=true renders no fallback description; showDescription=false hides only supplied supporting copy.",
