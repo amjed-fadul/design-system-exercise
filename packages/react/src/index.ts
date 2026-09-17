@@ -38,3 +38,6 @@ export type { SidePanelProps } from './side-panel/SidePanel.js';
 
 export { EmptyState } from './empty-state/EmptyState.js';
 export type { EmptyStateProps } from './empty-state/EmptyState.js';
+
+export { Sidebar } from './sidebar/Sidebar.js';
+export type { SidebarItem, SidebarMode, SidebarProps } from './sidebar/Sidebar.js';
