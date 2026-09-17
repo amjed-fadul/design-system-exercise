@@ -28,10 +28,14 @@ const statusBadgeCss = await readFile(
   'utf8',
 );
 const dialogCss = await readFile(new URL('../src/dialog/Dialog.css', import.meta.url), 'utf8');
+const sidePanelCss = await readFile(
+  new URL('../src/side-panel/SidePanel.css', import.meta.url),
+  'utf8',
+);
 
 await writeFile(
   new URL('../dist/styles.css', import.meta.url),
-  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n\n${searchFieldCss.trimEnd()}\n\n${radioGroupCss.trimEnd()}\n\n${inlineFeedbackCss.trimEnd()}\n\n${avatarCss.trimEnd()}\n\n${statusBadgeCss.trimEnd()}\n\n${dialogCss.trimEnd()}\n`,
+  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n\n${searchFieldCss.trimEnd()}\n\n${radioGroupCss.trimEnd()}\n\n${inlineFeedbackCss.trimEnd()}\n\n${avatarCss.trimEnd()}\n\n${statusBadgeCss.trimEnd()}\n\n${dialogCss.trimEnd()}\n\n${sidePanelCss.trimEnd()}\n`,
 );
 
 for (const asset of [

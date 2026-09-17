@@ -1,0 +1,220 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.side-panel",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Side Panel",
+  "description": "Non-modal contextual detail surface that keeps related detail or editing content close to its source context. Side Panel owns the surface regions, scrolling body, anchored actions, and optional close affordance; the containing pattern owns modality, selection, dirty-state protection, request progression, responsive reflow, and navigation outcomes.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "137:2"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "eyebrow",
+        "description": "Visible detail-region label and accessible-name source. Defaults to MEMBER DETAILS and must remain non-empty.",
+        "required": false,
+        "default": "MEMBER DETAILS",
+        "type": { "native": true }
+      },
+      {
+        "name": "header",
+        "description": "Optional authored content for the structural Header slot. Product or pattern supplies identity and supporting context; Side Panel owns the region.",
+        "required": false,
+        "type": { "content": true }
+      },
+      {
+        "name": "children",
+        "description": "Optional authored content for the structural Body slot. Product or pattern owns data, saved/draft state, validation, feedback, and recovery.",
+        "required": false,
+        "type": { "content": true }
+      },
+      {
+        "name": "actions",
+        "description": "Optional authored content for the structural Actions slot. Prefer public Button composition; workflow owns labels, order, pending state, and outcomes.",
+        "required": false,
+        "type": { "content": true }
+      },
+      {
+        "name": "showClose",
+        "description": "Controls the visible close Icon Button only. It does not define dirty-state handling, modality, or dismissal policy.",
+        "required": false,
+        "default": true,
+        "type": { "boolean": true }
+      },
+      {
+        "name": "closeLabel",
+        "description": "Accessible label for the close Icon Button. Defaults to Close panel and should be localized by the consuming product when needed.",
+        "required": false,
+        "default": "Close panel",
+        "type": { "native": true }
+      },
+      {
+        "name": "onClose",
+        "description": "Required callback invoked by the visible close Icon Button. The containing pattern decides whether closing proceeds, is guarded, or causes navigation.",
+        "required": true,
+        "type": { "callback": true }
+      },
+      {
+        "name": "className",
+        "description": "Optional host class for composition-level sizing or placement without inventing a Side Panel size variant.",
+        "required": false,
+        "type": { "native": true }
+      },
+      {
+        "name": "style",
+        "description": "Optional host style for composition-level sizing or placement, including dedicated-detail widths supplied by the containing pattern.",
+        "required": false,
+        "type": { "native": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.eyebrow",
+      "kind": "public",
+      "mapsTo": "publicApi.eyebrow"
+    },
+    {
+      "source": "figma.showClose",
+      "kind": "public",
+      "mapsTo": "publicApi.showClose"
+    },
+    {
+      "source": "figma.Header",
+      "kind": "public",
+      "mapsTo": "publicApi.header content inside the persistent Header region"
+    },
+    {
+      "source": "figma.Body",
+      "kind": "public",
+      "mapsTo": "publicApi.children content inside the persistent Body region"
+    },
+    {
+      "source": "figma.Actions",
+      "kind": "public",
+      "mapsTo": "publicApi.actions content inside the persistent Actions region"
+    },
+    {
+      "source": "runtime.closeAccessibleName",
+      "kind": "native",
+      "mapsTo": "publicApi.closeLabel"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "surface",
+      "required": true,
+      "description": "Token-driven raised detail surface. Figma default size is 408px × 612px with a 612px minimum block size; the containing composition may provide alternate available sizing."
+    },
+    {
+      "name": "top-bar",
+      "required": true,
+      "description": "64px top bar containing the visible eyebrow and optional governed close Icon Button."
+    },
+    {
+      "name": "header",
+      "required": true,
+      "description": "Structural Header slot separated from Body by a subtle divider. Authored Header content is optional, but the region remains part of Side Panel anatomy."
+    },
+    {
+      "name": "body",
+      "required": true,
+      "description": "Structural flexible detail region with a 240px minimum that consumes remaining block space and scrolls when content exceeds the available height. Authored Body content is optional."
+    },
+    {
+      "name": "actions",
+      "required": true,
+      "description": "Structural anchored Actions slot separated by a subtle divider. Authored action content is optional; the workflow supplies action semantics and outcomes."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-surface-raised",
+    "--dse-color-semantic-border-subtle",
+    "--dse-color-semantic-fg-secondary",
+    "--dse-radius-shape-surface",
+    "--dse-layout-primitive-detail-inline-width",
+    "--dse-spacing-primitive-space-200",
+    "--dse-spacing-primitive-space-300",
+    "--dse-spacing-primitive-space-400",
+    "--dse-spacing-primitive-space-500",
+    "--dse-icons-size-md",
+    "--dse-typography-semantic-label-small-family",
+    "--dse-typography-semantic-label-small-size",
+    "--dse-typography-semantic-label-small-weight",
+    "--dse-typography-semantic-label-small-line-height",
+    "--dse-typography-semantic-label-small-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "section with role=region",
+    "accessibleName": "The visible non-empty eyebrow labels the detail region through aria-labelledby.",
+    "keyboardActivation": "Only composed controls provide keyboard activation. The governed close Icon Button uses native button activation.",
+    "focus": "Side Panel does not move, trap, or restore focus. The containing pattern owns focus movement when its interaction model requires it.",
+    "requirements": [
+      "The root exposes a named non-modal region and must not expose aria-modal=true.",
+      "The visible eyebrow is non-empty and owns the region accessible name through aria-labelledby.",
+      "When showClose is true, the close Icon Button has a non-empty accessible label and invokes onClose on native activation.",
+      "When showClose is false, no close Icon Button is rendered; Side Panel does not invent an alternate dismissal mechanism.",
+      "Side Panel does not create a portal, backdrop, inert background, focus trap, Escape handler, or automatic focus restoration.",
+      "The default surface has a definite 612px block size and 612px minimum block size so long Body content scrolls instead of growing the panel and displacing Actions.",
+      "Body consumes remaining available block space, has a 240px minimum block size, and scrolls without pushing the Actions region out of the surface.",
+      "Header, Body, Actions, and both dividers remain part of the structural anatomy even when authored slot content is null, undefined, or false; only the authored content is absent.",
+      "Side Panel does not own request status, validation, dirty checks, saved/draft state, submission, selection, or responsive navigation outcomes.",
+      "The containing composition may override available sizing through className or style; Side Panel does not expose a size variant in version 1.0.0."
+    ]
+  },
+  "composition": {
+    "header": {
+      "optional": true,
+      "description": "Optional authored Header content rendered inside the persistent Header region. Product identity and supporting context are supplied by the consuming pattern."
+    },
+    "body": {
+      "optional": true,
+      "description": "Optional authored Body content rendered inside the persistent flexible scrolling region. Side Panel supplies layout only."
+    },
+    "actions": {
+      "optional": true,
+      "description": "Optional authored action content rendered inside the persistent Actions region. Public Button composition is preferred; business progression belongs to the workflow."
+    }
+  },
+  "events": [
+    {
+      "name": "onClose",
+      "trigger": "close Icon Button native activation when showClose is true"
+    }
+  ],
+  "forbidden": [
+    "open",
+    "onOpenChange",
+    "modal",
+    "ariaModal",
+    "dismissOnBackdrop",
+    "initialFocusRef",
+    "trapFocus",
+    "restoreFocus",
+    "escapeToClose",
+    "requestStatus",
+    "state",
+    "pending",
+    "validation",
+    "dirty",
+    "showHeader",
+    "size"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:137:2",
+      "https://atlassian.design/components/panel",
+      "https://www.w3.org/WAI/tutorials/page-structure/regions/"
+    ]
+  }
+}
