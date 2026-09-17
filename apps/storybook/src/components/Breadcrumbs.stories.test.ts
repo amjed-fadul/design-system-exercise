@@ -33,11 +33,18 @@ describe('Breadcrumbs Storybook contract', () => {
     }
   });
 
-  it('covers one ancestor, multiple ancestors, and Light/Dark × English/Arabic', async () => {
+  it('covers one ancestor, multiple ancestors, Page Heading integration, and Light/Dark × English/Arabic', async () => {
     const module = await loadStories();
     if (!module) return;
 
-    for (const story of ['Default', 'MultipleAncestors', 'Dark', 'Arabic', 'DarkArabic']) {
+    for (const story of [
+      'Default',
+      'MultipleAncestors',
+      'InPageHeading',
+      'Dark',
+      'Arabic',
+      'DarkArabic',
+    ]) {
       expect(module[story], `missing story ${story}`).toBeDefined();
     }
 
