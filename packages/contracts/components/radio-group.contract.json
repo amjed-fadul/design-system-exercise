@@ -24,7 +24,7 @@
       },
       {
         "name": "name",
-        "description": "Required native name shared by every radio in the group.",
+        "description": "Required non-empty native name shared by every radio in the group.",
         "required": true,
         "type": { "native": true }
       },
@@ -119,6 +119,7 @@
     "keyboardActivation": "native radio-group keyboard behavior including browser-managed arrow-key movement; no custom roving tabindex",
     "focus": "native radio focus; the internal option reflects focus-visible with CSS",
     "requirements": [
+      "Radio Group requires a non-empty shared name so all native radios form one browser-managed group and submit one named field.",
       "Radio Group requires at least two options; a one-option group is rejected at runtime and by the public TypeScript tuple shape.",
       "Every option must provide a unique non-empty value so one selected value maps to exactly one radio.",
       "Every native radio receives the same public name so browser mutual exclusion and form submission remain native.",
