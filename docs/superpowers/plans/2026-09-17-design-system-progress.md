@@ -4,10 +4,10 @@
 **Contract architecture:** `docs/superpowers/specs/2026-09-17-component-contracts-design.md`  
 **Internal-visibility amendment:** `docs/superpowers/specs/2026-09-17-component-contracts-visibility-amendment.md`  
 **Planning branch:** `plan/all-components-patterns`  
-**Active implementation branch:** `feat/radio-group`  
+**Active implementation branch:** `feat/avatar`  
 **Foundations baseline:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Figma source:** `tYCXBBYoQ92AUKVbND5WkG`  
-**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE; C04 TEXT FIELD COMPLETE; C05 SEARCH FIELD COMPLETE; C06 RADIO GROUP COMPLETE — final record HEAD CI pending; C07 has not started
+**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE; C04 TEXT FIELD COMPLETE; C05 SEARCH FIELD COMPLETE; C06 RADIO GROUP COMPLETE; C07 INLINE FEEDBACK COMPLETE; C08 AVATAR COMPLETE — final record HEAD CI pending; C09 has not started
 
 ## Review policy
 
@@ -15,12 +15,12 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 
 ## Progress summary
 
-- Public components complete: **6 / 17** — C01 Button, C02 Icon Button, C03 Link, C04 Text Field, C05 Search Field, C06 Radio Group
-- Public components in progress: **0 / 17**
+- Public components implemented through C08: **8 / 17** — C01 Button, C02 Icon Button, C03 Link, C04 Text Field, C05 Search Field, C06 Radio Group, C07 Inline Feedback, C08 Avatar
+- Public components in progress: **0 / 17**; C08 awaits only the exact final-record CI check for this documentation commit
 - Internal helpers governed with parent milestones: **2 / 6 complete** — `_Input Control`, `_Radio Option`
 - Product patterns: **0 / 5 complete**
-- Overall public milestones complete: **6 / 22**
-- Next planned milestone: **C07 Inline Feedback — not started**
+- Overall public milestones implemented: **8 / 22**
+- Next planned milestone: **C09 Status Badge — not started**
 
 ## Component milestones
 
@@ -31,9 +31,9 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 | C03 | Link | `dse.link@1.0.0` | `114:13` | C01 package infrastructure | Complete | `7e28ce06542e257a2e0edab492d3eec58dcc92e6` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 101 PASS on exact final C03 record HEAD |
 | C04 | Text Field | `dse.text-field@1.0.0` | `112:263` | internal `_Input Control` | Complete | `64300dd8559c86a33d1c2180ecfa9527afd9695f` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 137 PASS on exact final C04 record HEAD `cc4e6ef10cc04f787f0ef51ac78000208acba148` |
 | C05 | Search Field | `dse.search-field@1.0.0` | `112:1710` | C02, C04 internal input shell | Complete | `6f0d23d6bc40979e61ce68092a831ea449aaf7cc` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 153 PASS on exact final C05 record HEAD |
-| C06 | Radio Group | `dse.radio-group@1.0.0` | `116:175` | internal `_Radio Option` | Complete — final record HEAD CI pending | `74d7cdb528e3c9f2cfcb23478176b51ee0488136` | Inline self-review APPROVED; accessibility-name defect corrected; no unresolved Critical/Important findings | Run 164 PASS on final implementation/package HEAD; final record HEAD must also PASS |
-| C07 | Inline Feedback | `dse.inline-feedback` | `127:30` | component package infrastructure | Not started | — | — | — |
-| C08 | Avatar | `dse.avatar` | `128:14` | component package infrastructure | Not started | — | — | — |
+| C06 | Radio Group | `dse.radio-group@1.0.0` | `116:175` | internal `_Radio Option` | Complete | `ed631c7c98e866becf453b0b6befbf2bfc7e6f05` | Inline self-review APPROVED; accessibility-name defect corrected; no unresolved Critical/Important findings | Run 169 PASS on exact final C06 record HEAD |
+| C07 | Inline Feedback | `dse.inline-feedback@1.0.0` | `127:30` | component package infrastructure | Complete | `6aa208229a277e6d1314f6c391a94c32800eca38` | Inline self-review APPROVED; width-fill, WebKit mask, and Dark × Arabic evidence gaps corrected | Run 203 PASS on exact final C07 HEAD |
+| C08 | Avatar | `dse.avatar@1.0.0` | `128:14` | component package infrastructure | Complete — final record HEAD CI pending | `e5c2491d028f1c27b99ed79ac383c0575ba59c9c` | Inline self-review APPROVED; source-inventory and self-contained prepack corrections applied; no unresolved Critical/Important findings | Run 218 PASS on exact implementation/package HEAD; this record commit must also PASS |
 | C09 | Status Badge | `dse.status-badge` | `128:1821` | component package infrastructure | Not started | — | — | — |
 | C10 | Dialog | `dse.dialog` | `133:6` | C01, C02 | Not started | — | — | — |
 | C11 | Side Panel | `dse.side-panel` | `137:2` | C01, C02 | Not started | — | — | — |
@@ -215,7 +215,53 @@ Detailed evidence: `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
 - Run 164 verification totals: contracts **40/40**, tokens **17/17**, React **78/78**, Storybook tests **18/18** = **153 full tests passing**. C06-focused evidence is **26 tests**: 7 contract + 10 runtime + 5 CSS + 4 Storybook. Contract validation reports 8 component contracts / 0 patterns; token validation/build reports 223 logical tokens. Typecheck, React build, Storybook production build, and packed clean-consumer verification all pass.
 - Figma C06 code-contract knowledge was appended to both authority descriptions using the marker `CODE CONTRACT / C06 · synced 2026-09-17`; an independent read-back confirmed both records persisted with the public/internal API split, native semantics, geometry, accessibility associations, and package boundary.
 - Inline self-review: **APPROVED — no unresolved Critical or Important findings.** The material defect found during review/execution was the option accessible-name contamination; it was corrected and verified via run 162 → 163. Boundary review also confirms no arbitrary children escape hatch, group-level disabled/error API, public Figma-state props, custom keyboard state machine, product-role logic, fixed-height clipping, or public `RadioOption` leak.
-- This documentation/knowledge record commit must also pass PR CI on its exact HEAD before C06 is treated as the authoritative completed record.
+- Final C06 record HEAD `ed631c7c98e866becf453b0b6befbf2bfc7e6f05`; run 169 PASS on that exact commit.
+
+## C07 evidence summary
+
+### Figma authority, contract, and runtime
+
+- Fresh authority is Inline Feedback component set `127:30`.
+- `dse.inline-feedback@1.0.0` requires `intent=error|success` and a non-empty `message`; `title` is optional and Figma `showTitle` is derived solely from title presence.
+- Error renders `role="alert"`; success renders `role="status"`. The outcome icon is decorative and the component never moves focus.
+- The public boundary contains no arbitrary children/action slot, dismiss API, warning/info/loading/toast variant, `role` override, or `aria-live` override. Retry remains a sibling Button owned by the containing pattern.
+- Exact Figma Alert/Check geometry is packaged as mask assets; semantic feedback foreground/surface/border tokens govern Light/Dark recoloring. Messages wrap and grow naturally.
+
+### Storybook, package, knowledge, and review
+
+- Storybook covers error, success, titleless, long-message, and Light/Dark × English/Arabic including Dark × Arabic and RTL.
+- Packed-consumer verification imports and SSR-renders both outcome semantics, checks packaged CSS, and validates both installed Figma icon assets.
+- Figma implementation knowledge was appended to Inline Feedback `127:30` under `IMPLEMENTATION / C07 · dse.inline-feedback@1.0.0` and read back successfully.
+- Inline self-review found and fixed three real gaps: explicit container-width filling, WebKit mask compatibility, and the missing Dark × Arabic Storybook intersection.
+- Final C07 HEAD `6aa208229a277e6d1314f6c391a94c32800eca38`; run 203 PASS on that exact commit.
+- Final verification totals: contracts **45/45**, tokens **17/17**, React **87/87**, Storybook **21/21** = **170 automated tests passing**; typecheck, Storybook production build, and packed consumer all PASS.
+- Inline self-review: **APPROVED — no unresolved Critical or Important findings.**
+
+## C08 evidence summary
+
+### Figma authority and contract
+
+- Fresh live-Figma audit established Avatar component set `128:14` as the single authority: `size=sm|lg`, `content=initials|fallback`, optional supplied initials, and no photo/presence/status/role/verified/selected-person variant.
+- `dse.avatar@1.0.0` is public. Its API is optional consumer-supplied `initials`, optional `size=sm|lg` defaulting to `sm`, and optional native `aria-label` for a standalone meaningful identity visual.
+- Figma `content=initials|fallback` is derived rather than public API. Missing or whitespace-only initials render the governed neutral `@`; Avatar never derives initials from a name, email, gender, or other personal attribute.
+- Contract TDD: run 204 proved the missing-contract RED; the first GREEN exposed the deliberate implemented-contract source-inventory gate, which was advanced to C08; run 206 then passed the complete contract gate.
+
+### Runtime, CSS, Storybook, and accessibility
+
+- Runtime RED was proven by run 207 before production Avatar existed. Runtime GREEN checkpoint run 213 passed tests, typecheck, Storybook production build, and package smoke.
+- By default Avatar is decorative with `aria-hidden=true`; a non-empty `aria-label` switches to image-like `role="img"` semantics. Conflicting consumer `role`/`aria-hidden` values cannot override the governed semantics, and unsupported interaction/identity props are stripped at runtime for JavaScript callers that bypass TypeScript.
+- Geometry is exact to Figma: `sm` 32×32 CSS px and `lg` 48×48 CSS px. CSS consumes `surface/section`, `fg/secondary`, `shape/rounded`, and `label/small` semantic tokens and remains direction-agnostic in LTR/RTL.
+- Storybook RED run 214 preceded implementation. Run 215 passed with sm/lg/fallback across Light/Dark × English/Arabic, including all Dark × Arabic intersections and a labeled standalone case.
+
+### Package, knowledge, and review
+
+- React package `prepack` is self-contained: `pnpm build && node scripts/verify-avatar-dist.mjs`. The verifier imports the built public Avatar export, SSR-renders initials/fallback/labeled forms, checks exact semantics, and verifies Avatar CSS is present in `dist/styles.css`.
+- Self-review caught that the first prepack version implicitly depended on `dist/` already existing; the correction made direct `pnpm pack` safe instead of relying on CI step order.
+- Final implementation/package HEAD `e5c2491d028f1c27b99ed79ac383c0575ba59c9c`; run 218 PASS across all gates. Verification totals: contracts **49/49**, tokens **17/17**, React **99/99**, Storybook **24/24** = **189 automated tests passing**. Contract validation reports 10 component contracts / 0 patterns; token validation/build reports 223 logical tokens. Typecheck, Storybook production build, React prepack distribution verification, and packed clean-consumer verification all pass.
+- C08-focused automated evidence is 19 tests: 4 contract + 7 runtime + 3 CSS + 2 runtime/contract parity + 3 Storybook.
+- Figma implementation knowledge was appended to Avatar `128:14` under `IMPLEMENTATION / C08 · dse.avatar@1.0.0`; immediate independent read-back confirmed the persisted API, derived fallback, accessibility boundary, excluded APIs, exact geometry/token mapping, and evidence record.
+- Inline self-review: **APPROVED — no unresolved Critical or Important findings.** Corrections were the stale source-inventory gate, fail-closed runtime prop boundary, and self-contained prepack build/verification.
+- This documentation/knowledge record commit must also pass PR CI on its exact HEAD before C08 is treated as the authoritative completed record.
 
 ## Milestone completion rule
 
@@ -225,4 +271,4 @@ Documentation/knowledge-only record commits after a verified implementation mile
 
 ## Scope guard
 
-This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation beyond the explicit C06 knowledge synchronization, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. C06 is complete subject only to its exact final-record CI gate. **C07 has not been authorized or started.**
+This roadmap does not authorize npm publication, PR/main merges, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. Figma implementation-knowledge synchronization is authorized only for the milestone being completed and has been performed through C08. **C09 Status Badge has not been started.**

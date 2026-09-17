@@ -23,3 +23,6 @@ export type { RadioGroupOption, RadioGroupProps } from './radio-group/RadioGroup
 
 export { InlineFeedback } from './inline-feedback/InlineFeedback.js';
 export type { InlineFeedbackIntent, InlineFeedbackProps } from './inline-feedback/InlineFeedback.js';
+
+export { Avatar } from './avatar/Avatar.js';
+export type { AvatarProps, AvatarSize } from './avatar/Avatar.js';

@@ -19,7 +19,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "prepack": "pnpm build && node scripts/verify-avatar-dist.mjs"
   },
   "dependencies": {
     "@design-system-exercise/tokens": "workspace:*"
