@@ -44,13 +44,13 @@ describe('Dialog public runtime', () => {
     expect(dialog).toHaveAccessibleDescription('Send an invitation to join Northstar.');
   });
 
-  it('omits description anatomy and aria-describedby when description is absent', async () => {
+  it('omits description anatomy and aria-describedby when description is null', async () => {
     const module = await loadModule();
     if (!module) return;
     const { Dialog } = module;
 
     render(
-      <Dialog open onOpenChange={() => {}} title="Confirm change">
+      <Dialog open onOpenChange={() => {}} title="Confirm change" description={null}>
         <p>Body</p>
       </Dialog>,
     );
