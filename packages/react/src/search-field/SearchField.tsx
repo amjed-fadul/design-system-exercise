@@ -105,11 +105,6 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
   return (
     <div className="dse-search-field">
       <InputControl size="compact">
-        <span
-          className="dse-search-field__search-icon"
-          aria-hidden="true"
-          style={searchIconStyle}
-        />
         <input
           {...inputProps}
           ref={setInputRef}
@@ -120,19 +115,24 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
           disabled={disabled}
           onChange={handleChange}
         />
-        {hasQuery ? (
-          <span className="dse-search-field__clear-action">
-            <IconButton
-              icon={
-                <span className="dse-search-field__clear-icon" style={clearIconStyle} />
-              }
-              aria-label={clearButtonLabel}
-              disabled={disabled}
-              onClick={handleClear}
-            />
-          </span>
-        ) : null}
       </InputControl>
+
+      <span
+        className="dse-search-field__search-icon"
+        aria-hidden="true"
+        style={searchIconStyle}
+      />
+
+      {hasQuery ? (
+        <span className="dse-search-field__clear-action">
+          <IconButton
+            icon={<span className="dse-search-field__clear-icon" style={clearIconStyle} />}
+            aria-label={clearButtonLabel}
+            disabled={disabled}
+            onClick={handleClear}
+          />
+        </span>
+      ) : null}
     </div>
   );
 });
