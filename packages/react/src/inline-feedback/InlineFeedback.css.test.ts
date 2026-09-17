@@ -45,9 +45,9 @@ describe('InlineFeedback visual contract', () => {
     expect(css).toContain('inline-feedback-check.svg');
     expect(css).toMatch(/mask(?:-image)?:/);
 
-    expect(alertSvg).toContain('M9.99154 1.65527');
+    expect(alertSvg).toContain('M9.99156 1.65527');
     expect(alertSvg).toContain('M10.0078 13.3333');
-    expect(checkSvg).toContain('M17.7446 2.7446');
+    expect(checkSvg).toContain('M17.7446 2.74459');
     expect(alertSvg).toContain('viewBox="0 0 20 20"');
     expect(checkSvg).toContain('viewBox="0 0 20 20"');
   });
