@@ -14,7 +14,7 @@ import { InputControl } from '../internal/input-control/InputControl.js';
 export interface SearchFieldProps
   extends Omit<
     InputHTMLAttributes<HTMLInputElement>,
-    'size' | 'children' | 'content' | 'type' | 'aria-invalid'
+    'size' | 'children' | 'content' | 'type' | 'aria-invalid' | 'results'
   > {
   'aria-label': string;
   clearButtonLabel: string;
@@ -60,10 +60,12 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
     onChange,
     type: _ignoredType,
     'aria-invalid': _ignoredAriaInvalid,
+    results: _ignoredResults,
     ...inputProps
   } = props as SearchFieldProps & {
     type?: InputHTMLAttributes<HTMLInputElement>['type'];
     'aria-invalid'?: InputHTMLAttributes<HTMLInputElement>['aria-invalid'];
+    results?: InputHTMLAttributes<HTMLInputElement>['results'];
   };
 
   const inputRef = useRef<HTMLInputElement>(null);
