@@ -58,6 +58,16 @@ describe('Text Field visual contract', () => {
     }
   });
 
+  it('preserves the live 4px label-to-required-indicator gap as a governed token', () => {
+    const css = readRequired(textFieldCssPath);
+    const dependencies = tokenDependencies(textFieldContractPath);
+
+    expect(dependencies).toContain('--dse-spacing-primitive-space-100');
+    expect(css).toMatch(
+      /\.dse-text-field__label\s*\{[^}]*gap:\s*var\(--dse-spacing-primitive-space-100\)/s,
+    );
+  });
+
   it('keeps Text Field CSS token-driven and direction-safe', () => {
     const css = `${readRequired(inputControlCssPath)}\n${readRequired(textFieldCssPath)}`;
     expect(css).not.toMatch(/#[0-9a-f]{3,8}\b|rgb\(|hsl\(/i);
