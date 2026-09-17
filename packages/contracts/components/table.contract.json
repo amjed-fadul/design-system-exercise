@@ -126,11 +126,11 @@
     "--dse-typography-semantic-label-default-weight",
     "--dse-typography-semantic-label-default-line-height",
     "--dse-typography-semantic-label-default-letter-spacing",
-    "--dse-typography-semantic-caption-small-family",
-    "--dse-typography-semantic-caption-small-size",
-    "--dse-typography-semantic-caption-small-weight",
-    "--dse-typography-semantic-caption-small-line-height",
-    "--dse-typography-semantic-caption-small-letter-spacing"
+    "--dse-typography-semantic-caption-default-family",
+    "--dse-typography-semantic-caption-default-size",
+    "--dse-typography-semantic-caption-default-weight",
+    "--dse-typography-semantic-caption-default-line-height",
+    "--dse-typography-semantic-caption-default-letter-spacing"
   ],
   "states": [
     {
