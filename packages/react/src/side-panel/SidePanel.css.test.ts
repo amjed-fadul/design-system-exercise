@@ -21,10 +21,11 @@ describe('SidePanel visual contract', () => {
     expect(css).toContain('border-radius: var(--dse-radius-shape-surface)');
   });
 
-  it('matches the 64px top bar and label-small eyebrow geometry', () => {
+  it('matches the 64px clipping top bar and single-line label-small eyebrow geometry', () => {
     const css = readCss();
 
-    expect(css).toMatch(/\.dse-side-panel__top-bar\s*\{[^}]*block-size:\s*64px;[^}]*padding-block:\s*var\(--dse-spacing-primitive-space-300\);[^}]*padding-inline-start:\s*var\(--dse-spacing-primitive-space-500\);[^}]*padding-inline-end:\s*var\(--dse-spacing-primitive-space-400\);/s);
+    expect(css).toMatch(/\.dse-side-panel__top-bar\s*\{[^}]*block-size:\s*64px;[^}]*padding-block:\s*var\(--dse-spacing-primitive-space-300\);[^}]*padding-inline-start:\s*var\(--dse-spacing-primitive-space-500\);[^}]*padding-inline-end:\s*var\(--dse-spacing-primitive-space-400\);[^}]*overflow:\s*hidden;/s);
+    expect(css).toMatch(/\.dse-side-panel__eyebrow\s*\{[^}]*white-space:\s*nowrap;[^}]*overflow:\s*hidden;[^}]*text-overflow:\s*ellipsis;/s);
     for (const token of [
       '--dse-color-semantic-fg-secondary',
       '--dse-typography-semantic-label-small-family',
@@ -40,10 +41,11 @@ describe('SidePanel visual contract', () => {
   it('keeps Body flexible and scrollable while Header and Actions remain non-shrinking', () => {
     const css = readCss();
 
-    expect(css).toMatch(/\.dse-side-panel__body\s*\{[^}]*flex:\s*1 1 auto;[^}]*min-block-size:\s*240px;[^}]*overflow-y:\s*auto;/s);
+    expect(css).toMatch(/\.dse-side-panel__body\s*\{[^}]*flex:\s*1 0 0;[^}]*min-block-size:\s*240px;[^}]*overflow-x:\s*hidden;[^}]*overflow-y:\s*auto;/s);
     expect(css).toMatch(/\.dse-side-panel__body\s*\{[^}]*padding-block:\s*20px;[^}]*padding-inline:\s*var\(--dse-spacing-primitive-space-500\);[^}]*gap:\s*20px;/s);
     expect(css).toMatch(/\.dse-side-panel__header\s*\{[^}]*flex:\s*0 0 auto;/s);
-    expect(css).toMatch(/\.dse-side-panel__actions\s*\{[^}]*flex:\s*0 0 auto;[^}]*min-block-size:\s*80px;[^}]*padding-block:\s*var\(--dse-spacing-primitive-space-400\);[^}]*padding-inline:\s*var\(--dse-spacing-primitive-space-500\);[^}]*gap:\s*var\(--dse-spacing-primitive-space-300\);/s);
+    expect(css).toMatch(/\.dse-side-panel__actions\s*\{[^}]*flex:\s*0 0 auto;[^}]*align-items:\s*center;[^}]*justify-content:\s*space-between;[^}]*block-size:\s*80px;[^}]*padding-block:\s*var\(--dse-spacing-primitive-space-400\);[^}]*padding-inline:\s*var\(--dse-spacing-primitive-space-500\);[^}]*gap:\s*var\(--dse-spacing-primitive-space-300\);/s);
+    expect(css).not.toMatch(/\.dse-side-panel__actions\s*\{[^}]*flex-wrap:/s);
     expect(css).toMatch(/\.dse-side-panel__(header|footer)-divider[^}]*\{[^}]*block-size:\s*1px;[^}]*background:\s*var\(--dse-color-semantic-border-subtle\)/s);
   });
 
