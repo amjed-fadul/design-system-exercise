@@ -189,14 +189,28 @@ describe('SearchField public runtime', () => {
     expect(onClear).not.toHaveBeenCalled();
   });
 
-  it('locks search semantics and strips validation/result semantics even when forced by untyped input', async () => {
+  it('strips every contract-forbidden runtime prop even when forced by untyped input', async () => {
     const module = await loadSearchFieldModule();
     if (!module) return;
 
     const { SearchField } = module;
     render(
       <SearchField
-        {...({ type: 'email', 'aria-invalid': 'true', results: 5 } as any)}
+        {...({
+          type: 'email',
+          'aria-invalid': 'true',
+          state: 'hover',
+          content: 'filled',
+          size: 99,
+          children: 'forbidden',
+          invalid: true,
+          loading: true,
+          results: 5,
+          resultCount: 5,
+          suggestions: ['sara'],
+          selectedPerson: 'sara',
+          debounce: 250,
+        } as any)}
         aria-label="Search team"
         clearButtonLabel="Clear search"
       />,
@@ -204,8 +218,22 @@ describe('SearchField public runtime', () => {
 
     const input = screen.getByRole('searchbox', { name: 'Search team' });
     expect(input).toHaveAttribute('type', 'search');
-    expect(input).not.toHaveAttribute('aria-invalid');
-    expect(input).not.toHaveAttribute('results');
+    for (const forbidden of [
+      'aria-invalid',
+      'state',
+      'content',
+      'size',
+      'invalid',
+      'loading',
+      'results',
+      'resultCount',
+      'suggestions',
+      'selectedPerson',
+      'debounce',
+    ]) {
+      expect(input).not.toHaveAttribute(forbidden);
+    }
+    expect(input.textContent).toBe('');
   });
 
   it('forwards onChange exactly once per native query change', async () => {
