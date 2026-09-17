@@ -28,14 +28,14 @@
   block-size: 40px;
   flex: 0 0 40px;
   place-items: center;
-  color: var(--dse-color-semantic-fg-secondary);
+  color: var(--dse-color-semantic-fg-tertiary);
 }
 
 .dse-empty-state__default-icon {
   display: block;
   inline-size: var(--dse-icons-size-lg);
   block-size: var(--dse-icons-size-lg);
-  background-color: var(--dse-color-semantic-fg-secondary);
+  background-color: var(--dse-color-semantic-fg-tertiary);
   -webkit-mask-image: var(--dse-empty-state-icon-image);
   mask-image: var(--dse-empty-state-icon-image);
   -webkit-mask-position: center;
