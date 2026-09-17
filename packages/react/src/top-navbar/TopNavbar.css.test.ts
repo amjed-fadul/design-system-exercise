@@ -39,7 +39,7 @@ describe('Top Navbar CSS boundary', () => {
       expect(css).toContain(token);
     }
 
-    expect(css).not.toMatch(/\.dse-top-navbar__brand\s*\{[\s\S]*font-/);
-    expect(css).not.toMatch(/\.dse-top-navbar__account\s*\{[\s\S]*font-/);
+    expect(css).not.toMatch(/\.dse-top-navbar__brand\s*\{[^}]*font-/);
+    expect(css).not.toMatch(/\.dse-top-navbar__account\s*\{[^}]*font-/);
   });
 });
