@@ -20,7 +20,7 @@
     "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
     "test": "vitest run",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "prepack": "pnpm build && node scripts/verify-avatar-dist.mjs && node scripts/verify-status-badge-dist.mjs && node scripts/verify-dialog-dist.mjs && node scripts/verify-side-panel-dist.mjs && node scripts/verify-empty-state-dist.mjs"
+    "prepack": "pnpm build && node scripts/verify-avatar-dist.mjs && node scripts/verify-status-badge-dist.mjs && node scripts/verify-dialog-dist.mjs && node scripts/verify-side-panel-dist.mjs && node scripts/verify-empty-state-dist.mjs && node scripts/verify-sidebar-dist.mjs"
   },
   "dependencies": {
     "@design-system-exercise/tokens": "workspace:*"
