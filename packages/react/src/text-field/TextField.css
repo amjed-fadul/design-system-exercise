@@ -8,6 +8,7 @@
 .dse-text-field__label {
   display: inline-flex;
   align-items: baseline;
+  gap: var(--dse-spacing-primitive-space-100);
   color: var(--dse-color-semantic-fg-primary);
   font-family: var(--dse-typography-semantic-label-default-family);
   font-size: var(--dse-typography-semantic-label-default-size);
