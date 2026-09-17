@@ -62,8 +62,9 @@ describe('Breadcrumbs Storybook contract', () => {
     const module = await loadStories();
     if (!module) return;
 
-    const story = module.Default;
-    const html = renderToStaticMarkup(story.render(story.args, { globals: {} } as any));
+    const html = renderToStaticMarkup(
+      module.Default.render(module.breadcrumbsMeta.args, { globals: {} } as any),
+    );
     expect(html).toContain('<nav');
     expect(html).toContain('aria-label="Breadcrumbs"');
     expect(html).toContain('href="#workspace"');
