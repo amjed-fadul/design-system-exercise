@@ -11,10 +11,12 @@ function readCss() {
 }
 
 describe('Breadcrumbs CSS boundary', () => {
-  it('matches the reviewed horizontal 8px geometry without adding collapse behavior', () => {
+  it('matches the reviewed HUG root and horizontal 8px geometry without adding collapse behavior', () => {
     const css = readCss();
 
     expect(css).toContain('.dse-breadcrumbs');
+    expect(css).toMatch(/\.dse-breadcrumbs\s*\{[^}]*inline-size:\s*fit-content/);
+    expect(css).toMatch(/\.dse-breadcrumbs\s*\{[^}]*max-inline-size:\s*100%/);
     expect(css).toMatch(/\.dse-breadcrumbs__list\s*\{[^}]*display:\s*flex/);
     expect(css).toMatch(/\.dse-breadcrumbs__list\s*\{[^}]*gap:\s*8px/);
     expect(css).toMatch(/\.dse-breadcrumb-link-item\s*\{[^}]*gap:\s*8px/);
