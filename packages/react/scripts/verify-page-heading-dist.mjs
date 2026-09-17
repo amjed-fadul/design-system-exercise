@@ -70,7 +70,7 @@ for (const required of [
   '.dse-page-heading',
   'inline-size: 100%',
   'gap: 10px',
-  'gap: 24px',
+  'justify-content: space-between',
   'gap: 4px',
   'gap: 12px',
   'var(--dse-color-semantic-fg-primary)',
@@ -79,4 +79,8 @@ for (const required of [
   'var(--dse-typography-semantic-body-small-family)',
 ]) {
   if (!css.includes(required)) throw new Error(`PageHeading distributed CSS missing: ${required}`);
+}
+const rowBlock = css.match(/\.dse-page-heading__row\s*\{[^}]*\}/)?.[0] ?? '';
+if (/gap:\s*24px/.test(rowBlock)) {
+  throw new Error('PageHeading distributed CSS incorrectly activates the inactive Figma 24px row spacing');
 }
