@@ -1,0 +1,177 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse._table-row",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "internal",
+  "name": "_Table Row",
+  "description": "Private semantic record row for Table. It preserves the four fixed cell roles and contextual selected presentation while leaving actual interaction to descendant controls.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "152:3729"
+    }
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "primary",
+        "description": "Primary record content supplied by Table row data.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "secondary",
+        "description": "Secondary record content supplied by Table row data.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "status",
+        "description": "Status record content supplied by Table row data, typically a governed Status Badge.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "action",
+        "description": "Optional Action-region content supplied by Table row data, typically a governed Button or passive no-action content.",
+        "required": false,
+        "type": { "content": true }
+      },
+      {
+        "name": "selected",
+        "description": "Contextual selected-record presentation supplied by parent/list-detail state. It is not a checkbox or bulk-selection model.",
+        "required": false,
+        "default": false,
+        "type": { "boolean": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.Primary#152:13",
+      "kind": "public",
+      "mapsTo": "internalApi.primary"
+    },
+    {
+      "source": "figma.Secondary#152:14",
+      "kind": "public",
+      "mapsTo": "internalApi.secondary"
+    },
+    {
+      "source": "figma.Status#152:15",
+      "kind": "public",
+      "mapsTo": "internalApi.status"
+    },
+    {
+      "source": "figma.Action#152:16",
+      "kind": "public",
+      "mapsTo": "internalApi.action"
+    },
+    {
+      "source": "figma.state=default",
+      "kind": "derived",
+      "mapsTo": "selected=false and not hovered"
+    },
+    {
+      "source": "figma.state=hover",
+      "kind": "derived",
+      "mapsTo": "CSS :hover while selected=false"
+    },
+    {
+      "source": "figma.state=selected",
+      "kind": "public",
+      "mapsTo": "internalApi.selected=true"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "row",
+      "required": true,
+      "description": "Native tr record row; the row itself is not a click target."
+    },
+    {
+      "name": "primary",
+      "required": true,
+      "description": "Primary td taking remaining inline space."
+    },
+    {
+      "name": "secondary",
+      "required": true,
+      "description": "Secondary td with reviewed 100px content width."
+    },
+    {
+      "name": "status",
+      "required": true,
+      "description": "Status td with reviewed 160px content width."
+    },
+    {
+      "name": "action",
+      "required": true,
+      "description": "Action td with reviewed 128px content width; its content may be absent."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-surface-default",
+    "--dse-color-semantic-border-subtle",
+    "--dse-color-semantic-state-hover",
+    "--dse-color-semantic-state-selected"
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "ownership": "derived",
+      "description": "CSS pointer-hover presentation aids scanning while the row remains non-interactive."
+    },
+    {
+      "name": "selected",
+      "ownership": "public",
+      "description": "Parent-supplied contextual detail association. Selected is visual record context, not bulk selection."
+    }
+  ],
+  "semantics": {
+    "element": "native tr containing exactly four td cells",
+    "accessibleName": "Cell content and descendant governed controls retain their own semantics and names; the row adds no hidden activation label.",
+    "keyboardActivation": "none at row level; only genuine descendant controls are keyboard interactive",
+    "focus": "The row itself never becomes focusable. Focus remains on descendant controls such as the Action button.",
+    "requirements": [
+      "Each row renders exactly four native td cells in Primary / Secondary / Status / Action order.",
+      "Primary can wrap and grow row height. Secondary / Status / Action preserve the reviewed 100px / 160px / 128px content widths.",
+      "The row has a 60px reviewed minimum height, 6px block inset, 20px inline table inset, shared 24px / 24px / 8px inter-region gaps, and a subtle bottom divider.",
+      "selected=true uses the reviewed selected surface and only associates the record with open detail context. It does not create checkbox, radio, aria-selected grid semantics, onSelect, or bulk-selection behavior.",
+      "Hover is CSS-derived and cannot be supplied as a public state value. The live Figma set reviewed on 2026-09-18 contains only default / hover / selected variants; stale wording about six variants or two rendering orders does not establish an order API.",
+      "The entire row never becomes an implicit activation target. The Action region owns actual controls and repeated controls need meaningful product-supplied accessible names.",
+      "The helper remains private and must not appear in the public React barrel or package exports."
+    ]
+  },
+  "composition": {
+    "content": {
+      "optional": false,
+      "description": "Private row anatomy configured from public Table row data.",
+      "allowedChildren": ["Primary td", "Secondary td", "Status td", "Action td"]
+    }
+  },
+  "events": [],
+  "forbidden": [
+    "state",
+    "hover prop",
+    "bulk selection",
+    "checkbox selection",
+    "radio selection",
+    "row activation",
+    "onSelect",
+    "sorting",
+    "order",
+    "public package export"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-18",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:152:3729",
+      "https://carbondesignsystem.com/components/data-table/usage/",
+      "https://www.w3.org/WAI/tutorials/tables/"
+    ]
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.table",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Table",
+  "description": "Scoped semantic four-column entity table for Primary, Secondary, Status, and Action content. Table owns native tabular structure and fixed column meaning while product/list-detail composition owns record data, filtering, current detail association, and business rules.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "152:3730"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "rows",
+        "description": "Required structured row data. Runtime accepts 1–100 rows; each row supplies a stable non-empty id plus Primary, Secondary, Status, Action, and optional selected presentation.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "primaryLabel",
+        "description": "Primary column header label.",
+        "required": false,
+        "default": "Person",
+        "type": { "native": true }
+      },
+      {
+        "name": "secondaryLabel",
+        "description": "Secondary column header label.",
+        "required": false,
+        "default": "Role",
+        "type": { "native": true }
+      },
+      {
+        "name": "statusLabel",
+        "description": "Status column header label.",
+        "required": false,
+        "default": "Status",
+        "type": { "native": true }
+      },
+      {
+        "name": "actionLabel",
+        "description": "Action column header label.",
+        "required": false,
+        "default": "Details",
+        "type": { "native": true }
+      },
+      {
+        "name": "footerText",
+        "description": "Optional product-supplied footer copy such as an accurate result count. Table never calculates this value.",
+        "required": false,
+        "type": { "native": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.Header#152:18",
+      "kind": "derived",
+      "mapsTo": "internal dse._table-header configured by primaryLabel / secondaryLabel / statusLabel / actionLabel"
+    },
+    {
+      "source": "figma.Rows#152:19",
+      "kind": "public",
+      "mapsTo": "publicApi.rows rendered through internal dse._table-row"
+    },
+    {
+      "source": "figma.footerText#152:17",
+      "kind": "public",
+      "mapsTo": "publicApi.footerText"
+    },
+    {
+      "source": "figma._table-row.state=hover",
+      "kind": "derived",
+      "mapsTo": "CSS :hover presentation on an enabled semantic row"
+    },
+    {
+      "source": "figma._table-row.state=selected",
+      "kind": "public",
+      "mapsTo": "rows[].selected contextual presentation"
+    },
+    {
+      "source": "figma.theme",
+      "kind": "figma-only",
+      "mapsTo": "inherited Light/Dark semantic token context; no theme prop"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "table",
+      "required": true,
+      "description": "Native table element containing one semantic header row, one or more body rows, and an optional footer."
+    },
+    {
+      "name": "header",
+      "required": true,
+      "description": "Private _Table Header source rendered as native column-header cells for the four fixed regions."
+    },
+    {
+      "name": "rows",
+      "required": true,
+      "description": "One to one-hundred private _Table Row renderers, each preserving the four fixed cell relationships."
+    },
+    {
+      "name": "footer",
+      "required": false,
+      "description": "Optional native table footer spanning all four columns and showing only supplied footerText."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-surface-default",
+    "--dse-color-semantic-surface-section",
+    "--dse-color-semantic-border-subtle",
+    "--dse-color-semantic-fg-secondary",
+    "--dse-color-semantic-state-hover",
+    "--dse-color-semantic-state-selected",
+    "--dse-radius-shape-surface",
+    "--dse-typography-semantic-label-default-family",
+    "--dse-typography-semantic-label-default-size",
+    "--dse-typography-semantic-label-default-weight",
+    "--dse-typography-semantic-label-default-line-height",
+    "--dse-typography-semantic-label-default-letter-spacing",
+    "--dse-typography-semantic-caption-small-family",
+    "--dse-typography-semantic-caption-small-size",
+    "--dse-typography-semantic-caption-small-weight",
+    "--dse-typography-semantic-caption-small-line-height",
+    "--dse-typography-semantic-caption-small-letter-spacing"
+  ],
+  "states": [
+    {
+      "name": "row-selected",
+      "ownership": "public",
+      "description": "rows[].selected visually associates a record with currently open contextual detail. It is not bulk-selection state."
+    },
+    {
+      "name": "row-hover",
+      "ownership": "derived",
+      "description": "Pointer hover aids scanning and is CSS-derived; no hover/state prop is exposed."
+    }
+  ],
+  "semantics": {
+    "element": "native table with thead, tbody, th scope=col, td, and optional tfoot",
+    "accessibleName": "The four native column headers establish cell relationships. Repeated interactive controls retain meaningful names from their own governed components/product content.",
+    "keyboardActivation": "Table, header cells, rows, and passive cells add no custom keyboard model. Focus remains on genuine descendant controls such as the row Action.",
+    "focus": "No table row becomes a hidden focus target. Focus belongs to actual interactive descendants.",
+    "requirements": [
+      "Table requires 1–100 rows. Empty results use the separate Empty State instead of fake empty rows.",
+      "The supported structure has exactly four columns/regions in fixed semantic order: Primary, Secondary, Status, Action. Consumers cannot add, remove, reorder, or repurpose arbitrary columns.",
+      "Primary takes remaining inline space while Secondary, Status, and Action keep the reviewed 100px, 160px, and 128px content widths. Shared 24px / 24px / 8px inter-region gaps and 20px table inline insets keep header and body aligned.",
+      "The native table structure must preserve real header/cell relationships; visual alignment alone is insufficient and grid/data-grid roles are not introduced.",
+      "A selected row is contextual detail association, not bulk selection. It does not add a checkbox, select-all control, row click target, aria-selected grid model, or selection callback.",
+      "Hover presentation is CSS-derived for scanning; it never makes the entire row an activation target and no state or hover prop exists.",
+      "footerText is optional supplied copy. The component never derives counts, pagination state, filtered totals, or other business data.",
+      "Header labels are required to be non-empty strings when supplied and default to Person / Role / Status / Details.",
+      "Each row requires a stable non-empty id. Product/list-detail composition owns which row is selected and the meaning/accessibility of repeated row actions.",
+      "Writing direction and theme are inherited. No order, rtl, theme, sorting, pagination, search, bulk-selection, expansion, editable-cell, or data-grid API is introduced."
+    ]
+  },
+  "composition": {
+    "header": {
+      "optional": false,
+      "description": "Public label props configure exactly one private dse._table-header renderer.",
+      "allowedChildren": ["dse._table-header"]
+    },
+    "rows": {
+      "optional": false,
+      "description": "Structured row data maps only to private dse._table-row renderers; arbitrary children cannot replace table anatomy.",
+      "allowedChildren": ["dse._table-row"]
+    }
+  },
+  "events": [],
+  "forbidden": [
+    "children",
+    "public Header slot",
+    "sorting",
+    "pagination",
+    "bulk selection",
+    "select all",
+    "search",
+    "query",
+    "data grid semantics",
+    "editable cells",
+    "row expansion",
+    "row activation",
+    "order",
+    "theme"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-18",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:152:3730",
+      "figma:tYCXBBYoQ92AUKVbND5WkG:152:3685",
+      "figma:tYCXBBYoQ92AUKVbND5WkG:152:3729",
+      "https://carbondesignsystem.com/components/data-table/usage/",
+      "https://www.w3.org/WAI/tutorials/tables/"
+    ]
+  }
+}
