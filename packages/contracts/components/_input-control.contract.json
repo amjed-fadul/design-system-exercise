@@ -1,0 +1,151 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse._input-control",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "internal",
+  "name": "_Input Control",
+  "description": "Private visual shell shared by Text Field and Search Field. Size is an internal composition axis; interaction, disabled, invalid, and focus presentation are derived from the descendant native input rather than a visual state prop.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "111:22"
+    }
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "children",
+        "description": "Required private composition content, normally the descendant native input viewport.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "size",
+        "description": "Private shell height axis consumed only by parent design-system components.",
+        "default": "compact",
+        "type": { "enum": ["compact", "default"] }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.size.compact",
+      "kind": "public",
+      "mapsTo": "internalApi.size=compact"
+    },
+    {
+      "source": "figma.size.default",
+      "kind": "public",
+      "mapsTo": "internalApi.size=default"
+    },
+    {
+      "source": "figma.state.hover",
+      "kind": "derived",
+      "mapsTo": "css:has(input:hover:not(:disabled))"
+    },
+    {
+      "source": "figma.state.focus",
+      "kind": "derived",
+      "mapsTo": "css:has(input:focus-visible)"
+    },
+    {
+      "source": "figma.state.disabled",
+      "kind": "derived",
+      "mapsTo": "css:has(input:disabled)"
+    },
+    {
+      "source": "figma.state.invalid",
+      "kind": "derived",
+      "mapsTo": "css:has(input[aria-invalid=true])"
+    },
+    {
+      "source": "figma.state.invalid-focus",
+      "kind": "derived",
+      "mapsTo": "css:has(input[aria-invalid=true]:focus-visible)"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "shell",
+      "required": true,
+      "description": "Private rounded surface and border wrapper."
+    },
+    {
+      "name": "focus-ring",
+      "required": false,
+      "description": "CSS-derived focus presentation around the shell; never a focusable element."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-spacing-primitive-space-700",
+    "--dse-spacing-primitive-space-100",
+    "--dse-radius-shape-control",
+    "--dse-border-role-base",
+    "--dse-border-role-focus",
+    "--dse-color-semantic-surface-default",
+    "--dse-color-semantic-control-border",
+    "--dse-color-semantic-control-border-hover",
+    "--dse-color-semantic-focus-default",
+    "--dse-color-semantic-surface-disabled",
+    "--dse-color-semantic-border-subtle",
+    "--dse-color-semantic-feedback-negative-border"
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "ownership": "derived",
+      "description": "Derived from descendant input hover while enabled."
+    },
+    {
+      "name": "focus-visible",
+      "ownership": "derived",
+      "description": "Derived from descendant input focus-visible state."
+    },
+    {
+      "name": "disabled",
+      "ownership": "derived",
+      "description": "Derived from the descendant native disabled input."
+    },
+    {
+      "name": "invalid",
+      "ownership": "derived",
+      "description": "Derived from descendant aria-invalid=true."
+    },
+    {
+      "name": "invalid-focus",
+      "ownership": "derived",
+      "description": "Combined invalid and focus-visible presentation."
+    }
+  ],
+  "semantics": {
+    "element": "div",
+    "accessibleName": "none; the private shell does not own the field accessible name",
+    "keyboardActivation": "none; the descendant native input owns keyboard interaction",
+    "focus": "the shell never owns focus; it reflects descendant focus visually",
+    "requirements": [
+      "Compact size remains 40 CSS pixels high using the governed 40px spacing token.",
+      "Default size remains 44 CSS pixels high using the governed 40px plus 4px spacing tokens.",
+      "The private shell does not synthesize input semantics, value, label, validation, or events.",
+      "Visual hover, focus, disabled, invalid, and invalid-focus states are derived from the descendant input rather than a state prop.",
+      "This internal contract must never create a public React package export."
+    ]
+  },
+  "composition": {
+    "content": {
+      "optional": false,
+      "description": "Private parent components place their native input/content inside the shell.",
+      "allowedChildren": ["native input"]
+    }
+  },
+  "events": [],
+  "forbidden": ["state", "public package export"],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:111:22"
+    ]
+  }
+}
