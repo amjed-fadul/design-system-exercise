@@ -24,18 +24,23 @@ describe('Dialog visual contract', () => {
   it('matches Figma logical header, body, divider, and actions geometry', () => {
     const css = readCss();
 
-    expect(css).toMatch(/\.dse-dialog__header\s*\{[^}]*padding-block-start:\s*24px;[^}]*padding-block-end:\s*8px;[^}]*padding-inline:\s*28px;[^}]*gap:\s*12px;/s);
-    expect(css).toMatch(/\.dse-dialog__body\s*\{[^}]*padding-block-start:\s*16px;[^}]*padding-block-end:\s*20px;[^}]*padding-inline:\s*28px;[^}]*gap:\s*16px;/s);
+    expect(css).toMatch(/\.dse-dialog__header\s*\{[^}]*padding-block-start:\s*var\(--dse-spacing-primitive-space-500\);[^}]*padding-block-end:\s*var\(--dse-spacing-primitive-space-200\);[^}]*padding-inline:\s*28px;[^}]*gap:\s*var\(--dse-spacing-primitive-space-300\);/s);
+    expect(css).toMatch(/\.dse-dialog__body\s*\{[^}]*padding-block-start:\s*var\(--dse-spacing-primitive-space-400\);[^}]*padding-block-end:\s*20px;[^}]*padding-inline:\s*28px;[^}]*gap:\s*var\(--dse-spacing-primitive-space-400\);/s);
     expect(css).toMatch(/\.dse-dialog__divider\s*\{[^}]*block-size:\s*1px;[^}]*background:\s*var\(--dse-color-semantic-border-subtle\)/s);
-    expect(css).toMatch(/\.dse-dialog__actions\s*\{[^}]*padding-block:\s*20px;[^}]*padding-inline:\s*28px;[^}]*gap:\s*12px;/s);
+    expect(css).toMatch(/\.dse-dialog__actions\s*\{[^}]*padding-block:\s*20px;[^}]*padding-inline:\s*28px;[^}]*gap:\s*var\(--dse-spacing-primitive-space-300\);/s);
   });
 
-  it('uses governed Figma foreground and typography tokens', () => {
+  it('uses governed Figma foreground, spacing, and typography tokens', () => {
     const css = readCss();
 
     for (const token of [
       '--dse-color-semantic-fg-primary',
       '--dse-color-semantic-fg-secondary',
+      '--dse-spacing-primitive-space-100',
+      '--dse-spacing-primitive-space-200',
+      '--dse-spacing-primitive-space-300',
+      '--dse-spacing-primitive-space-400',
+      '--dse-spacing-primitive-space-500',
       '--dse-typography-semantic-title-component-family',
       '--dse-typography-semantic-title-component-size',
       '--dse-typography-semantic-title-component-weight',
