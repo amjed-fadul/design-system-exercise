@@ -22,7 +22,7 @@ export interface DialogProps {
   initialFocusRef?: RefObject<HTMLElement | null>;
 }
 
-const dialogDefaults = {
+export const dialogDefaults = {
   showClose: true,
   closeLabel: 'Close dialog',
 } as const;
