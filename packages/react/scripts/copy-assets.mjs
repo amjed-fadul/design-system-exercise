@@ -5,10 +5,15 @@ await mkdir(new URL('../dist/assets/', import.meta.url), { recursive: true });
 const buttonCss = await readFile(new URL('../src/button/Button.css', import.meta.url), 'utf8');
 const iconButtonCss = await readFile(new URL('../src/icon-button/IconButton.css', import.meta.url), 'utf8');
 const linkCss = await readFile(new URL('../src/link/Link.css', import.meta.url), 'utf8');
+const inputControlCss = await readFile(
+  new URL('../src/internal/input-control/InputControl.css', import.meta.url),
+  'utf8',
+);
+const textFieldCss = await readFile(new URL('../src/text-field/TextField.css', import.meta.url), 'utf8');
 
 await writeFile(
   new URL('../dist/styles.css', import.meta.url),
-  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n`,
+  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n`,
 );
 
 await copyFile(
