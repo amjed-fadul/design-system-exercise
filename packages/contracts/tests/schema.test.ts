@@ -76,6 +76,23 @@ describe('contract schemas', () => {
     expect(validator.validateComponent(candidate).valid).toBe(false);
   });
 
+  it('accepts callback-valued public component props', async () => {
+    const validator = await loadValidator();
+    expect(validator).not.toBeNull();
+    if (!validator) return;
+
+    const candidate = validComponentFixture();
+    candidate.publicApi.props = [
+      {
+        name: 'onClear',
+        description: 'Optional callback invoked by a component-owned clear action.',
+        type: { callback: true },
+      },
+    ];
+
+    expect(validator.validateComponent(candidate).valid).toBe(true);
+  });
+
   it('rejects a pattern with a missing state model', async () => {
     const validator = await loadValidator();
     expect(validator).not.toBeNull();
