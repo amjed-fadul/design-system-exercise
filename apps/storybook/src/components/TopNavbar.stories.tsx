@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   Avatar,
+  IconButton,
   TopNavbar,
   type TopNavbarProps,
 } from '@design-system-exercise/react';
 
-function Brand({ arabic = false }: { arabic?: boolean }) {
+function Brand() {
   return (
     <div
       style={{
@@ -43,9 +44,23 @@ function Brand({ arabic = false }: { arabic?: boolean }) {
           lineHeight: 'var(--dse-typography-semantic-title-component-line-height)',
         }}
       >
-        {arabic ? 'Northstar' : 'Northstar'}
+        Northstar
       </strong>
     </div>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M20.7 15.1A8.5 8.5 0 0 1 8.9 3.3 8.5 8.5 0 1 0 20.7 15.1Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
@@ -55,7 +70,7 @@ function Account({ arabic = false }: { arabic?: boolean }) {
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 12,
+        gap: 16,
         whiteSpace: 'nowrap',
         color: 'var(--dse-color-semantic-fg-secondary)',
         fontFamily: 'var(--dse-typography-semantic-body-small-family)',
@@ -63,8 +78,14 @@ function Account({ arabic = false }: { arabic?: boolean }) {
         lineHeight: 'var(--dse-typography-semantic-body-small-line-height)',
       }}
     >
-      <span>{arabic ? 'أمل حسن · مشرفة' : 'Amal Hassan · Admin'}</span>
-      <Avatar initials={arabic ? 'أح' : 'AH'} />
+      <IconButton
+        aria-label={arabic ? 'تغيير المظهر' : 'Change appearance'}
+        icon={<MoonIcon />}
+      />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span>{arabic ? 'أمل حسن · مشرفة' : 'Amal Hassan · Admin'}</span>
+        <Avatar initials={arabic ? 'أح' : 'AH'} />
+      </div>
     </div>
   );
 }
@@ -105,7 +126,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Public contract: dse.top-navbar@1.0.0 from Figma 228:18954. Top Navbar is the persistent 64px Application Shell header: one Brand slot, optional concise context, flexible space, one Account slot, and a subtle bottom divider. The shell composition is fixed left-to-right even in Arabic contexts; text inside Brand, context, and Account can determine its own direction. Figma order=forward is a render selector, not a public prop, and theme is inherited through semantic tokens. Application Shell owns placement, Product owns Brand/Account data plus appearance or account interactions, and page patterns own page heading and task actions.',
+          'Public contract: dse.top-navbar@1.0.0 from Figma 228:18954. Top Navbar is the persistent 64px Application Shell header: one Brand slot, optional concise context, flexible space, one Account slot, and a subtle bottom divider. The shell composition is fixed left-to-right even in Arabic contexts; text inside Brand, context, and Account can determine its own direction. Figma order=forward is a render selector, not a public prop, and theme is inherited through semantic tokens. Application Shell owns placement, Product owns Brand/Account data plus appearance or account interactions, and page patterns own page heading and task actions. The Storybook account example composes an existing IconButton and Avatar to mirror the Figma evidence without moving that behavior into Top Navbar.',
       },
     },
   },
@@ -132,7 +153,7 @@ export const Dark: Story = {
 export const Arabic: Story = {
   globals: { language: 'arabic' },
   args: {
-    brand: <Brand arabic />,
+    brand: <Brand />,
     contextLabel: 'إدارة مساحة العمل',
     account: <Account arabic />,
   },
@@ -142,7 +163,7 @@ export const Arabic: Story = {
 export const DarkArabic: Story = {
   globals: { theme: 'dark', language: 'arabic' },
   args: {
-    brand: <Brand arabic />,
+    brand: <Brand />,
     contextLabel: 'إدارة مساحة العمل',
     account: <Account arabic />,
   },
