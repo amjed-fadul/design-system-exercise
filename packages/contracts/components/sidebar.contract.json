@@ -1,0 +1,186 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.sidebar",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Sidebar",
+  "description": "Persistent primary-workspace navigation that preserves destination identity and current-route context across expanded and compact presentation. Sidebar owns the named navigation region, grouping, mode presentation, and optional supplemental footer; the application shell owns placement and responsive mode choice, while the product/router owns destination data and current location.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "146:166"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "mode",
+        "description": "Persistent navigation presentation. Expanded shows icon plus destination label; compact keeps the same destinations as icon targets with retained accessible names.",
+        "required": false,
+        "default": "expanded",
+        "type": { "enum": ["expanded", "compact"] }
+      },
+      {
+        "name": "label",
+        "description": "Short navigation-region/group label. It is visible in expanded mode and remains the navigation accessible name in compact mode.",
+        "required": false,
+        "default": "WORKSPACE",
+        "type": { "native": true }
+      },
+      {
+        "name": "items",
+        "description": "Required ordered destination data containing 1–8 entries. Each entry has a stable id, non-empty label, href, and compatible icon; Sidebar renders only the governed internal _Navigation Item anatomy.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "currentId",
+        "description": "Required destination id identifying exactly one current route. Sidebar derives aria-current and selected presentation from this id.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "footer",
+        "description": "Optional supplemental workspace/account context rendered after flexible space. It is not a second primary-navigation region and should contain no more than two direct content children.",
+        "required": false,
+        "type": { "content": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.mode",
+      "kind": "public",
+      "mapsTo": "publicApi.mode"
+    },
+    {
+      "source": "figma.label",
+      "kind": "public",
+      "mapsTo": "publicApi.label"
+    },
+    {
+      "source": "figma.Navigation",
+      "kind": "public",
+      "mapsTo": "publicApi.items rendered through internal dse._navigation-item"
+    },
+    {
+      "source": "figma._navigation-item.current",
+      "kind": "derived",
+      "mapsTo": "publicApi.currentId compared with each item id"
+    },
+    {
+      "source": "figma.Footer",
+      "kind": "public",
+      "mapsTo": "publicApi.footer"
+    },
+    {
+      "source": "figma.theme",
+      "kind": "context",
+      "mapsTo": "inherited Light/Dark token context"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "navigation",
+      "required": true,
+      "description": "Named persistent nav region containing the optional visible expanded group label and ordered destination list."
+    },
+    {
+      "name": "group-label",
+      "required": false,
+      "description": "Short visible contextual label in expanded mode; compact mode retains it as the nav accessible name without visible text."
+    },
+    {
+      "name": "items",
+      "required": true,
+      "description": "Ordered list of 1–8 private _Navigation Item renderers."
+    },
+    {
+      "name": "flexible-space",
+      "required": true,
+      "description": "Flexible region that keeps the optional footer anchored toward the logical block end without adding route semantics."
+    },
+    {
+      "name": "footer",
+      "required": false,
+      "description": "Optional supplemental workspace/account content region with up to two direct children."
+    },
+    {
+      "name": "logical-end-border",
+      "required": true,
+      "description": "One-pixel subtle border on the logical inline end, automatically mirroring in RTL."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-surface-section",
+    "--dse-color-semantic-border-subtle",
+    "--dse-color-semantic-fg-tertiary",
+    "--dse-spacing-primitive-space-300",
+    "--dse-typography-semantic-label-small-family",
+    "--dse-typography-semantic-label-small-size",
+    "--dse-typography-semantic-label-small-weight",
+    "--dse-typography-semantic-label-small-line-height",
+    "--dse-typography-semantic-label-small-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "named native nav containing an ordered list of native destination links",
+    "accessibleName": "The non-empty label names the primary workspace navigation in both expanded and compact modes.",
+    "keyboardActivation": "Native anchor behavior supplied by the internal _Navigation Item; Sidebar adds no custom roving-tabindex or arrow-key model.",
+    "focus": "Destination links remain in logical document order and use native tab order; the persistent Sidebar does not trap focus.",
+    "requirements": [
+      "Sidebar requires 1–8 destination items. Empty navigation and more than eight destinations are rejected because they exceed the governed Figma slot boundary.",
+      "Every item requires a stable unique non-empty id, non-empty destination label, non-empty href, and compatible icon.",
+      "currentId must match exactly one destination id so exactly one current route is exposed in the navigation region.",
+      "Destination identity and order remain the same when mode changes between expanded and compact presentation.",
+      "The same current route remains discernible when mode changes; compact presentation never hides the selected destination from assistive technology.",
+      "The navigation region is named in both modes. Expanded mode renders the short group label visibly; compact mode retains that label as the accessible navigation name.",
+      "The current destination exposes aria-current=page through the internal native link and no non-current destination exposes aria-current.",
+      "Keyboard focus follows the destination list in logical source order and Sidebar never introduces a focus trap, backdrop, modal behavior, or Escape policy.",
+      "The Figma authority fixes expanded Sidebar width at 208 CSS pixels and compact Sidebar width at 64 CSS pixels.",
+      "The expanded internal item source is 184 by 40 CSS pixels with a 40px minimum target height; compact items are 44 by 44 CSS pixels.",
+      "Expanded mode uses a 30px top inset and 12px inline inset; compact mode uses a 48px top inset and 10px inline inset. These Component / Layout values remain private component layout decisions rather than public token API.",
+      "The navigation list uses an 8px gap, the expanded group-to-list section gap is 18px, and the logical end border is 1px using the semantic subtle border color.",
+      "Footer content is supplemental workspace/account context only, accepts up to two direct children by convention, and cannot be used to bypass the governed primary destination list.",
+      "Application Shell owns physical placement and responsive mode selection; Sidebar does not expose a breakpoint, drawer/open state, placement, or collapse-control API.",
+      "Product/router code owns route configuration and navigation effects; Sidebar renders native href destinations and does not own routing state transitions."
+    ]
+  },
+  "composition": {
+    "navigation": {
+      "optional": false,
+      "description": "Ordered destination data is rendered only through the private _Navigation Item implementation so mode/current/accessibility behavior cannot drift per consumer.",
+      "allowedChildren": ["dse._navigation-item"]
+    },
+    "footer": {
+      "optional": true,
+      "description": "Supplemental workspace/account context. Prefer no more than two direct children and never use it for unrelated primary routes."
+    }
+  },
+  "events": [],
+  "forbidden": [
+    "children",
+    "navigation",
+    "state",
+    "selected",
+    "collapsed",
+    "open",
+    "placement",
+    "breakpoint",
+    "onNavigate",
+    "routeConfig"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:146:166",
+      "figma:tYCXBBYoQ92AUKVbND5WkG:143:2948",
+      "https://carbondesignsystem.com/components/UI-shell-left-panel/usage/",
+      "https://www.w3.org/WAI/tutorials/page-structure/regions/"
+    ]
+  }
+}
