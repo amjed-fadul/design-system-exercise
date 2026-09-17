@@ -133,7 +133,7 @@
     "--dse-spacing-primitive-space-900",
     "--dse-icons-size-md",
     "--dse-radius-shape-control",
-    "--dse-border-role-base",
+    "--dse-border-width-strong",
     "--dse-border-role-focus",
     "--dse-color-semantic-control-border",
     "--dse-color-semantic-control-border-hover",
