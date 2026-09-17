@@ -26,3 +26,6 @@ export type { InlineFeedbackIntent, InlineFeedbackProps } from './inline-feedbac
 
 export { Avatar } from './avatar/Avatar.js';
 export type { AvatarProps, AvatarSize } from './avatar/Avatar.js';
+
+export { StatusBadge } from './status-badge/StatusBadge.js';
+export type { StatusBadgeProps } from './status-badge/StatusBadge.js';

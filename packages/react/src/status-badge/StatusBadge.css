@@ -1,0 +1,18 @@
+.dse-status-badge {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  block-size: 28px;
+  flex: 0 0 auto;
+  padding-block: 5px;
+  padding-inline: 10px;
+  color: var(--dse-color-semantic-fg-primary);
+  background: var(--dse-color-semantic-surface-section);
+  border-radius: var(--dse-radius-shape-surface);
+  font-family: var(--dse-typography-semantic-label-small-family);
+  font-size: var(--dse-typography-semantic-label-small-size);
+  font-weight: var(--dse-typography-semantic-label-small-weight);
+  line-height: var(--dse-typography-semantic-label-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-small-letter-spacing);
+  white-space: nowrap;
+}
