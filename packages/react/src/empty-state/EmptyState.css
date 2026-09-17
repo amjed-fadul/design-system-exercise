@@ -1,0 +1,93 @@
+.dse-empty-state {
+  box-sizing: border-box;
+  display: flex;
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 440px;
+  align-items: center;
+  justify-content: center;
+  background: var(--dse-color-semantic-surface-default);
+}
+
+.dse-empty-state__content {
+  box-sizing: border-box;
+  display: flex;
+  inline-size: 100%;
+  max-inline-size: 680px;
+  min-inline-size: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dse-spacing-primitive-space-300);
+  overflow: hidden;
+}
+
+.dse-empty-state__icon {
+  display: grid;
+  inline-size: 40px;
+  block-size: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  color: var(--dse-color-semantic-fg-tertiary);
+}
+
+.dse-empty-state__default-icon {
+  display: block;
+  inline-size: var(--dse-icons-size-lg);
+  block-size: var(--dse-icons-size-lg);
+  background-color: var(--dse-color-semantic-fg-tertiary);
+  -webkit-mask-image: var(--dse-empty-state-icon-image);
+  mask-image: var(--dse-empty-state-icon-image);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.dse-empty-state__message {
+  display: flex;
+  inline-size: 100%;
+  min-inline-size: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--dse-spacing-primitive-space-300);
+}
+
+.dse-empty-state__title,
+.dse-empty-state__body {
+  inline-size: 100%;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.dse-empty-state__title {
+  color: var(--dse-color-semantic-fg-primary);
+  font-family: var(--dse-typography-semantic-title-component-family);
+  font-size: var(--dse-typography-semantic-title-component-size);
+  font-weight: var(--dse-typography-semantic-title-component-weight);
+  line-height: var(--dse-typography-semantic-title-component-line-height);
+  letter-spacing: var(--dse-typography-semantic-title-component-letter-spacing);
+  text-align: center;
+}
+
+.dse-empty-state__body {
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+  text-align: center;
+  white-space: pre-line;
+}
+
+.dse-empty-state__actions {
+  display: flex;
+  max-inline-size: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dse-spacing-primitive-space-300);
+}

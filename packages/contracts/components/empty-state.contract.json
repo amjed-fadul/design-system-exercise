@@ -1,0 +1,140 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.empty-state",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Empty State",
+  "description": "Centered absence-message composition that explains why expected content is not present and provides optional context and recovery actions. Empty State owns presentation and status communication; the containing pattern owns query/filter logic, request state, empty-case truth, permissions, and recovery behavior.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "131:2"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "title",
+        "description": "Visible non-empty explanation heading. Defaults to the Figma example No people found.",
+        "required": false,
+        "default": "No people found",
+        "type": { "native": true }
+      },
+      {
+        "name": "body",
+        "description": "Optional supporting explanation text. Defaults to the Figma no-results example and is rendered only when showBody is true.",
+        "required": false,
+        "default": "No names or email addresses match “zoe”.\nTry a different search or clear it to see everyone.",
+        "type": { "native": true }
+      },
+      {
+        "name": "showBody",
+        "description": "Controls whether the supporting body is visible. It does not change the empty-state reason or request state.",
+        "required": false,
+        "default": true,
+        "type": { "boolean": true }
+      },
+      {
+        "name": "icon",
+        "description": "Optional compatible decorative icon content. When omitted, the approved Search source is used; the icon never owns the message or an action.",
+        "required": false,
+        "type": { "content": true }
+      },
+      {
+        "name": "showIcon",
+        "description": "Controls whether the decorative icon region is visible.",
+        "required": false,
+        "default": true,
+        "type": { "boolean": true }
+      },
+      {
+        "name": "actions",
+        "description": "Optional recovery or next-step controls. Prefer one Button or Link and use no more than two direct actions; behavior remains owned by the containing pattern.",
+        "required": false,
+        "type": { "content": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    { "source": "figma.title", "kind": "public", "mapsTo": "publicApi.title" },
+    { "source": "figma.body", "kind": "public", "mapsTo": "publicApi.body" },
+    { "source": "figma.showBody", "kind": "public", "mapsTo": "publicApi.showBody" },
+    { "source": "figma.icon", "kind": "public", "mapsTo": "publicApi.icon" },
+    { "source": "figma.showIcon", "kind": "public", "mapsTo": "publicApi.showIcon" },
+    { "source": "figma.Actions", "kind": "public", "mapsTo": "publicApi.actions" }
+  ],
+  "anatomy": [
+    { "name": "surface", "required": true, "description": "Host-filling default surface with a 440px minimum block size in the Figma authority." },
+    { "name": "content", "required": true, "description": "Centered vertical content stack with 12px gaps and a 680px maximum inline size." },
+    { "name": "icon", "required": false, "description": "Optional 40px decorative icon region containing a centered 24px compatible system icon in the muted/tertiary semantic foreground tone." },
+    { "name": "title", "required": true, "description": "Visible non-empty heading that remains present even when optional icon and body context are hidden." },
+    { "name": "body", "required": false, "description": "Optional supporting text controlled by showBody and preserving authored line breaks." },
+    { "name": "actions", "required": false, "description": "Optional recovery controls composed from existing public Button or Link sources. Figma allows at most two preferred controls." }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-surface-default",
+    "--dse-color-semantic-fg-primary",
+    "--dse-color-semantic-fg-secondary",
+    "--dse-color-semantic-fg-tertiary",
+    "--dse-spacing-primitive-space-300",
+    "--dse-icons-size-lg",
+    "--dse-typography-semantic-title-component-family",
+    "--dse-typography-semantic-title-component-size",
+    "--dse-typography-semantic-title-component-weight",
+    "--dse-typography-semantic-title-component-line-height",
+    "--dse-typography-semantic-title-component-letter-spacing",
+    "--dse-typography-semantic-body-small-family",
+    "--dse-typography-semantic-body-small-size",
+    "--dse-typography-semantic-body-small-weight",
+    "--dse-typography-semantic-body-small-line-height",
+    "--dse-typography-semantic-body-small-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "section containing a heading and a polite status text group",
+    "accessibleName": "The visible non-empty title labels the empty region; optional supporting body text adds explanation without replacing the title.",
+    "keyboardActivation": "Only composed recovery controls provide keyboard activation.",
+    "focus": "Empty State does not move focus when it appears. Recovery controls participate in normal document focus order.",
+    "requirements": [
+      "The visible title is a discoverable heading, remains non-empty, and labels the empty region.",
+      "The title and visible body are exposed through a polite status message so relevant result changes can be announced without an alert interruption.",
+      "Recovery actions remain outside the status live region so interactive control labels are not repeatedly announced as message content.",
+      "Showing the Empty State must not move focus unexpectedly; the containing pattern decides whether any separate focus management is required.",
+      "The icon is decorative and hidden from assistive technology so it does not repeat or compete with the textual explanation.",
+      "The default Search icon uses the Figma Muted icon-render mode, resolved to the semantic fg/tertiary foreground.",
+      "When showBody is true, body text remains non-empty; when showBody is false, the title alone remains the explanation.",
+      "The Figma source uses a 440px minimum surface block size, a centered content stack capped at 680 CSS pixels, 12px inter-item gaps, and a 40px icon region containing a centered 24px glyph.",
+      "The implementation fills the host inline size rather than turning the 1168px Figma example width into a fixed public component width.",
+      "Empty State does not own loading, error handling, query/filter logic, result counts, empty-case reasoning, permissions, or recovery outcomes."
+    ]
+  },
+  "composition": {
+    "icon": { "optional": true, "description": "Compatible decorative icon content rendered inside the governed icon region; the default uses the existing Search asset." },
+    "actions": { "optional": true, "description": "Recovery or next-step controls supplied by the workflow. Prefer one existing Button or Link; Figma caps the preferred slot at two controls." }
+  },
+  "events": [],
+  "forbidden": [
+    "loading",
+    "error",
+    "reason",
+    "resultCount",
+    "query",
+    "onClear",
+    "onRetry",
+    "status",
+    "tone",
+    "state"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:131:2",
+      "https://carbondesignsystem.com/patterns/empty-states-pattern/",
+      "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html"
+    ]
+  }
+}
