@@ -1,0 +1,28 @@
+.dse-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--dse-spacing-primitive-space-500);
+  border-radius: var(--dse-radius-radius-sm);
+  color: var(--dse-color-semantic-link-default);
+  font-family: var(--dse-typography-semantic-label-small-family);
+  font-size: var(--dse-typography-semantic-label-small-size);
+  font-weight: var(--dse-typography-semantic-label-small-weight);
+  line-height: var(--dse-typography-semantic-label-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-small-letter-spacing);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dse-link:hover {
+  color: var(--dse-color-semantic-link-hover);
+}
+
+.dse-link:active {
+  color: var(--dse-color-semantic-link-pressed);
+}
+
+.dse-link:focus-visible {
+  outline: var(--dse-border-role-focus) solid var(--dse-color-semantic-focus-default);
+  outline-offset: var(--dse-border-role-focus);
+}
