@@ -8,3 +8,6 @@ export type {
 
 export { IconButton } from './icon-button/IconButton.js';
 export type { IconButtonProps } from './icon-button/IconButton.js';
+
+export { Link } from './link/Link.js';
+export type { LinkProps } from './link/Link.js';
