@@ -4,6 +4,7 @@
   "kind": "component",
   "version": "1.0.0",
   "status": "approved",
+  "visibility": "public",
   "name": "Link",
   "description": "Native anchor for navigation. Visible content owns the accessible name while hover, active, and focus presentation remain browser-derived from the live Figma state axis.",
   "sources": {
