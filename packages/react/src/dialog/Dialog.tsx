@@ -83,6 +83,7 @@ export function Dialog({
 
   const titleId = useId();
   const descriptionId = useId();
+  const hasDescription = description !== null && description !== undefined && description !== false;
   const surfaceRef = useRef<HTMLDivElement>(null);
   const [portalHost] = useState<HTMLElement | null>(() => {
     if (typeof document === 'undefined') return null;
@@ -202,7 +203,7 @@ export function Dialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        aria-describedby={description !== undefined ? descriptionId : undefined}
+        aria-describedby={hasDescription ? descriptionId : undefined}
         tabIndex={-1}
         onKeyDown={handleKeyDown}
       >
@@ -211,7 +212,7 @@ export function Dialog({
             <h2 id={titleId} className="dse-dialog__title">
               {title}
             </h2>
-            {description !== undefined ? (
+            {hasDescription ? (
               <p id={descriptionId} className="dse-dialog__description">
                 {description}
               </p>
