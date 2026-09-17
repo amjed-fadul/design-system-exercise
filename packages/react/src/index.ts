@@ -17,3 +17,6 @@ export type { TextFieldProps } from './text-field/TextField.js';
 
 export { SearchField } from './search-field/SearchField.js';
 export type { SearchFieldProps } from './search-field/SearchField.js';
+
+export { RadioGroup } from './radio-group/RadioGroup.js';
+export type { RadioGroupOption, RadioGroupProps } from './radio-group/RadioGroup.js';

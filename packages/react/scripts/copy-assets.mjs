@@ -14,10 +14,14 @@ const searchFieldCss = await readFile(
   new URL('../src/search-field/SearchField.css', import.meta.url),
   'utf8',
 );
+const radioGroupCss = await readFile(
+  new URL('../src/radio-group/RadioGroup.css', import.meta.url),
+  'utf8',
+);
 
 await writeFile(
   new URL('../dist/styles.css', import.meta.url),
-  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n\n${searchFieldCss.trimEnd()}\n`,
+  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n\n${searchFieldCss.trimEnd()}\n\n${radioGroupCss.trimEnd()}\n`,
 );
 
 await copyFile(

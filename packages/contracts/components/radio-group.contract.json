@@ -1,0 +1,171 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.radio-group",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Radio Group",
+  "description": "Native mutually exclusive choice group for a small set of visible alternatives. The group owns the selected value, shared name, label, and required semantics while the private _Radio Option owns each option's local presentation.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "116:175"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "label",
+        "description": "Required visible group label rendered as the fieldset legend.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "name",
+        "description": "Required non-empty native name shared by every radio in the group.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "options",
+        "description": "Required structured option data. The public TypeScript API requires at least two entries; every entry has a unique value, label, optional description, and optional disabled flag.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "value",
+        "description": "Optional controlled selected value.",
+        "type": { "native": true }
+      },
+      {
+        "name": "defaultValue",
+        "description": "Optional uncontrolled initial selected value. No option is selected automatically when omitted.",
+        "type": { "native": true }
+      },
+      {
+        "name": "onValueChange",
+        "description": "Optional callback invoked once when an enabled native radio becomes selected.",
+        "type": { "callback": true }
+      },
+      {
+        "name": "required",
+        "description": "Group-required form semantics; defaults to the Figma source value and is applied consistently to every native radio.",
+        "default": true,
+        "type": { "boolean": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.label",
+      "kind": "public",
+      "mapsTo": "publicApi.label rendered as fieldset legend"
+    },
+    {
+      "source": "figma.required",
+      "kind": "public",
+      "mapsTo": "publicApi.required default true plus visual required indicator"
+    },
+    {
+      "source": "figma.Options",
+      "kind": "public",
+      "mapsTo": "publicApi.options rendered through internal dse._radio-option"
+    },
+    {
+      "source": "figma._radio-option.selected",
+      "kind": "derived",
+      "mapsTo": "current value/defaultValue and native checked state"
+    },
+    {
+      "source": "figma._radio-option.state",
+      "kind": "derived",
+      "mapsTo": "native/CSS hover, focus-visible, active, and disabled states"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "fieldset",
+      "required": true,
+      "description": "Semantic native grouping container for the related radio controls."
+    },
+    {
+      "name": "legend",
+      "required": true,
+      "description": "Visible group label and optional required indicator naming the fieldset."
+    },
+    {
+      "name": "options",
+      "required": true,
+      "description": "Vertical list of at least two private _Radio Option renderers."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-spacing-primitive-space-100",
+    "--dse-spacing-primitive-space-200",
+    "--dse-color-semantic-fg-primary",
+    "--dse-typography-semantic-label-default-family",
+    "--dse-typography-semantic-label-default-size",
+    "--dse-typography-semantic-label-default-weight",
+    "--dse-typography-semantic-label-default-line-height",
+    "--dse-typography-semantic-label-default-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "fieldset containing native input type=radio controls",
+    "accessibleName": "The visible legend provides the group accessible name; each radio is named by its own option label.",
+    "keyboardActivation": "native radio-group keyboard behavior including browser-managed arrow-key movement; no custom roving tabindex",
+    "focus": "native radio focus; the internal option reflects focus-visible with CSS",
+    "requirements": [
+      "Radio Group requires a non-empty shared name so all native radios form one browser-managed group and submit one named field.",
+      "Radio Group requires at least two options; a one-option group is rejected at runtime and by the public TypeScript tuple shape.",
+      "Every option must provide a unique non-empty value so one selected value maps to exactly one radio.",
+      "Every native radio receives the same public name so browser mutual exclusion and form submission remain native.",
+      "Controlled value and uncontrolled defaultValue usage are both supported; providing both at once is not supported.",
+      "The component does not automatically select the first option when value/defaultValue are omitted.",
+      "Native radio behavior owns selection and keyboard interaction; no custom arrow-key or roving-tabindex state machine is added.",
+      "When required, required=true is applied consistently to every radio and the visible required indicator is aria-hidden.",
+      "Option descriptions are associated to their radio through aria-describedby.",
+      "Option-level disabled comes from option data; there is no group-level disabled public prop.",
+      "A selected disabled option remains selected; disabling an option never clears the current value.",
+      "Changing selection edits component state only; product save/pending/error workflows remain outside Radio Group.",
+      "Member/Admin labels and Member preselection are Storybook/product fixtures, never reusable component logic."
+    ]
+  },
+  "composition": {
+    "options": {
+      "optional": false,
+      "description": "The public data model maps to internal _Radio Option renderers only. Arbitrary children cannot replace the governed option anatomy.",
+      "allowedChildren": ["dse._radio-option"]
+    }
+  },
+  "events": [
+    {
+      "name": "valueChange",
+      "trigger": "native radio selection change",
+      "suppressedWhen": "selected option is disabled"
+    }
+  ],
+  "forbidden": [
+    "children",
+    "state",
+    "selected",
+    "selectedValue",
+    "showDescription",
+    "invalid",
+    "errorMessage",
+    "role",
+    "disabled",
+    "RadioOption public export"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:116:175",
+      "https://carbondesignsystem.com/components/radio-button/usage/",
+      "https://www.w3.org/WAI/ARIA/apg/patterns/radio/"
+    ]
+  }
+}

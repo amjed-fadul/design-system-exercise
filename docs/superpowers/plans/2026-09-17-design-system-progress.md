@@ -4,10 +4,10 @@
 **Contract architecture:** `docs/superpowers/specs/2026-09-17-component-contracts-design.md`  
 **Internal-visibility amendment:** `docs/superpowers/specs/2026-09-17-component-contracts-visibility-amendment.md`  
 **Planning branch:** `plan/all-components-patterns`  
-**Active implementation branch:** `feat/search-field`  
+**Active implementation branch:** `feat/radio-group`  
 **Foundations baseline:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Figma source:** `tYCXBBYoQ92AUKVbND5WkG`  
-**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE; C04 TEXT FIELD COMPLETE; C05 SEARCH FIELD COMPLETE — exact final record HEAD CI pending; C06 has not started
+**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE; C04 TEXT FIELD COMPLETE; C05 SEARCH FIELD COMPLETE; C06 RADIO GROUP COMPLETE — final record HEAD CI pending; C07 has not started
 
 ## Review policy
 
@@ -15,12 +15,12 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 
 ## Progress summary
 
-- Public components complete: **5 / 17** — C01 Button, C02 Icon Button, C03 Link, C04 Text Field, C05 Search Field
+- Public components complete: **6 / 17** — C01 Button, C02 Icon Button, C03 Link, C04 Text Field, C05 Search Field, C06 Radio Group
 - Public components in progress: **0 / 17**
-- Internal helpers governed with parent milestones: **1 / 6 complete** — `_Input Control`
+- Internal helpers governed with parent milestones: **2 / 6 complete** — `_Input Control`, `_Radio Option`
 - Product patterns: **0 / 5 complete**
-- Overall public milestones complete: **5 / 22**
-- Next planned milestone: **C06 Radio Group — not started**
+- Overall public milestones complete: **6 / 22**
+- Next planned milestone: **C07 Inline Feedback — not started**
 
 ## Component milestones
 
@@ -30,8 +30,8 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 | C02 | Icon Button | `dse.icon-button@1.0.0` | `110:1339` | C01 package infrastructure | Complete | `7c5e27ea123c31706d920bb5b6d6ffc1036c63b3` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 87 PASS on exact final C02 record HEAD |
 | C03 | Link | `dse.link@1.0.0` | `114:13` | C01 package infrastructure | Complete | `7e28ce06542e257a2e0edab492d3eec58dcc92e6` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 101 PASS on exact final C03 record HEAD |
 | C04 | Text Field | `dse.text-field@1.0.0` | `112:263` | internal `_Input Control` | Complete | `64300dd8559c86a33d1c2180ecfa9527afd9695f` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 137 PASS on exact final C04 record HEAD `cc4e6ef10cc04f787f0ef51ac78000208acba148` |
-| C05 | Search Field | `dse.search-field@1.0.0` | `112:1710` | C02, C04 internal input shell | Complete — final record HEAD CI pending | `ba06bb1cb71f409e1b4076815ff184f57b18862b` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 152 PASS on final implementation/review HEAD; final record HEAD must also PASS |
-| C06 | Radio Group | `dse.radio-group` | `116:175` | internal `_Radio Option` | Not started | — | — | — |
+| C05 | Search Field | `dse.search-field@1.0.0` | `112:1710` | C02, C04 internal input shell | Complete | `6f0d23d6bc40979e61ce68092a831ea449aaf7cc` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 153 PASS on exact final C05 record HEAD |
+| C06 | Radio Group | `dse.radio-group@1.0.0` | `116:175` | internal `_Radio Option` | Complete — final record HEAD CI pending | `74d7cdb528e3c9f2cfcb23478176b51ee0488136` | Inline self-review APPROVED; accessibility-name defect corrected; no unresolved Critical/Important findings | Run 164 PASS on final implementation/package HEAD; final record HEAD must also PASS |
 | C07 | Inline Feedback | `dse.inline-feedback` | `127:30` | component package infrastructure | Not started | — | — | — |
 | C08 | Avatar | `dse.avatar` | `128:14` | component package infrastructure | Not started | — | — | — |
 | C09 | Status Badge | `dse.status-badge` | `128:1821` | component package infrastructure | Not started | — | — | — |
@@ -49,7 +49,7 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 | Helper | Internal contract | Figma | Parent milestone | Status |
 | --- | --- | --- | --- | --- |
 | `_Input Control` | `dse._input-control@1.0.0` | `111:22` | C04 | Complete with C04 — validated `visibility=internal`, used by Text Field and Search Field, absent from public React package exports |
-| `_Radio Option` | `dse._radio-option` | `116:174` | C06 | Not started |
+| `_Radio Option` | `dse._radio-option@1.0.0` | `116:174` | C06 | Complete with C06 — validated `visibility=internal`, used only by Radio Group, absent from root JS/TypeScript exports and blocked as a package subpath |
 | `_Navigation Item` | `dse._navigation-item` | `143:2948` | C13 | Not started |
 | `_Breadcrumb Link Item` | `dse._breadcrumb-link-item` | `139:16` | C15 | Not started |
 | `_Table Header` | `dse._table-header` | `152:3685` | C17 | Not started |
@@ -179,8 +179,43 @@ Detailed evidence: `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
 - The helper-composition correction was proven RED on run 149 (`39723575a91ad93cbdada6cef285d7419742b41e`) and GREEN on run 150 (`0452bf112949a51ff420cb13adfded03986137f5`).
 - Full runtime fail-closed hardening was proven RED on run 151 (`b86af802aa6cfbd2751f3d13f45e55373fa6ebd4`) and GREEN on run 152 (`ba06bb1cb71f409e1b4076815ff184f57b18862b`).
 - Final implementation/review HEAD: `ba06bb1cb71f409e1b4076815ff184f57b18862b`; run 152 PASS with six-contract validation, 223-token validation/build, full tests, TypeScript typecheck, Storybook production build, and packed clean-consumer verification.
-- Inline self-review: **APPROVED — no unresolved Critical or Important findings.** C06 remains untouched.
-- This documentation/knowledge record commit must also pass PR CI on its exact HEAD before C05 is treated as the authoritative completed record.
+- Final C05 record HEAD: `6f0d23d6bc40979e61ce68092a831ea449aaf7cc`; run 153 PASS on that exact commit.
+- Inline self-review: **APPROVED — no unresolved Critical or Important findings.**
+
+## C06 evidence summary
+
+### Figma authority and contracts
+
+- Fresh live-Figma audit used Radio Group `116:175` and `_Radio Option` `116:174` as the authorities before implementation.
+- Radio Group exposes Figma `label`, `required`, and an Options slot constrained to `_Radio Option`, with a two-option minimum and no maximum. It does not expose a group-level disabled prop, selected-value prop, product role enum, validation/error API, or arbitrary child composition.
+- `_Radio Option` owns `label`, `description`, `showDescription`, `selected=false|true`, and `state=default|hover|focus|pressed|disabled`. `showDescription`, selection, and interaction states are mapped to data/native/CSS behavior instead of public visual-state props.
+- `dse.radio-group@1.0.0` is public. `dse._radio-option@1.0.0` is `visibility=internal` and cannot be imported from the package root or via a package subpath.
+- Public Radio Group API is `label`, `name`, at-least-two structured `options`, `value`, `defaultValue`, `onValueChange`, and `required` with default `true`. Option data owns `value`, `label`, optional `description`, and optional `disabled`.
+- Runtime invariants require at least two options and unique non-empty option values. Member/Admin and Member preselection remain product/story fixtures only.
+- Contract RED: run 154 on `2588a79ca1942e6b108d5a7acfcaab9672b9bc3c`.
+- Contract GREEN: run 158 on `7553d4d7f7907592cdaba66cac754c2184d55a97` after adding both contracts and the deliberate implemented-contract inventory entry; no shared schema widening was required.
+
+### Runtime, accessibility, CSS, and Storybook
+
+- Runtime RED: run 161 on `f0d9cccf7548e284524f44e25d7046b1ede0257a` with C06 runtime/CSS/Storybook tests present before production code.
+- Radio Group renders native `<fieldset>` + `<legend>` and same-named native `<input type="radio">` controls. Browser mutual exclusion and keyboard behavior remain native; there is no `role="radiogroup"`, custom arrow-key handler, or roving tabindex implementation.
+- Controlled and uncontrolled selection are supported. Supplying both `value` and `defaultValue` is rejected. No first option is automatically selected when both are omitted.
+- Required defaults to true for Figma parity, is applied consistently to every native radio, and the visual asterisk is `aria-hidden`.
+- Option-level disabled remains local to each option; a selected disabled value remains selected rather than being cleared.
+- The first implementation GREEN attempt, run 162 on `99aca4b960b48614752ad9b3be71b5821b8c7588`, exposed a real accessibility defect: wrapping the description inside the clickable label caused it to join the radio accessible name. The fix added explicit `aria-labelledby` for the label while retaining `aria-describedby` for the description and the full-row click target.
+- Accessibility correction HEAD `7924da03ddeb1ebc9cc6426028aa1e2f94f0d749`; run 163 PASS.
+- CSS reproduces the audited 64 px minimum row, 8 px padding, 8 px radius, 10 px control/text gap, 28 px control area, 20 px ring, 2 px border, 8 px selected dot, and 2 px text gap. Row height is minimum-only so descriptions can wrap/grow. Logical properties keep RTL direction-safe without mirroring the radio glyph.
+- Storybook evidence includes required roles, Team & Access Member/Admin product fixture, controlled selection, descriptions on/off, disabled option, long wrapping description, real native focus, and Arabic RTL.
+
+### Package, knowledge, and review
+
+- Packed-consumer HEAD `74d7cdb528e3c9f2cfcb23478176b51ee0488136`; run 164 PASS.
+- Installed-package CI imports and SSR-renders Radio Group, verifies semantic fieldset/legend, two same-named native radios, values, one selected default, required semantics, explicit accessible-name/description bindings, packaged CSS, and absence of invented ARIA group roles.
+- Package verification proves `RadioOption` is absent from root JS/TypeScript exports and that the private internal package subpath is rejected with `ERR_PACKAGE_PATH_NOT_EXPORTED`.
+- Run 164 verification totals: contracts **40/40**, tokens **17/17**, React **78/78**, Storybook tests **18/18** = **153 full tests passing**. C06-focused evidence is **26 tests**: 7 contract + 10 runtime + 5 CSS + 4 Storybook. Contract validation reports 8 component contracts / 0 patterns; token validation/build reports 223 logical tokens. Typecheck, React build, Storybook production build, and packed clean-consumer verification all pass.
+- Figma C06 code-contract knowledge was appended to both authority descriptions using the marker `CODE CONTRACT / C06 · synced 2026-09-17`; an independent read-back confirmed both records persisted with the public/internal API split, native semantics, geometry, accessibility associations, and package boundary.
+- Inline self-review: **APPROVED — no unresolved Critical or Important findings.** The material defect found during review/execution was the option accessible-name contamination; it was corrected and verified via run 162 → 163. Boundary review also confirms no arbitrary children escape hatch, group-level disabled/error API, public Figma-state props, custom keyboard state machine, product-role logic, fixed-height clipping, or public `RadioOption` leak.
+- This documentation/knowledge record commit must also pass PR CI on its exact HEAD before C06 is treated as the authoritative completed record.
 
 ## Milestone completion rule
 
@@ -190,4 +225,4 @@ Documentation/knowledge-only record commits after a verified implementation mile
 
 ## Scope guard
 
-This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. C05 is complete subject only to its exact final-record CI gate. **C06 must not start without explicit user authorization.**
+This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation beyond the explicit C06 knowledge synchronization, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. C06 is complete subject only to its exact final-record CI gate. **C07 has not been authorized or started.**

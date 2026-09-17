@@ -64,6 +64,8 @@ jobs:
           ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq '\.contract\.json$'
           ! tar -xOf "$REACT_TARBALL" package/dist/index.js | grep -q 'InputControl'
           ! tar -xOf "$REACT_TARBALL" package/dist/index.d.ts | grep -q 'InputControl'
+          ! tar -xOf "$REACT_TARBALL" package/dist/index.js | grep -q 'RadioOption'
+          ! tar -xOf "$REACT_TARBALL" package/dist/index.d.ts | grep -q 'RadioOption'
 
           cd "$CONSUMER_DIR"
           npm init -y >/dev/null
@@ -77,8 +79,20 @@ jobs:
           import { tokens } from '@design-system-exercise/tokens';
           import * as ReactPackage from '@design-system-exercise/react';
 
-          const { Button, IconButton, Link, TextField, SearchField } = ReactPackage;
+          const { Button, IconButton, Link, TextField, SearchField, RadioGroup } = ReactPackage;
           if ('InputControl' in ReactPackage) throw new Error('Private InputControl leaked through public package exports');
+          if ('RadioOption' in ReactPackage) throw new Error('Private RadioOption leaked through public package exports');
+
+          let radioOptionDeepImportBlocked = false;
+          try {
+            await import('@design-system-exercise/react/internal/radio-option/RadioOption.js');
+          } catch (error) {
+            if (error?.code === 'ERR_PACKAGE_PATH_NOT_EXPORTED') radioOptionDeepImportBlocked = true;
+            else throw error;
+          }
+          if (!radioOptionDeepImportBlocked) {
+            throw new Error('Private RadioOption is reachable through a package subpath');
+          }
 
           if (tokens.color.primitive.brand['600'] !== '#005DCC') throw new Error('brand/600 export mismatch');
           if (tokens.typography.semantic.arabic.body.default.family !== 'IBM Plex Sans Arabic') throw new Error('Arabic body font export mismatch');
@@ -180,6 +194,38 @@ jobs:
           if (!lockedSearchHtml.includes('type="search"')) throw new Error('Search Field type override escaped locked semantics');
           if (lockedSearchHtml.includes('aria-invalid')) throw new Error('Search Field validation semantics leaked into package output');
 
+          if (typeof RadioGroup !== 'function') throw new Error('Radio Group public export missing');
+          const radioGroupHtml = renderToStaticMarkup(
+            React.createElement(RadioGroup, {
+              label: 'Role',
+              name: 'role',
+              defaultValue: 'member',
+              options: [
+                {
+                  value: 'member',
+                  label: 'Member',
+                  description: 'Use the workspace without managing people.',
+                },
+                {
+                  value: 'admin',
+                  label: 'Admin',
+                  description: 'Invite people and manage members and roles.',
+                },
+              ],
+            }),
+          );
+          if (!radioGroupHtml.includes('<fieldset')) throw new Error('Radio Group semantic fieldset missing');
+          if (!radioGroupHtml.includes('<legend')) throw new Error('Radio Group semantic legend missing');
+          if ((radioGroupHtml.match(/type="radio"/g) ?? []).length !== 2) throw new Error('Radio Group native radios missing');
+          if ((radioGroupHtml.match(/name="role"/g) ?? []).length !== 2) throw new Error('Radio Group shared native name missing');
+          if (!radioGroupHtml.includes('value="member"')) throw new Error('Radio Group Member value missing');
+          if (!radioGroupHtml.includes('value="admin"')) throw new Error('Radio Group Admin value missing');
+          if (!radioGroupHtml.includes('checked=""')) throw new Error('Radio Group default selection missing');
+          if ((radioGroupHtml.match(/required=""/g) ?? []).length !== 2) throw new Error('Radio Group required semantics missing');
+          if (!radioGroupHtml.includes('aria-labelledby=')) throw new Error('Radio Group option accessible-name binding missing');
+          if (!radioGroupHtml.includes('aria-describedby=')) throw new Error('Radio Group option description binding missing');
+          if (radioGroupHtml.includes('role="radiogroup"')) throw new Error('Radio Group invented ARIA role leaked into output');
+
           const reactCssUrl = import.meta.resolve('@design-system-exercise/react/styles.css');
           if (!reactCssUrl.endsWith('/dist/styles.css')) throw new Error(`Unexpected React CSS export: ${reactCssUrl}`);
           if (!existsSync(new URL(reactCssUrl))) throw new Error('React CSS export missing');
@@ -190,6 +236,8 @@ jobs:
           if (!reactCss.includes('.dse-input-control')) throw new Error('Private input shell stylesheet content missing');
           if (!reactCss.includes('.dse-text-field')) throw new Error('Text Field stylesheet content missing');
           if (!reactCss.includes('.dse-search-field')) throw new Error('Search Field stylesheet content missing');
+          if (!reactCss.includes('.dse-radio-group')) throw new Error('Radio Group stylesheet content missing');
+          if (!reactCss.includes('.dse-radio-option')) throw new Error('Private Radio Option stylesheet content missing');
           if (!reactCss.includes('::-webkit-search-cancel-button')) throw new Error('Search Field native cancel suppression missing');
 
           const loaderUrl = new URL('./assets/loader-circle.svg', reactCssUrl);
