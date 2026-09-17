@@ -1,4 +1,4 @@
-import { createRef, useState } from 'react';
+import { createRef, useState, type ChangeEvent } from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/vitest';
@@ -105,7 +105,9 @@ describe('TextField public API', () => {
         <TextField
           label="Full name"
           value={value}
-          onChange={(event) => setValue(event.currentTarget.value)}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            setValue(event.currentTarget.value)
+          }
         />
       );
     }
