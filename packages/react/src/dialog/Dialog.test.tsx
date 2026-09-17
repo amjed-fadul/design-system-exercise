@@ -133,6 +133,22 @@ describe('Dialog public runtime', () => {
     expect(dialog.querySelector('.dse-dialog__actions')).toHaveTextContent('Send invite');
   });
 
+  it('omits the divider and actions region when actions is null', async () => {
+    const module = await loadModule();
+    if (!module) return;
+    const { Dialog } = module;
+
+    render(
+      <Dialog open onOpenChange={() => {}} title="Read only" actions={null}>
+        <p>Body only</p>
+      </Dialog>,
+    );
+
+    const dialog = screen.getByRole('dialog', { name: 'Read only' });
+    expect(dialog.querySelector('.dse-dialog__divider')).toBeNull();
+    expect(dialog.querySelector('.dse-dialog__actions')).toBeNull();
+  });
+
   it('moves focus to initialFocusRef, contains Tab navigation, and wraps in both directions', async () => {
     const module = await loadModule();
     if (!module) return;
