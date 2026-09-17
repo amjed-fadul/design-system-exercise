@@ -18,21 +18,25 @@ const radioGroupCss = await readFile(
   new URL('../src/radio-group/RadioGroup.css', import.meta.url),
   'utf8',
 );
+const inlineFeedbackCss = await readFile(
+  new URL('../src/inline-feedback/InlineFeedback.css', import.meta.url),
+  'utf8',
+);
 
 await writeFile(
   new URL('../dist/styles.css', import.meta.url),
-  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n\n${searchFieldCss.trimEnd()}\n\n${radioGroupCss.trimEnd()}\n`,
+  `${buttonCss.trimEnd()}\n\n${iconButtonCss.trimEnd()}\n\n${linkCss.trimEnd()}\n\n${inputControlCss.trimEnd()}\n\n${textFieldCss.trimEnd()}\n\n${searchFieldCss.trimEnd()}\n\n${radioGroupCss.trimEnd()}\n\n${inlineFeedbackCss.trimEnd()}\n`,
 );
 
-await copyFile(
-  new URL('../src/assets/loader-circle.svg', import.meta.url),
-  new URL('../dist/assets/loader-circle.svg', import.meta.url),
-);
-await copyFile(
-  new URL('../src/assets/search.svg', import.meta.url),
-  new URL('../dist/assets/search.svg', import.meta.url),
-);
-await copyFile(
-  new URL('../src/assets/x.svg', import.meta.url),
-  new URL('../dist/assets/x.svg', import.meta.url),
-);
+for (const asset of [
+  'loader-circle.svg',
+  'search.svg',
+  'x.svg',
+  'inline-feedback-alert.svg',
+  'inline-feedback-check.svg',
+]) {
+  await copyFile(
+    new URL(`../src/assets/${asset}`, import.meta.url),
+    new URL(`../dist/assets/${asset}`, import.meta.url),
+  );
+}
