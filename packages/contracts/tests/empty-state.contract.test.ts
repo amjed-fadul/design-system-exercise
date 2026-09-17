@@ -96,6 +96,8 @@ describe('dse.empty-state contract', () => {
         '--dse-color-semantic-surface-default',
         '--dse-color-semantic-fg-primary',
         '--dse-color-semantic-fg-secondary',
+        '--dse-spacing-primitive-space-300',
+        '--dse-icons-size-lg',
         '--dse-typography-semantic-title-component-family',
         '--dse-typography-semantic-title-component-size',
         '--dse-typography-semantic-title-component-weight',
@@ -108,6 +110,7 @@ describe('dse.empty-state contract', () => {
         '--dse-typography-semantic-body-small-letter-spacing',
       ]),
     );
+    expect(contract.tokenDependencies).not.toContain('--dse-icons-size-md');
     expect(contract.semantics.requirements).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/440.*CSS pixels|440px/i),
