@@ -32,3 +32,6 @@ export type { StatusBadgeProps } from './status-badge/StatusBadge.js';
 
 export { Dialog } from './dialog/Dialog.js';
 export type { DialogProps } from './dialog/Dialog.js';
+
+export { SidePanel } from './side-panel/SidePanel.js';
+export type { SidePanelProps } from './side-panel/SidePanel.js';
