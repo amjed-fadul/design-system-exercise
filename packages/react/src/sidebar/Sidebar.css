@@ -1,0 +1,162 @@
+.dse-sidebar {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-block-size: 0;
+  block-size: 100%;
+  background: var(--dse-color-semantic-surface-section);
+  border-inline-end: 1px solid var(--dse-color-semantic-border-subtle);
+}
+
+.dse-sidebar[data-mode='expanded'] {
+  inline-size: 208px;
+  padding-block-start: 30px;
+  padding-block-end: 40px;
+  padding-inline: 12px;
+}
+
+.dse-sidebar[data-mode='compact'] {
+  inline-size: 64px;
+  padding-block-start: 48px;
+  padding-inline: 10px;
+}
+
+.dse-sidebar__navigation-section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-inline-size: 0;
+}
+
+.dse-sidebar[data-mode='expanded'] .dse-sidebar__navigation-section {
+  gap: 18px;
+}
+
+.dse-sidebar__group-label {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding-inline: var(--dse-spacing-primitive-space-300);
+  color: var(--dse-color-semantic-fg-tertiary);
+  font-family: var(--dse-typography-semantic-label-small-family);
+  font-size: var(--dse-typography-semantic-label-small-size);
+  font-weight: var(--dse-typography-semantic-label-small-weight);
+  line-height: var(--dse-typography-semantic-label-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-small-letter-spacing);
+}
+
+.dse-sidebar__navigation-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dse-sidebar__navigation-list-item {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.dse-navigation-item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  border-radius: var(--dse-radius-shape-control);
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dse-sidebar[data-mode='expanded'] .dse-navigation-item {
+  inline-size: 100%;
+  min-block-size: 40px;
+  padding-block: 10px;
+  padding-inline-start: 12px;
+  padding-inline-end: 10px;
+  gap: 12px;
+}
+
+.dse-sidebar[data-mode='compact'] .dse-navigation-item {
+  inline-size: 44px;
+  block-size: 44px;
+  justify-content: center;
+  padding: 12px;
+}
+
+.dse-navigation-item__icon {
+  display: grid;
+  place-items: center;
+  inline-size: var(--dse-icons-size-md);
+  block-size: var(--dse-icons-size-md);
+  flex: 0 0 var(--dse-icons-size-md);
+  overflow: hidden;
+  color: currentColor;
+  line-height: 0;
+}
+
+.dse-navigation-item__icon > svg,
+.dse-navigation-item__icon > img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.dse-navigation-item__label {
+  min-inline-size: 0;
+}
+
+.dse-navigation-item[data-current='true'] {
+  background: var(--dse-color-semantic-state-selected);
+  color: var(--dse-color-semantic-fg-primary);
+}
+
+.dse-navigation-item[data-current='false']:hover {
+  background: var(--dse-color-semantic-state-hover);
+  color: var(--dse-color-semantic-fg-primary);
+}
+
+.dse-navigation-item:active {
+  background: var(--dse-color-semantic-state-selected);
+  color: var(--dse-color-semantic-fg-primary);
+}
+
+.dse-navigation-item:focus-visible {
+  color: var(--dse-color-semantic-fg-primary);
+  outline: var(--dse-border-role-focus) solid var(--dse-color-semantic-focus-default);
+  outline-offset: 0;
+}
+
+.dse-sidebar[data-mode='compact'] .dse-navigation-item__label {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.dse-sidebar__flexible-space {
+  flex: 1 1 auto;
+  min-block-size: 1px;
+}
+
+.dse-sidebar__footer {
+  box-sizing: border-box;
+  min-block-size: 40px;
+  min-inline-size: 0;
+}
