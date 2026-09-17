@@ -1,0 +1,227 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.text-field",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Text Field",
+  "description": "Labeled native text input for user-entered values. Label, supporting/error messaging, semantic invalid state, and native input attributes form the public boundary; Figma state/content axes remain derived representation.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "112:263"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "label",
+        "description": "Required visible field label associated to the native input.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "supportingText",
+        "description": "Optional supporting guidance associated to the input with aria-describedby.",
+        "type": { "content": true }
+      },
+      {
+        "name": "invalid",
+        "description": "Semantic validation state. When true the native input exposes aria-invalid and the shell/message use negative feedback roles.",
+        "default": false,
+        "type": { "boolean": true }
+      },
+      {
+        "name": "errorMessage",
+        "description": "Optional error content shown and described when invalid; falls back to supportingText when absent.",
+        "type": { "content": true }
+      },
+      {
+        "name": "required",
+        "description": "Forwarded native required attribute; a visual required indicator mirrors it.",
+        "default": false,
+        "type": { "native": true }
+      },
+      {
+        "name": "disabled",
+        "description": "Forwarded native disabled attribute.",
+        "default": false,
+        "type": { "native": true }
+      }
+    ],
+    "forwardNativeAttributes": true
+  },
+  "representations": [
+    {
+      "source": "figma.label",
+      "kind": "public",
+      "mapsTo": "publicApi.label"
+    },
+    {
+      "source": "figma.supportingText",
+      "kind": "public",
+      "mapsTo": "publicApi.supportingText"
+    },
+    {
+      "source": "figma.required",
+      "kind": "native",
+      "mapsTo": "native required"
+    },
+    {
+      "source": "figma.value",
+      "kind": "native",
+      "mapsTo": "native value/defaultValue"
+    },
+    {
+      "source": "figma.placeholder",
+      "kind": "native",
+      "mapsTo": "native placeholder"
+    },
+    {
+      "source": "figma.showSupportingText",
+      "kind": "derived",
+      "mapsTo": "supportingText/errorMessage presence"
+    },
+    {
+      "source": "figma.state.hover",
+      "kind": "derived",
+      "mapsTo": "private input-control CSS from native input:hover"
+    },
+    {
+      "source": "figma.state.focus",
+      "kind": "derived",
+      "mapsTo": "private input-control CSS from native input:focus-visible"
+    },
+    {
+      "source": "figma.state.disabled",
+      "kind": "native",
+      "mapsTo": "native disabled"
+    },
+    {
+      "source": "figma.state.invalid",
+      "kind": "public",
+      "mapsTo": "publicApi.invalid"
+    },
+    {
+      "source": "figma.state.invalid-focus",
+      "kind": "derived",
+      "mapsTo": "publicApi.invalid + native input:focus-visible"
+    },
+    {
+      "source": "figma.content",
+      "kind": "derived",
+      "mapsTo": "native input value/placeholder state"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "label",
+      "required": true,
+      "description": "Visible label row associated to the native input."
+    },
+    {
+      "name": "input-control",
+      "required": true,
+      "description": "Private dse._input-control shell using its default 44px size."
+    },
+    {
+      "name": "input",
+      "required": true,
+      "description": "Native input element that owns value, focus, disabled, required, and change behavior."
+    },
+    {
+      "name": "message",
+      "required": false,
+      "description": "Optional supporting or error message associated via aria-describedby."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-spacing-primitive-space-200",
+    "--dse-spacing-primitive-space-300",
+    "--dse-color-semantic-fg-primary",
+    "--dse-color-semantic-fg-secondary",
+    "--dse-color-semantic-fg-tertiary",
+    "--dse-color-semantic-fg-disabled",
+    "--dse-color-semantic-feedback-negative-fg",
+    "--dse-typography-semantic-label-default-family",
+    "--dse-typography-semantic-label-default-size",
+    "--dse-typography-semantic-label-default-weight",
+    "--dse-typography-semantic-label-default-line-height",
+    "--dse-typography-semantic-label-default-letter-spacing",
+    "--dse-typography-semantic-body-default-family",
+    "--dse-typography-semantic-body-default-size",
+    "--dse-typography-semantic-body-default-weight",
+    "--dse-typography-semantic-body-default-line-height",
+    "--dse-typography-semantic-body-default-letter-spacing",
+    "--dse-typography-semantic-body-small-family",
+    "--dse-typography-semantic-body-small-size",
+    "--dse-typography-semantic-body-small-weight",
+    "--dse-typography-semantic-body-small-line-height",
+    "--dse-typography-semantic-body-small-letter-spacing"
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "ownership": "derived",
+      "description": "Visual hover is derived from the native input and private shell."
+    },
+    {
+      "name": "focus-visible",
+      "ownership": "derived",
+      "description": "Focus presentation is derived from native input focus-visible."
+    },
+    {
+      "name": "disabled",
+      "ownership": "native",
+      "description": "Native input disabled state."
+    },
+    {
+      "name": "invalid",
+      "ownership": "public",
+      "description": "Public semantic invalid state mapped to aria-invalid and negative visual feedback."
+    },
+    {
+      "name": "invalid-focus",
+      "ownership": "derived",
+      "description": "Combination of public invalid state with native input focus-visible."
+    }
+  ],
+  "semantics": {
+    "element": "input",
+    "accessibleName": "The required visible label is explicitly associated to the native input with htmlFor/id.",
+    "keyboardActivation": "native text-input keyboard interaction",
+    "focus": "native input focus with a visible private-shell focus indicator",
+    "requirements": [
+      "The visible label remains explicitly associated with the input by htmlFor/id.",
+      "When id is omitted the implementation generates a stable React id for the label/input relationship.",
+      "Visible supporting or error messaging is included in aria-describedby while preserving any consumer-provided aria-describedby value.",
+      "invalid=true sets aria-invalid=true and uses errorMessage when supplied, otherwise supportingText remains the described message.",
+      "Controlled value and uncontrolled defaultValue usage are both supported through native input attributes.",
+      "required and disabled remain native input semantics and native attributes are forwarded.",
+      "The Text Field always composes the default 44 CSS pixel private input-control shell; no public size prop exists.",
+      "Figma content=empty|filled is derived from native value/placeholder behavior rather than a public content prop."
+    ]
+  },
+  "composition": {
+    "input-control": {
+      "optional": false,
+      "description": "Private governed shell; consumers cannot replace or import it through the public React package.",
+      "allowedChildren": ["dse._input-control"]
+    }
+  },
+  "events": [
+    {
+      "name": "change",
+      "trigger": "native input change"
+    }
+  ],
+  "forbidden": ["state", "content", "size", "showSupportingText", "children"],
+  "provenance": {
+    "lastReviewed": "2026-09-17",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:112:263"
+    ]
+  }
+}
