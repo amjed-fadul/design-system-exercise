@@ -13,7 +13,7 @@ function read(path: string) {
 }
 
 describe('InlineFeedback visual contract', () => {
-  it('uses governed feedback tokens and Figma spacing/shape values without fixed width or fixed height', () => {
+  it('uses governed feedback tokens and Figma spacing/shape values while filling its container without fixed evidence dimensions', () => {
     const css = read(cssPath);
 
     for (const token of [
@@ -29,6 +29,7 @@ describe('InlineFeedback visual contract', () => {
       expect(css).toContain(`var(${token})`);
     }
 
+    expect(css).toMatch(/\.dse-inline-feedback\s*\{[^}]*inline-size:\s*100%;/s);
     expect(css).toMatch(/padding:\s*var\(--dse-spacing-primitive-space-400\)/);
     expect(css).toMatch(/gap:\s*var\(--dse-spacing-primitive-space-200\)/);
     expect(css).toMatch(/dse-inline-feedback__text[\s\S]*gap:\s*var\(--dse-spacing-primitive-space-100\)/);
@@ -36,14 +37,21 @@ describe('InlineFeedback visual contract', () => {
     expect(css).not.toMatch(/height:\s*96px/);
   });
 
-  it('uses exact Figma Inline Feedback instance geometry as mask assets so semantic color can follow light/dark tokens', () => {
+  it('uses exact Figma Inline Feedback instance geometry as mask assets with standard and WebKit mask support', () => {
     const css = read(cssPath);
     const alertSvg = read(alertAssetPath);
     const checkSvg = read(checkAssetPath);
 
     expect(css).toContain('inline-feedback-alert.svg');
     expect(css).toContain('inline-feedback-check.svg');
-    expect(css).toMatch(/mask(?:-image)?:/);
+    expect(css).toContain('-webkit-mask-image:');
+    expect(css).toContain('mask-image:');
+    expect(css).toContain('-webkit-mask-repeat: no-repeat');
+    expect(css).toContain('mask-repeat: no-repeat');
+    expect(css).toContain('-webkit-mask-position: center');
+    expect(css).toContain('mask-position: center');
+    expect(css).toContain('-webkit-mask-size: contain');
+    expect(css).toContain('mask-size: contain');
 
     expect(alertSvg).toContain('M9.99156 1.65527');
     expect(alertSvg).toContain('M10.0078 13.3333');
