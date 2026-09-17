@@ -14,3 +14,6 @@ export type { LinkProps } from './link/Link.js';
 
 export { TextField } from './text-field/TextField.js';
 export type { TextFieldProps } from './text-field/TextField.js';
+
+export { SearchField } from './search-field/SearchField.js';
+export type { SearchFieldProps } from './search-field/SearchField.js';
