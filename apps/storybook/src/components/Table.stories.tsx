@@ -140,10 +140,10 @@ const defaultRows: TableRowData[] = [
   }),
 ];
 
-const selectedRows: TableRowData[] = [
-  { ...defaultRows[0], selected: true },
-  defaultRows[1],
-];
+const selectedRows: TableRowData[] = defaultRows.map((row, index) => ({
+  ...row,
+  selected: index === 0,
+}));
 
 const longIdentityRows: TableRowData[] = [
   personRow({
