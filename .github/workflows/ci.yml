@@ -60,6 +60,8 @@ jobs:
           ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq 'package/(src|scripts|tests|storybook|contracts)/'
           ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq '\.(test|stories)\.'
           ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq '\.contract\.json$'
+          ! tar -xOf "$REACT_TARBALL" package/dist/index.js | grep -q 'InputControl'
+          ! tar -xOf "$REACT_TARBALL" package/dist/index.d.ts | grep -q 'InputControl'
 
           cd "$CONSUMER_DIR"
           npm init -y >/dev/null
@@ -71,7 +73,10 @@ jobs:
           import { existsSync, readFileSync } from 'node:fs';
           import { renderToStaticMarkup } from 'react-dom/server';
           import { tokens } from '@design-system-exercise/tokens';
-          import { Button, IconButton, Link } from '@design-system-exercise/react';
+          import * as ReactPackage from '@design-system-exercise/react';
+
+          const { Button, IconButton, Link, TextField } = ReactPackage;
+          if ('InputControl' in ReactPackage) throw new Error('Private InputControl leaked through public package exports');
 
           if (tokens.color.primitive.brand['600'] !== '#005DCC') throw new Error('brand/600 export mismatch');
           if (tokens.typography.semantic.arabic.body.default.family !== 'IBM Plex Sans Arabic') throw new Error('Arabic body font export mismatch');
@@ -114,6 +119,33 @@ jobs:
           if (!linkHtml.includes('class="dse-link"')) throw new Error('Link class missing');
           if (!linkHtml.includes('>Workspace</a>')) throw new Error('Link visible content missing');
 
+          const textFieldHtml = renderToStaticMarkup(
+            React.createElement(TextField, {
+              label: 'Email address',
+              name: 'email',
+              defaultValue: 'alex@example.com',
+              supportingText: 'One person per invitation.',
+              required: true,
+            }),
+          );
+          if (!textFieldHtml.includes('<label')) throw new Error('Text Field visible label missing');
+          if (!textFieldHtml.includes('<input')) throw new Error('Text Field did not render a native input');
+          if (!textFieldHtml.includes('name="email"')) throw new Error('Text Field native name missing');
+          if (!textFieldHtml.includes('value="alex@example.com"')) throw new Error('Text Field default value missing');
+          if (!textFieldHtml.includes('required=""')) throw new Error('Text Field native required semantics missing');
+          if (!textFieldHtml.includes('class="dse-text-field__input"')) throw new Error('Text Field input class missing');
+          if (!textFieldHtml.includes('One person per invitation.')) throw new Error('Text Field supporting message missing');
+
+          const labelFor = textFieldHtml.match(/<label[^>]*for="([^"]+)"/)?.[1];
+          const inputId = textFieldHtml.match(/<input[^>]*id="([^"]+)"/)?.[1];
+          if (!labelFor || !inputId || labelFor !== inputId) throw new Error('Text Field label/input association mismatch');
+
+          const describedBy = textFieldHtml.match(/<input[^>]*aria-describedby="([^"]+)"/)?.[1];
+          const messageId = textFieldHtml.match(/<div[^>]*id="([^"]+-message)"/)?.[1];
+          if (!describedBy || !messageId || !describedBy.split(/\s+/).includes(messageId)) {
+            throw new Error('Text Field supporting message association missing');
+          }
+
           const reactCssUrl = import.meta.resolve('@design-system-exercise/react/styles.css');
           if (!reactCssUrl.endsWith('/dist/styles.css')) throw new Error(`Unexpected React CSS export: ${reactCssUrl}`);
           if (!existsSync(new URL(reactCssUrl))) throw new Error('React CSS export missing');
@@ -121,6 +153,8 @@ jobs:
           if (!reactCss.includes('.dse-button')) throw new Error('Button stylesheet content missing');
           if (!reactCss.includes('.dse-icon-button')) throw new Error('Icon Button stylesheet content missing');
           if (!reactCss.includes('.dse-link')) throw new Error('Link stylesheet content missing');
+          if (!reactCss.includes('.dse-input-control')) throw new Error('Private input shell stylesheet content missing');
+          if (!reactCss.includes('.dse-text-field')) throw new Error('Text Field stylesheet content missing');
 
           const loaderUrl = new URL('./assets/loader-circle.svg', reactCssUrl);
           if (!existsSync(loaderUrl)) throw new Error('Button loader asset missing from installed package');

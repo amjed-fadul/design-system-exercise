@@ -16,21 +16,23 @@ function componentContracts() {
 }
 
 describe('contract source integrity', () => {
-  it('contains only the component contracts implemented through C03 and no placeholder patterns', () => {
+  it('contains only the component contracts implemented through the C04 contract gate and no placeholder patterns', () => {
     const components = componentContracts();
     const patterns = existsSync(patternsDir)
       ? readdirSync(patternsDir).filter((name) => name.endsWith('.contract.json')).sort()
       : [];
 
     expect(components).toEqual([
+      '_input-control.contract.json',
       'button.contract.json',
       'icon-button.contract.json',
       'link.contract.json',
+      'text-field.contract.json',
     ]);
     expect(patterns).toEqual([]);
   });
 
-  it('does not use excluded Figma implementation collections as public token dependencies', () => {
+  it('does not use excluded Figma implementation collections as governed token dependencies', () => {
     for (const filename of componentContracts()) {
       const contractText = readFileSync(new URL(`../components/${filename}`, import.meta.url), 'utf8');
       for (const excluded of excludedFigmaCollections) {

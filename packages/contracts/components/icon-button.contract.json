@@ -4,6 +4,7 @@
   "kind": "component",
   "version": "1.0.0",
   "status": "approved",
+  "visibility": "public",
   "name": "Icon Button",
   "description": "Compact native button for familiar commands. The icon is decorative, aria-label owns the accessible name, and pointer/focus states remain browser-derived.",
   "sources": {
