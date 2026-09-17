@@ -57,6 +57,8 @@ jobs:
           printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/index.d.ts'
           printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/styles.css'
           printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/assets/loader-circle.svg'
+          printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/assets/search.svg'
+          printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/assets/x.svg'
           ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq 'package/(src|scripts|tests|storybook|contracts)/'
           ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq '\.(test|stories)\.'
           ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq '\.contract\.json$'
@@ -75,7 +77,7 @@ jobs:
           import { tokens } from '@design-system-exercise/tokens';
           import * as ReactPackage from '@design-system-exercise/react';
 
-          const { Button, IconButton, Link, TextField } = ReactPackage;
+          const { Button, IconButton, Link, TextField, SearchField } = ReactPackage;
           if ('InputControl' in ReactPackage) throw new Error('Private InputControl leaked through public package exports');
 
           if (tokens.color.primitive.brand['600'] !== '#005DCC') throw new Error('brand/600 export mismatch');
@@ -146,6 +148,38 @@ jobs:
             throw new Error('Text Field supporting message association missing');
           }
 
+          if (typeof SearchField !== 'object' && typeof SearchField !== 'function') {
+            throw new Error('Search Field public export missing');
+          }
+          const searchFieldHtml = renderToStaticMarkup(
+            React.createElement(SearchField, {
+              'aria-label': 'Search team',
+              clearButtonLabel: 'Clear search',
+              name: 'member-query',
+              defaultValue: 'sara',
+            }),
+          );
+          if (!searchFieldHtml.includes('<input')) throw new Error('Search Field did not render a native input');
+          if (!searchFieldHtml.includes('type="search"')) throw new Error('Search Field native search type missing');
+          if (!searchFieldHtml.includes('aria-label="Search team"')) throw new Error('Search Field accessible name missing');
+          if (!searchFieldHtml.includes('name="member-query"')) throw new Error('Search Field native name missing');
+          if (!searchFieldHtml.includes('value="sara"')) throw new Error('Search Field default query missing');
+          if (!searchFieldHtml.includes('data-size="compact"')) throw new Error('Search Field compact private shell missing');
+          if (!searchFieldHtml.includes('class="dse-search-field__input"')) throw new Error('Search Field input class missing');
+          if (!searchFieldHtml.includes('class="dse-icon-button"')) throw new Error('Search Field clear Icon Button missing');
+          if (!searchFieldHtml.includes('aria-label="Clear search"')) throw new Error('Search Field clear accessible name missing');
+
+          const lockedSearchHtml = renderToStaticMarkup(
+            React.createElement(SearchField, {
+              'aria-label': 'Search team',
+              clearButtonLabel: 'Clear search',
+              type: 'email',
+              'aria-invalid': 'true',
+            }),
+          );
+          if (!lockedSearchHtml.includes('type="search"')) throw new Error('Search Field type override escaped locked semantics');
+          if (lockedSearchHtml.includes('aria-invalid')) throw new Error('Search Field validation semantics leaked into package output');
+
           const reactCssUrl = import.meta.resolve('@design-system-exercise/react/styles.css');
           if (!reactCssUrl.endsWith('/dist/styles.css')) throw new Error(`Unexpected React CSS export: ${reactCssUrl}`);
           if (!existsSync(new URL(reactCssUrl))) throw new Error('React CSS export missing');
@@ -155,7 +189,19 @@ jobs:
           if (!reactCss.includes('.dse-link')) throw new Error('Link stylesheet content missing');
           if (!reactCss.includes('.dse-input-control')) throw new Error('Private input shell stylesheet content missing');
           if (!reactCss.includes('.dse-text-field')) throw new Error('Text Field stylesheet content missing');
+          if (!reactCss.includes('.dse-search-field')) throw new Error('Search Field stylesheet content missing');
+          if (!reactCss.includes('::-webkit-search-cancel-button')) throw new Error('Search Field native cancel suppression missing');
 
           const loaderUrl = new URL('./assets/loader-circle.svg', reactCssUrl);
           if (!existsSync(loaderUrl)) throw new Error('Button loader asset missing from installed package');
+          const searchIconUrl = new URL('./assets/search.svg', reactCssUrl);
+          const clearIconUrl = new URL('./assets/x.svg', reactCssUrl);
+          if (!existsSync(searchIconUrl)) throw new Error('Search Field search icon asset missing from installed package');
+          if (!existsSync(clearIconUrl)) throw new Error('Search Field clear icon asset missing from installed package');
+          if (!readFileSync(searchIconUrl, 'utf8').includes('M9.16667 1.66666C13.3088')) {
+            throw new Error('Search Field search icon asset drifted from the Figma export');
+          }
+          if (!readFileSync(clearIconUrl, 'utf8').includes('M11.9108 6.91073C12.2363')) {
+            throw new Error('Search Field clear icon asset drifted from the Figma export');
+          }
           NODE
