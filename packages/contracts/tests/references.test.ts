@@ -16,7 +16,7 @@ function componentContracts() {
 }
 
 describe('contract source integrity', () => {
-  it('contains only the component contracts implemented through the C11 contract gate and no placeholder patterns', () => {
+  it('contains only the component contracts implemented through the C12 contract gate and no placeholder patterns', () => {
     const components = componentContracts();
     const patterns = existsSync(patternsDir)
       ? readdirSync(patternsDir).filter((name) => name.endsWith('.contract.json')).sort()
@@ -28,6 +28,7 @@ describe('contract source integrity', () => {
       'avatar.contract.json',
       'button.contract.json',
       'dialog.contract.json',
+      'empty-state.contract.json',
       'icon-button.contract.json',
       'inline-feedback.contract.json',
       'link.contract.json',
