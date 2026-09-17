@@ -16,17 +16,19 @@ function componentContracts() {
 }
 
 describe('contract source integrity', () => {
-  it('contains only the component contracts implemented through the C15 contract gate and no placeholder patterns', () => {
+  it('contains only the component contracts implemented through the C16 contract gate and no placeholder patterns', () => {
     const components = componentContracts();
     const patterns = existsSync(patternsDir)
       ? readdirSync(patternsDir).filter((name) => name.endsWith('.contract.json')).sort()
       : [];
 
     expect(components).toEqual([
+      '_breadcrumb-link-item.contract.json',
       '_input-control.contract.json',
       '_navigation-item.contract.json',
       '_radio-option.contract.json',
       'avatar.contract.json',
+      'breadcrumbs.contract.json',
       'button.contract.json',
       'dialog.contract.json',
       'empty-state.contract.json',
