@@ -78,7 +78,7 @@ describe('SidePanel public runtime', () => {
     expect(onClose).not.toHaveBeenCalled();
   });
 
-  it('omits optional header/actions regions and their dividers when content is absent', async () => {
+  it('keeps Header and Actions anatomy present when authored slot content is absent', async () => {
     const module = await loadModule();
     if (!module) return;
     const { SidePanel } = module;
@@ -90,10 +90,10 @@ describe('SidePanel public runtime', () => {
     );
 
     const panel = screen.getByRole('region');
-    expect(panel.querySelector('.dse-side-panel__header')).toBeNull();
-    expect(panel.querySelector('.dse-side-panel__header-divider')).toBeNull();
-    expect(panel.querySelector('.dse-side-panel__actions')).toBeNull();
-    expect(panel.querySelector('.dse-side-panel__footer-divider')).toBeNull();
+    expect(panel.querySelector('.dse-side-panel__header')).toBeEmptyDOMElement();
+    expect(panel.querySelector('.dse-side-panel__header-divider')).toBeInTheDocument();
+    expect(panel.querySelector('.dse-side-panel__actions')).toBeEmptyDOMElement();
+    expect(panel.querySelector('.dse-side-panel__footer-divider')).toBeInTheDocument();
     expect(panel.querySelector('.dse-side-panel__body')).toHaveTextContent('Body only');
   });
 
@@ -104,6 +104,16 @@ describe('SidePanel public runtime', () => {
 
     expect(() => render(<SidePanel onClose={() => {}} eyebrow="   " />)).toThrow(
       /non-empty eyebrow/i,
+    );
+  });
+
+  it('rejects an empty close label while the close affordance is visible', async () => {
+    const module = await loadModule();
+    if (!module) return;
+    const { SidePanel } = module;
+
+    expect(() => render(<SidePanel onClose={() => {}} closeLabel="   " />)).toThrow(
+      /non-empty closeLabel/i,
     );
   });
 
