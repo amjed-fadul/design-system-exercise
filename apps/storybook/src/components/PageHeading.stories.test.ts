@@ -60,19 +60,19 @@ describe('Page Heading Storybook contract', () => {
     expect(module.Arabic.args?.title).toMatch(/[\u0600-\u06FF]/);
   });
 
-  it('keeps the temporary Breadcrumbs fixture semantic and token-aligned without implementing C16', async () => {
+  it('composes the real governed Breadcrumbs component after C16', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const breadcrumbHtml = renderToStaticMarkup(module.pageHeadingMeta.args?.breadcrumbs);
-    expect(breadcrumbHtml).toContain('<nav');
+    expect(breadcrumbHtml).toContain('class="dse-breadcrumbs"');
     expect(breadcrumbHtml).toContain('aria-label="Breadcrumbs"');
+    expect(breadcrumbHtml).toContain('href="#workspace"');
     expect(breadcrumbHtml).toContain('aria-current="page"');
-    expect(breadcrumbHtml).toContain('--dse-typography-semantic-label-small-family');
-    expect(breadcrumbHtml).toContain('--dse-color-semantic-fg-secondary');
+    expect(breadcrumbHtml).toContain('class="dse-breadcrumb-link-item__separator"');
   });
 
-  it('documents the Figma authority, slot limits, and the Breadcrumbs dependency boundary', async () => {
+  it('documents the Figma authority, slot limits, and implemented Breadcrumbs dependency', async () => {
     const module = await loadStories();
     if (!module) return;
 
@@ -80,9 +80,10 @@ describe('Page Heading Storybook contract', () => {
     expect(description).toMatch(/dse\.page-heading@1\.0\.0/);
     expect(description).toMatch(/142:2488/);
     expect(description).toMatch(/Breadcrumbs/i);
+    expect(description).toMatch(/dse\.breadcrumbs@1\.0\.0|C16/i);
+    expect(description).not.toMatch(/not yet implemented|future C16|story-only fixture/i);
     expect(description).toMatch(/up to two|at most two/i);
     expect(description).toMatch(/Application Shell|Shell/i);
     expect(description).toMatch(/Search Field|search/i);
-    expect(description).toMatch(/C16|not yet implemented|future/i);
   });
 });
