@@ -6,7 +6,7 @@
   min-block-size: 48px;
   padding: var(--dse-spacing-primitive-space-400);
   gap: var(--dse-spacing-primitive-space-200);
-  border: var(--dse-border-width-default) solid;
+  border: var(--dse-border-role-container) solid;
   border-radius: var(--dse-radius-shape-surface);
 }
 
