@@ -76,6 +76,8 @@ const css = readFileSync(cssUrl, 'utf8');
 for (const required of [
   '.dse-breadcrumbs',
   '.dse-breadcrumb-link-item',
+  'inline-size: fit-content',
+  'max-inline-size: 100%',
   'gap: 8px',
   'flex-wrap: nowrap',
   'white-space: nowrap',
