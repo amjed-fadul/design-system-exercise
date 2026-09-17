@@ -1,0 +1,185 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.page-heading",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Page Heading",
+  "description": "Page-level context composition that presents one required page title, optional supporting description, optional Breadcrumbs hierarchy, and up to two page actions. Page Heading owns page-purpose layout and heading semantics; Application Shell owns placement, Breadcrumbs owns hierarchy, Button owns action behavior, and product code supplies copy and outcomes.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "142:2488"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "title",
+        "description": "Required non-empty page title rendered as the single level-one heading owned by Page Heading.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "description",
+        "description": "Optional supporting copy that explains page scope without repeating the title.",
+        "required": false,
+        "type": { "native": true }
+      },
+      {
+        "name": "showDescription",
+        "description": "Controls visibility of supplied supporting description copy. It does not create fallback copy when description is omitted.",
+        "required": false,
+        "default": true,
+        "type": { "boolean": true }
+      },
+      {
+        "name": "breadcrumbs",
+        "description": "Optional hierarchy composition for the single Breadcrumbs slot. The governed Breadcrumbs component is the intended child when available.",
+        "required": false,
+        "type": { "content": true }
+      },
+      {
+        "name": "actions",
+        "description": "Optional page-level action composition containing at most two rendered action children. Governed Button components are the intended children.",
+        "required": false,
+        "type": { "content": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.title#142:1",
+      "kind": "public",
+      "mapsTo": "publicApi.title"
+    },
+    {
+      "source": "figma.description#142:2",
+      "kind": "public",
+      "mapsTo": "publicApi.description"
+    },
+    {
+      "source": "figma.showDescription#142:3",
+      "kind": "public",
+      "mapsTo": "publicApi.showDescription"
+    },
+    {
+      "source": "figma.Breadcrumbs#142:4",
+      "kind": "public",
+      "mapsTo": "publicApi.breadcrumbs"
+    },
+    {
+      "source": "figma.Actions#142:5",
+      "kind": "public",
+      "mapsTo": "publicApi.actions"
+    },
+    {
+      "source": "figma.theme",
+      "kind": "figma-only",
+      "mapsTo": "inherited Light/Dark semantic token context; no theme prop"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "root",
+      "required": true,
+      "description": "Host-filling page-context container that stacks optional Breadcrumbs above the heading row."
+    },
+    {
+      "name": "breadcrumbs",
+      "required": false,
+      "description": "Optional hierarchy slot positioned before the page title in reading order."
+    },
+    {
+      "name": "heading-row",
+      "required": true,
+      "description": "Responsive space-between row containing flexible title/description content and optional page Actions."
+    },
+    {
+      "name": "title",
+      "required": true,
+      "description": "Single level-one page heading using the governed Headline/page typography tokens."
+    },
+    {
+      "name": "description",
+      "required": false,
+      "description": "Optional Body/small supporting copy beneath the title."
+    },
+    {
+      "name": "actions",
+      "required": false,
+      "description": "Optional page-action slot aligned at logical inline end and limited to two rendered children."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-fg-primary",
+    "--dse-color-semantic-fg-secondary",
+    "--dse-typography-semantic-headline-page-family",
+    "--dse-typography-semantic-headline-page-size",
+    "--dse-typography-semantic-headline-page-weight",
+    "--dse-typography-semantic-headline-page-line-height",
+    "--dse-typography-semantic-headline-page-letter-spacing",
+    "--dse-typography-semantic-body-small-family",
+    "--dse-typography-semantic-body-small-size",
+    "--dse-typography-semantic-body-small-weight",
+    "--dse-typography-semantic-body-small-line-height",
+    "--dse-typography-semantic-body-small-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "neutral page-heading container with one native h1 for the page title, optional supporting paragraph, optional Breadcrumbs composition, and optional Button actions",
+    "accessibleName": "The required non-empty title is rendered as the page h1. Page Heading does not invent a second region label or duplicate the title in ARIA.",
+    "keyboardActivation": "Page Heading adds no custom keyboard model. Breadcrumbs links and Button actions retain their own native/component keyboard behavior.",
+    "focus": "Page Heading never moves or traps focus. When Breadcrumbs are present, their focusable ancestor links remain before the h1 in DOM order; page action controls remain after the title/description content in DOM order.",
+    "requirements": [
+      "title is required and must be a non-empty string; Page Heading renders exactly one native h1 and exposes no headingLevel override.",
+      "description is optional. When description is omitted, showDescription=true renders no fallback description; showDescription=false hides only supplied supporting copy.",
+      "The Breadcrumbs slot accepts at most one rendered direct child, including Fragment-wrapped content. The governed Breadcrumbs component is the intended composition child; C15 does not implement Breadcrumbs itself.",
+      "The Actions slot accepts at most two rendered direct children, including Fragment-wrapped content. Governed Button components are the intended children and own their activation/loading/disabled behavior.",
+      "DOM and reading order remain Breadcrumbs first, then the heading row, with title/description before Actions. Writing direction is inherited so Arabic places inline-start content and inline-end actions naturally without a separate RTL prop.",
+      "The implementation fills the available host inline size instead of fixing the 1168px Figma example width. Long titles may wrap and the text region must be allowed to shrink before Actions.",
+      "Reviewed active local geometry is preserved: 10px between Breadcrumbs and the heading row, 4px between title and description, and 12px between multiple actions. The heading row uses space-between with no active fixed text-to-Actions gap; Figma stores itemSpacing=24 on that SPACE_BETWEEN row, but live child coordinates confirm it is inactive. These dimensions are local Figma geometry rather than governed token bindings.",
+      "Headline/page and Body/small typography plus semantic foreground colors inherit language and Light/Dark modes from tokens; Page Heading exposes no theme prop.",
+      "Application Shell owns Page Heading placement in the content region. Product code owns title, description, hierarchy data, action labels and outcomes.",
+      "Search Field, primary navigation, account/workspace identity, routing side effects, and modal titles stay outside Page Heading."
+    ]
+  },
+  "composition": {
+    "breadcrumbs": {
+      "optional": true,
+      "description": "At most one rendered direct child. Intended child: the governed Breadcrumbs component once implemented.",
+      "allowedChildren": ["Breadcrumbs"]
+    },
+    "actions": {
+      "optional": true,
+      "description": "At most two rendered direct children. Intended children: governed Button components supplied by the product/page pattern.",
+      "allowedChildren": ["Button"]
+    }
+  },
+  "events": [],
+  "forbidden": [
+    "children",
+    "headingLevel",
+    "search",
+    "searchField",
+    "navigation",
+    "theme",
+    "onNavigate",
+    "onAction",
+    "pageRoutes",
+    "account",
+    "workspace"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-18",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:142:2488",
+      "figma:tYCXBBYoQ92AUKVbND5WkG:282:230",
+      "https://atlassian.design/components/page-header",
+      "https://www.w3.org/WAI/tutorials/page-structure/headings/"
+    ]
+  }
+}
