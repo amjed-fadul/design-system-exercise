@@ -33,6 +33,7 @@ export interface ComponentContract {
   kind: 'component';
   version: string;
   status: 'draft' | 'approved' | 'deprecated';
+  visibility: 'public' | 'internal';
   name: string;
   sources: ContractSources;
   tokenDependencies: string[];
