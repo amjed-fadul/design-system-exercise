@@ -1,0 +1,25 @@
+.dse-avatar {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 32px;
+  block-size: 32px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  color: var(--dse-color-semantic-fg-secondary);
+  background: var(--dse-color-semantic-surface-section);
+  border-radius: var(--dse-radius-shape-rounded);
+  font-family: var(--dse-typography-semantic-label-small-family);
+  font-size: var(--dse-typography-semantic-label-small-size);
+  font-weight: var(--dse-typography-semantic-label-small-weight);
+  line-height: var(--dse-typography-semantic-label-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-small-letter-spacing);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.dse-avatar[data-size='lg'] {
+  inline-size: 48px;
+  block-size: 48px;
+}
