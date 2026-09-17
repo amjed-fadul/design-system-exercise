@@ -1,0 +1,148 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse.breadcrumbs",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "public",
+  "name": "Breadcrumbs",
+  "description": "Route-hierarchy navigation that links to one or more ancestors and identifies the current page as plain text. Breadcrumbs owns ordered hierarchy presentation while Link owns ancestor interaction and router/product code owns destinations.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "139:20"
+    },
+    "implementationPackage": "@design-system-exercise/react"
+  },
+  "publicApi": {
+    "props": [
+      {
+        "name": "ancestors",
+        "description": "Required ordered ancestor hierarchy. At least one ancestor is required; no maximum or automatic overflow policy is established by this release.",
+        "required": true,
+        "type": { "content": true }
+      },
+      {
+        "name": "currentLabel",
+        "description": "Required non-empty label for the current route, rendered as plain text rather than another destination link.",
+        "required": true,
+        "type": { "native": true }
+      },
+      {
+        "name": "ariaLabel",
+        "description": "Accessible name for the breadcrumb navigation landmark. Localize this when the surrounding product language is not English.",
+        "required": false,
+        "default": "Breadcrumbs",
+        "type": { "native": true }
+      }
+    ],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.Ancestors#139:2",
+      "kind": "public",
+      "mapsTo": "publicApi.ancestors"
+    },
+    {
+      "source": "figma.currentLabel#139:3",
+      "kind": "public",
+      "mapsTo": "publicApi.currentLabel"
+    },
+    {
+      "source": "runtime.navAccessibleName",
+      "kind": "public",
+      "mapsTo": "publicApi.ariaLabel"
+    },
+    {
+      "source": "figma.theme",
+      "kind": "figma-only",
+      "mapsTo": "inherited Light/Dark semantic token context; no theme prop"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "navigation",
+      "required": true,
+      "description": "Named breadcrumb navigation landmark containing the ordered route hierarchy."
+    },
+    {
+      "name": "ancestors",
+      "required": true,
+      "description": "One or more ancestor destinations in route order, each rendered through private _Breadcrumb Link Item anatomy."
+    },
+    {
+      "name": "current-label",
+      "required": true,
+      "description": "Plain-text current location following the ancestor hierarchy and identified with aria-current=page."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-fg-secondary",
+    "--dse-color-semantic-fg-tertiary",
+    "--dse-typography-semantic-label-small-family",
+    "--dse-typography-semantic-label-small-size",
+    "--dse-typography-semantic-label-small-weight",
+    "--dse-typography-semantic-label-small-line-height",
+    "--dse-typography-semantic-label-small-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "named native nav landmark containing an ordered breadcrumb route hierarchy",
+    "accessibleName": "ariaLabel names the breadcrumb navigation landmark and defaults to Breadcrumbs; ancestor Link labels name their destinations and currentLabel names the current route.",
+    "keyboardActivation": "Ancestor destinations retain native Link keyboard activation. The current page and decorative separators are not interactive.",
+    "focus": "Focus belongs only to ancestor Link descendants; Breadcrumbs itself, separators, and the current plain-text location do not become focusable.",
+    "requirements": [
+      "Breadcrumbs requires at least one ancestor object with a non-empty label and non-empty href; this release establishes no maximum ancestor count or automatic collapse behavior.",
+      "currentLabel is required and non-empty. The current route is rendered as plain text rather than another link and exposes aria-current=page.",
+      "Each ancestor is a genuine native destination through the governed Link component; Breadcrumbs does not own router side effects or unsaved-change interception.",
+      "Each slash separator is decorative, excluded from the accessibility tree, and never part of the interactive ancestor target.",
+      "DOM and reading order remain ancestors first and current location last. Writing direction is inherited so RTL presentation follows the surrounding document without an RTL prop.",
+      "The reviewed source uses an 8px inline gap between breadcrumb units. Label/small typography is inherited from semantic tokens; current text uses fg/secondary and separators use fg/tertiary.",
+      "No overflow, collapse, ellipsis, back-navigation, workflow-progress, disabled/current-link, visited, or custom-separator behavior is established by the reviewed Figma source."
+    ]
+  },
+  "composition": {
+    "ancestors": {
+      "optional": false,
+      "description": "Required ordered hierarchy containing one or more private _Breadcrumb Link Item compositions.",
+      "allowedChildren": ["_Breadcrumb Link Item"]
+    },
+    "current": {
+      "optional": false,
+      "description": "Required plain-text current route label; it is not another Link.",
+      "allowedChildren": ["current route text"]
+    }
+  },
+  "events": [
+    {
+      "name": "navigate",
+      "trigger": "native activation of an ancestor Link"
+    }
+  ],
+  "forbidden": [
+    "children",
+    "separator",
+    "custom separator",
+    "collapse",
+    "overflow",
+    "overflow menu",
+    "ellipsis",
+    "currentHref",
+    "current page link",
+    "disabled",
+    "visited",
+    "theme",
+    "back behavior",
+    "workflow progress"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-18",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:139:20",
+      "figma:tYCXBBYoQ92AUKVbND5WkG:280:121",
+      "https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/",
+      "https://www.w3.org/WAI/ARIA/apg/patterns/link/"
+    ]
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "../schema/component-contract.schema.json",
+  "id": "dse._breadcrumb-link-item",
+  "kind": "component",
+  "version": "1.0.0",
+  "status": "approved",
+  "visibility": "internal",
+  "name": "_Breadcrumb Link Item",
+  "description": "Private breadcrumb ancestor anatomy that keeps one governed Link and its decorative slash separator together. It is reusable only inside Breadcrumbs and is not a public navigation component.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "139:16"
+    }
+  },
+  "publicApi": {
+    "props": [],
+    "forwardNativeAttributes": false
+  },
+  "representations": [
+    {
+      "source": "figma.Ancestor link#139:17",
+      "kind": "derived",
+      "mapsTo": "governed Link supplied from Breadcrumbs ancestor data"
+    },
+    {
+      "source": "figma.Separator#139:19",
+      "kind": "derived",
+      "mapsTo": "fixed decorative slash separator"
+    }
+  ],
+  "anatomy": [
+    {
+      "name": "link",
+      "required": true,
+      "description": "Governed Link instance for one ancestor destination."
+    },
+    {
+      "name": "separator",
+      "required": true,
+      "description": "Decorative slash rendered after the ancestor Link and excluded from the accessibility tree."
+    }
+  ],
+  "tokenDependencies": [
+    "--dse-color-semantic-fg-tertiary",
+    "--dse-typography-semantic-label-small-family",
+    "--dse-typography-semantic-label-small-size",
+    "--dse-typography-semantic-label-small-weight",
+    "--dse-typography-semantic-label-small-line-height",
+    "--dse-typography-semantic-label-small-letter-spacing"
+  ],
+  "states": [],
+  "semantics": {
+    "element": "private breadcrumb ancestor composition of governed Link plus decorative separator",
+    "accessibleName": "The nested Link owns the ancestor destination name. The separator is aria-hidden and contributes no accessible name.",
+    "keyboardActivation": "The nested Link retains native keyboard activation; the separator is non-interactive.",
+    "focus": "Focus remains on the nested Link only. The private item wrapper and separator never become focusable.",
+    "requirements": [
+      "The nested governed Link remains the only interactive and focusable element in the helper.",
+      "The slash separator is decorative, aria-hidden, and outside the Link target.",
+      "The reviewed helper uses an 8px inline gap between Link and separator and a 24px minimum height inherited from the standalone Link source.",
+      "The separator uses Label/small typography and semantic fg/tertiary while the Link keeps its own governed interaction tokens.",
+      "This helper has no exposed Figma properties of its own; ancestor label and destination are parent/product data applied to the nested Link.",
+      "The private helper never appears in the public React package barrel, package exports map, or supported deep-import surface."
+    ]
+  },
+  "composition": {
+    "content": {
+      "optional": false,
+      "description": "Private fixed anatomy composed only inside Breadcrumbs.",
+      "allowedChildren": ["Link", "decorative separator"]
+    }
+  },
+  "events": [],
+  "forbidden": [
+    "public package export",
+    "separator prop",
+    "current prop",
+    "current page",
+    "button semantics",
+    "custom separator"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-18",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:139:16",
+      "figma:tYCXBBYoQ92AUKVbND5WkG:279:68",
+      "https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/",
+      "https://www.w3.org/WAI/ARIA/apg/patterns/link/"
+    ]
+  }
+}
