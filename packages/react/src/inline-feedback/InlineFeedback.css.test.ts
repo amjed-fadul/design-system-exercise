@@ -23,7 +23,7 @@ describe('InlineFeedback visual contract', () => {
       '--dse-color-semantic-feedback-positive-surface',
       '--dse-color-semantic-feedback-positive-fg',
       '--dse-color-semantic-feedback-positive-border',
-      '--dse-radius-semantic-shape-surface',
+      '--dse-radius-shape-surface',
       '--dse-icons-size-md',
     ]) {
       expect(css).toContain(`var(${token})`);
