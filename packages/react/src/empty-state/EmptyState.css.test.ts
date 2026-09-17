@@ -20,13 +20,13 @@ describe('EmptyState visual contract', () => {
     expect(css).toMatch(/\.dse-empty-state__content\s*\{[^}]*align-items:\s*center;[^}]*justify-content:\s*center;/s);
   });
 
-  it('matches the centered 40px icon region with the exact 24px governed search glyph', () => {
+  it('matches the centered 40px icon region with the exact 24px governed muted search glyph', () => {
     const css = readCss();
 
-    expect(css).toMatch(/\.dse-empty-state__icon\s*\{[^}]*inline-size:\s*40px;[^}]*block-size:\s*40px;/s);
+    expect(css).toMatch(/\.dse-empty-state__icon\s*\{[^}]*inline-size:\s*40px;[^}]*block-size:\s*40px;[^}]*color:\s*var\(--dse-color-semantic-fg-tertiary\);/s);
     expect(css).toMatch(/\.dse-empty-state__default-icon\s*\{[^}]*inline-size:\s*var\(--dse-icons-size-lg\);[^}]*block-size:\s*var\(--dse-icons-size-lg\);/s);
     expect(css).toContain('mask-image: var(--dse-empty-state-icon-image)');
-    expect(css).toContain('background-color: var(--dse-color-semantic-fg-secondary)');
+    expect(css).toContain('background-color: var(--dse-color-semantic-fg-tertiary)');
   });
 
   it('uses the exact title/component and body/small semantic typography from Figma', () => {
