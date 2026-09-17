@@ -9,6 +9,7 @@
     "kind",
     "version",
     "status",
+    "visibility",
     "name",
     "description",
     "sources",
@@ -25,10 +26,11 @@
   ],
   "properties": {
     "$schema": { "type": "string", "minLength": 1 },
-    "id": { "type": "string", "pattern": "^dse\\.[a-z0-9.-]+$" },
+    "id": { "type": "string", "pattern": "^dse\\._?[a-z0-9.-]+$" },
     "kind": { "const": "component" },
     "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
     "status": { "enum": ["draft", "approved", "deprecated"] },
+    "visibility": { "enum": ["public", "internal"] },
     "name": { "type": "string", "minLength": 1 },
     "description": { "type": "string", "minLength": 1 },
     "sources": {
