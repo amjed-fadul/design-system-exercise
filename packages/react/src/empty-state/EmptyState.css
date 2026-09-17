@@ -60,7 +60,6 @@
   inline-size: 100%;
   margin: 0;
   overflow-wrap: anywhere;
-  text-align: center;
 }
 
 .dse-empty-state__title {
@@ -70,6 +69,7 @@
   font-weight: var(--dse-typography-semantic-title-component-weight);
   line-height: var(--dse-typography-semantic-title-component-line-height);
   letter-spacing: var(--dse-typography-semantic-title-component-letter-spacing);
+  text-align: center;
 }
 
 .dse-empty-state__body {
@@ -79,6 +79,7 @@
   font-weight: var(--dse-typography-semantic-body-small-weight);
   line-height: var(--dse-typography-semantic-body-small-line-height);
   letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+  text-align: center;
   white-space: pre-line;
 }
 
