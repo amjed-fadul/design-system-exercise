@@ -4,6 +4,7 @@
   "kind": "component",
   "version": "1.0.0",
   "status": "approved",
+  "visibility": "public",
   "name": "Button",
   "description": "Action control for deliberate commands. Emphasis controls hierarchy, tone distinguishes default from critical intent, and loading is a public semantic state; browser interaction states remain derived.",
   "sources": {
