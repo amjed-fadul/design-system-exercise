@@ -1,4 +1,4 @@
-import { Children, type ReactNode } from 'react';
+import { Children, Fragment, isValidElement, type ReactNode } from 'react';
 
 export interface TopNavbarProps {
   brand?: ReactNode;
@@ -18,8 +18,25 @@ function assertVisibleContextLabel(showContext: boolean, contextLabel: string) {
   }
 }
 
+function countRenderedSlotChildren(content: ReactNode): number {
+  let count = 0;
+
+  Children.forEach(content, (child) => {
+    if (child === null || child === undefined || typeof child === 'boolean') return;
+
+    if (isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
+      count += countRenderedSlotChildren(child.props.children);
+      return;
+    }
+
+    count += 1;
+  });
+
+  return count;
+}
+
 function assertSingleSlotChild(name: 'brand' | 'account', content: ReactNode) {
-  if (Children.count(content) > 1) {
+  if (countRenderedSlotChildren(content) > 1) {
     throw new Error(`TopNavbar ${name} accepts at most one direct child.`);
   }
 }
