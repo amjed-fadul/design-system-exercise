@@ -3,10 +3,10 @@
 **Master roadmap:** `docs/superpowers/plans/2026-09-17-design-system-master-roadmap.md`  
 **Contract architecture:** `docs/superpowers/specs/2026-09-17-component-contracts-design.md`  
 **Planning branch:** `plan/all-components-patterns`  
-**Active implementation branch:** `feat/icon-button`  
+**Active implementation branch:** `feat/link`  
 **Foundations baseline:** `751ce383f392b24b8db0495fe221facf0a6eb4f6`  
 **Figma source:** `tYCXBBYoQ92AUKVbND5WkG`  
-**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK is next and has not started
+**Status:** C01 BUTTON COMPLETE; C02 ICON BUTTON COMPLETE; C03 LINK COMPLETE — final record HEAD CI pending; C04 has not started
 
 ## Review policy
 
@@ -14,20 +14,20 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 
 ## Progress summary
 
-- Public components complete: **2 / 17** — C01 Button, C02 Icon Button
+- Public components complete: **3 / 17** — C01 Button, C02 Icon Button, C03 Link
 - Public components in progress: **0 / 17**
 - Internal helpers governed with parent milestones: **0 / 6 complete**
 - Product patterns: **0 / 5 complete**
-- Overall public milestones complete: **2 / 22**
-- Next planned milestone: **C03 Link — not started**
+- Overall public milestones complete: **3 / 22**
+- Next planned milestone: **C04 Text Field + internal `_Input Control` — not started**
 
 ## Component milestones
 
 | ID | Component | Contract | Figma | Depends on | Status | Latest implementation SHA | Review | CI evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | C01 | Button | `dse.button@1.0.0` | `93:1230` | contract infrastructure | Complete | `5514dcb5ff83cf90587fb27ecafb7cc972eec02f` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 61 PASS on exact final C01 HEAD |
-| C02 | Icon Button | `dse.icon-button@1.0.0` | `110:1339` | C01 package infrastructure | Complete | `520483c8a33ab80eb0bf0289fca397935e04e70c` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 86 PASS on strengthened implementation HEAD; final PR record HEAD must also pass before merge |
-| C03 | Link | `dse.link` | `114:13` | C01 package infrastructure | Not started | — | — | — |
+| C02 | Icon Button | `dse.icon-button@1.0.0` | `110:1339` | C01 package infrastructure | Complete | `7c5e27ea123c31706d920bb5b6d6ffc1036c63b3` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 87 PASS on exact final C02 record HEAD |
+| C03 | Link | `dse.link@1.0.0` | `114:13` | C01 package infrastructure | Complete — final record HEAD CI pending | `f137d77190dee78aba55744885015a95b5ecea8f` | Inline self-review APPROVED; no unresolved Critical/Important findings | Run 100 PASS on implementation/package HEAD; final record HEAD must also PASS |
 | C04 | Text Field | `dse.text-field` | `112:263` | internal `_Input Control` | Not started | — | — | — |
 | C05 | Search Field | `dse.search-field` | `112:1710` | C02, C04 internal input shell | Not started | — | — | — |
 | C06 | Radio Group | `dse.radio-group` | `116:175` | internal `_Radio Option` | Not started | — | — | — |
@@ -59,7 +59,7 @@ Per user direction, implementation reviews are performed inline by ChatGPT witho
 ## Pattern milestones
 
 | ID | Pattern | Contract | Figma guide | Depends on | Status |
-| --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | P01 | Application Shell | `dse.pattern.application-shell` | `68:494` | C13-C16; content can host C17 | Not started |
 | P02 | Form Submit and Recover | `dse.pattern.form-submit-recover` | `68:2` | C01, C04, C06, C07, C10 | Not started |
 | P03 | Unsaved-change Guard | `dse.pattern.unsaved-change-guard` | `68:371` | C01, C10 | Not started |
@@ -94,7 +94,21 @@ Detailed evidence: `docs/superpowers/plans/2026-09-16-button-react-progress.md`.
 - **RED/GREEN evidence:** contract RED run 62 on `462139f04184162c8e20b273efc9619ed17a3acd`; contract GREEN run 64 on `0e636b60756060fc284a46547a655d489ee2b0a9`; runtime/CSS RED run 66 on `8dcf7b34eaa3c05c0c4dde86c3d41a2a1183d753`.
 - **Debug correction:** full-suite CI exposed an unstable `fileURLToPath(import.meta.url)` assumption in the new CSS test. GitHub Actions logs isolated `ERR_INVALID_URL_SCHEME`; the test harness now resolves from the package working directory. Production Icon Button code did not require correction.
 - **Self-review hardening:** all contract-declared token dependencies are now checked directly against CSS; default enabled behavior is explicitly protected; compile-time guards keep `icon` and `aria-label` required and unsupported APIs absent.
-- **Implementation HEAD:** `520483c8a33ab80eb0bf0289fca397935e04e70c`; GitHub Actions run 86 PASS with contract validation, 223-token validation/build, full tests, typecheck, Storybook production build and packed clean-consumer verification.
+- **Final HEAD:** `7c5e27ea123c31706d920bb5b6d6ffc1036c63b3`; GitHub Actions run 87 PASS with contract validation, 223-token validation/build, full tests, typecheck, Storybook production build and packed clean-consumer verification.
+- **AI knowledge pack:** Icon Button is recorded as validated with `contract_validation=passed`.
+- **Review:** inline self-review APPROVED; no unresolved Critical or Important findings.
+
+## C03 evidence summary
+
+- **Figma audit:** canonical Link `114:13` re-audited live. The component set contains `state=default|hover|focus|pressed`; each source variant is 24 px high, with semantic small-label typography. No disabled, visited, icon, size, or loading variant exists.
+- **Public token mapping:** default/hover/pressed use public semantic `link/default`, `link/hover`, and `link/pressed`; focus uses public `focus/default`, focus border role, and `radius/sm`; the 24 px minimum target uses public `space/500`.
+- **Contract:** `dse.link@1.0.0` requires visible `children`, forwards native anchor attributes, maps Figma label to children and interaction states to CSS, and explicitly forbids public `state`, `disabled`, `visited`, `icon`, `size`, and `loading` APIs.
+- **React API:** native `<a>` with required visible children, ref/class/native-attribute forwarding, native pointer activation, and native Enter activation when `href` is supplied. No JavaScript interaction-state machine or automatic target/rel rewriting is introduced.
+- **Visuals:** semantic small-label typography, 24 px minimum block size, token-driven default/hover/pressed colors, and a token-driven `:focus-visible` ring. CSS has no raw colors, visited styling, disabled styling, or physical left/right positioning rules.
+- **Storybook:** `Components/Controls/Link` includes Playground, Long Label, explicit Arabic Label, and External Target examples. Only `children` and `href` are documented as controls; `target`/`rel` are demonstrated as ordinary native anchor attributes, while hover/pressed/focus remain derived browser states.
+- **Packaging:** React package exports `Link`/`LinkProps`; built `styles.css` includes Link; clean-consumer CI imports and SSR-renders the installed Link tarball and verifies native anchor output, href/target/ARIA forwarding, visible content, and packaged CSS.
+- **RED/GREEN evidence:** contract RED run 88 on `923451748735278278cc9427e81cc355c1fcbc9f`; contract GREEN run 90 on `16c6a0de5010932d68d76a884e82095f0838ebc3`; runtime/CSS RED run 92 on `24a135a92df8711492d4e3eebcbf2834e92d86d0`; runtime GREEN run 97 on `3dffe87c053842fb0ee8a92ff987685cce0c0457`; Storybook RED run 98 on `67d22dd2dad8d7faee9cfba9683224664db2b8de`; Storybook GREEN run 99 on `1235c98ade92d9dc1d42bbe24fe158863526eb14`.
+- **Implementation/package HEAD:** `f137d77190dee78aba55744885015a95b5ecea8f`; GitHub Actions run 100 PASS with contract validation, 223-token validation/build, full tests, typecheck, Storybook production build and packed clean-consumer verification.
 - **Review:** inline self-review APPROVED; no unresolved Critical or Important findings.
 
 ## Milestone completion rule
@@ -105,4 +119,4 @@ Documentation/knowledge-only record commits after a verified implementation mile
 
 ## Scope guard
 
-This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. C03 must not start without explicit user authorization.
+This roadmap does not authorize npm publication, PR/main merges, automatic Figma/code generation, product backend/authorization/persistence, unreviewed variants, mobile-specific expansion beyond current responsive guidance, generic Table sorting/pagination/bulk selection, or placeholder contracts for future units. C04 must not start without explicit user authorization.
