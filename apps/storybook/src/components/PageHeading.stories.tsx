@@ -7,12 +7,25 @@ import {
 } from '@design-system-exercise/react';
 
 function BreadcrumbsFixture({ arabic = false }: { arabic?: boolean }) {
+  const trailTextStyle = {
+    color: 'var(--dse-color-semantic-fg-secondary)',
+    fontFamily: 'var(--dse-typography-semantic-label-small-family)',
+    fontSize: 'var(--dse-typography-semantic-label-small-size)',
+    fontWeight: 'var(--dse-typography-semantic-label-small-weight)',
+    lineHeight: 'var(--dse-typography-semantic-label-small-line-height)',
+    letterSpacing: 'var(--dse-typography-semantic-label-small-letter-spacing)',
+  } as const;
+
   return (
     <nav aria-label={arabic ? 'مسار الصفحة' : 'Breadcrumbs'}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <Link href="#workspace">{arabic ? 'مساحة العمل' : 'Workspace'}</Link>
-        <span aria-hidden="true">/</span>
-        <span>{arabic ? 'الفريق والصلاحيات' : 'Team & access'}</span>
+        <span aria-hidden="true" style={trailTextStyle}>
+          /
+        </span>
+        <span aria-current="page" style={trailTextStyle}>
+          {arabic ? 'الفريق والصلاحيات' : 'Team & access'}
+        </span>
       </div>
     </nav>
   );
@@ -68,7 +81,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Public contract: dse.page-heading@1.0.0 from Figma 142:2488. Page Heading owns one page h1, optional supporting description, one Breadcrumbs slot, and up to two page-level Button actions. Application Shell owns placement; product code supplies copy and outcomes. Search Field and primary navigation stay outside Page Heading. Breadcrumbs is not yet implemented in the React package in C15, so this Storybook evidence uses a semantic story-only fixture; the future C16 Breadcrumbs milestone should replace that fixture without expanding the Page Heading API.',
+          'Public contract: dse.page-heading@1.0.0 from Figma 142:2488. Page Heading owns one page h1, optional supporting description, one Breadcrumbs slot, and up to two page-level Button actions. Application Shell owns placement; product code supplies copy and outcomes. Search Field and primary navigation stay outside Page Heading. Breadcrumbs is not yet implemented in the React package in C15, so this Storybook evidence uses a semantic story-only fixture styled with the governed Label/small tokens; the future C16 Breadcrumbs milestone should replace that fixture without expanding the Page Heading API.',
       },
     },
   },
