@@ -77,13 +77,15 @@ describe('Avatar public runtime', () => {
     expect(avatar).not.toHaveAttribute('aria-label');
   });
 
-  it('keeps governed accessibility semantics authoritative over conflicting native attributes', async () => {
+  it('keeps governed accessibility semantics authoritative over untyped conflicting attributes', async () => {
     const module = await loadModule();
     if (!module) return;
 
     const { Avatar } = module;
+    const labeledConflicts = { role: 'button', 'aria-hidden': true } as any;
+    const decorativeConflicts = { role: 'button', 'aria-hidden': false } as any;
     const { rerender } = render(
-      <Avatar initials="AF" aria-label="Amjed Fadul" role="button" aria-hidden data-testid="avatar" />,
+      <Avatar initials="AF" aria-label="Amjed Fadul" data-testid="avatar" {...labeledConflicts} />,
     );
 
     let avatar = screen.getByTestId('avatar');
@@ -91,7 +93,7 @@ describe('Avatar public runtime', () => {
     expect(avatar).toHaveAttribute('aria-label', 'Amjed Fadul');
     expect(avatar).not.toHaveAttribute('aria-hidden');
 
-    rerender(<Avatar initials="AF" role="button" aria-hidden={false} data-testid="avatar" />);
+    rerender(<Avatar initials="AF" data-testid="avatar" {...decorativeConflicts} />);
     avatar = screen.getByTestId('avatar');
     expect(avatar).not.toHaveAttribute('role');
     expect(avatar).toHaveAttribute('aria-hidden', 'true');
@@ -107,5 +109,23 @@ describe('Avatar public runtime', () => {
     const avatar = document.getElementById('profile-avatar');
     expect(avatar).toHaveClass('dse-avatar', 'consumer-avatar');
     expect(avatar).toHaveAttribute('data-source', 'profile');
+  });
+
+  it('ignores untyped children and dangerouslySetInnerHTML instead of crashing or replacing governed content', async () => {
+    const module = await loadModule();
+    if (!module) return;
+
+    const { Avatar } = module;
+    const unsafeContent = {
+      children: 'Injected',
+      dangerouslySetInnerHTML: { __html: '<strong>Injected</strong>' },
+    } as any;
+
+    render(<Avatar initials="AF" data-testid="avatar" {...unsafeContent} />);
+
+    const avatar = screen.getByTestId('avatar');
+    expect(avatar).toHaveTextContent('AF');
+    expect(avatar).not.toHaveTextContent('Injected');
+    expect(avatar.querySelector('strong')).toBeNull();
   });
 });
