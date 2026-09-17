@@ -59,6 +59,8 @@ jobs:
           printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/assets/loader-circle.svg'
           printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/assets/search.svg'
           printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/assets/x.svg'
+          printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/assets/inline-feedback-alert.svg'
+          printf '%s\n' "$REACT_CONTENTS" | grep -qx 'package/dist/assets/inline-feedback-check.svg'
           ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq 'package/(src|scripts|tests|storybook|contracts)/'
           ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq '\.(test|stories)\.'
           ! printf '%s\n' "$REACT_CONTENTS" | grep -Eq '\.contract\.json$'
@@ -79,7 +81,7 @@ jobs:
           import { tokens } from '@design-system-exercise/tokens';
           import * as ReactPackage from '@design-system-exercise/react';
 
-          const { Button, IconButton, Link, TextField, SearchField, RadioGroup } = ReactPackage;
+          const { Button, IconButton, Link, TextField, SearchField, RadioGroup, InlineFeedback } = ReactPackage;
           if ('InputControl' in ReactPackage) throw new Error('Private InputControl leaked through public package exports');
           if ('RadioOption' in ReactPackage) throw new Error('Private RadioOption leaked through public package exports');
 
@@ -226,6 +228,26 @@ jobs:
           if (!radioGroupHtml.includes('aria-describedby=')) throw new Error('Radio Group option description binding missing');
           if (radioGroupHtml.includes('role="radiogroup"')) throw new Error('Radio Group invented ARIA role leaked into output');
 
+          if (typeof InlineFeedback !== 'function') throw new Error('Inline Feedback public export missing');
+          const errorFeedbackHtml = renderToStaticMarkup(
+            React.createElement(InlineFeedback, {
+              intent: 'error',
+              title: 'Invitation not sent',
+              message: 'Your entries are kept here; try again.',
+            }),
+          );
+          if (!errorFeedbackHtml.includes('role="alert"')) throw new Error('Inline Feedback error alert semantics missing');
+          if (!errorFeedbackHtml.includes('data-intent="error"')) throw new Error('Inline Feedback error intent missing');
+          if (!errorFeedbackHtml.includes('aria-hidden="true"')) throw new Error('Inline Feedback decorative icon semantics missing');
+          if (!errorFeedbackHtml.includes('Invitation not sent')) throw new Error('Inline Feedback title missing');
+          if (!errorFeedbackHtml.includes('Your entries are kept here; try again.')) throw new Error('Inline Feedback message missing');
+
+          const successFeedbackHtml = renderToStaticMarkup(
+            React.createElement(InlineFeedback, { intent: 'success', message: 'Changes saved.' }),
+          );
+          if (!successFeedbackHtml.includes('role="status"')) throw new Error('Inline Feedback success status semantics missing');
+          if (successFeedbackHtml.includes('dse-inline-feedback__title')) throw new Error('Inline Feedback derived title presence drifted');
+
           const reactCssUrl = import.meta.resolve('@design-system-exercise/react/styles.css');
           if (!reactCssUrl.endsWith('/dist/styles.css')) throw new Error(`Unexpected React CSS export: ${reactCssUrl}`);
           if (!existsSync(new URL(reactCssUrl))) throw new Error('React CSS export missing');
@@ -238,6 +260,7 @@ jobs:
           if (!reactCss.includes('.dse-search-field')) throw new Error('Search Field stylesheet content missing');
           if (!reactCss.includes('.dse-radio-group')) throw new Error('Radio Group stylesheet content missing');
           if (!reactCss.includes('.dse-radio-option')) throw new Error('Private Radio Option stylesheet content missing');
+          if (!reactCss.includes('.dse-inline-feedback')) throw new Error('Inline Feedback stylesheet content missing');
           if (!reactCss.includes('::-webkit-search-cancel-button')) throw new Error('Search Field native cancel suppression missing');
 
           const loaderUrl = new URL('./assets/loader-circle.svg', reactCssUrl);
@@ -251,5 +274,16 @@ jobs:
           }
           if (!readFileSync(clearIconUrl, 'utf8').includes('M11.9108 6.91073C12.2363')) {
             throw new Error('Search Field clear icon asset drifted from the Figma export');
+          }
+
+          const inlineAlertUrl = new URL('./assets/inline-feedback-alert.svg', reactCssUrl);
+          const inlineCheckUrl = new URL('./assets/inline-feedback-check.svg', reactCssUrl);
+          if (!existsSync(inlineAlertUrl)) throw new Error('Inline Feedback alert asset missing from installed package');
+          if (!existsSync(inlineCheckUrl)) throw new Error('Inline Feedback check asset missing from installed package');
+          if (!readFileSync(inlineAlertUrl, 'utf8').includes('M9.99156 1.65527')) {
+            throw new Error('Inline Feedback alert asset drifted from Figma 127:30 instance');
+          }
+          if (!readFileSync(inlineCheckUrl, 'utf8').includes('M17.7446 2.74459')) {
+            throw new Error('Inline Feedback check asset drifted from Figma 127:30 instance');
           }
           NODE
