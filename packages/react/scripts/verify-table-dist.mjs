@@ -40,12 +40,12 @@ for (const required of [
   '>Status</th>',
   '>Details</th>',
   'data-selected="true"',
-  'colspan="4"',
   '1 person shown',
   'aria-label="View Sara Ahmed details"',
 ]) {
   if (!html.includes(required)) throw new Error(`Table semantic distribution missing: ${required}`);
 }
+if (!/colspan="4"/i.test(html)) throw new Error('Table footer did not span all four columns');
 if (html.includes('role="grid"')) throw new Error('Table distribution invented data-grid semantics');
 if (html.includes('aria-selected=')) throw new Error('Table selected row invented grid/listbox selection semantics');
 if (html.includes('type="checkbox"')) throw new Error('Table distribution invented bulk-selection checkbox');
