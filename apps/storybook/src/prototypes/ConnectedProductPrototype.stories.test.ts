@@ -14,8 +14,8 @@ describe('Connected Product Prototype Storybook entry', () => {
     const module = await loadStories();
     if (!module) return;
 
-    expect(module.prototypeMeta.title).toBe('Prototypes/Connected Product Prototype');
-    const description = module.prototypeMeta.parameters?.docs?.description?.component ?? '';
+    expect(module.default.title).toBe('Prototypes/Connected Product Prototype');
+    const description = module.default.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/199:10635/);
     expect(description).toMatch(/wide/i);
     expect(description).toMatch(/39/);
@@ -65,7 +65,7 @@ describe('Connected Product Prototype Storybook entry', () => {
     const module = await loadStories();
     if (!module) return;
 
-    const description = module.prototypeMeta.parameters?.docs?.description?.component ?? '';
+    const description = module.default.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/storybook|demo/i);
     expect(description).toMatch(/P02|P03|P04|P05/);
     expect(description).toMatch(/not.*contract|does not.*contract/i);
