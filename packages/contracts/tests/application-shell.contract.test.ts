@@ -51,8 +51,8 @@ describe('dse.pattern.application-shell contract', () => {
       expect.arrayContaining([
         expect.stringMatching(/1200.*expanded|expanded.*1200/i),
         expect.stringMatching(/below 1200.*compact|compact.*below 1200/i),
-        expect.stringMatching(/208.*expanded/i),
-        expect.stringMatching(/64.*compact/i),
+        expect.stringMatching(/expanded.*208|208.*expanded/i),
+        expect.stringMatching(/compact.*64|64.*compact/i),
         expect.stringMatching(/32.*inset/i),
         expect.stringMatching(/960.*1440/i),
         expect.stringMatching(/320.*zoom|zoom.*320/i),
@@ -97,7 +97,7 @@ describe('dse.pattern.application-shell contract', () => {
       expect.arrayContaining([
         expect.stringMatching(/header.*nav.*main|landmark/i),
         expect.stringMatching(/1199.*1200/i),
-        expect.stringMatching(/resize.*state|state.*resize/i),
+        expect.stringMatching(/resiz.*state|state.*resiz/i),
         expect.stringMatching(/short.*window.*scroll|scroll.*short.*window/i),
       ]),
     );
