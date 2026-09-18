@@ -36,9 +36,34 @@ const arabicRoleOptions = [
 
 function MemberHeader({ arabic = false }: { arabic?: boolean }) {
   return (
-    <div style={{ display: 'grid', gap: 4 }}>
-      <strong style={{ fontSize: 18 }}>{arabic ? 'سارة أحمد' : 'Sara Ahmed'}</strong>
-      <span style={{ color: 'var(--dse-color-semantic-fg-secondary)', fontSize: 14 }}>
+    <div
+      style={{
+        display: 'grid',
+        gap: 'var(--dse-spacing-primitive-space-100)',
+      }}
+    >
+      <strong
+        style={{
+          color: 'var(--dse-color-semantic-fg-primary)',
+          fontFamily: 'var(--dse-typography-semantic-title-component-family)',
+          fontSize: 'var(--dse-typography-semantic-title-component-size)',
+          fontWeight: 'var(--dse-typography-semantic-title-component-weight)',
+          lineHeight: 'var(--dse-typography-semantic-title-component-line-height)',
+          letterSpacing: 'var(--dse-typography-semantic-title-component-letter-spacing)',
+        }}
+      >
+        {arabic ? 'سارة أحمد' : 'Sara Ahmed'}
+      </strong>
+      <span
+        style={{
+          color: 'var(--dse-color-semantic-fg-secondary)',
+          fontFamily: 'var(--dse-typography-semantic-body-small-family)',
+          fontSize: 'var(--dse-typography-semantic-body-small-size)',
+          fontWeight: 'var(--dse-typography-semantic-body-small-weight)',
+          lineHeight: 'var(--dse-typography-semantic-body-small-line-height)',
+          letterSpacing: 'var(--dse-typography-semantic-body-small-letter-spacing)',
+        }}
+      >
         sara@example.com
       </span>
     </div>
@@ -47,11 +72,36 @@ function MemberHeader({ arabic = false }: { arabic?: boolean }) {
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ display: 'grid', gap: 4 }}>
-      <span style={{ color: 'var(--dse-color-semantic-fg-secondary)', fontSize: 12 }}>
+    <div
+      style={{
+        display: 'grid',
+        gap: 'var(--dse-spacing-primitive-space-100)',
+      }}
+    >
+      <span
+        style={{
+          color: 'var(--dse-color-semantic-fg-secondary)',
+          fontFamily: 'var(--dse-typography-semantic-label-small-family)',
+          fontSize: 'var(--dse-typography-semantic-label-small-size)',
+          fontWeight: 'var(--dse-typography-semantic-label-small-weight)',
+          lineHeight: 'var(--dse-typography-semantic-label-small-line-height)',
+          letterSpacing: 'var(--dse-typography-semantic-label-small-letter-spacing)',
+        }}
+      >
         {label}
       </span>
-      <span>{value}</span>
+      <span
+        style={{
+          color: 'var(--dse-color-semantic-fg-primary)',
+          fontFamily: 'var(--dse-typography-semantic-body-default-family)',
+          fontSize: 'var(--dse-typography-semantic-body-default-size)',
+          fontWeight: 'var(--dse-typography-semantic-body-default-weight)',
+          lineHeight: 'var(--dse-typography-semantic-body-default-line-height)',
+          letterSpacing: 'var(--dse-typography-semantic-body-default-letter-spacing)',
+        }}
+      >
+        {value}
+      </span>
     </div>
   );
 }

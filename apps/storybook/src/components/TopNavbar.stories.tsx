@@ -58,8 +58,8 @@ function MoonIcon() {
     <span
       style={{
         display: 'block',
-        inlineSize: 20,
-        blockSize: 20,
+        inlineSize: 'var(--dse-icons-size-md)',
+        blockSize: 'var(--dse-icons-size-md)',
         background: 'currentColor',
         WebkitMaskImage: `url("${moonIconUrl}")`,
         WebkitMaskPosition: 'center',
@@ -80,7 +80,7 @@ function Account({ arabic = false }: { arabic?: boolean }) {
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 16,
+        gap: 'var(--dse-spacing-semantic-gap-md)',
         whiteSpace: 'nowrap',
         color: 'var(--dse-color-semantic-fg-secondary)',
         fontFamily: 'var(--dse-typography-semantic-body-small-family)',
@@ -92,7 +92,13 @@ function Account({ arabic = false }: { arabic?: boolean }) {
         aria-label={arabic ? 'التبديل إلى الوضع الداكن' : 'Switch to dark mode'}
         icon={<MoonIcon />}
       />
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'var(--dse-spacing-primitive-space-300)',
+        }}
+      >
         <span dir="auto">{arabic ? 'أمل حسن · مشرفة' : 'Amal Hassan · Admin'}</span>
         <Avatar initials={arabic ? 'أح' : 'AH'} />
       </div>

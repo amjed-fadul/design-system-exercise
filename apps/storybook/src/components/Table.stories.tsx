@@ -20,7 +20,7 @@ function Identity({ initials, name, email }: IdentityProps) {
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 12,
+        gap: 'var(--dse-spacing-primitive-space-300)',
         minWidth: 0,
       }}
     >

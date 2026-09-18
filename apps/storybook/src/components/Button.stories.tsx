@@ -5,18 +5,31 @@ const emphasisOptions = ['primary', 'secondary', 'text'] as const;
 const toneOptions = ['default', 'critical'] as const;
 const iconPositionOptions = ['leading', 'trailing'] as const;
 
+const arrowIconUrl = new URL(
+  '../patterns/assets/application-shell-view-chevron.svg',
+  import.meta.url,
+).href;
+
 function ArrowIcon() {
   return (
-    <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-      <path
-        d="M4 10h12M11 5l5 5-5 5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <span
+      aria-hidden="true"
+      data-dse-directional-icon="true"
+      style={{
+        display: 'block',
+        inlineSize: 'var(--dse-icons-size-md)',
+        blockSize: 'var(--dse-icons-size-md)',
+        background: 'currentColor',
+        WebkitMaskImage: `url("${arrowIconUrl}")`,
+        WebkitMaskPosition: 'center',
+        WebkitMaskRepeat: 'no-repeat',
+        WebkitMaskSize: 'contain',
+        maskImage: `url("${arrowIconUrl}")`,
+        maskPosition: 'center',
+        maskRepeat: 'no-repeat',
+        maskSize: 'contain',
+      }}
+    />
   );
 }
 
@@ -76,9 +89,23 @@ export const EmphasisMatrix: Story = {
     const arabic = context.globals.language === 'arabic';
     const label = arabic ? 'متابعة' : 'Continue';
     return (
-      <div style={{ display: 'grid', gap: 16, maxWidth: 720 }}>
+      <div
+        style={{
+          display: 'grid',
+          gap: 'var(--dse-spacing-semantic-gap-md)',
+          maxWidth: 720,
+        }}
+      >
         {toneOptions.map((tone) => (
-          <div key={tone} style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
+          <div
+            key={tone}
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 'var(--dse-spacing-primitive-space-300)',
+              alignItems: 'center',
+            }}
+          >
             {emphasisOptions.map((emphasis) => (
               <Button key={`${tone}-${emphasis}`} emphasis={emphasis} tone={tone}>
                 {label}
