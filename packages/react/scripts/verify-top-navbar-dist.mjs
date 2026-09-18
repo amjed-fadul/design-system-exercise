@@ -16,7 +16,7 @@ const html = renderToStaticMarkup(
 );
 if (!html.includes('<header')) throw new Error('TopNavbar did not render a native header');
 if (!html.includes('class="dse-top-navbar"')) throw new Error('TopNavbar root class missing');
-if (!html.includes('data-order="forward"')) throw new Error('TopNavbar fixed forward composition marker missing');
+if (!html.includes('data-order="forward"')) throw new Error('TopNavbar forward DOM composition marker missing');
 if (!html.includes('Workspace administration')) throw new Error('TopNavbar default context missing');
 if (!html.includes('Northstar')) throw new Error('TopNavbar Brand content missing');
 if (!html.includes('Amal Hassan · Admin')) throw new Error('TopNavbar Account content missing');
@@ -44,11 +44,16 @@ if (!blankContextRejected) throw new Error('TopNavbar accepted a blank visible c
 const cssUrl = new URL('../dist/styles.css', import.meta.url);
 if (!existsSync(cssUrl)) throw new Error('React distribution stylesheet missing');
 const css = readFileSync(cssUrl, 'utf8');
+for (const forbidden of ['direction: ltr', 'flex-direction: row-reverse']) {
+  if (css.includes(forbidden)) {
+    throw new Error(`TopNavbar distributed CSS must inherit logical direction; found: ${forbidden}`);
+  }
+}
+
 for (const required of [
   '.dse-top-navbar',
   'block-size: 64px',
   'inline-size: 100%',
-  'direction: ltr',
   'gap: 20px',
   'var(--dse-color-semantic-surface-default)',
   'var(--dse-color-semantic-border-subtle)',
