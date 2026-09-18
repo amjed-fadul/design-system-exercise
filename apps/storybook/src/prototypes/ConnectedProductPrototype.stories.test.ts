@@ -26,7 +26,10 @@ describe('Connected Product Prototype Storybook entry', () => {
     if (!module) return;
 
     const html = renderToStaticMarkup(
-      module.Connected.render?.({} as never, { globals: { language: 'english' } } as never),
+      module.Connected.render?.(
+        {} as never,
+        { globals: { language: 'english', theme: 'light' } } as never,
+      ),
     );
     expect(html).toContain('dse-application-shell');
     expect(html).toContain('Team members');
@@ -35,18 +38,22 @@ describe('Connected Product Prototype Storybook entry', () => {
     expect(html).toContain('Invite member');
   });
 
-  it('uses the same Connected prototype for Arabic toolbar mode with RTL-localized copy', async () => {
+  it('uses the same single Connected story for toolbar-controlled Arabic + Dark mode', async () => {
     const module = await loadStories();
     if (!module) return;
 
-    expect(module.Arabic.globals?.language).toBe('arabic');
+    expect(module.Arabic).toBeUndefined();
 
     const html = renderToStaticMarkup(
-      module.Connected.render?.({} as never, { globals: { language: 'arabic' } } as never),
+      module.Connected.render?.(
+        {} as never,
+        { globals: { language: 'arabic', theme: 'dark' } } as never,
+      ),
     );
 
     expect(html).toContain('dir="rtl"');
     expect(html).toContain('lang="ar"');
+    expect(html).toContain('data-theme="dark"');
     expect(html).toContain('أعضاء الفريق');
     expect(html).toContain('سارة أحمد');
     expect(html).toContain('دعوة عضو');
