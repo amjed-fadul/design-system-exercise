@@ -15,7 +15,6 @@ const meta = {
   },
 } satisfies Meta<typeof ConnectedProductPrototype>;
 
-export const prototypeMeta = meta;
 export default meta;
 
 type Story = StoryObj<typeof meta>;
