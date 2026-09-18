@@ -17,11 +17,11 @@ describe('Top Navbar CSS boundary', () => {
     expect(css).toMatch(/gap:\s*20px/);
   });
 
-  it('keeps the Figma forward composition physically left-to-right while allowing slot text to choose its own direction', () => {
+  it('inherits document direction so Brand stays inline-start and Account stays inline-end', () => {
     const css = readFileSync(cssPath, 'utf8');
 
-    expect(css).toMatch(/\.dse-top-navbar\s*\{[\s\S]*direction:\s*ltr/);
-    expect(css).not.toMatch(/\[dir=['"]rtl['"]\][^{]*\.dse-top-navbar/);
+    expect(css).not.toMatch(/\.dse-top-navbar\s*\{[\s\S]*direction:\s*ltr/);
+    expect(css).not.toMatch(/\.dse-top-navbar__content\s*\{[\s\S]*direction:\s*ltr/);
     expect(css).not.toMatch(/flex-direction:\s*row-reverse/);
   });
 
