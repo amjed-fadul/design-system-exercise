@@ -10,3 +10,32 @@
 .plane-row{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:center;padding:16px;border:1px solid var(--dse-color-semantic-border-subtle);border-radius:var(--dse-radius-shape-surface);background:var(--dse-color-semantic-surface-raised)}
 .plane-row>div{display:grid;gap:4px}
 .plane-level{display:grid;place-items:center;width:40px;height:40px;border-radius:999px;background:var(--dse-color-semantic-surface-section);font-weight:600}
+
+
+/* Keep Storybook Autodocs on the same semantic theme as the DS globals. */
+.sbdocs-wrapper,
+.sbdocs-content {
+  background: var(--dse-color-semantic-surface-canvas) !important;
+  color: var(--dse-color-semantic-fg-primary) !important;
+}
+
+.sbdocs-title,
+.sbdocs-subtitle,
+.sbdocs-h1,
+.sbdocs-h2,
+.sbdocs-h3,
+.sbdocs-h4,
+.sbdocs-p,
+.sbdocs-li {
+  color: var(--dse-color-semantic-fg-primary) !important;
+}
+
+.sbdocs-a {
+  color: var(--dse-color-semantic-link-default) !important;
+}
+
+.sbdocs-wrapper code:not([class*='language-']),
+.sbdocs-content code:not([class*='language-']) {
+  color: var(--dse-color-semantic-fg-primary);
+  background: var(--dse-color-semantic-surface-section);
+}
