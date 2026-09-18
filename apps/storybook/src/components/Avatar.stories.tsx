@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Avatar } from '@design-system-exercise/react';
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Data Display/Avatar',
   component: Avatar,
   args: {

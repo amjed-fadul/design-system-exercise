@@ -30,6 +30,7 @@ function localizedArgs(args: ButtonProps, language: string | undefined): ButtonP
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Controls/Button',
   component: Button,
   args: {

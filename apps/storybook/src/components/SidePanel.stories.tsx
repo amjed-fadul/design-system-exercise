@@ -111,6 +111,7 @@ function SidePanelCanvas(args: SidePanelProps) {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Feedback & Surfaces/Side Panel',
   component: SidePanel,
   args: {

@@ -40,6 +40,7 @@ function localizedArgs(
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Controls/Icon Button',
   component: IconButton,
   args: {

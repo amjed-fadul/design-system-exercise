@@ -50,6 +50,7 @@ function PageHeadingCanvas(args: PageHeadingProps) {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Navigation/Page Heading',
   component: PageHeading,
   args: {

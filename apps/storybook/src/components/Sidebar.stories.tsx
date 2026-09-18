@@ -65,6 +65,7 @@ function SidebarCanvas(args: SidebarProps) {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Navigation/Sidebar',
   component: Sidebar,
   args: {

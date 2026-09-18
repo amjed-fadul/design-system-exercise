@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { InlineFeedback } from '@design-system-exercise/react';
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Feedback/Inline Feedback',
   component: InlineFeedback,
   decorators: [

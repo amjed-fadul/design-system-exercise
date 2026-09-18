@@ -15,6 +15,7 @@ function localizedArgs(args: TextFieldProps, language: string | undefined): Text
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Controls/Text Field',
   component: TextField,
   args: {

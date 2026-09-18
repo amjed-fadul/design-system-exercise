@@ -21,6 +21,7 @@ function EmptyStateCanvas(args: EmptyStateProps) {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Feedback & Surfaces/Empty State',
   component: EmptyState,
   args: {

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { StatusBadge } from '@design-system-exercise/react';
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Data Display/Status Badge',
   component: StatusBadge,
   args: {

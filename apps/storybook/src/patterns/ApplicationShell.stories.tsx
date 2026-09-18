@@ -295,6 +295,7 @@ function ShellCanvas({
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Patterns/Application Shell',
   component: ApplicationShell,
   args: {

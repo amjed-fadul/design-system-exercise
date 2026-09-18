@@ -46,6 +46,7 @@ function ControlledDemo() {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Controls/Radio Group',
   component: RadioGroup,
   decorators: [

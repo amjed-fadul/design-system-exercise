@@ -117,6 +117,7 @@ function TopNavbarCanvas(args: TopNavbarProps) {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Navigation/Top Navbar',
   component: TopNavbar,
   args: {

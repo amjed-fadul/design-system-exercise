@@ -22,6 +22,7 @@ function BreadcrumbsCanvas(args: BreadcrumbsProps) {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Navigation/Breadcrumbs',
   component: Breadcrumbs,
   args: {

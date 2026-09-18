@@ -74,6 +74,7 @@ function DialogCanvas(args: DialogProps) {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Feedback & Surfaces/Dialog',
   component: Dialog,
   args: {

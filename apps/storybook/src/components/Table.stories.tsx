@@ -211,6 +211,7 @@ const renderWide = (args: TableProps) => <TableCanvas args={args} width={1168} /
 const renderNarrow = (args: TableProps) => <TableCanvas args={args} width={736} />;
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Structure/Table',
   component: Table,
   args: {

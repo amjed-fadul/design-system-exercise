@@ -13,6 +13,7 @@ function localizedArgs(args: SearchFieldProps, language: string | undefined): Se
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Controls/Search Field',
   component: SearchField,
   decorators: [

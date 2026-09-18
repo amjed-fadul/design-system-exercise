@@ -10,6 +10,7 @@ function localizedArgs(args: LinkProps, language: string | undefined): LinkProps
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Controls/Link',
   component: Link,
   args: {
