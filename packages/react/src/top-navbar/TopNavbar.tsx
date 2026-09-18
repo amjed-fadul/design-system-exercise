@@ -54,7 +54,7 @@ export function TopNavbar({
   return (
     <header className="dse-top-navbar" data-order="forward">
       <div className="dse-top-navbar__content">
-        <div className="dse-top-navbar__brand" dir="auto">
+        <div className="dse-top-navbar__brand">
           {brand}
         </div>
         {showContext ? (
@@ -63,7 +63,7 @@ export function TopNavbar({
           </span>
         ) : null}
         <div className="dse-top-navbar__flexible-space" aria-hidden="true" />
-        <div className="dse-top-navbar__account" dir="auto">
+        <div className="dse-top-navbar__account">
           {account}
         </div>
       </div>
