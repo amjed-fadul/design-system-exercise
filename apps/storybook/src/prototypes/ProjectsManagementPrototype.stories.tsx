@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Connected Northstar Projects workflow built only from the governed Design System Exercise React components and dse.pattern.application-shell@1.0.0. It covers project search/no-results, create with deterministic fail-then-retry success, non-modal project detail/edit in the governed Side Panel, save failure/retry, and archive confirmation. Product-only code owns fixtures, copy, request simulation, and layout composition; this Storybook demo does not create a new reusable component or pattern contract.',
+          'Connected Northstar Projects workflow built only from the governed Design System Exercise React components and dse.pattern.application-shell@1.0.0. It covers project search/no-results, create with deterministic fail-then-retry success, project detail/edit in the governed Side Panel inside the approved wide modal wrapper, save failure/retry, and archive confirmation. Product-only code owns fixtures, copy, request simulation, and layout composition; this Storybook demo does not create a new reusable component or pattern contract.',
       },
     },
   },

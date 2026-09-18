@@ -71,6 +71,9 @@ describe('Projects Management prototype Storybook entry', () => {
     expect(source).toMatch(/\bRadioGroup\b/);
     expect(source).toMatch(/\bInlineFeedback\b/);
     expect(source).toMatch(/\bEmptyState\b/);
+    expect(source).toContain('dse-product-prototype__detail-backdrop');
+    expect(source).toContain('dse-product-prototype__detail-dialog');
+    expect(source).toContain('aria-modal="true"');
     expect(source).not.toMatch(/<(button|input|table|nav|header|aside|dialog|select|textarea|a)\b/);
     expect(source).not.toMatch(/document\.documentElement/);
   });
@@ -82,6 +85,7 @@ describe('Projects Management prototype Storybook entry', () => {
     const description =
       module.default.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/governed Design System Exercise/i);
+    expect(description).toMatch(/approved wide modal wrapper/i);
     expect(description).toMatch(/does not create.*contract/i);
     expect(description).toMatch(/product-only/i);
   });

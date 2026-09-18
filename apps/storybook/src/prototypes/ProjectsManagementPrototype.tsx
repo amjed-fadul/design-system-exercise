@@ -482,6 +482,9 @@ export function ProjectsManagementPrototype({
   const [archiveOpen, setArchiveOpen] = useState(false);
 
   const timers = useRef<number[]>([]);
+  const shellHostRef = useRef<HTMLDivElement>(null);
+  const detailDialogRef = useRef<HTMLDivElement>(null);
+  const lastProjectTrigger = useRef<HTMLElement | null>(null);
 
   const schedule = (callback: () => void) => {
     const id = window.setTimeout(callback, 450);
@@ -503,6 +506,106 @@ export function ProjectsManagementPrototype({
   const selectedProject = selectedId
     ? projects.find((project) => project.id === selectedId) ?? null
     : null;
+
+  useEffect(() => {
+    const host = shellHostRef.current;
+    if (!host) return;
+
+    if (selectedProject) {
+      host.inert = true;
+      host.setAttribute('aria-hidden', 'true');
+    } else {
+      host.inert = false;
+      host.removeAttribute('aria-hidden');
+    }
+  }, [selectedProject]);
+
+  useEffect(() => {
+    if (!selectedProject || archiveOpen) return;
+
+    const dialog = detailDialogRef.current;
+    if (!dialog) return;
+
+    const focusableSelector = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(',');
+
+    const firstFocusable = Array.from(
+      dialog.querySelectorAll<HTMLElement>(focusableSelector),
+    ).find(
+      (element) =>
+        !element.hidden && element.getAttribute('aria-hidden') !== 'true',
+    );
+
+    (firstFocusable ?? dialog).focus();
+  }, [selectedProject?.id, archiveOpen]);
+
+  useEffect(() => {
+    if (!selectedProject || archiveOpen) return;
+
+    const dialog = detailDialogRef.current;
+    if (!dialog) return;
+
+    const focusableSelector = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(',');
+
+    const focusables = () =>
+      Array.from(dialog.querySelectorAll<HTMLElement>(focusableSelector)).filter(
+        (element) =>
+          !element.hidden && element.getAttribute('aria-hidden') !== 'true',
+      );
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeProject();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const elements = focusables();
+      if (elements.length === 0) {
+        event.preventDefault();
+        dialog.focus();
+        return;
+      }
+
+      const first = elements[0]!;
+      const last = elements[elements.length - 1]!;
+      const active = document.activeElement;
+      const inside = active instanceof Node && dialog.contains(active);
+
+      if (event.shiftKey && (!inside || active === first)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (!inside || active === last)) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [
+    selectedProject?.id,
+    archiveOpen,
+    draftName,
+    draftKey,
+    draftStatus,
+    savePhase,
+  ]);
 
   const activeCount = projects.filter((project) => project.status === 'Active').length;
   const draftCount = projects.length - activeCount;
@@ -600,8 +703,12 @@ export function ProjectsManagementPrototype({
     });
   };
 
-  const openProject = (project: PrototypeProject) => {
+  const openProject = (
+    project: PrototypeProject,
+    trigger?: HTMLElement | null,
+  ) => {
     setDirectoryFeedback(null);
+    lastProjectTrigger.current = trigger ?? null;
     setSelectedId(project.id);
     setDraftName(project.name);
     setDraftKey(project.key);
@@ -610,6 +717,11 @@ export function ProjectsManagementPrototype({
     setDraftKeyValidation(null);
     setSavePhase('idle');
     setSaveFailedOnce(false);
+  };
+
+  const closeProject = () => {
+    setSelectedId(null);
+    window.setTimeout(() => lastProjectTrigger.current?.focus(), 0);
   };
 
   const updateDraft = () => {
@@ -680,7 +792,7 @@ export function ProjectsManagementPrototype({
             ? `عرض تفاصيل ${displayProjectName(project, language)}`
             : `View ${project.name} details`
         }
-        onClick={() => openProject(project)}
+        onClick={(event) => openProject(project, event.currentTarget)}
       >
         {copy.view}
       </Button>
@@ -809,27 +921,51 @@ export function ProjectsManagementPrototype({
       dir={arabic ? 'rtl' : 'ltr'}
       lang={arabic ? 'ar' : 'en'}
     >
-      <ApplicationShell
-        viewportMode="expanded"
-        sidebar={sidebar}
-        topNavbar={topNavbar}
-        pageHeading={pageHeading}
+      <div
+        ref={shellHostRef}
+        className="dse-product-prototype__shell-host"
       >
-        <div
-          className={
-            selectedProject
-              ? 'dse-projects-prototype__workspace dse-projects-prototype__workspace--detail'
-              : 'dse-projects-prototype__workspace'
-          }
+        <ApplicationShell
+          viewportMode="expanded"
+          sidebar={sidebar}
+          topNavbar={topNavbar}
+          pageHeading={pageHeading}
         >
-          {directory}
+          <div className="dse-projects-prototype__workspace">
+            {directory}
+          </div>
+        </ApplicationShell>
+      </div>
 
-          {selectedProject ? (
+      {selectedProject ? (
+        <div
+          className="dse-product-prototype__detail-backdrop"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) closeProject();
+          }}
+        >
+          <div
+            ref={detailDialogRef}
+            className="dse-product-prototype__detail-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-label={
+              language === 'arabic'
+                ? `تفاصيل المشروع ${displayProjectName(selectedProject, language)}`
+                : `${selectedProject.name} project details`
+            }
+            tabIndex={-1}
+          >
             <SidePanel
               eyebrow={copy.projectDetails}
               closeLabel={copy.closeProjectDetails}
-              onClose={() => setSelectedId(null)}
-              className="dse-projects-prototype__side-panel"
+              onClose={closeProject}
+              className="dse-product-prototype__detail-panel"
+              style={{
+                blockSize: '100%',
+                minBlockSize: '100%',
+                maxBlockSize: '100%',
+              }}
               header={
                 <ProjectPanelHeader
                   project={selectedProject}
@@ -922,9 +1058,9 @@ export function ProjectsManagementPrototype({
                 />
               ) : null}
             </SidePanel>
-          ) : null}
+          </div>
         </div>
-      </ApplicationShell>
+      ) : null}
 
       <Dialog
         open={createOpen}
