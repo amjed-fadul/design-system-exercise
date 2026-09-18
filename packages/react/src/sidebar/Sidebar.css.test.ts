@@ -56,6 +56,15 @@ describe('Sidebar CSS parity', () => {
     expect(css).toMatch(/dse-navigation-item__icon[\s\S]*block-size\s*:\s*var\(--dse-icons-size-md\)/);
   });
 
+  it('keeps the footer visible in constrained shell heights by scrolling only the navigation section', () => {
+    const css = readCss();
+
+    expect(css).toMatch(/\.dse-sidebar\s*\{[\s\S]*overflow:\s*hidden/);
+    expect(css).toMatch(/\.dse-sidebar__navigation-section\s*\{[\s\S]*min-block-size:\s*0/);
+    expect(css).toMatch(/\.dse-sidebar__navigation-section\s*\{[\s\S]*overflow-y:\s*auto/);
+    expect(css).toMatch(/\.dse-sidebar__footer\s*\{[\s\S]*flex:\s*0\s+0\s+auto/);
+  });
+
   it('maps current, hover, pressed, and focus-visible to the live semantic state tokens', () => {
     const css = readCss();
     expect(css).toContain('var(--dse-color-semantic-fg-secondary)');
