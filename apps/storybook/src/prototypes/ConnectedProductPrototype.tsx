@@ -4,6 +4,7 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type CSSProperties,
 } from 'react';
 import {
   Avatar,
@@ -130,19 +131,26 @@ export function inviteEmailError(email: string): string | null {
   return null;
 }
 
-function PrototypeNavIcon({ label }: { label: string }) {
+const overviewIconUrl = new URL('./assets/sidebar-overview.svg', import.meta.url).href;
+const projectsIconUrl = new URL('./assets/sidebar-projects.svg', import.meta.url).href;
+const teamIconUrl = new URL('./assets/sidebar-team.svg', import.meta.url).href;
+const settingsIconUrl = new URL('./assets/sidebar-settings.svg', import.meta.url).href;
+
+function PrototypeNavIcon({ src }: { src: string }) {
   return (
-    <span className="dse-product-prototype__nav-glyph" aria-hidden="true">
-      {label.slice(0, 1)}
-    </span>
+    <span
+      className="dse-product-prototype__nav-glyph"
+      aria-hidden="true"
+      style={{ '--dse-prototype-nav-image': `url("${src}")` } as CSSProperties}
+    />
   );
 }
 
 const navItems: readonly SidebarItem[] = [
-  { id: 'overview', label: 'Overview', href: '#overview', icon: <PrototypeNavIcon label="Overview" /> },
-  { id: 'projects', label: 'Projects', href: '#projects', icon: <PrototypeNavIcon label="Projects" /> },
-  { id: 'team', label: 'Team & access', href: '#team', icon: <PrototypeNavIcon label="Team" /> },
-  { id: 'settings', label: 'Settings', href: '#settings', icon: <PrototypeNavIcon label="Settings" /> },
+  { id: 'overview', label: 'Overview', href: '#overview', icon: <PrototypeNavIcon src={overviewIconUrl} /> },
+  { id: 'projects', label: 'Projects', href: '#projects', icon: <PrototypeNavIcon src={projectsIconUrl} /> },
+  { id: 'team', label: 'Team & access', href: '#team', icon: <PrototypeNavIcon src={teamIconUrl} /> },
+  { id: 'settings', label: 'Settings', href: '#settings', icon: <PrototypeNavIcon src={settingsIconUrl} /> },
 ];
 
 const roleOptions = [
@@ -245,11 +253,52 @@ export function ConnectedProductPrototype() {
   useEffect(() => {
     if (!selectedMember || discardOpen) return;
 
-    detailDialogRef.current?.focus();
+    const dialog = detailDialogRef.current;
+    if (!dialog) return;
+
+    const focusableSelector = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(',');
+
+    const focusables = () =>
+      Array.from(dialog.querySelectorAll<HTMLElement>(focusableSelector)).filter(
+        (element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true',
+      );
+
+    (focusables()[0] ?? dialog).focus();
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault();
         requestRoleClose();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const elements = focusables();
+      if (elements.length === 0) {
+        event.preventDefault();
+        dialog.focus();
+        return;
+      }
+
+      const first = elements[0]!;
+      const last = elements[elements.length - 1]!;
+      const active = document.activeElement;
+      const inside = active instanceof Node && dialog.contains(active);
+
+      if (event.shiftKey && (!inside || active === first)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (!inside || active === last)) {
+        event.preventDefault();
+        first.focus();
       }
     };
 
@@ -526,20 +575,21 @@ export function ConnectedProductPrototype() {
               }
               actions={
                 <>
-                  <Button emphasis="text" onClick={requestRoleClose}>
-                    Back
+                  <Button emphasis="secondary" onClick={requestRoleClose}>
+                    Close
                   </Button>
-                  {savePhase === 'saved' ? (
-                    <Button onClick={closeRoleCleanly}>Close</Button>
-                  ) : (
-                    <Button
-                      loading={savePhase === 'saving'}
-                      loadingLabel={savePhase === 'failed' ? 'Retrying…' : 'Saving…'}
-                      onClick={saveRole}
-                    >
-                      {savePhase === 'failed' ? 'Retry save' : 'Save changes'}
-                    </Button>
-                  )}
+                  <Button
+                    disabled={
+                      savePhase !== 'failed' &&
+                      savePhase !== 'saving' &&
+                      draftRole === selectedMember.role
+                    }
+                    loading={savePhase === 'saving'}
+                    loadingLabel="Saving…"
+                    onClick={saveRole}
+                  >
+                    {savePhase === 'failed' ? 'Retry save' : 'Save changes'}
+                  </Button>
                 </>
               }
             >

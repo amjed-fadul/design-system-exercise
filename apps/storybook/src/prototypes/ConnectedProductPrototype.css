@@ -73,16 +73,18 @@
 }
 
 .dse-product-prototype__nav-glyph {
-  display: grid;
-  place-items: center;
+  display: block;
   inline-size: var(--dse-icons-size-md);
   block-size: var(--dse-icons-size-md);
-  border: 1px solid currentColor;
-  border-radius: 4px;
-  font-family: var(--dse-typography-semantic-label-small-family);
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1;
+  background: currentColor;
+  -webkit-mask-image: var(--dse-prototype-nav-image);
+  mask-image: var(--dse-prototype-nav-image);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .dse-product-prototype__workspace-footer {
