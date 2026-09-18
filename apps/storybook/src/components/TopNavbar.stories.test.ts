@@ -56,6 +56,11 @@ describe('Top Navbar Storybook contract', () => {
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.Arabic.args?.contextLabel).toMatch(/[\u0600-\u06FF]/);
+
+    const arabicBrandHtml = renderToStaticMarkup(module.Arabic.args?.brand ?? null);
+    expect(arabicBrandHtml).toContain('Northstar');
+    expect(arabicBrandHtml).toContain('dir="ltr"');
+    expect(arabicBrandHtml).not.toContain('direction:ltr');
   });
 
   it('composes the Figma appearance control inside the product-owned Account slot without adding it to Top Navbar API', async () => {
