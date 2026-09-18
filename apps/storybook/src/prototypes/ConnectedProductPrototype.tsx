@@ -265,12 +265,34 @@ export function ConnectedProductPrototype() {
       '[tabindex]:not([tabindex="-1"])',
     ].join(',');
 
+    const firstFocusable = Array.from(
+      dialog.querySelectorAll<HTMLElement>(focusableSelector),
+    ).find(
+      (element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true',
+    );
+
+    (firstFocusable ?? dialog).focus();
+  }, [selectedMember?.id, discardOpen]);
+
+  useEffect(() => {
+    if (!selectedMember || discardOpen) return;
+
+    const dialog = detailDialogRef.current;
+    if (!dialog) return;
+
+    const focusableSelector = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(',');
+
     const focusables = () =>
       Array.from(dialog.querySelectorAll<HTMLElement>(focusableSelector)).filter(
         (element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true',
       );
-
-    (focusables()[0] ?? dialog).focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -304,7 +326,13 @@ export function ConnectedProductPrototype() {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  });
+  }, [
+    selectedMember?.id,
+    selectedMember?.role,
+    discardOpen,
+    draftRole,
+    savePhase,
+  ]);
 
   const activeCount = members.filter((member) => member.status === 'Active').length;
   const pendingCount = members.length - activeCount;
