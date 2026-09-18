@@ -25,12 +25,33 @@ describe('Connected Product Prototype Storybook entry', () => {
     const module = await loadStories();
     if (!module) return;
 
-    const html = renderToStaticMarkup(module.Connected.render?.({} as never, {} as never));
+    const html = renderToStaticMarkup(
+      module.Connected.render?.({} as never, { globals: { language: 'english' } } as never),
+    );
     expect(html).toContain('dse-application-shell');
     expect(html).toContain('Team members');
     expect(html).toContain('7 people');
     expect(html).toContain('Sara Ahmed');
     expect(html).toContain('Invite member');
+  });
+
+  it('uses the same Connected prototype for Arabic toolbar mode with RTL-localized copy', async () => {
+    const module = await loadStories();
+    if (!module) return;
+
+    expect(module.Arabic.globals?.language).toBe('arabic');
+
+    const html = renderToStaticMarkup(
+      module.Connected.render?.({} as never, { globals: { language: 'arabic' } } as never),
+    );
+
+    expect(html).toContain('dir="rtl"');
+    expect(html).toContain('lang="ar"');
+    expect(html).toContain('أعضاء الفريق');
+    expect(html).toContain('سارة أحمد');
+    expect(html).toContain('دعوة عضو');
+    expect(html).toContain('الفريق والصلاحيات');
+    expect(html).not.toContain('Team members');
   });
 
   it('keeps prototype-only behavior out of the reusable pattern API', async () => {
