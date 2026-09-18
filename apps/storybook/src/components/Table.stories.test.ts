@@ -93,8 +93,8 @@ describe('Table Storybook contract', () => {
     expect(defaultHtml).toContain('<tfoot');
     expect(defaultHtml).toContain('scope="col"');
     expect(defaultHtml).toContain('aria-label="View Sara Ahmed details"');
-    expect(defaultHtml).toContain('max-width:1168px');
-    expect(defaultHtml).toContain('min-width:736px');
+    expect(defaultHtml).toContain('max-inline-size:1168px');
+    expect(defaultHtml).toContain('min-inline-size:736px');
     expect(defaultHtml).not.toContain('role="grid"');
     expect(defaultHtml).not.toContain('type="checkbox"');
 
