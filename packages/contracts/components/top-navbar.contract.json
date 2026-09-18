@@ -139,6 +139,7 @@
       "The reviewed bar remains exactly 64 CSS pixels high with 24px physical inline inset, a 20px internal region gap, and a 1px semantic subtle bottom divider.",
       "The shell composition follows logical inline direction: Brand, optional context, flexible space, then Account in DOM order. Brand occupies inline-start and Account occupies inline-end, so inherited LTR places Brand left / Account right while inherited RTL places Brand right / Account left.",
       "Brand and Account compositions follow inherited shell direction so their internal item order mirrors in RTL. Individual text or artwork inside a slot may set a narrower text direction only when needed—for example, the Latin Northstar word remains LTR while the Brand mark stays at logical inline-start.",
+      "Brand and Account slot wrappers inherit the surrounding document direction and must not set dir=auto or force LTR. This allows the Brand mark and Account items to keep logical inline order in RTL. Context text may use direction auto for readable mixed-language text.",
       "The Figma order=forward selector has only the reviewed forward value and is not a product decision or public React prop.",
       "Light/Dark appearance is inherited from semantic tokens. Top Navbar exposes no theme prop.",
       "When showContext is true, contextLabel must be a non-empty string; hiding context removes only that region and does not change Brand or Account identity.",
