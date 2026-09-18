@@ -44,15 +44,15 @@ The runtime consumes the existing layout token authority rather than introducing
 
 ```ts
 export interface ApplicationShellProps {
-  sidebar: React.ReactElement<SidebarProps>;
-  topNavbar: React.ReactNode;
-  pageHeading?: React.ReactNode;
+  sidebar: React.ReactElement<SidebarProps, typeof Sidebar>;
+  topNavbar: React.ReactElement<TopNavbarProps, typeof TopNavbar>;
+  pageHeading?: React.ReactElement<PageHeadingProps, typeof PageHeading>;
   children: React.ReactNode;
   viewportMode?: 'auto' | 'expanded' | 'compact';
 }
 ```
 
-The original planning sketch used a generic `ReactNode` Sidebar boundary. The fresh audit caught that this conflicts with the already-approved Sidebar contract, which explicitly assigns responsive Sidebar mode selection to Application Shell. P01 therefore preserves the supplied governed Sidebar element and clones only its `mode` prop.
+The original planning sketch used a generic `ReactNode` Sidebar boundary. The fresh audit caught that this conflicts with the already-approved Sidebar contract, which explicitly assigns responsive Sidebar mode selection to Application Shell. P01 therefore requires the actual governed Sidebar element and clones only its `mode` prop. Final self-review tightened the other shell regions as well: Top Navbar and optional Page Heading must also be their governed component elements, with runtime rejection of substitutes.
 
 `expanded` and `compact` are deterministic Storybook/test overrides. They are not new product states.
 
@@ -106,21 +106,21 @@ The evidence composes the existing Top Navbar, Sidebar, Page Heading, Breadcrumb
 
 Implementation/package HEAD:
 
-`d5aca009091e5632e23e7ef365a8bc82f45fd829`
+`f0270695c682efce6a9d5d97dc470a92cc51798b`
 
 GitHub Actions:
 
-- **run 406 — PASS on that exact implementation/package HEAD**
+- **run 408 — PASS on that exact implementation/package HEAD**
 
-Final run 406 evidence:
+Final run 408 evidence:
 
 - contract repository validation: **23 component contracts + 1 pattern contract**
-- Contracts tests: **88/88**
+- Contracts tests: **89/89**
 - Tokens tests: **17/17**
 - React tests: **210/210**
-- Patterns tests: **6/6**
+- Patterns tests: **10/10**
 - Storybook tests: **58/58**
-- **379 automated tests passing**
+- **384 automated tests passing**
 - TypeScript typecheck: **PASS**
 - Storybook production build: **PASS**
 - Tokens package pack/install verification: **PASS**
@@ -139,6 +139,9 @@ Notable corrections before closure:
 3. **Runtime test isolation** — one test left rendered DOM available to a later case, producing duplicate stateful controls; explicit cleanup was added.
 4. **Storybook API parity** — the Application Shell fixture initially omitted Search Field's required `clearButtonLabel`; typecheck caught it and the fixture was corrected.
 5. **Package gate** — fresh final review found that CI activated the Patterns package without actually packing/installing it. CI now packs Tokens, React, and Patterns and verifies the installed Application Shell.
+6. **Governed composition boundary** — the first green implementation typed Sidebar props but could still accept substitute React element types, while Top Navbar/Page Heading were generic React nodes. Final re-review tightened TypeScript and runtime checks so only the actual governed Sidebar, Top Navbar, and optional Page Heading components satisfy those shell regions.
+7. **Pattern dependency versions** — repository validation resolved dependency IDs but ignored each pattern contract's declared `minimumVersion`. The final hardening adds numeric semantic-version comparison and rejects an installed public component contract below the declared minimum.
+8. **Pattern package regression gate** — a source-level package test now locks the public entry/style exports, runtime package dependencies, absence of a production contracts dependency, and the Application Shell prepack verifier.
 
 ## Figma knowledge synchronization
 
@@ -146,14 +149,15 @@ After run 406 passed and the fresh final review found no remaining Critical/Impo
 
 - `patterns-and-product.md` was updated to identify `dse.pattern.application-shell@1.0.0` as the first validated pattern contract.
 - P02–P05 remain guidance-only until their own contracts validate.
-- P01 implementation evidence records HEAD `d5aca009091e5632e23e7ef365a8bc82f45fd829` and CI run 406.
-- Independent read-back confirmed the contract marker, implementation HEAD, and run 406 marker persisted in Figma node `3024:9815`.
+- P01 implementation evidence records HEAD `f0270695c682efce6a9d5d97dc470a92cc51798b` and CI run 408.
+- The synchronized evidence also records the exact governed component composition hardening, minimum component-contract version enforcement, and the **384-test** verification total.
+- Independent read-back confirmed the contract marker, implementation HEAD, run 408 marker, 384-test marker, and minimum-version marker persisted in Figma node `3024:9815`.
 
 ## Final self-review
 
 **APPROVED — no unresolved Critical or Important findings.**
 
-The final review compared the complete C17 → P01 diff against the current live Figma Application Shell authority and token/layout facts again. The only fresh Important finding was the missing installed-package CI proof for the new Patterns package; that was corrected and run 406 passed afterward.
+The final review compared the complete C17 → P01 diff against the current live Figma Application Shell authority and token/layout facts again. Review corrections closed the missing installed-package CI proof, overly permissive shell component composition, and missing `minimumVersion` enforcement for pattern dependencies. Run 408 then passed the complete repository/package gate on the hardened implementation. A duplicate test-cleanup hook was also removed as a minor test-quality cleanup.
 
 Scope remains P01-only. No P02 workflow implementation has started.
 
