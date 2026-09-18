@@ -12,30 +12,8 @@
 .plane-level{display:grid;place-items:center;width:40px;height:40px;border-radius:999px;background:var(--dse-color-semantic-surface-section);font-weight:600}
 
 
-/* Keep Storybook Autodocs on the same semantic theme as the DS globals. */
-.sbdocs-wrapper,
-.sbdocs-content {
+/* Theme only the embedded Docs playground; keep the Docs page itself neutral. */
+.dse-docs-canvas {
   background: var(--dse-color-semantic-surface-canvas) !important;
   color: var(--dse-color-semantic-fg-primary) !important;
-}
-
-.sbdocs-title,
-.sbdocs-subtitle,
-.sbdocs-h1,
-.sbdocs-h2,
-.sbdocs-h3,
-.sbdocs-h4,
-.sbdocs-p,
-.sbdocs-li {
-  color: var(--dse-color-semantic-fg-primary) !important;
-}
-
-.sbdocs-a {
-  color: var(--dse-color-semantic-link-default) !important;
-}
-
-.sbdocs-wrapper code:not([class*='language-']),
-.sbdocs-content code:not([class*='language-']) {
-  color: var(--dse-color-semantic-fg-primary);
-  background: var(--dse-color-semantic-surface-section);
 }

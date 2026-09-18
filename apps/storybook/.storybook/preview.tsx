@@ -14,6 +14,13 @@ import { direction, languageCode, resolveStoryPresentation } from '../src/presen
 
 const preview: Preview = {
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      canvas: {
+        className: 'dse-docs-canvas',
+      },
+    },
+  },
   globalTypes: {
     theme: {
       description: 'Color theme',
