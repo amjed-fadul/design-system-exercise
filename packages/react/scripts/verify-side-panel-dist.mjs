@@ -65,6 +65,12 @@ if (!css.includes('var(--dse-color-semantic-surface-raised)')) {
 if (!css.includes('var(--dse-radius-shape-surface)')) {
   throw new Error('Side Panel surface radius token missing from built distribution');
 }
+if (!css.includes('var(--dse-border-role-container)')) {
+  throw new Error('Side Panel container border token missing from built distribution');
+}
+if (!css.includes('var(--dse-border-role-divider)')) {
+  throw new Error('Side Panel divider border token missing from built distribution');
+}
 if (!css.includes("url('./assets/x.svg')")) {
   throw new Error('Side Panel close icon asset reference missing from built distribution');
 }

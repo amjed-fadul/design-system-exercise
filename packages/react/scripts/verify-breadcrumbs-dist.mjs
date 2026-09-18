@@ -78,7 +78,7 @@ for (const required of [
   '.dse-breadcrumb-link-item',
   'inline-size: fit-content',
   'max-inline-size: 100%',
-  'gap: 8px',
+  'var(--dse-spacing-semantic-gap-sm)',
   'flex-wrap: nowrap',
   'white-space: nowrap',
   'var(--dse-color-semantic-fg-secondary)',

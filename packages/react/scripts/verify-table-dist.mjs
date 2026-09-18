@@ -92,6 +92,12 @@ for (const required of [
   'inline-size: 156px',
   'var(--dse-color-semantic-state-hover)',
   'var(--dse-color-semantic-state-selected)',
+  'var(--dse-border-role-container)',
+  'var(--dse-border-role-divider)',
+  'var(--dse-spacing-primitive-space-200)',
+  'var(--dse-spacing-primitive-space-300)',
+  'var(--dse-spacing-primitive-space-400)',
+  'var(--dse-spacing-primitive-space-500)',
   'var(--dse-typography-semantic-label-default-family)',
   'var(--dse-typography-semantic-caption-default-family)',
 ]) {
