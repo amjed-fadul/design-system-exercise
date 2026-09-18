@@ -81,7 +81,7 @@ function Account({ arabic = false }: { arabic?: boolean }) {
   );
 }
 
-function ShellSidebar({ arabic = false }: { arabic?: boolean }) {
+function shellSidebar(arabic = false) {
   return (
     <Sidebar
       label={arabic ? 'مساحة العمل' : 'WORKSPACE'}
@@ -99,7 +99,7 @@ function ShellSidebar({ arabic = false }: { arabic?: boolean }) {
   );
 }
 
-function ShellTopNavbar({ arabic = false }: { arabic?: boolean }) {
+function shellTopNavbar(arabic = false) {
   return (
     <TopNavbar
       brand={<Brand />}
@@ -109,7 +109,7 @@ function ShellTopNavbar({ arabic = false }: { arabic?: boolean }) {
   );
 }
 
-function ShellPageHeading({ arabic = false }: { arabic?: boolean }) {
+function shellPageHeading(arabic = false) {
   return (
     <PageHeading
       title={arabic ? 'أعضاء الفريق' : 'Team members'}
@@ -248,9 +248,9 @@ function ShellCanvas({
     >
       <ApplicationShell
         {...args}
-        sidebar={<ShellSidebar arabic={arabic} />}
-        topNavbar={<ShellTopNavbar arabic={arabic} />}
-        pageHeading={<ShellPageHeading arabic={arabic} />}
+        sidebar={shellSidebar(arabic)}
+        topNavbar={shellTopNavbar(arabic)}
+        pageHeading={shellPageHeading(arabic)}
       >
         <DirectoryContent arabic={arabic} />
       </ApplicationShell>
@@ -262,9 +262,9 @@ const meta = {
   title: 'Patterns/Application Shell',
   component: ApplicationShell,
   args: {
-    sidebar: <ShellSidebar />,
-    topNavbar: <ShellTopNavbar />,
-    pageHeading: <ShellPageHeading />,
+    sidebar: shellSidebar(),
+    topNavbar: shellTopNavbar(),
+    pageHeading: shellPageHeading(),
     children: <DirectoryContent />,
     viewportMode: 'auto',
   },

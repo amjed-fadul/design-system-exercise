@@ -4,16 +4,23 @@ import {
   type ReactElement,
   type ReactNode,
 } from 'react';
-import type { SidebarProps } from '@design-system-exercise/react';
+import {
+  PageHeading,
+  Sidebar,
+  TopNavbar,
+  type PageHeadingProps,
+  type SidebarProps,
+  type TopNavbarProps,
+} from '@design-system-exercise/react';
 import { tokens } from '@design-system-exercise/tokens';
 
 export type ApplicationShellViewportMode = 'auto' | 'expanded' | 'compact';
 export type ApplicationShellResolvedMode = Exclude<ApplicationShellViewportMode, 'auto'>;
 
 export interface ApplicationShellProps {
-  sidebar: ReactElement<SidebarProps>;
-  topNavbar: ReactNode;
-  pageHeading?: ReactNode;
+  sidebar: ReactElement<SidebarProps, typeof Sidebar>;
+  topNavbar: ReactElement<TopNavbarProps, typeof TopNavbar>;
+  pageHeading?: ReactElement<PageHeadingProps, typeof PageHeading>;
   children: ReactNode;
   viewportMode?: ApplicationShellViewportMode;
 }
@@ -67,6 +74,16 @@ function useAutoExpandedViewport() {
   );
 }
 
+function assertGovernedElement(
+  element: ReactElement,
+  expectedType: unknown,
+  name: string,
+) {
+  if (element.type !== expectedType) {
+    throw new Error(`ApplicationShell ${name} must be the governed ${name} component.`);
+  }
+}
+
 export function ApplicationShell({
   sidebar,
   topNavbar,
@@ -75,6 +92,11 @@ export function ApplicationShell({
   viewportMode = applicationShellDefaults.viewportMode,
 }: ApplicationShellProps) {
   assertViewportMode(viewportMode);
+  assertGovernedElement(sidebar, Sidebar, 'Sidebar');
+  assertGovernedElement(topNavbar, TopNavbar, 'TopNavbar');
+  if (pageHeading !== undefined) {
+    assertGovernedElement(pageHeading, PageHeading, 'PageHeading');
+  }
 
   const autoExpanded = useAutoExpandedViewport();
   const resolvedMode: ApplicationShellResolvedMode =
@@ -88,8 +110,7 @@ export function ApplicationShell({
     mode: resolvedMode,
   });
 
-  const showPageHeading =
-    pageHeading !== undefined && pageHeading !== null && pageHeading !== false;
+  const showPageHeading = pageHeading !== undefined;
 
   return (
     <div

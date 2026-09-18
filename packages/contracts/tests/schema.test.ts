@@ -93,6 +93,18 @@ describe('contract schemas', () => {
     expect(validator.validateComponent(candidate).valid).toBe(true);
   });
 
+  it('compares pattern dependency minimum versions numerically', async () => {
+    const validator = await loadValidator();
+    expect(validator).not.toBeNull();
+    if (!validator) return;
+
+    expect(validator.satisfiesMinimumVersion('1.0.0', '1.0.0')).toBe(true);
+    expect(validator.satisfiesMinimumVersion('1.2.0', '1.1.9')).toBe(true);
+    expect(validator.satisfiesMinimumVersion('2.0.0', '1.99.99')).toBe(true);
+    expect(validator.satisfiesMinimumVersion('1.0.9', '1.1.0')).toBe(false);
+    expect(validator.satisfiesMinimumVersion('0.9.9', '1.0.0')).toBe(false);
+  });
+
   it('rejects a pattern with a missing state model', async () => {
     const validator = await loadValidator();
     expect(validator).not.toBeNull();

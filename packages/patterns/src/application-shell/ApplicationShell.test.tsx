@@ -43,11 +43,6 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-afterEach(() => {
-  cleanup();
-  vi.unstubAllGlobals();
-});
-
 describe('ApplicationShell', () => {
   it('renders governed shell landmarks and optional page heading', () => {
     const { container } = render(
@@ -138,6 +133,45 @@ describe('ApplicationShell', () => {
     expect(screen.getByRole('navigation')).toHaveAttribute('data-mode', 'expanded');
     expect(screen.getByRole('button', { name: 'Count 1' })).toBeInTheDocument();
 
+  });
+
+  it('rejects substitutes for the governed shell components', () => {
+    expect(() =>
+      render(
+        <ApplicationShell
+          viewportMode="expanded"
+          sidebar={<div /> as any}
+          topNavbar={<TopNavbar />}
+        >
+          content
+        </ApplicationShell>,
+      ),
+    ).toThrow(/Sidebar/);
+
+    expect(() =>
+      render(
+        <ApplicationShell
+          viewportMode="expanded"
+          sidebar={sidebar()}
+          topNavbar={<div /> as any}
+        >
+          content
+        </ApplicationShell>,
+      ),
+    ).toThrow(/TopNavbar/);
+
+    expect(() =>
+      render(
+        <ApplicationShell
+          viewportMode="expanded"
+          sidebar={sidebar()}
+          topNavbar={<TopNavbar />}
+          pageHeading={<div /> as any}
+        >
+          content
+        </ApplicationShell>,
+      ),
+    ).toThrow(/PageHeading/);
   });
 
   it('rejects unsupported viewport modes', () => {
