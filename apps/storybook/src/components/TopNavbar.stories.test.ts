@@ -35,7 +35,7 @@ describe('Top Navbar Storybook contract', () => {
     }
   });
 
-  it('covers default, hidden context, Light/Dark × English/Arabic, and the fixed physical composition', async () => {
+  it('covers default, hidden context, Light/Dark × English/Arabic, and logical RTL composition', async () => {
     const module = await loadStories();
     if (!module) return;
 
@@ -56,6 +56,11 @@ describe('Top Navbar Storybook contract', () => {
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.Arabic.args?.contextLabel).toMatch(/[\u0600-\u06FF]/);
+
+    const arabicBrandHtml = renderToStaticMarkup(module.Arabic.args?.brand ?? null);
+    expect(arabicBrandHtml).toContain('Northstar');
+    expect(arabicBrandHtml).toContain('dir="ltr"');
+    expect(arabicBrandHtml).not.toContain('direction:ltr');
   });
 
   it('composes the Figma appearance control inside the product-owned Account slot without adding it to Top Navbar API', async () => {
@@ -78,7 +83,9 @@ describe('Top Navbar Storybook contract', () => {
     expect(description).toMatch(/64/);
     expect(description).toMatch(/Brand/i);
     expect(description).toMatch(/Account/i);
-    expect(description).toMatch(/fixed.*left-to-right|left-to-right.*fixed/i);
+    expect(description).toMatch(/inline-start/i);
+    expect(description).toMatch(/inline-end/i);
+    expect(description).not.toMatch(/fixed.*left-to-right|left-to-right.*fixed/i);
     expect(description).toMatch(/Application Shell/i);
     expect(description).toMatch(/Product/i);
     expect(description).toMatch(/page/i);

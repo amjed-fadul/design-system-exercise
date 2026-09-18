@@ -26,7 +26,7 @@ jobs:
       - run: pnpm test
       - run: pnpm typecheck
       - run: pnpm build-storybook
-      - name: Pack and smoke-test tokens and React packages
+      - name: Pack and smoke-test tokens, React, and Patterns packages
         shell: bash
         run: |
           set -euo pipefail
@@ -36,11 +36,14 @@ jobs:
 
           pnpm --dir packages/tokens pack --pack-destination "$PACK_DIR"
           pnpm --dir packages/react pack --pack-destination "$PACK_DIR"
+          pnpm --dir packages/patterns pack --pack-destination "$PACK_DIR"
 
           TOKEN_TARBALL="$(find "$PACK_DIR" -maxdepth 1 -name '*tokens*.tgz' -print -quit)"
           REACT_TARBALL="$(find "$PACK_DIR" -maxdepth 1 -name '*react*.tgz' -print -quit)"
+          PATTERNS_TARBALL="$(find "$PACK_DIR" -maxdepth 1 -name '*patterns*.tgz' -print -quit)"
           test -n "$TOKEN_TARBALL"
           test -n "$REACT_TARBALL"
+          test -n "$PATTERNS_TARBALL"
 
           TOKEN_CONTENTS="$(tar -tzf "$TOKEN_TARBALL")"
           printf '%s\n' "$TOKEN_CONTENTS"
@@ -69,10 +72,20 @@ jobs:
           ! tar -xOf "$REACT_TARBALL" package/dist/index.js | grep -q 'RadioOption'
           ! tar -xOf "$REACT_TARBALL" package/dist/index.d.ts | grep -q 'RadioOption'
 
+          PATTERNS_CONTENTS="$(tar -tzf "$PATTERNS_TARBALL")"
+          printf '%s\n' "$PATTERNS_CONTENTS"
+          printf '%s\n' "$PATTERNS_CONTENTS" | grep -qx 'package/package.json'
+          printf '%s\n' "$PATTERNS_CONTENTS" | grep -qx 'package/dist/index.js'
+          printf '%s\n' "$PATTERNS_CONTENTS" | grep -qx 'package/dist/index.d.ts'
+          printf '%s\n' "$PATTERNS_CONTENTS" | grep -qx 'package/dist/styles.css'
+          ! printf '%s\n' "$PATTERNS_CONTENTS" | grep -Eq 'package/(src|scripts|tests|storybook|contracts)/'
+          ! printf '%s\n' "$PATTERNS_CONTENTS" | grep -Eq '\.(test|stories)\.'
+
           cd "$CONSUMER_DIR"
           npm init -y >/dev/null
           npm install "$TOKEN_TARBALL" react@19.3.0 react-dom@19.3.0 --ignore-scripts >/dev/null
           npm install "$REACT_TARBALL" --ignore-scripts >/dev/null
+          npm install "$PATTERNS_TARBALL" --ignore-scripts >/dev/null
 
           node --input-type=module <<'NODE'
           import React from 'react';
@@ -80,8 +93,20 @@ jobs:
           import { renderToStaticMarkup } from 'react-dom/server';
           import { tokens } from '@design-system-exercise/tokens';
           import * as ReactPackage from '@design-system-exercise/react';
+          import { ApplicationShell } from '@design-system-exercise/patterns';
 
-          const { Button, IconButton, Link, TextField, SearchField, RadioGroup, InlineFeedback } = ReactPackage;
+          const {
+            Button,
+            IconButton,
+            Link,
+            TextField,
+            SearchField,
+            RadioGroup,
+            InlineFeedback,
+            Sidebar,
+            TopNavbar,
+            PageHeading,
+          } = ReactPackage;
           if ('InputControl' in ReactPackage) throw new Error('Private InputControl leaked through public package exports');
           if ('RadioOption' in ReactPackage) throw new Error('Private RadioOption leaked through public package exports');
 
@@ -286,4 +311,42 @@ jobs:
           if (!readFileSync(inlineCheckUrl, 'utf8').includes('M17.7446 2.74459')) {
             throw new Error('Inline Feedback check asset drifted from Figma 127:30 instance');
           }
+
+          if (typeof ApplicationShell !== 'function') throw new Error('Application Shell public export missing');
+          const shellHtml = renderToStaticMarkup(
+            React.createElement(
+              ApplicationShell,
+              {
+                viewportMode: 'expanded',
+                sidebar: React.createElement(Sidebar, {
+                  items: [
+                    {
+                      id: 'overview',
+                      label: 'Overview',
+                      href: '/overview',
+                      icon: React.createElement('span', { 'aria-hidden': true }, 'O'),
+                    },
+                  ],
+                  currentId: 'overview',
+                }),
+                topNavbar: React.createElement(TopNavbar),
+                pageHeading: React.createElement(PageHeading, { title: 'Overview' }),
+              },
+              React.createElement('p', null, 'Installed pattern content'),
+            ),
+          );
+          if (!shellHtml.includes('class="dse-application-shell"')) throw new Error('Application Shell root missing');
+          if (!shellHtml.includes('<header')) throw new Error('Application Shell Top Navbar landmark missing');
+          if (!shellHtml.includes('<nav')) throw new Error('Application Shell Sidebar landmark missing');
+          if (!shellHtml.includes('<main')) throw new Error('Application Shell main landmark missing');
+          if (!shellHtml.includes('data-mode="expanded"')) throw new Error('Application Shell explicit mode missing');
+          if (!shellHtml.includes('Installed pattern content')) throw new Error('Application Shell child content missing');
+
+          const patternsCssUrl = import.meta.resolve('@design-system-exercise/patterns/styles.css');
+          if (!patternsCssUrl.endsWith('/dist/styles.css')) {
+            throw new Error(`Unexpected Patterns CSS export: ${patternsCssUrl}`);
+          }
+          if (!existsSync(new URL(patternsCssUrl))) throw new Error('Patterns CSS export missing');
+          const patternsCss = readFileSync(new URL(patternsCssUrl), 'utf8');
+          if (!patternsCss.includes('.dse-application-shell')) throw new Error('Application Shell stylesheet missing');
           NODE

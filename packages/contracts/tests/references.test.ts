@@ -16,7 +16,7 @@ function componentContracts() {
 }
 
 describe('contract source integrity', () => {
-  it('contains only the component contracts implemented through the C17 contract gate and no placeholder patterns', () => {
+  it('contains the component contracts implemented through C17 and only the accepted P01 pattern contract', () => {
     const components = componentContracts();
     const patterns = existsSync(patternsDir)
       ? readdirSync(patternsDir).filter((name) => name.endsWith('.contract.json')).sort()
@@ -47,7 +47,7 @@ describe('contract source integrity', () => {
       'text-field.contract.json',
       'top-navbar.contract.json',
     ]);
-    expect(patterns).toEqual([]);
+    expect(patterns).toEqual(['application-shell.contract.json']);
   });
 
   it('does not use excluded Figma implementation collections as governed token dependencies', () => {

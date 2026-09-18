@@ -21,32 +21,45 @@
         "description": "Persistent navigation presentation. Expanded shows icon plus destination label; compact keeps the same destinations as icon targets with retained accessible names.",
         "required": false,
         "default": "expanded",
-        "type": { "enum": ["expanded", "compact"] }
+        "type": {
+          "enum": [
+            "expanded",
+            "compact"
+          ]
+        }
       },
       {
         "name": "label",
         "description": "Short navigation-region/group label. It is visible in expanded mode and remains the navigation accessible name in compact mode.",
         "required": false,
         "default": "WORKSPACE",
-        "type": { "native": true }
+        "type": {
+          "native": true
+        }
       },
       {
         "name": "items",
         "description": "Required ordered destination data containing 1–8 entries. Each entry has a stable id, non-empty label, href, and compatible icon; Sidebar renders only the governed internal _Navigation Item anatomy.",
         "required": true,
-        "type": { "content": true }
+        "type": {
+          "content": true
+        }
       },
       {
         "name": "currentId",
         "description": "Required destination id identifying exactly one current route. Sidebar derives aria-current and selected presentation from this id.",
         "required": true,
-        "type": { "native": true }
+        "type": {
+          "native": true
+        }
       },
       {
         "name": "footer",
         "description": "Optional supplemental workspace/account context rendered after flexible space. It is not a second primary-navigation region and should contain no more than two direct content children.",
         "required": false,
-        "type": { "content": true }
+        "type": {
+          "content": true
+        }
       }
     ],
     "forwardNativeAttributes": false
@@ -146,6 +159,7 @@
       "Expanded mode uses a 30px top inset and 12px inline inset; compact mode uses a 48px top inset and 10px inline inset. These Figma-only layout helper values remain private component layout decisions rather than public token API.",
       "The navigation list uses an 8px gap, the expanded group-to-list section gap is 18px, and the logical end border is 1px using the semantic subtle border color.",
       "Footer content is supplemental workspace/account context only, accepts up to two direct children by convention, and cannot be used to bypass the governed primary destination list.",
+      "Sidebar fills the available shell block size. When vertical space is constrained, the destination/navigation section becomes the scroll owner while the optional footer remains pinned at the logical block end and visible within the shell.",
       "Application Shell owns physical placement and responsive mode selection; Sidebar does not expose a breakpoint, drawer/open state, placement, or collapse-control API.",
       "Product/router code owns route configuration and navigation effects; Sidebar renders native href destinations and does not own routing state transitions."
     ]
@@ -154,7 +168,9 @@
     "navigation": {
       "optional": false,
       "description": "Ordered destination data is rendered only through the private _Navigation Item implementation so mode/current/accessibility behavior cannot drift per consumer.",
-      "allowedChildren": ["dse._navigation-item"]
+      "allowedChildren": [
+        "dse._navigation-item"
+      ]
     },
     "footer": {
       "optional": true,
@@ -175,7 +191,7 @@
     "routeConfig"
   ],
   "provenance": {
-    "lastReviewed": "2026-09-17",
+    "lastReviewed": "2026-09-18",
     "references": [
       "figma:tYCXBBYoQ92AUKVbND5WkG:146:166",
       "figma:tYCXBBYoQ92AUKVbND5WkG:143:2948",

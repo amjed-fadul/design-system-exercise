@@ -5,6 +5,7 @@
   align-items: stretch;
   min-block-size: 0;
   block-size: 100%;
+  overflow: hidden;
   background: var(--dse-color-semantic-surface-section);
   border-inline-end: 1px solid var(--dse-color-semantic-border-subtle);
 }
@@ -24,9 +25,13 @@
 
 .dse-sidebar__navigation-section {
   display: flex;
+  flex: 0 1 auto;
   flex-direction: column;
   align-items: stretch;
   min-inline-size: 0;
+  min-block-size: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .dse-sidebar[data-mode='expanded'] .dse-sidebar__navigation-section {
@@ -157,6 +162,7 @@
 
 .dse-sidebar__footer {
   box-sizing: border-box;
+  flex: 0 0 auto;
   min-block-size: 40px;
   min-inline-size: 0;
 }

@@ -7,7 +7,9 @@ import '@fontsource/ibm-plex-sans-arabic/500.css';
 import '@fontsource/ibm-plex-sans-arabic/600.css';
 import '@design-system-exercise/tokens/css';
 import '@design-system-exercise/react/styles.css';
+import '@design-system-exercise/patterns/styles.css';
 import '../src/styles.css';
+import '../src/directional-icons.css';
 
 const preview: Preview = {
   tags: ['autodocs'],

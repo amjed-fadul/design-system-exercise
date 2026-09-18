@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "storybook": "pnpm --filter @design-system-exercise/react build && storybook dev -p 6006",
-    "build-storybook": "pnpm --filter @design-system-exercise/react build && storybook build -o storybook-static",
-    "test": "pnpm --filter @design-system-exercise/react build && vitest run",
+    "storybook": "pnpm --filter @design-system-exercise/react build && pnpm --filter @design-system-exercise/patterns build && storybook dev -p 6006",
+    "build-storybook": "pnpm --filter @design-system-exercise/react build && pnpm --filter @design-system-exercise/patterns build && storybook build -o storybook-static",
+    "test": "pnpm --filter @design-system-exercise/react build && pnpm --filter @design-system-exercise/patterns build && vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -15,7 +15,8 @@
     "@fontsource/geist": "5.3.0",
     "@fontsource/ibm-plex-sans-arabic": "5.3.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "@design-system-exercise/patterns": "workspace:*"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "10.6.0",

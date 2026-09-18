@@ -6,7 +6,7 @@
   "status": "approved",
   "visibility": "public",
   "name": "Top Navbar",
-  "description": "Persistent application header that keeps product/workspace identity, optional shell context, and account/utility context visible while page content changes. Top Navbar owns the stable header regions, fixed forward physical composition, and divider; Application Shell owns placement, Product owns Brand/Account data and behavior, and page patterns own page-specific headings and task actions.",
+  "description": "Persistent application header that keeps product/workspace identity, optional shell context, and account/utility context visible while page content changes. Top Navbar owns stable logical header regions and the divider; inherited document direction maps Brand to inline-start and Account to inline-end. Application Shell owns placement, Product owns Brand/Account data and behavior, and page patterns own page-specific headings and task actions.",
   "sources": {
     "figma": {
       "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
@@ -20,27 +20,35 @@
         "name": "brand",
         "description": "Optional product/workspace identity content for the single Brand slot. Product owns the mark, name, and any identity data.",
         "required": false,
-        "type": { "content": true }
+        "type": {
+          "content": true
+        }
       },
       {
         "name": "contextLabel",
         "description": "Concise optional shell-context text shown between Brand and the flexible separator when showContext is true.",
         "required": false,
         "default": "Workspace administration",
-        "type": { "native": true }
+        "type": {
+          "native": true
+        }
       },
       {
         "name": "showContext",
         "description": "Controls whether the supporting shell-context label is visible. It does not change page title, navigation, or account state.",
         "required": false,
         "default": true,
-        "type": { "boolean": true }
+        "type": {
+          "boolean": true
+        }
       },
       {
         "name": "account",
         "description": "Optional product-owned account/utility composition for the single Account slot. Any interactive control supplied here must provide its own accessible semantics.",
         "required": false,
-        "type": { "content": true }
+        "type": {
+          "content": true
+        }
       }
     ],
     "forwardNativeAttributes": false
@@ -69,7 +77,7 @@
     {
       "source": "figma.order",
       "kind": "figma-only",
-      "mapsTo": "fixed forward physical composition; not a public React prop"
+      "mapsTo": "forward logical composition in DOM order; inherited document direction maps Brand to inline-start and Account to inline-end, and slot item order follows that inherited direction; not a public React prop"
     },
     {
       "source": "figma.theme",
@@ -86,7 +94,7 @@
     {
       "name": "brand",
       "required": true,
-      "description": "Single Brand slot region at the physical left. Its content is optional and product-owned."
+      "description": "Single Brand slot region at inline-start. In LTR this is the physical left; in RTL this is the physical right. Its content is optional and product-owned."
     },
     {
       "name": "context",
@@ -96,12 +104,12 @@
     {
       "name": "flexible-space",
       "required": true,
-      "description": "Flexible separator that keeps account/utility content at the physical right as the host grows."
+      "description": "Flexible separator that pushes Account to inline-end as the host grows, respecting inherited document direction."
     },
     {
       "name": "account",
       "required": true,
-      "description": "Single Account slot region at the physical right. Product owns account identity, appearance controls, and any interaction."
+      "description": "Single Account slot region at inline-end. In LTR this is the physical right; in RTL this is the physical left. Product owns account identity, appearance controls, and any interaction."
     },
     {
       "name": "bottom-divider",
@@ -129,8 +137,9 @@
     "requirements": [
       "The root renders a native header landmark and fills the available host inline size rather than fixing the 1440px Figma example width.",
       "The reviewed bar remains exactly 64 CSS pixels high with 24px physical inline inset, a 20px internal region gap, and a 1px semantic subtle bottom divider.",
-      "The physical composition remains fixed left-to-right: Brand, optional context, flexible space, then Account. Language direction does not reverse these shell regions.",
-      "Brand, context text, and Account content may determine their own text direction inside the fixed forward shell so Arabic text remains readable without mirroring Latin artwork.",
+      "The shell composition follows logical inline direction: Brand, optional context, flexible space, then Account in DOM order. Brand occupies inline-start and Account occupies inline-end, so inherited LTR places Brand left / Account right while inherited RTL places Brand right / Account left.",
+      "Brand and Account compositions follow inherited shell direction so their internal item order mirrors in RTL. Individual text or artwork inside a slot may set a narrower text direction only when needed—for example, the Latin Northstar word remains LTR while the Brand mark stays at logical inline-start.",
+      "Brand and Account slot wrappers inherit the surrounding document direction and must not set dir=auto or force LTR. This allows the Brand mark and Account items to keep logical inline order in RTL. Context text may use direction auto for readable mixed-language text.",
       "The Figma order=forward selector has only the reviewed forward value and is not a product decision or public React prop.",
       "Light/Dark appearance is inherited from semantic tokens. Top Navbar exposes no theme prop.",
       "When showContext is true, contextLabel must be a non-empty string; hiding context removes only that region and does not change Brand or Account identity.",
@@ -164,10 +173,11 @@
     "onAppearanceChange",
     "breakpoint",
     "sticky",
-    "onNavigate"
+    "onNavigate",
+    "direction"
   ],
   "provenance": {
-    "lastReviewed": "2026-09-17",
+    "lastReviewed": "2026-09-18",
     "references": [
       "figma:tYCXBBYoQ92AUKVbND5WkG:228:18954",
       "figma:tYCXBBYoQ92AUKVbND5WkG:147:2",

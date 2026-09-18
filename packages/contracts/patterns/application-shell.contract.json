@@ -1,0 +1,116 @@
+{
+  "$schema": "../schema/pattern-contract.schema.json",
+  "id": "dse.pattern.application-shell",
+  "kind": "pattern",
+  "version": "1.0.0",
+  "status": "approved",
+  "name": "Application Shell",
+  "description": "Stable application frame that composes the governed Top Navbar, Sidebar, optional Page Heading, and consumer-owned page content. Application Shell owns responsive placement, shell landmarks, and the 1200px expanded/compact decision only; product workflows retain their own query, selection, draft, request, record, permission, and backend state.",
+  "sources": {
+    "figma": {
+      "fileKey": "tYCXBBYoQ92AUKVbND5WkG",
+      "nodeId": "68:494"
+    },
+    "implementationPackage": "@design-system-exercise/patterns"
+  },
+  "componentDependencies": [
+    {
+      "id": "dse.sidebar",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.top-navbar",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.page-heading",
+      "minimumVersion": "1.0.0"
+    }
+  ],
+  "stateModel": [
+    {
+      "key": "viewportMode",
+      "owner": "pattern",
+      "description": "Responsive decision source: auto follows the governed 1200 CSS-pixel threshold; expanded and compact are deterministic evidence/test overrides."
+    },
+    {
+      "key": "resolvedLayoutMode",
+      "owner": "pattern",
+      "description": "Effective expanded or compact shell mode used to supply the governed Sidebar mode and shell layout."
+    },
+    {
+      "key": "workflowState",
+      "owner": "consumer",
+      "description": "All page/workflow state inside the shell, including query, selection, draft, request, outcome, and product data, remains owned by the consumer and must survive shell mode changes."
+    }
+  ],
+  "transitions": [
+    {
+      "from": "auto/compact",
+      "event": "viewport reaches at least 1200 CSS px",
+      "to": "auto/expanded"
+    },
+    {
+      "from": "auto/expanded",
+      "event": "viewport falls below 1200 CSS px",
+      "to": "auto/compact"
+    },
+    {
+      "from": "any",
+      "event": "viewportMode override changes",
+      "to": "matching explicit expanded or compact mode"
+    }
+  ],
+  "invariants": [
+    "Changing resolved layout mode must not remount the consumer page content or reset workflow state.",
+    "Sidebar remains the governed Sidebar component; Application Shell supplies only its resolved mode and physical shell placement.",
+    "Top Navbar remains the governed Top Navbar component and stays before navigation/page content in landmark order.",
+    "Optional Page Heading remains consumer-supplied governed page context before page children; Application Shell does not recreate heading internals.",
+    "Shell placement uses logical inline flow so Sidebar and main content support RTL without a separate direction prop.",
+    "The main region scrolls when the viewport is short or content is long; shell layout must not clip away reachable page actions.",
+    "Theme and language are inherited contexts and do not become Application Shell props."
+  ],
+  "exits": [],
+  "responsiveRules": [
+    "At 1200 CSS px and above, auto mode resolves to expanded navigation.",
+    "Below 1200 CSS px, auto mode resolves to compact navigation.",
+    "Expanded Sidebar width is 208 CSS px and compact Sidebar width is 64 CSS px, using the approved Sidebar/layout contract rather than a duplicate shell primitive.",
+    "Page content uses a 32 CSS px logical inset, yielding the reviewed 1168px content width at 1440 and 832px content width at 960.",
+    "Supported desktop evidence spans 960–1440 CSS px with explicit compact 1199px and expanded 1200px boundary proofs.",
+    "At 320 CSS px and browser zoom conditions, the shell must still reflow without losing navigation or page access; horizontally large child content may overflow inside the scrollable main region."
+  ],
+  "runtimeRequirements": [
+    "Render stable native shell landmarks in reading order: the supplied Top Navbar header, Sidebar nav, then one main region containing optional Page Heading and page content.",
+    "Verify the 1199/1200 CSS-pixel auto-mode boundary in browser-oriented evidence.",
+    "Verify resizing across the breakpoint changes shell/Sidebar presentation without resetting or remounting consumer state.",
+    "Verify a short window scrolls the main region so page actions remain reachable by pointer and keyboard.",
+    "Auto mode must not read browser globals unsafely during server rendering.",
+    "Expanded and compact evidence must preserve the same consumer children and navigation identity."
+  ],
+  "forbidden": [
+    "query state",
+    "selection state",
+    "draft state",
+    "request lifecycle",
+    "member records",
+    "permissions",
+    "backend operations",
+    "reimplemented Sidebar",
+    "reimplemented Top Navbar",
+    "reimplemented Page Heading",
+    "routing policy",
+    "modal editor behavior",
+    "detail workflow",
+    "mobile product navigation"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-18",
+    "references": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:68:494",
+      "figma:tYCXBBYoQ92AUKVbND5WkG:606:2496",
+      "figma:tYCXBBYoQ92AUKVbND5WkG:3024:9813",
+      "docs/superpowers/plans/2026-09-17-patterns-implementation.md",
+      "docs/superpowers/plans/2026-09-17-design-system-master-roadmap.md"
+    ]
+  }
+}

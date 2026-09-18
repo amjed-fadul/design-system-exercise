@@ -58,6 +58,20 @@ export function validatePattern(candidate: unknown): ValidationResult {
   return runValidator(patternValidator, candidate);
 }
 
+export function satisfiesMinimumVersion(actual: string, minimum: string): boolean {
+  const actualParts = actual.split('.').map(Number);
+  const minimumParts = minimum.split('.').map(Number);
+
+  for (let index = 0; index < 3; index += 1) {
+    const actualPart = actualParts[index] ?? 0;
+    const minimumPart = minimumParts[index] ?? 0;
+    if (actualPart > minimumPart) return true;
+    if (actualPart < minimumPart) return false;
+  }
+
+  return true;
+}
+
 export interface RepositoryValidationResult extends ValidationResult {
   componentCount: number;
   patternCount: number;
@@ -69,7 +83,7 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
   const errors: string[] = [];
   const seenIds = new Map<string, string>();
   const seenVersions = new Map<string, string>();
-  const publicComponentIds = new Set<string>();
+  const publicComponentVersions = new Map<string, string>();
 
   const recordIdentity = (id: string, version: string, path: string) => {
     const existingId = seenIds.get(id);
@@ -96,7 +110,9 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
         errors.push(`${loaded.path}: /tokenDependencies: token dependency must start with --dse-: ${token}`);
       }
     }
-    if (contract.visibility === 'public') publicComponentIds.add(contract.id);
+    if (contract.visibility === 'public') {
+      publicComponentVersions.set(contract.id, contract.version);
+    }
     recordIdentity(contract.id, contract.version, loaded.path);
   }
 
@@ -108,12 +124,32 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
     const contract = loaded.contract as PatternContract;
     recordIdentity(contract.id, contract.version, loaded.path);
     for (const dependency of contract.componentDependencies) {
-      if (!publicComponentIds.has(dependency.id)) {
-        errors.push(`${loaded.path}: /componentDependencies: unresolved public component contract ${dependency.id}`);
+      const actualVersion = publicComponentVersions.get(dependency.id);
+      if (!actualVersion) {
+        errors.push(
+          loaded.path +
+            ': /componentDependencies: unresolved public component contract ' +
+            dependency.id,
+        );
+        continue;
+      }
+
+      if (
+        dependency.minimumVersion &&
+        !satisfiesMinimumVersion(actualVersion, dependency.minimumVersion)
+      ) {
+        errors.push(
+          loaded.path +
+            ': /componentDependencies: ' +
+            dependency.id +
+            ' requires >= ' +
+            dependency.minimumVersion +
+            ', found ' +
+            actualVersion,
+        );
       }
     }
   }
-
   errors.sort((a, b) => a.localeCompare(b));
   return {
     valid: errors.length === 0,

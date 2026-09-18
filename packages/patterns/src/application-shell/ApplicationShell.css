@@ -1,0 +1,51 @@
+.dse-application-shell {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: hidden;
+  background: var(--dse-color-semantic-surface-canvas);
+}
+
+.dse-application-shell__top-navbar {
+  flex: 0 0 var(--dse-layout-semantic-top-height);
+  min-inline-size: 0;
+  block-size: var(--dse-layout-semantic-top-height);
+}
+
+.dse-application-shell__workspace {
+  display: flex;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: hidden;
+}
+
+.dse-application-shell__sidebar {
+  flex: 0 0 auto;
+  min-inline-size: 0;
+  min-block-size: 0;
+}
+
+.dse-application-shell__main {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: auto;
+  padding: var(--dse-layout-semantic-page-inset);
+  background: var(--dse-color-semantic-surface-canvas);
+  overscroll-behavior: contain;
+}
+
+.dse-application-shell__page-heading {
+  min-inline-size: 0;
+  margin-block-end: var(--dse-layout-semantic-region-gap);
+}
+
+.dse-application-shell__content {
+  min-inline-size: 0;
+}
