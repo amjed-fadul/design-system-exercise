@@ -125,8 +125,26 @@ const meta = {
   },
   argTypes: {
     eyebrow: { control: 'text' },
+    header: {
+      control: false,
+      table: { type: { summary: 'ReactNode' } },
+    },
+    children: {
+      control: false,
+      table: { type: { summary: 'ReactNode' } },
+    },
+    actions: {
+      control: false,
+      table: { type: { summary: 'ReactNode' } },
+    },
     showClose: { control: 'boolean' },
     closeLabel: { control: 'text' },
+    onClose: {
+      control: false,
+      table: { type: { summary: '() => void' } },
+    },
+    className: { control: false },
+    style: { control: false },
   },
   parameters: {
     layout: 'fullscreen',

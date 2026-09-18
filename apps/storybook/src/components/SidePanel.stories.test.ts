@@ -17,6 +17,9 @@ describe('Side Panel Storybook contract', () => {
     for (const publicControl of ['eyebrow', 'showClose', 'closeLabel']) {
       expect(argTypes).toHaveProperty(publicControl);
     }
+    for (const slot of ['header', 'children', 'actions', 'onClose', 'className', 'style']) {
+      expect(argTypes[slot]?.control).toBe(false);
+    }
     for (const forbidden of [
       'open',
       'onOpenChange',

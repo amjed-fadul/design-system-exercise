@@ -17,6 +17,9 @@ describe('Dialog Storybook contract', () => {
     for (const publicControl of ['title', 'description', 'showClose', 'closeLabel']) {
       expect(argTypes).toHaveProperty(publicControl);
     }
+    for (const nonVisual of ['open', 'onOpenChange', 'children', 'actions', 'initialFocusRef']) {
+      expect(argTypes[nonVisual]?.control).toBe(false);
+    }
     for (const forbidden of [
       'onSubmit',
       'requestStatus',
@@ -29,6 +32,14 @@ describe('Dialog Storybook contract', () => {
     ]) {
       expect(argTypes).not.toHaveProperty(forbidden);
     }
+  });
+
+  it('isolates each modal story from the shared Autodocs document', async () => {
+    const module = await loadStories();
+    if (!module) return;
+
+    expect(module.dialogMeta.parameters?.docs?.story?.inline).toBe(false);
+    expect(module.dialogMeta.parameters?.docs?.story?.height).toBe('620px');
   });
 
   it('covers Light/Dark × English/Arabic plus decision and title-only evidence', async () => {

@@ -196,8 +196,9 @@ function TableCanvas({ args, width }: { args: TableProps; width: number }) {
       <div
         style={{
           boxSizing: 'border-box',
-          inlineSize: width,
-          minInlineSize: width,
+          inlineSize: '100%',
+          maxInlineSize: width,
+          minInlineSize: 736,
           marginInline: 'auto',
         }}
       >
