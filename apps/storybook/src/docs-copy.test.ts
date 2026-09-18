@@ -6,7 +6,8 @@ const storyDirectories = ['components', 'patterns'];
 
 function descriptionFrom(source: string): string | null {
   const match = source.match(/description:\s*{\s*component:\s*("(?:\\.|[^"\\])*")/s);
-  return match ? (JSON.parse(match[1]) as string) : null;
+  if (!match?.[1]) return null;
+  return JSON.parse(match[1]) as string;
 }
 
 describe('Storybook Docs copy', () => {
