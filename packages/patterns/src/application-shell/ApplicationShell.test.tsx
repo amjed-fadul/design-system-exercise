@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/vitest';
-import { act, fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   PageHeading,
   Sidebar,
@@ -37,6 +37,11 @@ function StatefulContent() {
     </button>
   );
 }
+
+afterEach(() => {
+  cleanup();
+  vi.unstubAllGlobals();
+});
 
 describe('ApplicationShell', () => {
   it('renders governed shell landmarks and optional page heading', () => {
@@ -128,7 +133,6 @@ describe('ApplicationShell', () => {
     expect(screen.getByRole('navigation')).toHaveAttribute('data-mode', 'expanded');
     expect(screen.getByRole('button', { name: 'Count 1' })).toBeInTheDocument();
 
-    vi.unstubAllGlobals();
   });
 
   it('rejects unsupported viewport modes', () => {
