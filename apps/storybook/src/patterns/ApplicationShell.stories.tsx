@@ -202,6 +202,7 @@ function DirectoryContent({ arabic = false }: { arabic?: boolean }) {
         <div style={{ inlineSize: 360, maxInlineSize: '100%' }}>
           <SearchField
             aria-label={arabic ? 'البحث عن عضو' : 'Search team members'}
+            clearButtonLabel={arabic ? 'مسح البحث' : 'Clear search'}
             placeholder={arabic ? 'ابحث بالاسم أو البريد الإلكتروني' : 'Search by name or email'}
           />
         </div>
