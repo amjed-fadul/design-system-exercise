@@ -26,4 +26,14 @@ describe('Connected Product Prototype shell behavior', () => {
     expect(rootRule).toMatch(/max-block-size:\s*100dvh/);
     expect(rootRule).not.toMatch(/block-size:\s*960px/);
   });
+
+  it('squares only the docked inline-end Side Panel corners', () => {
+    const panelRule =
+      css.match(/\.dse-product-prototype__detail-panel\s*\{[^}]*\}/)?.[0] ?? '';
+
+    expect(panelRule).toMatch(/border-start-end-radius:\s*0/);
+    expect(panelRule).toMatch(/border-end-end-radius:\s*0/);
+    expect(panelRule).not.toMatch(/border-start-start-radius:\s*0/);
+    expect(panelRule).not.toMatch(/border-end-start-radius:\s*0/);
+  });
 });

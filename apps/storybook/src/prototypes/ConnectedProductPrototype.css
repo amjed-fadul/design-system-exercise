@@ -208,6 +208,8 @@
   block-size: 100%;
   min-block-size: 100%;
   max-block-size: 100%;
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
 }
 
 .dse-product-prototype__panel-member-identity {
