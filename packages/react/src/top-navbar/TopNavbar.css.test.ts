@@ -13,6 +13,8 @@ describe('Top Navbar CSS boundary', () => {
     expect(css).toMatch(/inline-size:\s*100%/);
     expect(css).toContain('var(--dse-color-semantic-surface-default)');
     expect(css).toContain('var(--dse-color-semantic-border-subtle)');
+    expect(css).toContain('var(--dse-border-role-divider)');
+    expect(css).toContain('var(--dse-layout-primitive-top-height)');
     expect(css).toContain('var(--dse-spacing-primitive-space-500)');
     expect(css).toMatch(/gap:\s*20px/);
   });

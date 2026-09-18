@@ -95,8 +95,8 @@
 }
 
 .dse-dialog__divider {
-  block-size: 1px;
-  flex: 0 0 1px;
+  block-size: var(--dse-border-role-divider);
+  flex: 0 0 var(--dse-border-role-divider);
   background: var(--dse-color-semantic-border-subtle);
 }
 

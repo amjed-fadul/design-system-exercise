@@ -17,7 +17,7 @@ describe('SidePanel visual contract', () => {
     expect(css).toMatch(/\.dse-side-panel\s*\{[^}]*inline-size:\s*var\(--dse-layout-primitive-detail-inline-width\);/s);
     expect(css).toMatch(/\.dse-side-panel\s*\{[^}]*block-size:\s*612px;[^}]*min-block-size:\s*612px;/s);
     expect(css).toContain('background: var(--dse-color-semantic-surface-raised)');
-    expect(css).toContain('border: 1px solid var(--dse-color-semantic-border-subtle)');
+    expect(css).toContain('border: var(--dse-border-role-container) solid var(--dse-color-semantic-border-subtle)');
     expect(css).toContain('border-radius: var(--dse-radius-shape-surface)');
   });
 

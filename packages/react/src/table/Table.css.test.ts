@@ -26,6 +26,7 @@ describe('Table CSS boundary', () => {
 
     expect(rule(css, '.dse-table-shell')).toContain('min-inline-size: 736px');
     expect(rule(css, '.dse-table')).toContain('table-layout: fixed');
+    expect(rule(css, '.dse-table-shell')).toContain('var(--dse-border-role-container)');
     expect(rule(css, '.dse-table__header-cell')).toContain('block-size: 44px');
     expect(rule(css, '.dse-table__row')).toContain('min-block-size: 60px');
     expect(rule(css, '.dse-table__footer-cell')).toContain('block-size: 48px');
@@ -35,11 +36,14 @@ describe('Table CSS boundary', () => {
     expect(rule(css, '.dse-table__col-action')).toContain('inline-size: 156px');
 
     expect(rule(css, '.dse-table__cell-primary')).toContain('padding-inline-start: 20px');
-    expect(rule(css, '.dse-table__cell-secondary')).toContain('padding-inline-start: 24px');
-    expect(rule(css, '.dse-table__cell-status')).toContain('padding-inline-start: 24px');
-    expect(rule(css, '.dse-table__cell-action')).toContain('padding-inline-start: 8px');
+    expect(rule(css, '.dse-table__cell-secondary')).toContain('padding-inline-start: var(--dse-spacing-primitive-space-500)');
+    expect(rule(css, '.dse-table__cell-status')).toContain('padding-inline-start: var(--dse-spacing-primitive-space-500)');
+    expect(rule(css, '.dse-table__cell-action')).toContain('padding-inline-start: var(--dse-spacing-primitive-space-200)');
     expect(rule(css, '.dse-table__cell-action')).toContain('padding-inline-end: 20px');
     expect(rule(css, '.dse-table__body-cell')).toContain('padding-block: 6px');
+    expect(rule(css, '.dse-table__body-cell')).toContain('var(--dse-border-role-divider)');
+    expect(rule(css, '.dse-table__header-cell')).toContain('padding-block: var(--dse-spacing-primitive-space-300)');
+    expect(rule(css, '.dse-table__footer-cell')).toContain('padding-block-end: var(--dse-spacing-primitive-space-400)');
   });
 
   it('uses the reviewed semantic colors, radius, and typography tokens', () => {
@@ -53,6 +57,12 @@ describe('Table CSS boundary', () => {
       '--dse-color-semantic-state-hover',
       '--dse-color-semantic-state-selected',
       '--dse-radius-shape-surface',
+      '--dse-border-role-container',
+      '--dse-border-role-divider',
+      '--dse-spacing-primitive-space-200',
+      '--dse-spacing-primitive-space-300',
+      '--dse-spacing-primitive-space-400',
+      '--dse-spacing-primitive-space-500',
       '--dse-typography-semantic-label-default-family',
       '--dse-typography-semantic-label-default-size',
       '--dse-typography-semantic-label-default-weight',

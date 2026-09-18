@@ -40,6 +40,8 @@ describe('Page Heading CSS boundary', () => {
       '--dse-typography-semantic-body-small-letter-spacing',
       '--dse-color-semantic-fg-primary',
       '--dse-color-semantic-fg-secondary',
+      '--dse-spacing-semantic-stack-sm',
+      '--dse-spacing-primitive-space-300',
     ]) {
       expect(css).toContain(token);
     }
