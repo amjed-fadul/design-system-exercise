@@ -8,11 +8,14 @@ const css = readFileSync(
 );
 
 describe('Connected Product Prototype RTL shell composition', () => {
-  it('keeps only the Latin brand internally LTR and lets Account inherit RTL', () => {
+  it('lets Brand and Account wrappers inherit RTL while keeping only the Latin word LTR', () => {
     const brandRule = css.match(/\.dse-product-prototype__brand\s*\{[^}]*\}/)?.[0] ?? '';
+    const brandWordRule =
+      css.match(/\.dse-product-prototype__brand\s*>\s*strong\s*\{[^}]*\}/)?.[0] ?? '';
     const accountRule = css.match(/\.dse-product-prototype__account\s*\{[^}]*\}/)?.[0] ?? '';
 
-    expect(brandRule).toMatch(/direction:\s*ltr/);
+    expect(brandRule).not.toMatch(/direction:\s*ltr/);
     expect(accountRule).not.toMatch(/direction:\s*ltr/);
+    expect(brandWordRule).toMatch(/direction:\s*ltr/);
   });
 });

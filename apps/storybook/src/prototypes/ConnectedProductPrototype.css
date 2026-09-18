@@ -17,7 +17,6 @@
 }
 
 .dse-product-prototype__brand {
-  direction: ltr;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -27,6 +26,10 @@
   font-family: var(--dse-typography-semantic-title-component-family);
   font-size: var(--dse-typography-semantic-title-component-size);
   line-height: var(--dse-typography-semantic-title-component-line-height);
+}
+
+.dse-product-prototype__brand > strong {
+  direction: ltr;
 }
 
 .dse-product-prototype__brand-mark {
