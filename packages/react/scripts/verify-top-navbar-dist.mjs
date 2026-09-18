@@ -20,6 +20,12 @@ if (!html.includes('data-order="forward"')) throw new Error('TopNavbar forward D
 if (!html.includes('Workspace administration')) throw new Error('TopNavbar default context missing');
 if (!html.includes('Northstar')) throw new Error('TopNavbar Brand content missing');
 if (!html.includes('Amal Hassan · Admin')) throw new Error('TopNavbar Account content missing');
+if (/dse-top-navbar__brand"[^>]*dir=/.test(html)) {
+  throw new Error('TopNavbar Brand slot unexpectedly forced direction');
+}
+if (/dse-top-navbar__account"[^>]*dir=/.test(html)) {
+  throw new Error('TopNavbar Account slot unexpectedly forced direction');
+}
 
 const hiddenContextHtml = renderToStaticMarkup(
   React.createElement(TopNavbar, {
