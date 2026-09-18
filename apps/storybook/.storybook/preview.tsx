@@ -15,6 +15,11 @@ import { direction, languageCode, resolveStoryPresentation } from '../src/presen
 const preview: Preview = {
   tags: ['autodocs'],
   parameters: {
+    options: {
+      storySort: {
+        order: ['Foundations', 'Components', 'Patterns', 'Prototypes'],
+      },
+    },
     docs: {
       canvas: {
         className: 'dse-docs-canvas',
