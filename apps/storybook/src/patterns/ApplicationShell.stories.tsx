@@ -89,7 +89,6 @@ function Account({ arabic = false }: { arabic?: boolean }) {
   return (
     <div
       style={{
-        direction: 'ltr',
         display: 'flex',
         alignItems: 'center',
         gap: 16,
