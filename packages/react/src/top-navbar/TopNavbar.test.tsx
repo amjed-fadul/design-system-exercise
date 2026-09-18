@@ -13,7 +13,7 @@ async function loadTopNavbarModule() {
 }
 
 describe('Top Navbar public runtime', () => {
-  it('renders a native persistent header with Brand, context, flexible space, and Account regions in fixed physical order', async () => {
+  it('renders a native persistent header with Brand, context, flexible space, and Account regions in stable logical DOM order', async () => {
     const module = await loadTopNavbarModule();
     if (!module) return;
 
