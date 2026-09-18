@@ -43,6 +43,11 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
+afterEach(() => {
+  cleanup();
+  vi.unstubAllGlobals();
+});
+
 describe('ApplicationShell', () => {
   it('renders governed shell landmarks and optional page heading', () => {
     const { container } = render(
