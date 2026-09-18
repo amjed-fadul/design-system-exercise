@@ -24,11 +24,18 @@
 }
 
 .dse-projects-prototype__project-identity span,
-.dse-projects-prototype__panel-header span {
+.dse-projects-prototype__panel-header span,
+.dse-projects-prototype__project-key {
   color: var(--dse-color-semantic-fg-secondary);
   font-family: var(--dse-typography-semantic-body-small-family);
   font-size: var(--dse-typography-semantic-body-small-size);
   line-height: var(--dse-typography-semantic-body-small-line-height);
+}
+
+.dse-projects-prototype__project-key {
+  justify-self: start;
+  inline-size: fit-content;
+  unicode-bidi: isolate;
 }
 
 .dse-projects-prototype__owner {

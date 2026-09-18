@@ -12,4 +12,13 @@ describe('Projects Management detail composition', () => {
     expect(css).not.toMatch(/grid-template-columns/);
     expect(css).not.toMatch(/dse-projects-prototype__side-panel/);
   });
+
+  it('keeps LTR project keys at the parent logical start in RTL and LTR', () => {
+    const keyRule =
+      css.match(/\.dse-projects-prototype__project-key\s*\{[^}]*\}/)?.[0] ?? '';
+
+    expect(keyRule).toMatch(/justify-self:\s*start/);
+    expect(keyRule).toMatch(/inline-size:\s*fit-content/);
+    expect(keyRule).toMatch(/unicode-bidi:\s*isolate/);
+  });
 });

@@ -412,7 +412,9 @@ function ProjectIdentity({
   return (
     <div className="dse-projects-prototype__project-identity">
       <strong>{displayProjectName(project, language)}</strong>
-      <span dir="ltr">{project.key}</span>
+      <bdi className="dse-projects-prototype__project-key" dir="ltr">
+        {project.key}
+      </bdi>
     </div>
   );
 }
@@ -442,7 +444,9 @@ function ProjectPanelHeader({
   return (
     <div className="dse-projects-prototype__panel-header">
       <strong>{displayProjectName(project, language)}</strong>
-      <span dir="ltr">{project.key}</span>
+      <bdi className="dse-projects-prototype__project-key" dir="ltr">
+        {project.key}
+      </bdi>
     </div>
   );
 }
