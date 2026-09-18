@@ -34,9 +34,9 @@ describe('Application Shell Storybook contract', () => {
     expect(module.Boundary1200.parameters?.shellWidth).toBe(1200);
     expect(module.ShortWindow.parameters?.shellHeight).toBe(720);
     expect(module.Zoom320.parameters?.shellWidth).toBe(320);
-    expect(module.Dark.globals?.theme).toBe('dark');
-    expect(module.Arabic.globals?.language).toBe('arabic');
-    expect(module.DarkArabic.globals).toEqual(
+    expect(module.Dark.parameters?.presentation?.theme).toBe('dark');
+    expect(module.Arabic.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabic.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
   });

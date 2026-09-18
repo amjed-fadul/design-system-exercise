@@ -49,9 +49,9 @@ describe('Empty State Storybook contract', () => {
       expect(module[story], `missing story ${story}`).toBeDefined();
     }
 
-    expect(module.DarkNoResults.globals?.theme).toBe('dark');
-    expect(module.ArabicNoResults.globals?.language).toBe('arabic');
-    expect(module.DarkArabicNoResults.globals).toEqual(
+    expect(module.DarkNoResults.parameters?.presentation?.theme).toBe('dark');
+    expect(module.ArabicNoResults.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabicNoResults.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.ArabicNoResults.args?.title).toMatch(/[\u0600-\u06FF]/);

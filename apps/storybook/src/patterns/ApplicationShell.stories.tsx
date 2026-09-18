@@ -373,22 +373,31 @@ export const Zoom320: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: 'dark' },
   args: { viewportMode: 'expanded' },
-  parameters: { shellWidth: 1440, shellHeight: 960 },
+  parameters: {
+    shellWidth: 1440,
+    shellHeight: 960,
+    presentation: { theme: 'dark' },
+  },
   render: story(1440),
 };
 
 export const Arabic: Story = {
-  globals: { language: 'arabic' },
   args: { viewportMode: 'expanded' },
-  parameters: { shellWidth: 1440, shellHeight: 960 },
+  parameters: {
+    shellWidth: 1440,
+    shellHeight: 960,
+    presentation: { language: 'arabic' },
+  },
   render: story(1440, 960, true),
 };
 
 export const DarkArabic: Story = {
-  globals: { theme: 'dark', language: 'arabic' },
   args: { viewportMode: 'expanded' },
-  parameters: { shellWidth: 1440, shellHeight: 960 },
+  parameters: {
+    shellWidth: 1440,
+    shellHeight: 960,
+    presentation: { theme: 'dark', language: 'arabic' },
+  },
   render: story(1440, 960, true),
 };

@@ -198,7 +198,5 @@ export const Arabic: Story = {
     ],
     defaultValue: 'member',
   },
-  globals: {
-    language: 'arabic',
-  },
+  parameters: { presentation: { language: 'arabic' } },
 };

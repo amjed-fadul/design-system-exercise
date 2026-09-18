@@ -49,9 +49,9 @@ describe('Breadcrumbs Storybook contract', () => {
     }
 
     expect(module.MultipleAncestors.args?.ancestors).toHaveLength(3);
-    expect(module.Dark.globals?.theme).toBe('dark');
-    expect(module.Arabic.globals?.language).toBe('arabic');
-    expect(module.DarkArabic.globals).toEqual(
+    expect(module.Dark.parameters?.presentation?.theme).toBe('dark');
+    expect(module.Arabic.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabic.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.Arabic.args?.ariaLabel).toMatch(/[\u0600-\u06FF]/);

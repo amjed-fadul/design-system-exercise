@@ -157,12 +157,12 @@ export const WithoutContext: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
   render: (args) => <TopNavbarCanvas {...(args as TopNavbarProps)} />,
 };
 
 export const Arabic: Story = {
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
   args: {
     brand: <Brand />,
     contextLabel: 'إدارة مساحة العمل',
@@ -172,7 +172,7 @@ export const Arabic: Story = {
 };
 
 export const DarkArabic: Story = {
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
   args: {
     brand: <Brand />,
     contextLabel: 'إدارة مساحة العمل',

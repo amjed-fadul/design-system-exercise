@@ -59,12 +59,12 @@ export const NoResults: Story = {
 };
 
 export const DarkNoResults: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
   render: (args) => <EmptyStateCanvas {...(args as EmptyStateProps)} />,
 };
 
 export const ArabicNoResults: Story = {
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
   args: {
     title: 'لم يتم العثور على أشخاص',
     body: 'لا توجد أسماء أو عناوين بريد إلكتروني تطابق «zoe».\nجرّب بحثاً مختلفاً أو امسح البحث لعرض الجميع.',
@@ -74,7 +74,7 @@ export const ArabicNoResults: Story = {
 };
 
 export const DarkArabicNoResults: Story = {
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
   args: {
     title: 'لم يتم العثور على أشخاص',
     body: 'لا توجد أسماء أو عناوين بريد إلكتروني تطابق «zoe».\nجرّب بحثاً مختلفاً أو امسح البحث لعرض الجميع.',

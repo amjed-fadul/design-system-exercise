@@ -148,12 +148,12 @@ export const MemberDetails: Story = {
 };
 
 export const DarkMemberDetails: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
   render: (args) => <SidePanelCanvas {...(args as SidePanelProps)} />,
 };
 
 export const ArabicMemberDetails: Story = {
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
   args: {
     eyebrow: 'تفاصيل العضو',
     header: <MemberHeader arabic />,
@@ -165,7 +165,7 @@ export const ArabicMemberDetails: Story = {
 };
 
 export const DarkArabicMemberDetails: Story = {
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
   args: {
     eyebrow: 'تفاصيل العضو',
     header: <MemberHeader arabic />,

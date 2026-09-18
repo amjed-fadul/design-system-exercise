@@ -282,9 +282,7 @@ export const LongIdentity: Story = {
 };
 
 export const Dark: Story = {
-  globals: {
-    theme: 'dark',
-  },
+  parameters: { presentation: { theme: 'dark' } },
   render: renderWide,
 };
 
@@ -298,18 +296,13 @@ const arabicArgs = {
 } satisfies Partial<TableProps>;
 
 export const Arabic: Story = {
-  globals: {
-    language: 'arabic',
-  },
+  parameters: { presentation: { language: 'arabic' } },
   args: arabicArgs,
   render: renderWide,
 };
 
 export const DarkArabic: Story = {
-  globals: {
-    theme: 'dark',
-    language: 'arabic',
-  },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
   args: arabicArgs,
   render: renderWide,
 };

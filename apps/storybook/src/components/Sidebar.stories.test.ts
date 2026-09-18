@@ -49,9 +49,9 @@ describe('Sidebar Storybook contract', () => {
     }
 
     expect(module.Compact.args?.mode).toBe('compact');
-    expect(module.DarkExpanded.globals?.theme).toBe('dark');
-    expect(module.ArabicExpanded.globals?.language).toBe('arabic');
-    expect(module.DarkArabicExpanded.globals).toEqual(
+    expect(module.DarkExpanded.parameters?.presentation?.theme).toBe('dark');
+    expect(module.ArabicExpanded.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabicExpanded.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.ArabicExpanded.args?.label).toMatch(/[\u0600-\u06FF]/);

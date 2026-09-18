@@ -113,12 +113,12 @@ export const InviteMember: Story = {
 };
 
 export const DarkInviteMember: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
   render: (args) => <DialogCanvas {...(args as DialogProps)} />,
 };
 
 export const ArabicInviteMember: Story = {
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
   args: {
     title: 'دعوة عضو',
     description: 'أرسل دعوة للانضمام إلى مساحة العمل.',
@@ -130,7 +130,7 @@ export const ArabicInviteMember: Story = {
 };
 
 export const DarkArabicInviteMember: Story = {
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
   args: {
     title: 'دعوة عضو',
     description: 'أرسل دعوة للانضمام إلى مساحة العمل.',

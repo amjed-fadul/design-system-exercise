@@ -64,7 +64,7 @@ export const LongMessage: Story = {
 };
 
 export const DarkError: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
 };
 
 export const DarkSuccess: Story = {
@@ -73,7 +73,7 @@ export const DarkSuccess: Story = {
     title: 'Invitation sent',
     message: 'The invitation was sent. Access remains pending until the person joins.',
   },
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
 };
 
 export const ArabicError: Story = {
@@ -82,7 +82,7 @@ export const ArabicError: Story = {
     title: 'لم يتم حفظ التغييرات',
     message: 'ما زالت التغييرات غير محفوظة. اختياراتك محفوظة هنا ويمكنك المحاولة مرة أخرى.',
   },
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
 };
 
 export const ArabicSuccess: Story = {
@@ -91,7 +91,7 @@ export const ArabicSuccess: Story = {
     title: 'تم حفظ التغييرات',
     message: 'تم حفظ التغييرات بنجاح.',
   },
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
 };
 
 export const DarkArabicError: Story = {
@@ -100,7 +100,7 @@ export const DarkArabicError: Story = {
     title: 'لم يتم حفظ التغييرات',
     message: 'ما زالت التغييرات غير محفوظة. اختياراتك محفوظة هنا ويمكنك المحاولة مرة أخرى.',
   },
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
 };
 
 export const DarkArabicSuccess: Story = {
@@ -109,5 +109,5 @@ export const DarkArabicSuccess: Story = {
     title: 'تم حفظ التغييرات',
     message: 'تم حفظ التغييرات بنجاح.',
   },
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
 };

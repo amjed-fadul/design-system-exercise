@@ -10,6 +10,7 @@ import '@design-system-exercise/react/styles.css';
 import '@design-system-exercise/patterns/styles.css';
 import '../src/styles.css';
 import '../src/directional-icons.css';
+import { direction, languageCode, resolveStoryPresentation } from '../src/presentation';
 
 const preview: Preview = {
   tags: ['autodocs'],
@@ -27,12 +28,29 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const theme = context.globals.theme as 'light' | 'dark';
-      const language = context.globals.language as 'english' | 'arabic';
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.dataset.language = language === 'arabic' ? 'ar' : 'en';
-      document.documentElement.dir = language === 'arabic' ? 'rtl' : 'ltr';
-      return <Story />;
+      const presentation = resolveStoryPresentation({
+        globals: context.globals,
+        parameters: context.parameters,
+        viewMode: context.viewMode,
+      });
+
+      document.documentElement.dataset.theme = presentation.document.theme;
+      document.documentElement.dataset.language = languageCode(
+        presentation.document.language,
+      );
+      document.documentElement.dir = direction(presentation.document.language);
+
+      return (
+        <div
+          data-dse-story-presentation=""
+          data-theme={presentation.story.theme}
+          data-language={languageCode(presentation.story.language)}
+          dir={direction(presentation.story.language)}
+          style={{ display: 'contents' }}
+        >
+          <Story />
+        </div>
+      );
     },
   ],
 };

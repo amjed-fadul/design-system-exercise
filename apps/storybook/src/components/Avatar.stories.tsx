@@ -40,47 +40,47 @@ export const Fallback: Story = {
 };
 
 export const DarkSmallInitials: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
 };
 
 export const DarkLargeInitials: Story = {
   args: { size: 'lg' },
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
 };
 
 export const DarkFallback: Story = {
   args: { initials: undefined },
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
 };
 
 export const ArabicSmallInitials: Story = {
   args: { initials: 'أف' },
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
 };
 
 export const ArabicLargeInitials: Story = {
   args: { initials: 'أف', size: 'lg' },
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
 };
 
 export const ArabicFallback: Story = {
   args: { initials: undefined },
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
 };
 
 export const DarkArabicSmallInitials: Story = {
   args: { initials: 'أف' },
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
 };
 
 export const DarkArabicLargeInitials: Story = {
   args: { initials: 'أف', size: 'lg' },
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
 };
 
 export const DarkArabicFallback: Story = {
   args: { initials: undefined },
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
 };
 
 export const LabeledStandalone: Story = {

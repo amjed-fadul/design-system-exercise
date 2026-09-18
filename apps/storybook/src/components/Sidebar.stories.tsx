@@ -107,12 +107,12 @@ export const Compact: Story = {
 };
 
 export const DarkExpanded: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
   render: (args) => <SidebarCanvas {...(args as SidebarProps)} />,
 };
 
 export const ArabicExpanded: Story = {
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
   args: {
     label: 'مساحة العمل',
     items: arabicItems,
@@ -123,7 +123,7 @@ export const ArabicExpanded: Story = {
 };
 
 export const DarkArabicExpanded: Story = {
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
   args: {
     label: 'مساحة العمل',
     items: arabicItems,

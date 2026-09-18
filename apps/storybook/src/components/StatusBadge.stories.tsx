@@ -35,30 +35,30 @@ export const InvitationPending: Story = {
 
 export const DarkActive: Story = {
   args: { label: 'Active' },
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
 };
 
 export const DarkInvitationPending: Story = {
   args: { label: 'Invitation pending' },
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
 };
 
 export const ArabicActive: Story = {
   args: { label: 'نشط' },
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
 };
 
 export const ArabicInvitationPending: Story = {
   args: { label: 'دعوة معلّقة' },
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
 };
 
 export const DarkArabicActive: Story = {
   args: { label: 'نشط' },
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
 };
 
 export const DarkArabicInvitationPending: Story = {
   args: { label: 'دعوة معلّقة' },
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
 };

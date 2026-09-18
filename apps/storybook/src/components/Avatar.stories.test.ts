@@ -58,20 +58,20 @@ describe('Avatar Storybook contract', () => {
 
     expect(module.LargeInitials.args?.size).toBe('lg');
     expect(module.Fallback.args?.initials).toBeUndefined();
-    expect(module.DarkSmallInitials.globals?.theme).toBe('dark');
-    expect(module.DarkLargeInitials.globals?.theme).toBe('dark');
-    expect(module.DarkFallback.globals?.theme).toBe('dark');
-    expect(module.ArabicSmallInitials.globals?.language).toBe('arabic');
-    expect(module.ArabicLargeInitials.globals?.language).toBe('arabic');
-    expect(module.ArabicFallback.globals?.language).toBe('arabic');
+    expect(module.DarkSmallInitials.parameters?.presentation?.theme).toBe('dark');
+    expect(module.DarkLargeInitials.parameters?.presentation?.theme).toBe('dark');
+    expect(module.DarkFallback.parameters?.presentation?.theme).toBe('dark');
+    expect(module.ArabicSmallInitials.parameters?.presentation?.language).toBe('arabic');
+    expect(module.ArabicLargeInitials.parameters?.presentation?.language).toBe('arabic');
+    expect(module.ArabicFallback.parameters?.presentation?.language).toBe('arabic');
     expect(module.ArabicSmallInitials.args?.initials).toMatch(/[\u0600-\u06FF]/);
-    expect(module.DarkArabicSmallInitials.globals).toEqual(
+    expect(module.DarkArabicSmallInitials.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
-    expect(module.DarkArabicLargeInitials.globals).toEqual(
+    expect(module.DarkArabicLargeInitials.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
-    expect(module.DarkArabicFallback.globals).toEqual(
+    expect(module.DarkArabicFallback.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
   });

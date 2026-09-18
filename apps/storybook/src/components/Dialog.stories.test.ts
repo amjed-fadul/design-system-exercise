@@ -46,9 +46,9 @@ describe('Dialog Storybook contract', () => {
       expect(module[story], `missing story ${story}`).toBeDefined();
     }
 
-    expect(module.DarkInviteMember.globals?.theme).toBe('dark');
-    expect(module.ArabicInviteMember.globals?.language).toBe('arabic');
-    expect(module.DarkArabicInviteMember.globals).toEqual(
+    expect(module.DarkInviteMember.parameters?.presentation?.theme).toBe('dark');
+    expect(module.ArabicInviteMember.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabicInviteMember.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.ArabicInviteMember.args?.title).toMatch(/[\u0600-\u06FF]/);

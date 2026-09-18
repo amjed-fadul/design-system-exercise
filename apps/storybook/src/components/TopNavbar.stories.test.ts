@@ -50,9 +50,9 @@ describe('Top Navbar Storybook contract', () => {
     }
 
     expect(module.WithoutContext.args?.showContext).toBe(false);
-    expect(module.Dark.globals?.theme).toBe('dark');
-    expect(module.Arabic.globals?.language).toBe('arabic');
-    expect(module.DarkArabic.globals).toEqual(
+    expect(module.Dark.parameters?.presentation?.theme).toBe('dark');
+    expect(module.Arabic.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabic.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.Arabic.args?.contextLabel).toMatch(/[\u0600-\u06FF]/);

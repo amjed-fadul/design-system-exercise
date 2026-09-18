@@ -102,12 +102,12 @@ export const WithBreadcrumbs: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
   render: (args) => <PageHeadingCanvas {...(args as PageHeadingProps)} />,
 };
 
 export const Arabic: Story = {
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
   args: {
     title: 'أعضاء الفريق',
     description: 'إدارة الأعضاء والدعوات المعلقة في مساحة العمل.',
@@ -118,7 +118,7 @@ export const Arabic: Story = {
 };
 
 export const DarkArabic: Story = {
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
   args: {
     title: 'أعضاء الفريق',
     description: 'إدارة الأعضاء والدعوات المعلقة في مساحة العمل.',

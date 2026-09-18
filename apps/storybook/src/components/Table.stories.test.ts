@@ -71,9 +71,9 @@ describe('Table Storybook contract', () => {
     expect(module.SelectedRow.args?.rows?.some((row: any) => row.selected === true)).toBe(true);
     expect(module.WithoutFooter.args).toHaveProperty('footerText', undefined);
     expect(module.Narrow736.parameters?.tableWidth).toBe(736);
-    expect(module.Dark.globals?.theme).toBe('dark');
-    expect(module.Arabic.globals?.language).toBe('arabic');
-    expect(module.DarkArabic.globals).toEqual(
+    expect(module.Dark.parameters?.presentation?.theme).toBe('dark');
+    expect(module.Arabic.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabic.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.Arabic.args?.primaryLabel).toMatch(/[\u0600-\u06FF]/);

@@ -39,14 +39,14 @@ describe('Inline Feedback Storybook contract', () => {
       expect(module[story], `missing story ${story}`).toBeDefined();
     }
 
-    expect(module.DarkError.globals?.theme).toBe('dark');
-    expect(module.DarkSuccess.globals?.theme).toBe('dark');
-    expect(module.ArabicError.globals?.language).toBe('arabic');
-    expect(module.ArabicSuccess.globals?.language).toBe('arabic');
-    expect(module.DarkArabicError.globals).toEqual(
+    expect(module.DarkError.parameters?.presentation?.theme).toBe('dark');
+    expect(module.DarkSuccess.parameters?.presentation?.theme).toBe('dark');
+    expect(module.ArabicError.parameters?.presentation?.language).toBe('arabic');
+    expect(module.ArabicSuccess.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabicError.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
-    expect(module.DarkArabicSuccess.globals).toEqual(
+    expect(module.DarkArabicSuccess.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
   });
