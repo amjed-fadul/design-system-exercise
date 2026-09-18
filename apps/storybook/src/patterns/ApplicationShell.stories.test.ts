@@ -59,6 +59,17 @@ describe('Application Shell Storybook contract', () => {
     expect(html).toContain('data-mode="expanded"');
     expect(html).toContain('Team members');
     expect(html).toContain('Directory content');
+    expect(html).toContain('application-shell-sidebar-overview.svg');
+    expect(html).toContain('application-shell-sidebar-projects.svg');
+    expect(html).toContain('application-shell-sidebar-team.svg');
+    expect(html).toContain('application-shell-sidebar-settings.svg');
+    expect(html).toContain('application-shell-invite-plus.svg');
+    expect(html).toContain('application-shell-view-chevron.svg');
+    expect(html).toContain('top-navbar-moon.svg');
+    expect(html).not.toContain('>O</span>');
+    expect(html).not.toContain('>P</span>');
+    expect(html).not.toContain('>T</span>');
+    expect(html).not.toContain('>S</span>');
   });
 
   it('documents the pattern contract, Figma authority, threshold, and state-ownership boundary', async () => {

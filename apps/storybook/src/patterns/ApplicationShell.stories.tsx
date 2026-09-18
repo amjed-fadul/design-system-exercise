@@ -3,6 +3,7 @@ import {
   Avatar,
   Breadcrumbs,
   Button,
+  IconButton,
   PageHeading,
   SearchField,
   Sidebar,
@@ -17,36 +18,48 @@ import {
   type ApplicationShellProps,
 } from '@design-system-exercise/patterns';
 
-function NavIcon({ label }: { label: string }) {
+const overviewIconUrl = new URL('./assets/application-shell-sidebar-overview.svg', import.meta.url).href;
+const projectsIconUrl = new URL('./assets/application-shell-sidebar-projects.svg', import.meta.url).href;
+const teamIconUrl = new URL('./assets/application-shell-sidebar-team.svg', import.meta.url).href;
+const settingsIconUrl = new URL('./assets/application-shell-sidebar-settings.svg', import.meta.url).href;
+const inviteIconUrl = new URL('./assets/application-shell-invite-plus.svg', import.meta.url).href;
+const viewIconUrl = new URL('./assets/application-shell-view-chevron.svg', import.meta.url).href;
+const moonIconUrl = new URL('../components/assets/top-navbar-moon.svg', import.meta.url).href;
+
+function FigmaIcon({ src }: { src: string }) {
   return (
     <span
       aria-hidden="true"
       style={{
-        display: 'grid',
-        placeItems: 'center',
+        display: 'block',
         inlineSize: 20,
         blockSize: 20,
-        fontSize: 12,
-        fontWeight: 600,
+        background: 'currentColor',
+        WebkitMaskImage: `url("${src}")`,
+        maskImage: `url("${src}")`,
+        WebkitMaskPosition: 'center',
+        maskPosition: 'center',
+        WebkitMaskRepeat: 'no-repeat',
+        maskRepeat: 'no-repeat',
+        WebkitMaskSize: 'contain',
+        maskSize: 'contain',
       }}
-    >
-      {label.slice(0, 1)}
-    </span>
+    />
   );
 }
 
 const englishItems: readonly SidebarItem[] = [
-  { id: 'overview', label: 'Overview', href: '#overview', icon: <NavIcon label="Overview" /> },
-  { id: 'projects', label: 'Projects', href: '#projects', icon: <NavIcon label="Projects" /> },
-  { id: 'team', label: 'Team & access', href: '#team', icon: <NavIcon label="Team" /> },
-  { id: 'settings', label: 'Settings', href: '#settings', icon: <NavIcon label="Settings" /> },
+  { id: 'overview', label: 'Overview', href: '#overview', icon: <FigmaIcon src={overviewIconUrl} /> },
+  { id: 'projects', label: 'Projects', href: '#projects', icon: <FigmaIcon src={projectsIconUrl} /> },
+  { id: 'team', label: 'Team & access', href: '#team', icon: <FigmaIcon src={teamIconUrl} /> },
+  { id: 'settings', label: 'Settings', href: '#settings', icon: <FigmaIcon src={settingsIconUrl} /> },
 ];
 
 const arabicItems: readonly SidebarItem[] = [
-  { id: 'overview', label: 'نظرة عامة', href: '#overview', icon: <NavIcon label="Overview" /> },
-  { id: 'projects', label: 'المشاريع', href: '#projects', icon: <NavIcon label="Projects" /> },
-  { id: 'team', label: 'الفريق والصلاحيات', href: '#team', icon: <NavIcon label="Team" /> },
-  { id: 'settings', label: 'الإعدادات', href: '#settings', icon: <NavIcon label="Settings" /> },
+  { id: 'overview', label: 'نظرة عامة', href: '#overview', icon: <FigmaIcon src={overviewIconUrl} /> },
+  { id: 'projects', label: 'المشاريع', href: '#projects', icon: <FigmaIcon src={projectsIconUrl} /> },
+  { id: 'team', label: 'الفريق والصلاحيات', href: '#team', icon: <FigmaIcon src={teamIconUrl} /> },
+  { id: 'settings', label: 'الإعدادات', href: '#settings', icon: <FigmaIcon src={settingsIconUrl} /> },
 ];
 
 function Brand() {
@@ -74,9 +87,23 @@ function Brand() {
 
 function Account({ arabic = false }: { arabic?: boolean }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 12, whiteSpace: 'nowrap' }}>
-      <span dir="auto">{arabic ? 'أمل حسن · مشرفة' : 'Amal Hassan · Admin'}</span>
-      <Avatar initials={arabic ? 'أح' : 'AH'} />
+    <div
+      style={{
+        direction: 'ltr',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 16,
+        whiteSpace: 'nowrap',
+      }}
+    >
+      <IconButton
+        aria-label={arabic ? 'التبديل إلى الوضع الداكن' : 'Switch to dark mode'}
+        icon={<FigmaIcon src={moonIconUrl} />}
+      />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span dir="auto">{arabic ? 'أمل حسن · مشرفة' : 'Amal Hassan · Admin'}</span>
+        <Avatar initials={arabic ? 'أح' : 'AH'} />
+      </div>
     </div>
   );
 }
@@ -125,7 +152,14 @@ function shellPageHeading(arabic = false) {
           currentLabel={arabic ? 'الفريق والصلاحيات' : 'Team & access'}
         />
       }
-      actions={<Button>{arabic ? 'دعوة عضو' : 'Invite member'}</Button>}
+      actions={
+        <Button
+          icon={<FigmaIcon src={inviteIconUrl} />}
+          iconPosition="leading"
+        >
+          {arabic ? 'دعوة عضو' : 'Invite member'}
+        </Button>
+      }
     />
   );
 }
@@ -177,6 +211,8 @@ function directoryRows(arabic = false): readonly TableRowData[] {
     action: showAction ? (
       <Button
         emphasis="text"
+        icon={<FigmaIcon src={viewIconUrl} />}
+        iconPosition="trailing"
         aria-label={arabic ? `عرض تفاصيل ${name}` : `View ${name} details`}
       >
         {arabic ? 'عرض' : 'View'}
