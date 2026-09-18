@@ -12,7 +12,6 @@ import {
   Button,
   Dialog,
   EmptyState,
-  IconButton,
   InlineFeedback,
   PageHeading,
   RadioGroup,
@@ -35,9 +34,11 @@ type RequestPhase = 'editing' | 'sending' | 'failed';
 type SavePhase = 'idle' | 'saving' | 'failed' | 'saved';
 
 export type PrototypeLanguage = 'english' | 'arabic';
+export type PrototypeTheme = 'light' | 'dark';
 
 export interface ConnectedProductPrototypeProps {
   language?: PrototypeLanguage;
+  theme?: PrototypeTheme;
 }
 
 const copyByLanguage = {
@@ -406,6 +407,7 @@ function WorkspaceFooter({ language }: { language: PrototypeLanguage }) {
 
 export function ConnectedProductPrototype({
   language = 'english',
+  theme = 'light',
 }: ConnectedProductPrototypeProps) {
   const copy = copyByLanguage[language];
   const arabic = language === 'arabic';
@@ -431,7 +433,6 @@ export function ConnectedProductPrototype({
   ] as const;
   const [members, setMembers] = useState<readonly PrototypeMember[]>(prototypeInitialMembers);
   const [query, setQuery] = useState('');
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
     const root = document.documentElement;
@@ -738,16 +739,20 @@ export function ConnectedProductPrototype({
 
   const account = (
     <div className="dse-product-prototype__account">
-      <IconButton
-        aria-label={theme === 'light' ? copy.switchDark : copy.switchLight}
-        icon={
-          <span
-            className="dse-product-prototype__moon-icon"
-            style={{ '--dse-prototype-moon-image': `url("${moonIconUrl}")` } as React.CSSProperties}
-          />
-        }
-        onClick={() => setTheme((current) => (current === 'light' ? 'dark' : 'light'))}
-      />
+      <span
+        aria-hidden="true"
+        style={{
+          display: 'grid',
+          placeItems: 'center',
+          inlineSize: 40,
+          blockSize: 40,
+        }}
+      >
+        <span
+          className="dse-product-prototype__moon-icon"
+          style={{ '--dse-prototype-moon-image': `url("${moonIconUrl}")` } as React.CSSProperties}
+        />
+      </span>
       <div className="dse-product-prototype__account-identity">
         <span>{copy.account}</span>
         <Avatar initials={arabic ? 'أح' : 'AH'} />
