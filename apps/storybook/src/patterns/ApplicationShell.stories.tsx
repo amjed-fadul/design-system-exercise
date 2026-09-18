@@ -64,7 +64,7 @@ const arabicItems: readonly SidebarItem[] = [
 
 function Brand() {
   return (
-    <div style={{ direction: 'ltr', display: 'flex', alignItems: 'center', gap: 14 }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
       <span
         aria-hidden="true"
         style={{
@@ -80,7 +80,7 @@ function Brand() {
       >
         N
       </span>
-      <strong>Northstar</strong>
+      <strong dir="ltr">Northstar</strong>
     </div>
   );
 }
