@@ -14,11 +14,8 @@ describe('Projects Management detail composition', () => {
   });
 
   it('keeps LTR project keys at the parent logical start in RTL and LTR', () => {
-    const keyRule =
-      css.match(/\.dse-projects-prototype__project-key\s*\{[^}]*\}/)?.[0] ?? '';
-
-    expect(keyRule).toMatch(/justify-self:\s*start/);
-    expect(keyRule).toMatch(/inline-size:\s*fit-content/);
-    expect(keyRule).toMatch(/unicode-bidi:\s*isolate/);
+    expect(css).toMatch(
+      /\.dse-projects-prototype__project-key\s*\{[^}]*justify-self:\s*start[^}]*inline-size:\s*fit-content[^}]*unicode-bidi:\s*isolate[^}]*\}/s,
+    );
   });
 });
