@@ -12,11 +12,20 @@ describe('Connected Product Prototype model helpers', () => {
     ]);
     expect(filterPrototypeMembers(prototypeInitialMembers, 'zoe')).toEqual([]);
     expect(filterPrototypeMembers(prototypeInitialMembers, '')).toHaveLength(7);
+    expect(
+      filterPrototypeMembers(prototypeInitialMembers, 'سارة', 'arabic').map(
+        (member) => member.email,
+      ),
+    ).toEqual(['sara@example.com']);
   });
 
   it('keeps required-email and malformed-email validation separate', () => {
     expect(inviteEmailError('')).toBe('Enter an email address.');
     expect(inviteEmailError('not-an-email')).toBe('Enter a valid email address.');
     expect(inviteEmailError('alex@example.com')).toBeNull();
+    expect(inviteEmailError('', 'arabic')).toBe('أدخل عنوان بريد إلكتروني.');
+    expect(inviteEmailError('not-an-email', 'arabic')).toBe(
+      'أدخل عنوان بريد إلكتروني صالحًا.',
+    );
   });
 });
