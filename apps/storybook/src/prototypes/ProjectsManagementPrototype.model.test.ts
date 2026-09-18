@@ -9,7 +9,7 @@ import {
 describe('Projects Management prototype model helpers', () => {
   it('searches project names, keys, and Arabic display names', () => {
     expect(
-      filterPrototypeProjects(prototypeInitialProjects, 'design').map(
+      filterPrototypeProjects(prototypeInitialProjects, 'system').map(
         (project) => project.key,
       ),
     ).toEqual(['DS']);

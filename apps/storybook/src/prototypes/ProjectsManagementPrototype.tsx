@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -487,6 +488,13 @@ export function ProjectsManagementPrototype({
     timers.current.push(id);
   };
 
+  useEffect(
+    () => () => {
+      for (const timer of timers.current) window.clearTimeout(timer);
+    },
+    [],
+  );
+
   const visibleProjects = useMemo(
     () => filterPrototypeProjects(projects, query, language),
     [projects, query, language],
@@ -681,10 +689,12 @@ export function ProjectsManagementPrototype({
   }));
 
   const footerText =
-    visibleProjects.length === 1
-      ? `1 ${copy.shownSingle}`
-      : language === 'arabic'
-        ? `${visibleProjects.length} ${copy.shownPlural}`
+    language === 'arabic'
+      ? visibleProjects.length === 1
+        ? copy.shownSingle
+        : `${visibleProjects.length} ${copy.shownPlural}`
+      : visibleProjects.length === 1
+        ? `1 ${copy.shownSingle}`
         : `${visibleProjects.length} ${copy.shownPlural}`;
 
   const directory = (
