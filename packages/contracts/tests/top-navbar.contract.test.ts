@@ -53,7 +53,10 @@ describe('dse.top-navbar contract', () => {
 
     const requirements = contract.semantics.requirements.join(' ');
     expect(requirements).toMatch(/64 CSS pixels/i);
-    expect(requirements).toMatch(/fixed.*left-to-right|left-to-right.*fixed/i);
+    expect(requirements).toMatch(/inline-start/i);
+    expect(requirements).toMatch(/inline-end/i);
+    expect(requirements).toMatch(/inherit.*direction|direction.*inherit/i);
+    expect(requirements).not.toMatch(/fixed.*left-to-right|left-to-right.*fixed/i);
     expect(requirements).toMatch(/Application Shell/i);
     expect(requirements).toMatch(/Product/i);
     expect(requirements).toMatch(/page/i);
