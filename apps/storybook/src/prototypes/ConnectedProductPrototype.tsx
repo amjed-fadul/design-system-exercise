@@ -191,6 +191,18 @@ function PersonIdentity({ member }: { member: PrototypeMember }) {
   );
 }
 
+function PanelIdentity({ member }: { member: PrototypeMember }) {
+  return (
+    <div className="dse-product-prototype__panel-member-identity">
+      <Avatar initials={member.initials} size="lg" />
+      <div className="dse-product-prototype__panel-member-copy">
+        <strong>{member.name}</strong>
+        <span dir="ltr">{member.email}</span>
+      </div>
+    </div>
+  );
+}
+
 function WorkspaceFooter() {
   return (
     <div className="dse-product-prototype__workspace-footer">
@@ -611,11 +623,9 @@ export function ConnectedProductPrototype() {
               eyebrow="MEMBER DETAILS"
               closeLabel="Close member details"
               onClose={requestRoleClose}
-              header={
-                <div className="dse-product-prototype__panel-identity">
-                  <PersonIdentity member={selectedMember} />
-                </div>
-              }
+              className="dse-product-prototype__detail-panel"
+              style={{ blockSize: '100%', minBlockSize: '100%', maxBlockSize: '100%' }}
+              header={<PanelIdentity member={selectedMember} />}
               actions={
                 <>
                   <Button emphasis="secondary" onClick={requestRoleClose}>
@@ -636,6 +646,16 @@ export function ConnectedProductPrototype() {
                 </>
               }
             >
+              <div className="dse-product-prototype__detail-row">
+                <strong>Status</strong>
+                <StatusBadge label={selectedMember.status} />
+              </div>
+
+              <div className="dse-product-prototype__detail-row">
+                <strong>Current saved role</strong>
+                <span>{selectedMember.role}</span>
+              </div>
+
               <RadioGroup
                 label="Role"
                 name={`role-${selectedMember.id}`}
@@ -646,6 +666,10 @@ export function ConnectedProductPrototype() {
                   if (savePhase === 'saved') setSavePhase('idle');
                 }}
               />
+
+              <p className="dse-product-prototype__save-note">
+                Changes take effect only after you save.
+              </p>
 
               {savePhase === 'failed' ? (
                 <InlineFeedback
