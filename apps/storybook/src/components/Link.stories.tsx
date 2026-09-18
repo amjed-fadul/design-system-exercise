@@ -25,7 +25,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.link@1.0.0. Figma authority: Link node 114:13. Use Link when activation primarily navigates to a destination. Visible content owns the normal accessible name; href and other native anchor attributes are forwarded unchanged. Hover, pressed, and focus-visible are browser/CSS-derived states and are intentionally not public props. This release has no disabled, visited, icon, size, or loading Link API.',
+          "**Contract**\n\n`dse.link@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nUse Link when activation primarily navigates to a destination. Visible content owns the normal accessible name; `href` and other native anchor attributes are forwarded unchanged. Hover, pressed, and focus-visible are browser/CSS-derived states rather than public props. There is no disabled, visited, icon, size, or loading Link API.",
       },
     },
   },

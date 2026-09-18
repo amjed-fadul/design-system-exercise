@@ -98,7 +98,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.dialog@1.0.0. Figma authority: Dialog node 133:6. Dialog is a controlled modal surface for a short blocking task or consequential choice. Runtime moves focus into the task, contains Tab navigation, returns focus on close, and treats background content as inert while open. Escape requests close even when the visible close Icon Button is hidden. Backdrop/outside clicks do not dismiss in v1. Dialog deliberately has no onSubmit, requestStatus, or visual business-state API; the containing pattern/workflow owns request progression, pending restrictions, validation, dirty checks, and action outcomes.',
+          "**Contract**\n\n`dse.dialog@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nDialog is a controlled modal surface for a short blocking task or consequential choice. Runtime moves focus into the task, contains Tab navigation, returns focus on close, and treats background content as inert while open. Escape requests close even when the visible close Icon Button is hidden. Backdrop or outside clicks do not dismiss in v1. Dialog deliberately has no `onSubmit`, `requestStatus`, or visual business-state API; the containing pattern or workflow owns request progression, validation, dirty checks, and action outcomes.",
       },
     },
   },

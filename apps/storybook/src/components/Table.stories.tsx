@@ -235,7 +235,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Public contract: dse.table@1.0.0 from Figma 152:3730. Private dse._table-header@1.0.0 comes from Figma 152:3685 and private dse._table-row@1.0.0 comes from Figma 152:3729; neither helper is publicly exported. The runtime is a native semantic four-column table in fixed Primary / Secondary / Status / Action order, with optional supplied footer copy and contextual selected-row presentation. Selected means the record is associated with open detail; it is not bulk selection. Hover is CSS-derived and the row itself is never an activation target. No sorting, pagination, bulk selection, search, editable cells, expansion, or arbitrary columns are included in C17. It is not a data grid. The reviewed geometry preserves the 736px narrow table boundary and the 1168px wide source while Primary absorbs flexible width. Theme and writing direction are inherited.',
+          "**Contract**\n\nPublic: `dse.table@1.0.0`  \nPrivate: `dse._table-header@1.0.0`, `dse._table-row@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nThe runtime is a native semantic four-column table in fixed Primary / Secondary / Status / Action order, with optional footer copy and contextual selected-row presentation. Selected means the record is associated with open detail; it is not bulk selection. Hover is CSS-derived and the row itself is never an activation target. There is no sorting, pagination, bulk selection, search, editable cells, expansion, or arbitrary columns. It is not a data grid. The narrow evidence uses a 736px table and the wide evidence uses 1168px while Primary absorbs flexible width. Theme and writing direction are inherited.",
       },
     },
   },

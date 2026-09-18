@@ -72,13 +72,12 @@ describe('Application Shell Storybook contract', () => {
     expect(html).not.toContain('>S</span>');
   });
 
-  it('documents the pattern contract, Figma authority, threshold, and state-ownership boundary', async () => {
+  it('documents the pattern contract, responsive threshold, and state-ownership boundary', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.applicationShellMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.pattern\.application-shell@1\.0\.0/);
-    expect(description).toMatch(/68:494/);
     expect(description).toMatch(/1200/);
     expect(description).toMatch(/208/);
     expect(description).toMatch(/64/);

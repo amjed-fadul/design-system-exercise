@@ -44,7 +44,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.empty-state@1.0.0. Figma authority: Empty State node 131:2. Empty State owns the centered absence-message composition, a discoverable title heading, optional decorative icon and supporting body, polite status announcement, and an optional recovery Actions region. Actions stay outside the live status message; prefer one Button or Link and use at most two actions. The component does not move focus and does not own loading, error, query/filter logic, result counts, empty-case reasoning, permissions, or recovery outcomes. Those decisions remain with the containing pattern, workflow, or product.',
+          "**Contract**\n\n`dse.empty-state@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nEmpty State owns the centered absence-message composition, a discoverable title heading, optional decorative icon and supporting body, polite status announcement, and an optional recovery Actions region. Actions stay outside the live status message; prefer one Button or Link and use at most two actions. The component does not move focus and does not own loading, error, query or filter logic, result counts, permissions, or recovery outcomes. Those decisions remain with the containing pattern, workflow, or product.",
       },
     },
   },

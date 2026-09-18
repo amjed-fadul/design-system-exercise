@@ -87,7 +87,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Public contract: dse.sidebar@1.0.0 from Figma 146:166. Private implementation contract: dse._navigation-item@1.0.0 from Figma 143:2948. Sidebar renders a named native navigation region and ordered native anchor destinations; currentId derives exactly one aria-current="page" destination. Expanded and compact preserve the same destination identity and order, while compact visually hides labels without removing their accessible text. The internal Navigation Item stays private and browser hover/pressed/focus states are CSS-derived. Application Shell owns responsive mode selection and physical placement; product/router code owns route configuration and navigation effects.',
+          "**Contract**\n\nPublic: `dse.sidebar@1.0.0`  \nPrivate: `dse._navigation-item@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nSidebar renders a named native navigation region and ordered native anchor destinations; `currentId` derives exactly one `aria-current=\"page\"` destination. Expanded and compact modes preserve the same destination identity and order while compact visually hides labels without removing accessible text. The internal Navigation Item stays private. Application Shell owns responsive mode selection and placement; product or router code owns route configuration and navigation effects.",
       },
     },
   },

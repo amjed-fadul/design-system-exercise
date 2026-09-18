@@ -59,13 +59,12 @@ describe('Empty State Storybook contract', () => {
     expect(module.WithoutIcon.args?.showIcon).toBe(false);
   });
 
-  it('documents Figma authority, status semantics, and ownership boundaries', async () => {
+  it('documents status semantics and ownership boundaries', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.emptyStateMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.empty-state@1\.0\.0/);
-    expect(description).toMatch(/131:2/);
     expect(description).toMatch(/status|announce|live/i);
     expect(description).toMatch(/focus/i);
     expect(description).toMatch(/loading/i);

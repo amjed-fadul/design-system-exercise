@@ -51,12 +51,11 @@ describe('Inline Feedback Storybook contract', () => {
     );
   });
 
-  it('documents the exact Figma authority and semantic announcement boundary', async () => {
+  it('documents the semantic announcement boundary', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.inlineFeedbackMeta.parameters?.docs?.description?.component ?? '';
-    expect(description).toMatch(/127:30/);
     expect(description).toMatch(/role=alert|alert/i);
     expect(description).toMatch(/role=status|status/i);
     expect(description).toMatch(/showTitle.*derived|derived.*showTitle/i);

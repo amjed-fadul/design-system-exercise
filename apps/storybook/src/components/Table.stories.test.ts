@@ -114,7 +114,7 @@ describe('Table Storybook contract', () => {
     expect(noFooterHtml).not.toContain('<tfoot');
   });
 
-  it('documents all three Figma authorities and the deliberate scoped-table boundary', async () => {
+  it('documents public/private contracts and the deliberate scoped-table boundary', async () => {
     const module = await loadStories();
     if (!module) return;
 
@@ -122,9 +122,6 @@ describe('Table Storybook contract', () => {
     expect(description).toMatch(/dse\.table@1\.0\.0/);
     expect(description).toMatch(/dse\._table-header@1\.0\.0/i);
     expect(description).toMatch(/dse\._table-row@1\.0\.0/i);
-    expect(description).toMatch(/152:3730/);
-    expect(description).toMatch(/152:3685/);
-    expect(description).toMatch(/152:3729/);
     expect(description).toMatch(/native|semantic/i);
     expect(description).toMatch(/no.*sorting|sorting.*not/i);
     expect(description).toMatch(/no.*pagination|pagination.*not/i);

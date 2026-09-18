@@ -61,12 +61,11 @@ describe('Status Badge Storybook contract', () => {
     );
   });
 
-  it('documents the exact neutral Figma and accessibility boundary', async () => {
+  it('documents the neutral visual and accessibility boundary', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.statusBadgeMeta.parameters?.docs?.description?.component ?? '';
-    expect(description).toMatch(/128:1821/);
     expect(description).toMatch(/28px|28 px/i);
     expect(description).toMatch(/5px.*10px|10px.*5px/i);
     expect(description).toMatch(/neutral/i);

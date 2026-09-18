@@ -57,7 +57,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.icon-button@1.0.0. Figma authority: Icon Button node 110:1339. Use Icon Button for familiar compact commands such as closing a surface or clearing search. aria-label is required and owns the accessible name; the supplied icon is decorative. Hover, pressed, and focus-visible are browser/CSS-derived interaction states and are intentionally not public props. The target remains 40×40 with a 20×20 icon in Light/Dark and English/Arabic.',
+          "**Contract**\n\n`dse.icon-button@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nUse Icon Button for familiar compact commands such as closing a surface or clearing search. `aria-label` is required and owns the accessible name; the supplied icon is decorative. Hover, pressed, and focus-visible are browser/CSS-derived interaction states rather than public props. The target remains 40×40 with a 20×20 icon across themes and writing directions.",
       },
     },
   },

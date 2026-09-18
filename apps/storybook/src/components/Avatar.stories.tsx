@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.avatar@1.0.0. Figma authority: Avatar 128:14. The source provides only 32px sm and 48px lg geometry, with consumer-supplied initials or the derived neutral @ fallback. Avatar never infers initials from a name or email and has no photo, presence, status, role, verified, selected, or click variants. In normal identity rows the visible name should own identity, so Avatar is decorative with aria-hidden by default. A standalone meaningful Avatar becomes image-like with role=img only when an explicit aria-label is supplied.',
+          "**Contract**\n\n`dse.avatar@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nSupports 32px `sm` and 48px `lg` sizes, with consumer-supplied initials or the derived neutral `@` fallback. Avatar does not infer initials from a name or email and has no photo, presence, status, role, verified, selected, or click variants. In normal identity rows the visible name should own identity, so Avatar is decorative with `aria-hidden` by default. A standalone meaningful Avatar becomes image-like with `role=img` only when an explicit `aria-label` is supplied.",
       },
     },
   },

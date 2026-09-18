@@ -73,14 +73,12 @@ describe('Breadcrumbs Storybook contract', () => {
     expect(html).not.toContain('href="#team-access"');
   });
 
-  it('documents the public/internal Figma authorities and deliberate no-overflow boundary', async () => {
+  it('documents the public/private boundary and deliberate no-overflow behavior', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.breadcrumbsMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.breadcrumbs@1\.0\.0/);
-    expect(description).toMatch(/139:20/);
-    expect(description).toMatch(/139:16/);
     expect(description).toMatch(/Link/i);
     expect(description).toMatch(/plain text/i);
     expect(description).toMatch(/no.*collapse|collapse.*not|no.*overflow|overflow.*not/i);

@@ -65,8 +65,6 @@ describe('Sidebar Storybook contract', () => {
     const description = module.sidebarMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.sidebar@1\.0\.0/);
     expect(description).toMatch(/dse\._navigation-item@1\.0\.0/);
-    expect(description).toMatch(/146:166/);
-    expect(description).toMatch(/143:2948/);
     expect(description).toMatch(/aria-current|current route/i);
     expect(description).toMatch(/native link|anchor/i);
     expect(description).toMatch(/compact|expanded/i);

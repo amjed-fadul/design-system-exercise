@@ -40,7 +40,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Public contract: dse.breadcrumbs@1.0.0 from Figma 139:20. Breadcrumbs represents route hierarchy: one or more ancestors render through the governed Link component and the current route remains plain text with aria-current="page". Internal _Breadcrumb Link Item anatomy comes from Figma 139:16 and is not publicly exported. Separators are decorative. This release establishes no collapse or overflow-menu behavior, no custom separator, and no current-page link.',
+          "**Contract**\n\n`dse.breadcrumbs@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nBreadcrumbs represents route hierarchy: one or more ancestors render through the governed Link component and the current route remains plain text with `aria-current=\"page\"`. The internal Breadcrumb Link Item stays private and separators are decorative. There is no collapse or overflow-menu behavior, no custom separator, and no current-page link.",
       },
     },
   },

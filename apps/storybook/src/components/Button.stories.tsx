@@ -56,7 +56,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: legal public boundary — dse.button@1.0.0. Figma: visual/design representation — node 93:1230. React: runtime implementation in @design-system-exercise/react. Knowledge guidance: choose Button for deliberate commands; emphasis communicates action hierarchy and tone=critical is reserved for destructive or high-risk commands.',
+          "**Contract**\n\n`dse.button@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nUse Button for deliberate commands. Emphasis communicates action hierarchy, while `tone=\"critical\"` is reserved for destructive or high-risk commands.",
       },
     },
   },

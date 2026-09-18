@@ -26,7 +26,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.inline-feedback@1.0.0. Figma authority: Inline Feedback 127:30. intent is explicit: error renders role=alert and success renders role=status. The message is required and non-empty; title is optional and Figma showTitle is derived from title presence. The component never moves focus. Alert and Check geometry comes from the exact Figma assets while semantic token color adapts to theme. Recovery actions such as a Try again Button remain siblings supplied by the containing pattern; there is no action or dismiss slot.',
+          "**Contract**\n\n`dse.inline-feedback@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\n`intent` is explicit: error renders `role=alert` and success renders `role=status`. The message is required and non-empty; title is optional and `showTitle` is derived from title presence. The component never moves focus. Recovery actions such as a Try again Button remain siblings supplied by the containing pattern; there is no action or dismiss slot.",
       },
     },
   },

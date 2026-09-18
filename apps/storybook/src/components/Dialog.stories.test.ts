@@ -55,13 +55,12 @@ describe('Dialog Storybook contract', () => {
     expect(module.WithoutDescription.args?.description).toBeUndefined();
   });
 
-  it('documents Figma authority, modal behavior, and workflow ownership', async () => {
+  it('documents modal behavior and workflow ownership', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.dialogMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.dialog@1\.0\.0/);
-    expect(description).toMatch(/133:6/);
     expect(description).toMatch(/modal/i);
     expect(description).toMatch(/focus/i);
     expect(description).toMatch(/escape/i);

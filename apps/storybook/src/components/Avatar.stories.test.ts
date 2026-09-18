@@ -76,12 +76,11 @@ describe('Avatar Storybook contract', () => {
     );
   });
 
-  it('documents exact Figma authority, derived fallback, and accessibility boundary', async () => {
+  it('documents geometry, derived fallback, and accessibility boundary', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.avatarMeta.parameters?.docs?.description?.component ?? '';
-    expect(description).toMatch(/128:14/);
     expect(description).toMatch(/32.*48|48.*32/);
     expect(description).toMatch(/fallback.*@|@.*fallback/i);
     expect(description).toMatch(/aria-hidden/i);

@@ -72,13 +72,12 @@ describe('Page Heading Storybook contract', () => {
     expect(breadcrumbHtml).toContain('class="dse-breadcrumb-link-item__separator"');
   });
 
-  it('documents the Figma authority, slot limits, and implemented Breadcrumbs dependency', async () => {
+  it('documents slot limits and the implemented Breadcrumbs dependency', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.pageHeadingMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.page-heading@1\.0\.0/);
-    expect(description).toMatch(/142:2488/);
     expect(description).toMatch(/Breadcrumbs/i);
     expect(description).toMatch(/dse\.breadcrumbs@1\.0\.0|C16/i);
     expect(description).not.toMatch(/not yet implemented|future C16|story-only fixture/i);

@@ -65,13 +65,12 @@ describe('Side Panel Storybook contract', () => {
     );
   });
 
-  it('documents Figma authority, non-modal semantics, scrolling ownership, and wrapper responsibilities', async () => {
+  it('documents non-modal semantics, scrolling ownership, and wrapper responsibilities', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.sidePanelMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.side-panel@1\.0\.0/);
-    expect(description).toMatch(/137:2/);
     expect(description).toMatch(/non-modal/i);
     expect(description).toMatch(/scroll/i);
     expect(description).toMatch(/focus/i);

@@ -133,7 +133,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.side-panel@1.0.0. Figma authority: Side Panel node 137:2. Side Panel is a non-modal contextual detail surface: it owns the raised surface, eyebrow, Header/Body/Actions regions, a scrollable flexible Body, anchored Actions, and the optional close Icon Button. It does not create a portal or backdrop, trap or restore focus, handle Escape, or make background content inert. A host pattern or workflow supplies those behaviors when it deliberately wraps the surface in a modal editor. Selection, dirty-exit protection, saved/draft values, request progression, save outcomes, and narrow-screen navigation also remain outside this component.',
+          "**Contract**\n\n`dse.side-panel@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nSide Panel is a non-modal contextual detail surface. It owns the raised surface, eyebrow, Header/Body/Actions regions, a scrollable flexible Body, anchored Actions, and the optional close Icon Button. It does not create a portal or backdrop, trap or restore focus, handle Escape, or make background content inert. A host pattern or workflow supplies those behaviors when it deliberately wraps the surface in a modal editor. Selection, dirty-exit protection, request progression, save outcomes, and narrow-screen navigation remain outside this component.",
       },
     },
   },

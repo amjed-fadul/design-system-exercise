@@ -137,7 +137,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Public contract: dse.top-navbar@1.0.0 from Figma 228:18954. Top Navbar is the persistent 64px Application Shell header: one Brand slot at inline-start, optional concise context, flexible space, one Account slot at inline-end, and a subtle bottom divider. The shell inherits document direction: LTR places Brand left and Account right; RTL places Brand right and Account left. The Brand composition follows inherited direction so the mark stays at inline-start; only the Latin Northstar word itself remains LTR. Figma order=forward is a render selector, not a public prop, and theme is inherited through semantic tokens. Application Shell owns placement, Product owns Brand/Account data plus appearance or account interactions, and page patterns own page heading and task actions. The Storybook account example composes the existing IconButton and Avatar plus the exact Figma Moon source to mirror the reviewed evidence without moving that behavior into Top Navbar.',
+          "**Contract**\n\n`dse.top-navbar@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nTop Navbar is the persistent 64px Application Shell header: one Brand slot at inline-start, optional concise context, flexible space, one Account slot at inline-end, and a subtle bottom divider. The shell inherits document direction: LTR places Brand left and Account right; RTL places Brand right and Account left. Slot order follows logical direction, while only the Latin Northstar word remains LTR. Theme is inherited through semantic tokens. Application Shell owns placement, Product owns Brand/Account data and interactions, and page patterns own page heading and task actions.",
       },
     },
   },

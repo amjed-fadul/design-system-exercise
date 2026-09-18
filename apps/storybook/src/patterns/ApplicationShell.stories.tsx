@@ -320,7 +320,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Pattern contract: dse.pattern.application-shell@1.0.0 from Figma 68:494. Application Shell composes the governed 64px Top Navbar, Sidebar, optional Page Heading, and a scrollable main region. At 1200 CSS px and above the Sidebar is expanded (208px); below 1200 it is compact (64px). The shell uses the governed layout tokens for the 32px page inset and responsive decision, supports RTL through logical flow, and does not remount page content when its layout mode changes. It does not own query, selection, draft, request, member, permission, or backend state; those remain with product/workflow patterns.',
+          "**Contract**\n\n`dse.pattern.application-shell@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/patterns`\n\n**Guidance**\n\nApplication Shell composes the governed 64px Top Navbar, Sidebar, optional Page Heading, and a scrollable main region. At 1200 CSS px and above the Sidebar is expanded at 208px; below 1200 it is compact at 64px. The shell uses governed layout tokens for the 32px page inset and responsive decision, supports RTL through logical flow, and does not remount page content when its layout mode changes. It does not own query, selection, draft, request, member, permission, or backend state; those remain with product or workflow patterns.",
       },
     },
   },
