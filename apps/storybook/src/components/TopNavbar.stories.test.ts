@@ -35,7 +35,7 @@ describe('Top Navbar Storybook contract', () => {
     }
   });
 
-  it('covers default, hidden context, Light/Dark × English/Arabic, and the fixed physical composition', async () => {
+  it('covers default, hidden context, Light/Dark × English/Arabic, and logical RTL composition', async () => {
     const module = await loadStories();
     if (!module) return;
 
@@ -78,7 +78,9 @@ describe('Top Navbar Storybook contract', () => {
     expect(description).toMatch(/64/);
     expect(description).toMatch(/Brand/i);
     expect(description).toMatch(/Account/i);
-    expect(description).toMatch(/fixed.*left-to-right|left-to-right.*fixed/i);
+    expect(description).toMatch(/inline-start/i);
+    expect(description).toMatch(/inline-end/i);
+    expect(description).not.toMatch(/fixed.*left-to-right|left-to-right.*fixed/i);
     expect(description).toMatch(/Application Shell/i);
     expect(description).toMatch(/Product/i);
     expect(description).toMatch(/page/i);
