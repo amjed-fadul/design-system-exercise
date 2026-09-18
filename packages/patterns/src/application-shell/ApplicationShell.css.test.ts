@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const css = readFileSync(
-  fileURLToPath(new URL('./ApplicationShell.css', import.meta.url)),
+  resolve(process.cwd(), 'src/application-shell/ApplicationShell.css'),
   'utf8',
 );
 
