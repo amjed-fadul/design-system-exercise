@@ -338,11 +338,18 @@ const moonIconUrl = new URL('../components/assets/top-navbar-moon.svg', import.m
 const inviteIconUrl = new URL('./assets/invite-plus.svg', import.meta.url).href;
 const viewIconUrl = new URL('./assets/view-chevron.svg', import.meta.url).href;
 
-function PrototypeButtonIcon({ src }: { src: string }) {
+function PrototypeButtonIcon({
+  src,
+  directional = false,
+}: {
+  src: string;
+  directional?: boolean;
+}) {
   return (
     <span
       className="dse-product-prototype__button-icon"
       aria-hidden="true"
+      data-dse-directional-icon={directional ? 'true' : undefined}
       style={{ '--dse-prototype-button-image': `url("${src}")` } as CSSProperties}
     />
   );
@@ -715,7 +722,7 @@ export function ConnectedProductPrototype({
       member.joined && member.id !== 'amal' ? (
         <Button
           emphasis="text"
-          icon={<PrototypeButtonIcon src={viewIconUrl} />}
+          icon={<PrototypeButtonIcon src={viewIconUrl} directional />}
           iconPosition="trailing"
           aria-label={
             arabic

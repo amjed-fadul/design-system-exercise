@@ -26,10 +26,11 @@ const inviteIconUrl = new URL('./assets/application-shell-invite-plus.svg', impo
 const viewIconUrl = new URL('./assets/application-shell-view-chevron.svg', import.meta.url).href;
 const moonIconUrl = new URL('../components/assets/top-navbar-moon.svg', import.meta.url).href;
 
-function FigmaIcon({ src }: { src: string }) {
+function FigmaIcon({ src, directional = false }: { src: string; directional?: boolean }) {
   return (
     <span
       aria-hidden="true"
+      data-dse-directional-icon={directional ? 'true' : undefined}
       style={{
         display: 'block',
         inlineSize: 20,
@@ -210,7 +211,7 @@ function directoryRows(arabic = false): readonly TableRowData[] {
     action: showAction ? (
       <Button
         emphasis="text"
-        icon={<FigmaIcon src={viewIconUrl} />}
+        icon={<FigmaIcon src={viewIconUrl} directional />}
         iconPosition="trailing"
         aria-label={arabic ? `عرض تفاصيل ${name}` : `View ${name} details`}
       >

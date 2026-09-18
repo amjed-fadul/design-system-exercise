@@ -3,7 +3,8 @@
   inline-size: 1440px;
   max-inline-size: 100%;
   min-inline-size: 960px;
-  block-size: 960px;
+  block-size: 100dvh;
+  max-block-size: 100dvh;
   margin-inline: auto;
   overflow: hidden;
   background: var(--dse-color-semantic-surface-canvas);

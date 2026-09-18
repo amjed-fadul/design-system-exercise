@@ -17,5 +17,11 @@ describe('Connected Product Prototype RTL shell composition', () => {
     expect(brandRule).not.toMatch(/direction:\s*ltr/);
     expect(accountRule).not.toMatch(/direction:\s*ltr/);
     expect(brandWordRule).toMatch(/direction:\s*ltr/);
+    it('fits the current viewport height so the shell does not force page scrolling', () => {
+    const rootRule = css.match(/\.dse-product-prototype\s*\{[^}]*\}/)?.[0] ?? '';
+    expect(rootRule).toMatch(/block-size:\s*100dvh/);
+    expect(rootRule).toMatch(/max-block-size:\s*100dvh/);
+    expect(rootRule).not.toMatch(/block-size:\s*960px/);
   });
+});
 });
