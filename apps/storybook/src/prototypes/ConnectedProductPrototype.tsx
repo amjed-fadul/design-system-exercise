@@ -205,6 +205,17 @@ export function ConnectedProductPrototype() {
   const [query, setQuery] = useState('');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
+  useEffect(() => {
+    const root = document.documentElement;
+    const previousTheme = root.dataset.theme;
+    root.dataset.theme = theme;
+
+    return () => {
+      if (previousTheme === undefined) delete root.dataset.theme;
+      else root.dataset.theme = previousTheme;
+    };
+  }, [theme]);
+
   const [inviteOpen, setInviteOpen] = useState(false);
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteRole, setInviteRole] = useState<Role>('Member');
@@ -393,7 +404,7 @@ export function ConnectedProductPrototype() {
   };
 
   const openMember = (member: PrototypeMember, trigger: HTMLElement | null) => {
-    if (!member.joined || member.id === 'amal') return;
+    if (member.id !== 'sara' && member.id !== 'omar') return;
     lastRoleTrigger.current = trigger;
     setSelectedId(member.id);
     setDraftRole(member.role);
@@ -459,7 +470,11 @@ export function ConnectedProductPrototype() {
         <Button
           emphasis="text"
           aria-label={`View ${member.name} details`}
-          onClick={(event) => openMember(member, event.currentTarget)}
+          onClick={
+            member.id === 'sara' || member.id === 'omar'
+              ? (event) => openMember(member, event.currentTarget)
+              : undefined
+          }
         >
           View
         </Button>
