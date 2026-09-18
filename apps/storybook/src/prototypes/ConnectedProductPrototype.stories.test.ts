@@ -61,6 +61,20 @@ describe('Connected Product Prototype Storybook entry', () => {
     expect(html).not.toContain('Team members');
   });
 
+  it('marks the View chevron as directional so RTL mirrors it', async () => {
+    const module = await loadStories();
+    if (!module) return;
+
+    const html = renderToStaticMarkup(
+      module.Connected.render?.(
+        {} as never,
+        { globals: { language: 'arabic', theme: 'light' } } as never,
+      ),
+    );
+
+    expect(html).toContain('data-dse-directional-icon="true"');
+  });
+
   it('keeps prototype-only behavior out of the reusable pattern API', async () => {
     const module = await loadStories();
     if (!module) return;
