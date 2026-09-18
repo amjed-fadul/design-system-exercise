@@ -167,6 +167,18 @@ const roleOptions = [
 ] as const;
 
 const moonIconUrl = new URL('../components/assets/top-navbar-moon.svg', import.meta.url).href;
+const inviteIconUrl = new URL('./assets/invite-plus.svg', import.meta.url).href;
+const viewIconUrl = new URL('./assets/view-chevron.svg', import.meta.url).href;
+
+function PrototypeButtonIcon({ src }: { src: string }) {
+  return (
+    <span
+      className="dse-product-prototype__button-icon"
+      aria-hidden="true"
+      style={{ '--dse-prototype-button-image': `url("${src}")` } as CSSProperties}
+    />
+  );
+}
 
 function Brand() {
   return (
@@ -481,6 +493,8 @@ export function ConnectedProductPrototype() {
       member.joined && member.id !== 'amal' ? (
         <Button
           emphasis="text"
+          icon={<PrototypeButtonIcon src={viewIconUrl} />}
+          iconPosition="trailing"
           aria-label={`View ${member.name} details`}
           onClick={
             member.id === 'sara' || member.id === 'omar'
@@ -570,7 +584,15 @@ export function ConnectedProductPrototype() {
           currentLabel="Team & access"
         />
       }
-      actions={<Button onClick={openInvite}>Invite member</Button>}
+      actions={
+        <Button
+          icon={<PrototypeButtonIcon src={inviteIconUrl} />}
+          iconPosition="leading"
+          onClick={openInvite}
+        >
+          Invite member
+        </Button>
+      }
     />
   );
 
