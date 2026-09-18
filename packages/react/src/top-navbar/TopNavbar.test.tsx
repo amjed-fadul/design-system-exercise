@@ -37,6 +37,14 @@ describe('Top Navbar public runtime', () => {
     expect(content?.children[2]).toHaveClass('dse-top-navbar__flexible-space');
     expect(content?.children[3]).toHaveClass('dse-top-navbar__account');
 
+    const brandRegion = content?.children[0];
+    const contextRegion = content?.children[1];
+    const accountRegion = content?.children[3];
+
+    expect(brandRegion).not.toHaveAttribute('dir');
+    expect(accountRegion).not.toHaveAttribute('dir');
+    expect(contextRegion).toHaveAttribute('dir', 'auto');
+
     expect(screen.getByText('Northstar')).toBeInTheDocument();
     expect(screen.getByText('Workspace administration')).toBeInTheDocument();
     expect(screen.getByText('Amal Hassan · Admin')).toBeInTheDocument();
