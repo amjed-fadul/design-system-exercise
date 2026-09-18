@@ -7,7 +7,7 @@ const css = readFileSync(
   'utf8',
 );
 
-describe('Connected Product Prototype RTL shell composition', () => {
+describe('Connected Product Prototype shell behavior', () => {
   it('lets Brand and Account wrappers inherit RTL while keeping only the Latin word LTR', () => {
     const brandRule = css.match(/\.dse-product-prototype__brand\s*\{[^}]*\}/)?.[0] ?? '';
     const brandWordRule =
@@ -17,11 +17,13 @@ describe('Connected Product Prototype RTL shell composition', () => {
     expect(brandRule).not.toMatch(/direction:\s*ltr/);
     expect(accountRule).not.toMatch(/direction:\s*ltr/);
     expect(brandWordRule).toMatch(/direction:\s*ltr/);
-    it('fits the current viewport height so the shell does not force page scrolling', () => {
+  });
+
+  it('fits the current viewport height so the shell does not force page scrolling', () => {
     const rootRule = css.match(/\.dse-product-prototype\s*\{[^}]*\}/)?.[0] ?? '';
+
     expect(rootRule).toMatch(/block-size:\s*100dvh/);
     expect(rootRule).toMatch(/max-block-size:\s*100dvh/);
     expect(rootRule).not.toMatch(/block-size:\s*960px/);
   });
-});
 });
