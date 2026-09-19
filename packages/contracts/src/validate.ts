@@ -53,6 +53,7 @@ const requiredAuthoringRuleIds = [
   'icons.mirror-only-when-directional',
   'accessibility.preserve-governed-semantics',
   'storybook.evidence-not-authority',
+  'uncertainty.evaluation-placeholder',
   'uncertainty.do-not-guess',
 ] as const;
 
