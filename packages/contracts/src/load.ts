@@ -7,6 +7,7 @@ export const contractsRoot = fileURLToPath(new URL('../', import.meta.url));
 export const componentsDir = join(contractsRoot, 'components');
 export const patternsDir = join(contractsRoot, 'patterns');
 export const aiDir = join(contractsRoot, 'ai');
+export const compositionsDir = join(aiDir, 'compositions');
 
 function loadDirectory(directory: string, suffix: string): LoadedContract[] {
   if (!existsSync(directory)) return [];
@@ -33,4 +34,8 @@ export function loadPatternContracts(): LoadedContract[] {
 
 export function loadAuthoringPolicies(): LoadedContract[] {
   return loadDirectory(aiDir, '-policy.json');
+}
+
+export function loadCompositionGuidance(): LoadedContract[] {
+  return loadDirectory(compositionsDir, '.guidance.json');
 }
