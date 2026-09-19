@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../schema/ai-blind-authoring-task.schema.json",
+  "$schema": "../../schema/ai-blind-authoring-task.schema.json",
   "id": "dse.ai-eval.projects-directory",
   "kind": "ai-blind-authoring-task",
   "version": "1.0.0",
