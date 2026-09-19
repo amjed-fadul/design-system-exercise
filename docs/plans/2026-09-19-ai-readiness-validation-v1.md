@@ -97,9 +97,9 @@ Passed gates:
 
 **Gate:** PASS.
 
-**Review status:** awaiting user review. The canonical policy remains `draft` until approved. Task 3 has not started.
+**Review status:** approved by user. The canonical policy is `approved`.
 
-## Task 3 — Capture composition knowledge — NOT STARTED
+## Task 3 — Capture composition knowledge — ACTIVE
 
 Document the missing composition knowledge exposed by the prototypes, starting only with compositions already evidenced in the repo.
 
@@ -195,4 +195,4 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 
 ## Execution rule
 
-Tasks are sequential. Tasks 1–2 are complete. Do not begin Task 3 until Task 2 is reviewed/approved.
+Tasks are sequential. Tasks 1–2 are complete and approved. Task 3 is active. Do not begin Task 4 until Task 3 is complete and reviewed.
