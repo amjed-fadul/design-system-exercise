@@ -51,27 +51,53 @@ Output: `docs/ai-readiness/AI-READINESS-CSS-AUDIT.md`.
 
 **Gate:** PASS. Every audited custom styling family has an explicit authority/reason. No patterns, tokens, or component APIs were added.
 
-**Review status:** awaiting review before Task 2.
+**Review status:** reviewed by user; Task 2 authorized.
 
-## Task 2 — Define AI styling authority — NOT STARTED
+## Task 2 — Define AI styling authority — COMPLETE
 
-Create a compact machine-readable authoring policy that tells an agent what it may and may not invent.
+Created a canonical, machine-readable AI authoring policy and wired it into repository validation and Storybook evidence.
 
-Minimum policy:
+Outputs:
 
-- use governed components whenever one exists;
-- never invent component props;
-- use governed semantic tokens where available;
-- raw colors are forbidden;
-- local layout CSS is allowed only for product/composition ownership;
-- local dimensions require explicit product/Figma evidence or documented composition authority;
-- repeated composition rules must graduate into DS guidance/patterns.
+- `packages/contracts/ai/authoring-policy.json` — canonical policy, currently `draft` pending user review;
+- `packages/contracts/schema/ai-authoring-policy.schema.json` — validation schema;
+- `docs/ai-readiness/AI-AUTHORING-RULES.md` — human-readable usage guidance;
+- `AI Readiness/Authoring Rules` in Storybook — human-visible rendering directly backed by the canonical JSON.
 
-Expected output:
+The policy now defines:
 
-- machine-readable AI authoring policy;
-- human-readable guidance;
-- Storybook **AI Authoring Rules** docs surface generated from or directly backed by that policy.
+- governed component/pattern selection;
+- no invented component APIs;
+- token authority and raw-color restrictions;
+- allowed product-local CSS authority;
+- raw-dimension authority;
+- Storybook/prototype non-authority for product composition;
+- repeated-composition escalation;
+- logical RTL/LTR layout;
+- intrinsic mixed-direction content;
+- directional-icon mirroring authority;
+- accessibility preservation;
+- explicit do-not-guess behavior.
+
+Validation protects the policy schema, exactly one canonical policy file, unique rule IDs, and the required Task 2 rule set.
+
+**Implementation HEAD:** `1623cdfb462ac600ef2db340a9ee609e781bc5fa`  
+**CI:** run **509 — PASS** on that exact implementation HEAD.
+
+Passed gates:
+
+- frozen install;
+- contracts validation including the AI policy;
+- tokens validation/build;
+- React build;
+- full tests;
+- TypeScript typecheck;
+- Storybook production build;
+- packed-package verification.
+
+**Gate:** PASS.
+
+**Review status:** awaiting user review. The canonical policy remains `draft` until approved. Task 3 has not started.
 
 ## Task 3 — Capture composition knowledge — NOT STARTED
 
@@ -169,4 +195,4 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 
 ## Execution rule
 
-Tasks are sequential. Task 1 is complete and must be reviewed before Task 2 begins.
+Tasks are sequential. Tasks 1–2 are complete. Do not begin Task 3 until Task 2 is reviewed/approved.
