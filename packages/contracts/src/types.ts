@@ -93,3 +93,47 @@ export interface AiAuthoringPolicy {
     audit: string;
   };
 }
+
+export interface CompositionGuidanceRule {
+  id: string;
+  statement: string;
+}
+
+export interface CompositionGuidanceStructure {
+  key: string;
+  order: number;
+  required: boolean;
+  role: string;
+  componentIds?: string[];
+  patternIds?: string[];
+}
+
+export interface CompositionGuidance {
+  id: string;
+  kind: 'composition-guidance';
+  version: string;
+  status: 'draft' | 'approved' | 'deprecated';
+  name: string;
+  description: string;
+  scope: 'page' | 'interaction' | 'flow';
+  componentDependencies: ComponentDependency[];
+  patternDependencies: ComponentDependency[];
+  structure: CompositionGuidanceStructure[];
+  rules: {
+    layout: CompositionGuidanceRule[];
+    responsive: CompositionGuidanceRule[];
+    direction: CompositionGuidanceRule[];
+    accessibility: CompositionGuidanceRule[];
+    behavior: CompositionGuidanceRule[];
+  };
+  localCss: {
+    allowed: CompositionGuidanceRule[];
+    mustUseGovernedTokensWhenAvailable: true;
+  };
+  forbidden: string[];
+  provenance: {
+    lastReviewed: string;
+    audit: string;
+    evidence: string[];
+  };
+}
