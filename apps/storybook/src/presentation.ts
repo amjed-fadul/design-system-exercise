@@ -53,3 +53,34 @@ export function languageCode(language: StoryLanguage) {
 export function direction(language: StoryLanguage) {
   return language === 'arabic' ? 'rtl' : 'ltr';
 }
+
+export function syncDocsCanvasPresentation(
+  storyRoot: Element | null,
+  presentation: StoryPresentation,
+) {
+  const docsCanvas = storyRoot?.closest<HTMLElement>('.dse-docs-canvas');
+
+  if (!docsCanvas) {
+    return () => {};
+  }
+
+  const theme = presentation.theme;
+  const language = languageCode(presentation.language);
+  const dir = direction(presentation.language);
+
+  docsCanvas.dataset.theme = theme;
+  docsCanvas.dataset.language = language;
+  docsCanvas.dir = dir;
+
+  return () => {
+    if (docsCanvas.dataset.theme === theme) {
+      delete docsCanvas.dataset.theme;
+    }
+    if (docsCanvas.dataset.language === language) {
+      delete docsCanvas.dataset.language;
+    }
+    if (docsCanvas.dir === dir) {
+      docsCanvas.removeAttribute('dir');
+    }
+  };
+}
