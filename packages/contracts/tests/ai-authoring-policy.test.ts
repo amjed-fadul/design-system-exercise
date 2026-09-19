@@ -37,6 +37,24 @@ describe('AI authoring policy', () => {
     expect(fixtureRule?.rationale).toMatch(/unresolved/i);
   });
 
+  it('rejects removal of the evaluation-placeholder authority rule', () => {
+    const incomplete = structuredClone(policy);
+    incomplete.rules = incomplete.rules.filter(
+      (rule) => rule.id !== 'uncertainty.evaluation-placeholder',
+    );
+
+    expect(validateAuthoringPolicy(incomplete)).toEqual(
+      expect.objectContaining({
+        valid: false,
+        errors: expect.arrayContaining([
+          expect.stringMatching(
+            /missing required AI authoring rule uncertainty\.evaluation-placeholder/i,
+          ),
+        ]),
+      }),
+    );
+  });
+
   it('rejects duplicate rule ids', () => {
     const duplicate = structuredClone(policy);
     duplicate.rules.push({ ...duplicate.rules[0]! });
