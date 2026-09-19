@@ -48,6 +48,7 @@ const requiredAllowContext = [
 ] as const;
 
 const requiredDeniedContext = [
+  'packages/contracts/ai/evals/*.task.json',
   'apps/storybook/src/prototypes/**',
   'apps/storybook/src/patterns/**',
   'apps/storybook/src/components/**',
