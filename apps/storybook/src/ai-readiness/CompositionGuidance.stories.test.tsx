@@ -37,6 +37,7 @@ describe('Task 3 Storybook composition guidance', () => {
       for (const region of guidance.structure) {
         expect(html).toContain(region.key);
         expect(html).toContain(region.role);
+        expect(html).toContain(`owner: ${region.owner}`);
       }
 
       for (const rule of allRules(guidance as typeof directoryPage)) {
