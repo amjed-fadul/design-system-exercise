@@ -60,7 +60,7 @@
 .dse-product-prototype__account-identity {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--dse-spacing-primitive-space-300);
 }
 
 .dse-product-prototype__moon-icon {
@@ -102,7 +102,11 @@
 .dse-product-prototype__workspace-footer strong {
   overflow: hidden;
   color: var(--dse-color-semantic-fg-primary);
-  font-size: 14px;
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -110,7 +114,11 @@
 .dse-product-prototype__workspace-footer span {
   overflow: hidden;
   color: var(--dse-color-semantic-fg-secondary);
-  font-size: 12px;
+  font-family: var(--dse-typography-semantic-caption-default-family);
+  font-size: var(--dse-typography-semantic-caption-default-size);
+  font-weight: var(--dse-typography-semantic-caption-default-weight);
+  line-height: var(--dse-typography-semantic-caption-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-caption-default-letter-spacing);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -151,7 +159,7 @@
 .dse-product-prototype__identity {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--dse-spacing-primitive-space-300);
   min-inline-size: 0;
 }
 
