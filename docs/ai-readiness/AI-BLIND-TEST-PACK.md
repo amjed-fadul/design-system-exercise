@@ -87,7 +87,7 @@ Every task is evaluated on the same nine dimensions:
 8. responsive behavior;
 9. visual fidelity.
 
-The task JSON stores expected authorities and detailed checks under `evaluatorOnly`. That section is for human/evaluator use and must never enter the Claude prompt.
+The full `*.task.json` files are evaluator-owned and are explicitly denied from agent context. Task 5 must construct the Claude task payload from `agentVisible` only (via the contracts helper `buildAgentTaskPayload`). The task JSON stores expected authorities and detailed checks under `evaluatorOnly`; that section is for human/evaluator use and must never enter the Claude prompt.
 
 ## Storybook
 
