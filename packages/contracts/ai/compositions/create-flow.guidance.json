@@ -43,7 +43,8 @@
       "componentIds": [
         "dse.button",
         "dse.page-heading"
-      ]
+      ],
+      "owner": "product"
     },
     {
       "key": "dialog",
@@ -52,7 +53,8 @@
       "role": "Governed Dialog owns the modal surface, modal semantics, focus containment, Escape handling, and focus restoration.",
       "componentIds": [
         "dse.dialog"
-      ]
+      ],
+      "owner": "design-system"
     },
     {
       "key": "form-content",
@@ -62,7 +64,8 @@
       "componentIds": [
         "dse.text-field",
         "dse.radio-group"
-      ]
+      ],
+      "owner": "product"
     },
     {
       "key": "failure-feedback",
@@ -71,7 +74,8 @@
       "role": "Render governed Inline Feedback inside the Dialog when a recoverable request failure needs explicit explanation while preserving entered values.",
       "componentIds": [
         "dse.inline-feedback"
-      ]
+      ],
+      "owner": "workflow"
     },
     {
       "key": "dialog-actions",
@@ -80,7 +84,8 @@
       "role": "Compose governed Buttons in Dialog actions for cancellation and submission; product/workflow owns labels, pending restrictions, retry state, and outcomes.",
       "componentIds": [
         "dse.button"
-      ]
+      ],
+      "owner": "workflow"
     }
   ],
   "rules": {
