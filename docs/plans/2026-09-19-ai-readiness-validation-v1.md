@@ -286,9 +286,38 @@ Both are classified as **Ambiguous contract**, not agent mistakes.
 
 **Gate:** PASS. Every actual finding has a classification and no design-system change has been made yet.
 
-## Task 7 — Fix only proven DS gaps — NOT STARTED
+## Task 7 — Fix only proven DS gaps — ACTIVE
 
 For system-caused failures, make the smallest correction: contract clarification, usage guidance, composition rule, token, or pattern.
+
+Task 6 proved exactly two ambiguities and no missing component/token/runtime pattern:
+
+1. **A1 — evaluation fixture values vs do-not-guess policy**
+   - Added canonical rule `uncertainty.evaluation-placeholder`.
+   - Deterministic evaluation/demo placeholders are allowed only as explicitly labeled non-production evidence when production generation/allocation remains unresolved.
+   - The placeholder must not assert a production format, allocation rule, or reusable product behavior.
+
+2. **A2 — Create Flow scope for invitations**
+   - Added `behavior.scope-boundary` to approved Create Flow guidance.
+   - Create Flow applies when the primary outcome is creation of the first-class product entity/record.
+   - Invite/invitation, add-member, and access-grant workflows remain product-owned Dialog workflows unless separate approved guidance explicitly includes them.
+
+Supporting changes:
+
+- authoring-policy validator now requires `uncertainty.evaluation-placeholder`;
+- human AI Authoring Rules guidance updated;
+- human AI Composition Guidance updated;
+- Storybook AI Readiness evidence continues to render canonical JSON directly, so no duplicated Storybook rule source was added.
+
+TDD evidence:
+
+- CI run **565**: RED — exactly 2 new missing-rule tests failed.
+- CI run **568**: RED — validator-removal test failed because the new policy rule was not yet required.
+- CI run **570**: GREEN on exact implementation HEAD `4f51b6a40bdc81161b5f065eb2f01d3e325595a2`.
+
+Run 005 — API Keys rerun: **READY FOR FRESH AGENT** on `ai-eval/api-keys-rerun-005`, based on the verified Task 7 implementation HEAD.
+
+Team Management rerun remains pending until Run 005 is captured, preserving sequential execution.
 
 Add a component/API only when evidence genuinely requires it.
 
@@ -296,7 +325,7 @@ After each fix:
 
 - update the machine-readable source first;
 - update/regenerate corresponding Storybook evidence;
-- rerun the same blind task.
+- rerun only the affected blind task.
 
 ## Task 8 — AI Readiness V1 gate — NOT STARTED
 
@@ -315,4 +344,4 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 
 ## Execution rule
 
-Tasks are sequential. Tasks 1–6 are complete. Task 7 has not started. Fix only the two proven Task 6 ambiguities, then rerun only the affected blind cases.
+Tasks are sequential. Tasks 1–6 are complete. Task 7 is active. Its two proven ambiguities are fixed and verified; API Keys rerun 005 is ready for a fresh agent. Team rerun follows only after Run 005 is captured.
