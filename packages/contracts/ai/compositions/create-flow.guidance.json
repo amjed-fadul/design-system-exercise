@@ -41,8 +41,7 @@
       "required": true,
       "role": "A governed Button opens the creation workflow; it may be composed in Page Heading actions when that placement is appropriate.",
       "componentIds": [
-        "dse.button",
-        "dse.page-heading"
+        "dse.button"
       ],
       "owner": "product"
     },
