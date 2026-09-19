@@ -23,6 +23,7 @@
       "packages/tokens/package.json"
     ],
     "deny": [
+      "packages/contracts/ai/evals/*.task.json",
       "apps/storybook/src/prototypes/**",
       "apps/storybook/src/patterns/**",
       "apps/storybook/src/components/**",
