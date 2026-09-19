@@ -3,7 +3,7 @@
   "id": "dse.composition.create-flow",
   "kind": "composition-guidance",
   "version": "1.0.0",
-  "status": "draft",
+  "status": "approved",
   "name": "Create Flow",
   "description": "Guidance for a short creation workflow opened from a page-level action into governed Dialog, with governed form controls, product-owned validation/request state, inline failure feedback, and a success outcome returned to the originating page.",
   "scope": "flow",
