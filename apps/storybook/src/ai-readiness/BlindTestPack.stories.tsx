@@ -102,6 +102,10 @@ function BlindTestPackPage() {
             </div>
 
             <p style={{ margin: 0 }}>
+              <code>{task.id}</code>
+            </p>
+
+            <p style={{ margin: 0 }}>
               {task.agentVisible.productRequirement.summary}
             </p>
 
