@@ -8,13 +8,28 @@
   "description": "Guidance for a workspace directory page that combines page context, search/filter controls, result summary, a governed Table for non-empty results, and governed Empty State for zero results.",
   "scope": "page",
   "componentDependencies": [
-    { "id": "dse.page-heading", "minimumVersion": "1.0.0" },
-    { "id": "dse.search-field", "minimumVersion": "1.0.0" },
-    { "id": "dse.table", "minimumVersion": "1.0.0" },
-    { "id": "dse.empty-state", "minimumVersion": "1.0.0" }
+    {
+      "id": "dse.page-heading",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.search-field",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.table",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.empty-state",
+      "minimumVersion": "1.0.0"
+    }
   ],
   "patternDependencies": [
-    { "id": "dse.pattern.application-shell", "minimumVersion": "1.0.0" }
+    {
+      "id": "dse.pattern.application-shell",
+      "minimumVersion": "1.0.0"
+    }
   ],
   "structure": [
     {
@@ -22,21 +37,31 @@
       "order": 1,
       "required": true,
       "role": "Provide page title, description, breadcrumbs, and optional page-level actions through the governed Page Heading.",
-      "componentIds": ["dse.page-heading"]
+      "componentIds": [
+        "dse.page-heading"
+      ],
+      "owner": "design-system"
     },
     {
       "key": "directory-controls",
       "order": 2,
       "required": true,
       "role": "Place the governed Search Field at logical inline-start and product-owned result summary at logical inline-end in wide layouts.",
-      "componentIds": ["dse.search-field"]
+      "componentIds": [
+        "dse.search-field"
+      ],
+      "owner": "composition"
     },
     {
       "key": "results",
       "order": 3,
       "required": true,
       "role": "Render the governed Table when one or more results exist; render the governed Empty State instead when the result set is empty.",
-      "componentIds": ["dse.table", "dse.empty-state"]
+      "componentIds": [
+        "dse.table",
+        "dse.empty-state"
+      ],
+      "owner": "composition"
     }
   ],
   "rules": {
