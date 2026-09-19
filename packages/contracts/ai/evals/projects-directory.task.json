@@ -3,7 +3,7 @@
   "id": "dse.ai-eval.projects-directory",
   "kind": "ai-blind-authoring-task",
   "version": "1.0.0",
-  "status": "draft",
+  "status": "approved",
   "name": "Projects Directory",
   "caseType": "baseline-known",
   "agentVisible": {
