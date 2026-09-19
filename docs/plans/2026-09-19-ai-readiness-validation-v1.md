@@ -10,7 +10,7 @@ Prove whether the Design System can guide an AI agent to build correct product U
 
 The current repository proves a strong governed implementation baseline. This plan tests whether that baseline is sufficiently explicit for an AI agent to author new UI correctly.
 
-## Task 1 — Custom CSS audit — ACTIVE
+## Task 1 — Custom CSS audit — COMPLETE
 
 Audit Storybook-owned CSS and inline Storybook/prototype layout styling.
 
@@ -24,9 +24,11 @@ Classify each authored styling decision as one of:
 
 Output: `docs/ai-readiness/AI-READINESS-CSS-AUDIT.md`.
 
-**Gate:** every audited custom styling decision has an explicit authority/reason. Do not add patterns, tokens, or component APIs during Task 1.
+**Gate:** PASS. Every audited custom styling family has an explicit authority/reason. No patterns, tokens, or component APIs were added.
 
-## Task 2 — Define AI styling authority
+**Review status:** awaiting review before Task 2.
+
+## Task 2 — Define AI styling authority — NOT STARTED
 
 Create a compact machine-readable authoring policy that tells an agent what it may and may not invent.
 
@@ -42,7 +44,7 @@ Minimum policy:
 
 Expected output: a machine-readable policy plus human-readable guidance.
 
-## Task 3 — Capture composition knowledge
+## Task 3 — Capture composition knowledge — NOT STARTED
 
 Document the missing composition knowledge exposed by the prototypes, starting only with compositions already evidenced in the repo.
 
@@ -56,7 +58,7 @@ For each capture components, order, ownership, layout rules, responsive behavior
 
 Do not add public React APIs unless Task 1/2 evidence proves they are needed.
 
-## Task 4 — Create an AI test pack
+## Task 4 — Create an AI test pack — NOT STARTED
 
 Prepare 2–3 blind authoring tasks. The agent receives tokens, contracts, approved guidance/patterns, the authoring policy, and product requirements.
 
@@ -68,7 +70,7 @@ Suggested cases:
 2. Team management.
 3. A new screen not already implemented, to test generalization.
 
-## Task 5 — Run Claude blind
+## Task 5 — Run Claude blind — NOT STARTED
 
 Run one task at a time without correcting the agent during generation.
 
@@ -84,7 +86,7 @@ Capture:
 - responsive behavior;
 - visual fidelity.
 
-## Task 6 — Classify failures
+## Task 6 — Classify failures — NOT STARTED
 
 Every failure must be classified as:
 
@@ -97,7 +99,7 @@ Every failure must be classified as:
 
 Do not change the DS merely because the agent made a mistake.
 
-## Task 7 — Fix only proven DS gaps
+## Task 7 — Fix only proven DS gaps — NOT STARTED
 
 For system-caused failures, make the smallest correction: contract clarification, usage guidance, composition rule, token, or pattern.
 
@@ -105,7 +107,7 @@ Add a component/API only when evidence genuinely requires it.
 
 Then rerun the same blind task.
 
-## Task 8 — AI Readiness V1 gate
+## Task 8 — AI Readiness V1 gate — NOT STARTED
 
 AI Readiness V1 passes only when the blind test screens satisfy all of the following:
 
@@ -121,4 +123,4 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 
 ## Execution rule
 
-Tasks are sequential. Start with Task 1 only. Do not begin Task 2 until the Task 1 audit is complete and reviewed.
+Tasks are sequential. Task 1 is complete and must be reviewed before Task 2 begins.
