@@ -32,5 +32,5 @@ export function loadPatternContracts(): LoadedContract[] {
 }
 
 export function loadAuthoringPolicies(): LoadedContract[] {
-  return loadDirectory(aiDir, '.policy.json');
+  return loadDirectory(aiDir, '-policy.json');
 }
