@@ -245,7 +245,7 @@ Passed gates:
 
 Run one task at a time without correcting the agent during generation.
 
-**Run 001 — API Keys Management:** INVALID — workspace not mounted; no score. See `docs/ai-readiness/runs/2026-09-19-api-keys-run-001.md`.\n\n**Run 002 — API Keys Management:** COMPLETED — UNCLASSIFIED at `58b09882861596f328d20c7e8d726e6588fc71f8`. Evidence captured in `docs/ai-readiness/runs/2026-09-19-api-keys-run-002.md`.\n\n**Run 003 — Projects Directory:** READY FOR FRESH AGENT on branch `ai-eval/projects-directory-run-003`. The current orchestration chat remains excluded from implementation because it has seen evaluator/answer context.
+**Run 001 — API Keys Management:** INVALID — workspace not mounted; no score. See `docs/ai-readiness/runs/2026-09-19-api-keys-run-001.md`.\n\n**Run 002 — API Keys Management:** COMPLETED — UNCLASSIFIED at `58b09882861596f328d20c7e8d726e6588fc71f8`. Evidence captured in `docs/ai-readiness/runs/2026-09-19-api-keys-run-002.md`.\n\n**Run 003 — Projects Directory:** COMPLETED — UNCLASSIFIED at `ea7d5cce008d3402fbe7519a2007c3b6c8b7b908`. Evidence captured in `docs/ai-readiness/runs/2026-09-19-projects-run-003.md`.\n\n**Run 004 — Team Management:** READY FOR FRESH AGENT on branch `ai-eval/team-management-run-004`. The current orchestration chat remains excluded from implementation because it has seen evaluator/answer context.
 
 Capture:
 
