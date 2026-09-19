@@ -43,9 +43,9 @@ Requirement levels mean:
 
 Local CSS is not automatically a failure.
 
-It is valid only when the decision belongs to product/composition ownership and is authorized by approved composition guidance, supplied product/Figma evidence, or a Storybook evidence frame.
+For product UI, it is valid only when the decision belongs to product/composition ownership and is authorized by approved composition guidance or supplied product/Figma evidence.
 
-Storybook evidence-frame authority applies only to documentation/testing. It never grants the same raw value authority to product UI.
+Storybook may use clearly labeled evidence-frame dimensions for deterministic documentation/testing, but those values never grant authority to product UI.
 
 ## Unknown decisions
 
