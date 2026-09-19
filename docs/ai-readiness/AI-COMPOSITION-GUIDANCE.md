@@ -10,7 +10,7 @@ The canonical records live in:
 - `packages/contracts/ai/compositions/modal-list-detail.guidance.json`
 - `packages/contracts/ai/compositions/create-flow.guidance.json`
 
-All three records are currently **draft** pending Task 3 review. Every structural region also records explicit ownership as `design-system`, `composition`, `product`, or `workflow`.
+All three records are **approved**. Every structural region also records explicit ownership as `design-system`, `composition`, `product`, or `workflow`.
 
 Storybook renders these records for human review under **AI Readiness → Composition Guidance**. Storybook is not the source of truth.
 
@@ -70,6 +70,12 @@ Defines:
 The product/workflow owns field state, validation, request phase, retry behavior and outcomes.
 
 The deterministic fail-then-retry behavior used in prototypes is explicitly marked as demo behavior, not design-system guidance.
+
+### Scope boundary
+
+Create Flow applies when the primary outcome is creation of the first-class product entity or record represented by the flow.
+
+Invite/invitation, add-member, and access-grant workflows remain product-owned Dialog workflows unless separate approved guidance explicitly brings them into Create Flow scope. They may use the same governed components, but similarity of component composition alone does not make Create Flow their authority.
 
 ## Boundary
 
