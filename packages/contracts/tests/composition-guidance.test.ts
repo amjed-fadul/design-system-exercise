@@ -51,6 +51,20 @@ describe('Task 3 composition guidance', () => {
     expect(validateRepositoryContracts().valid).toBe(true);
   });
 
+  it('defines the Create Flow boundary for invitation and access workflows', () => {
+    const createFlow = records.find(
+      (record) => record.id === 'dse.composition.create-flow',
+    );
+    const scopeRule = createFlow?.rules.behavior.find(
+      (rule) => rule.id === 'behavior.scope-boundary',
+    );
+
+    expect(scopeRule).toBeDefined();
+    expect(scopeRule?.statement).toMatch(/invite|invitation/i);
+    expect(scopeRule?.statement).toMatch(/add-member|access-grant/i);
+    expect(scopeRule?.statement).toMatch(/product-owned Dialog workflow/i);
+  });
+
   it('rejects duplicate rule ids across composition rule groups', () => {
     const duplicate = structuredClone(records[0]!);
     duplicate.rules.responsive.push({
