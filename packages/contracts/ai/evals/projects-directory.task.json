@@ -1,0 +1,158 @@
+{
+  "$schema": "../../../schema/ai-blind-authoring-task.schema.json",
+  "id": "dse.ai-eval.projects-directory",
+  "kind": "ai-blind-authoring-task",
+  "version": "1.0.0",
+  "status": "draft",
+  "name": "Projects Directory",
+  "caseType": "baseline-known",
+  "agentVisible": {
+    "productRequirement": {
+      "summary": "Build a Northstar workspace Projects management experience. Users need to browse and search projects, create a project, inspect/edit project details, and archive a project with confirmation.",
+      "userGoals": [
+        "Browse projects with project identity, owner, status, and a record-specific details action.",
+        "Search projects by project name or project key and understand the current result count.",
+        "Create a project with a required name, required short project key, and starting status.",
+        "Open project details, edit the project name/key/status, save changes, and preserve entered edits after a recoverable save failure.",
+        "Archive a project only after an explicit consequential confirmation."
+      ],
+      "dataFixtures": [
+        "Billing revamp — key BILL — owner Sara Ahmed — Active.",
+        "Mobile onboarding — key MOB — owner Omar Khalid — Active.",
+        "Research hub — key RSH — owner Daniel Chen — Draft.",
+        "The project key is intrinsically LTR even when the surrounding UI is Arabic."
+      ],
+      "requiredStates": [
+        "Populated directory.",
+        "Filtered directory and no-results state.",
+        "Create-project modal with valid, invalid, pending/failure, retry, and success outcomes.",
+        "Project detail open with selected-row association.",
+        "Edit/save failure and success feedback.",
+        "Archive confirmation and archived outcome."
+      ],
+      "presentationModes": [
+        "English LTR and Arabic RTL.",
+        "Light and Dark.",
+        "Wide Application Shell and compact/narrow directory presentation.",
+        "For any contextual-detail behavior that approved guidance marks unresolved on narrow screens, report the unresolved decision instead of inventing a new model."
+      ]
+    },
+    "deliverable": {
+      "writeRoot": "apps/storybook/src/ai-readiness/evaluations/projects-directory/",
+      "requiredFiles": [
+        "ProjectsEvaluation.tsx",
+        "ProjectsEvaluation.css",
+        "ProjectsEvaluation.stories.tsx",
+        "AUTHORING-REPORT.md"
+      ],
+      "storyTitle": "AI Readiness/Evaluations/Projects Directory"
+    },
+    "executionRules": [
+      "Read only the shared agent-context allowlist from the test-pack manifest; do not read any denied source.",
+      "Do not inspect git history, pull-request diffs, other branches, tags, or earlier implementations to recover an answer.",
+      "Do not use external search or external code examples to locate this repository's previous implementation.",
+      "Use only public governed package APIs authorized by the supplied contracts and guidance.",
+      "Do not add or modify design-system components, contracts, patterns, tokens, or canonical guidance.",
+      "Write implementation files only inside the task writeRoot.",
+      "Use governed tokens when available and explain every remaining local raw dimension or local CSS decision in AUTHORING-REPORT.md.",
+      "When supplied authorities do not resolve a decision, record it as unresolved in AUTHORING-REPORT.md instead of guessing.",
+      "Do not ask a human to correct the implementation during the run."
+    ]
+  },
+  "evaluatorOnly": {
+    "expectedAuthorities": {
+      "components": [
+        "dse.page-heading",
+        "dse.breadcrumbs",
+        "dse.button",
+        "dse.search-field",
+        "dse.table",
+        "dse.empty-state",
+        "dse.status-badge",
+        "dse.side-panel",
+        "dse.text-field",
+        "dse.radio-group",
+        "dse.inline-feedback",
+        "dse.dialog"
+      ],
+      "patterns": [
+        "dse.pattern.application-shell"
+      ],
+      "compositions": [
+        "dse.composition.directory-page",
+        "dse.composition.modal-list-detail",
+        "dse.composition.create-flow"
+      ]
+    },
+    "checks": [
+      {
+        "id": "projects.components",
+        "category": "component-selection",
+        "requirement": "must",
+        "statement": "Use governed components/patterns for shell, heading, search, table/empty, detail, form controls, feedback, and modal confirmation rather than custom substitutes."
+      },
+      {
+        "id": "projects.no-invented-api",
+        "category": "invented-api",
+        "requirement": "must-not",
+        "statement": "Do not invent public component props, variants, states, slots, or events."
+      },
+      {
+        "id": "projects.css-authority",
+        "category": "custom-css",
+        "requirement": "must",
+        "statement": "Any local CSS must stay within composition/product ownership and be explained in the authoring report."
+      },
+      {
+        "id": "projects.raw-values",
+        "category": "raw-values",
+        "requirement": "must-not",
+        "statement": "Do not use unexplained raw product colors or raw dimensions when governed tokens already own the decision."
+      },
+      {
+        "id": "projects.composition",
+        "category": "composition",
+        "requirement": "must",
+        "statement": "Follow approved Directory, Modal List → Detail, and Create Flow composition guidance without copying prior implementation source."
+      },
+      {
+        "id": "projects.accessibility",
+        "category": "accessibility",
+        "requirement": "must",
+        "statement": "Preserve governed labels, row-action naming, modal semantics, focus containment, inert background behavior, and focus restoration."
+      },
+      {
+        "id": "projects.rtl",
+        "category": "rtl",
+        "requirement": "must",
+        "statement": "Use logical RTL/LTR layout and keep project keys intrinsically LTR without forcing the surrounding UI LTR."
+      },
+      {
+        "id": "projects.responsive",
+        "category": "responsive",
+        "requirement": "must",
+        "statement": "Directory controls respond at the governed shell boundary and unresolved narrow contextual detail is escalated rather than invented."
+      },
+      {
+        "id": "projects.visual",
+        "category": "visual-fidelity",
+        "requirement": "expected",
+        "statement": "The result should read as a coherent Northstar Projects management screen using the supplied product brief and governed system."
+      }
+    ],
+    "expectedEscalations": [
+      "Narrow-screen contextual project detail presentation is unresolved by current approved guidance and should be reported rather than implemented as an invented drawer, sheet, or route."
+    ],
+    "contaminationSignals": [
+      "ProjectsManagementPrototype",
+      "ConnectedProductPrototype",
+      "dse-product-prototype__",
+      "imports from apps/storybook/src/prototypes",
+      "copying existing prototype/story class names or answer-source code"
+    ]
+  },
+  "provenance": {
+    "lastReviewed": "2026-09-19",
+    "plan": "docs/plans/2026-09-19-ai-readiness-validation-v1.md"
+  }
+}
