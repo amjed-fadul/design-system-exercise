@@ -3,7 +3,7 @@
   "id": "dse.ai-eval.team-management",
   "kind": "ai-blind-authoring-task",
   "version": "1.0.0",
-  "status": "draft",
+  "status": "approved",
   "name": "Team Management",
   "caseType": "baseline-known",
   "agentVisible": {
