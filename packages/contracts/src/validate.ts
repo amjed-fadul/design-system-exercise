@@ -5,11 +5,13 @@ import Ajv, { type AnySchema, type ErrorObject, type ValidateFunction } from 'aj
 import {
   loadAuthoringPolicies,
   loadComponentContracts,
+  loadCompositionGuidance,
   loadPatternContracts,
 } from './load.js';
 import type {
   AiAuthoringPolicy,
   ComponentContract,
+  CompositionGuidance,
   PatternContract,
   ValidationResult,
 } from './types.js';
@@ -24,9 +26,15 @@ const patternSchema = readJson(new URL('../schema/pattern-contract.schema.json',
 const authoringPolicySchema = readJson(
   new URL('../schema/ai-authoring-policy.schema.json', import.meta.url),
 );
+const compositionGuidanceSchema = readJson(
+  new URL('../schema/composition-guidance.schema.json', import.meta.url),
+);
+
 const componentValidator = ajv.compile(componentSchema);
 const patternValidator = ajv.compile(patternSchema);
 const authoringPolicyValidator = ajv.compile(authoringPolicySchema);
+const compositionGuidanceValidator = ajv.compile(compositionGuidanceSchema);
+
 const publicComponentId = /^dse\.(?!_)[a-z0-9.-]+$/;
 const internalComponentId = /^dse\._[a-z0-9.-]+$/;
 
@@ -45,6 +53,12 @@ const requiredAuthoringRuleIds = [
   'accessibility.preserve-governed-semantics',
   'storybook.evidence-not-authority',
   'uncertainty.do-not-guess',
+] as const;
+
+const requiredCompositionIds = [
+  'dse.composition.directory-page',
+  'dse.composition.modal-list-detail',
+  'dse.composition.create-flow',
 ] as const;
 
 function formatErrors(errors: ErrorObject[] | null | undefined): string[] {
@@ -113,6 +127,82 @@ export function validateAuthoringPolicy(candidate: unknown): ValidationResult {
   return { valid: errors.length === 0, errors };
 }
 
+export function validateCompositionGuidance(candidate: unknown): ValidationResult {
+  const schemaResult = runValidator(compositionGuidanceValidator, candidate);
+  if (!schemaResult.valid) return schemaResult;
+
+  const guidance = candidate as CompositionGuidance;
+  const errors: string[] = [];
+  const structureKeys = new Set<string>();
+  const structureOrders = new Set<number>();
+  const componentDependencyIds = new Set<string>();
+  const patternDependencyIds = new Set<string>();
+  const ruleIds = new Set<string>();
+
+  for (const dependency of guidance.componentDependencies) {
+    if (componentDependencyIds.has(dependency.id)) {
+      errors.push(`/componentDependencies: duplicate dependency id ${dependency.id}`);
+    }
+    componentDependencyIds.add(dependency.id);
+  }
+
+  for (const dependency of guidance.patternDependencies) {
+    if (patternDependencyIds.has(dependency.id)) {
+      errors.push(`/patternDependencies: duplicate dependency id ${dependency.id}`);
+    }
+    patternDependencyIds.add(dependency.id);
+  }
+
+  for (const region of guidance.structure) {
+    if (structureKeys.has(region.key)) {
+      errors.push(`/structure: duplicate structure key ${region.key}`);
+    }
+    structureKeys.add(region.key);
+
+    if (structureOrders.has(region.order)) {
+      errors.push(`/structure: duplicate structure order ${region.order}`);
+    }
+    structureOrders.add(region.order);
+
+    for (const componentId of region.componentIds ?? []) {
+      if (!componentDependencyIds.has(componentId)) {
+        errors.push(
+          `/structure/${region.key}: component ${componentId} must be declared in componentDependencies`,
+        );
+      }
+    }
+
+    for (const patternId of region.patternIds ?? []) {
+      if (!patternDependencyIds.has(patternId)) {
+        errors.push(
+          `/structure/${region.key}: pattern ${patternId} must be declared in patternDependencies`,
+        );
+      }
+    }
+  }
+
+  const ruleGroups = [
+    guidance.rules.layout,
+    guidance.rules.responsive,
+    guidance.rules.direction,
+    guidance.rules.accessibility,
+    guidance.rules.behavior,
+    guidance.localCss.allowed,
+  ];
+
+  for (const group of ruleGroups) {
+    for (const rule of group) {
+      if (ruleIds.has(rule.id)) {
+        errors.push(`/rules: duplicate composition rule id ${rule.id}`);
+      }
+      ruleIds.add(rule.id);
+    }
+  }
+
+  errors.sort((a, b) => a.localeCompare(b));
+  return { valid: errors.length === 0, errors };
+}
+
 export function satisfiesMinimumVersion(actual: string, minimum: string): boolean {
   const actualParts = actual.split('.').map(Number);
   const minimumParts = minimum.split('.').map(Number);
@@ -136,10 +226,14 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
   const components = loadComponentContracts();
   const patterns = loadPatternContracts();
   const authoringPolicies = loadAuthoringPolicies();
+  const compositions = loadCompositionGuidance();
+
   const errors: string[] = [];
   const seenIds = new Map<string, string>();
   const seenVersions = new Map<string, string>();
   const publicComponentVersions = new Map<string, string>();
+  const patternVersions = new Map<string, string>();
+  const compositionIds = new Set<string>();
 
   const recordIdentity = (id: string, version: string, path: string) => {
     const existingId = seenIds.get(id);
@@ -178,7 +272,9 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
     if (!result.valid) continue;
 
     const contract = loaded.contract as PatternContract;
+    patternVersions.set(contract.id, contract.version);
     recordIdentity(contract.id, contract.version, loaded.path);
+
     for (const dependency of contract.componentDependencies) {
       const actualVersion = publicComponentVersions.get(dependency.id);
       if (!actualVersion) {
@@ -222,6 +318,78 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
     recordIdentity(policy.id, policy.version, loaded.path);
   }
 
+  for (const loaded of compositions) {
+    const result = validateCompositionGuidance(loaded.contract);
+    for (const error of result.errors) errors.push(`${loaded.path}: ${error}`);
+    if (!result.valid) continue;
+
+    const guidance = loaded.contract as CompositionGuidance;
+    compositionIds.add(guidance.id);
+    recordIdentity(guidance.id, guidance.version, loaded.path);
+
+    for (const dependency of guidance.componentDependencies) {
+      const actualVersion = publicComponentVersions.get(dependency.id);
+      if (!actualVersion) {
+        errors.push(
+          loaded.path +
+            ': /componentDependencies: unresolved public component contract ' +
+            dependency.id,
+        );
+        continue;
+      }
+
+      if (
+        dependency.minimumVersion &&
+        !satisfiesMinimumVersion(actualVersion, dependency.minimumVersion)
+      ) {
+        errors.push(
+          loaded.path +
+            ': /componentDependencies: ' +
+            dependency.id +
+            ' requires >= ' +
+            dependency.minimumVersion +
+            ', found ' +
+            actualVersion,
+        );
+      }
+    }
+
+    for (const dependency of guidance.patternDependencies) {
+      const actualVersion = patternVersions.get(dependency.id);
+      if (!actualVersion) {
+        errors.push(
+          loaded.path +
+            ': /patternDependencies: unresolved pattern contract ' +
+            dependency.id,
+        );
+        continue;
+      }
+
+      if (
+        dependency.minimumVersion &&
+        !satisfiesMinimumVersion(actualVersion, dependency.minimumVersion)
+      ) {
+        errors.push(
+          loaded.path +
+            ': /patternDependencies: ' +
+            dependency.id +
+            ' requires >= ' +
+            dependency.minimumVersion +
+            ', found ' +
+            actualVersion,
+        );
+      }
+    }
+  }
+
+  for (const requiredId of requiredCompositionIds) {
+    if (!compositionIds.has(requiredId)) {
+      errors.push(
+        `${resolve(fileURLToPath(new URL('../ai/compositions/', import.meta.url)))}: missing required Task 3 composition guidance ${requiredId}`,
+      );
+    }
+  }
+
   errors.sort((a, b) => a.localeCompare(b));
   return {
     valid: errors.length === 0,
@@ -243,7 +411,7 @@ if (isCliEntry()) {
     process.exitCode = 1;
   } else {
     console.log(
-      `Validated ${result.componentCount} component contract${result.componentCount === 1 ? '' : 's'} and ${result.patternCount} pattern contract${result.patternCount === 1 ? '' : 's'} plus the AI authoring policy`,
+      `Validated ${result.componentCount} component contract${result.componentCount === 1 ? '' : 's'} and ${result.patternCount} pattern contract${result.patternCount === 1 ? '' : 's'} plus the AI authoring policy and Task 3 composition guidance`,
     );
   }
 }
