@@ -103,6 +103,7 @@ export interface CompositionGuidanceStructure {
   key: string;
   order: number;
   required: boolean;
+  owner: 'design-system' | 'composition' | 'product' | 'workflow';
   role: string;
   componentIds?: string[];
   patternIds?: string[];
