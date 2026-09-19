@@ -3,7 +3,7 @@
   "id": "dse.ai-authoring-policy",
   "kind": "ai-authoring-policy",
   "version": "1.0.0",
-  "status": "draft",
+  "status": "approved",
   "name": "AI Authoring Rules",
   "scope": "product-ui-authoring",
   "authorityOrder": [
