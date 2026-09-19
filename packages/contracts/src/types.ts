@@ -48,3 +48,48 @@ export interface PatternContract {
   sources: ContractSources;
   componentDependencies: ComponentDependency[];
 }
+
+export type AiAuthoringRequirement = 'must' | 'must-not' | 'may' | 'escalate';
+
+export interface AiAuthoringRule {
+  id: string;
+  category:
+    | 'components'
+    | 'tokens'
+    | 'css'
+    | 'dimensions'
+    | 'composition'
+    | 'direction'
+    | 'icons'
+    | 'accessibility'
+    | 'storybook'
+    | 'uncertainty';
+  requirement: AiAuthoringRequirement;
+  statement: string;
+  rationale: string;
+}
+
+export interface AiAuthoringPolicy {
+  id: 'dse.ai-authoring-policy';
+  kind: 'ai-authoring-policy';
+  version: string;
+  status: 'draft' | 'approved' | 'deprecated';
+  name: string;
+  scope: 'product-ui-authoring';
+  authorityOrder: string[];
+  rules: AiAuthoringRule[];
+  localCss: {
+    allowedAuthorities: string[];
+    forbidden: string[];
+    escalateWhen: string[];
+  };
+  storybook: {
+    role: 'human-visible-evidence';
+    may: string[];
+    mustNot: string[];
+  };
+  provenance: {
+    lastReviewed: string;
+    audit: string;
+  };
+}
