@@ -3,7 +3,7 @@
   "id": "dse.composition.directory-page",
   "kind": "composition-guidance",
   "version": "1.0.0",
-  "status": "draft",
+  "status": "approved",
   "name": "Directory Page",
   "description": "Guidance for a workspace directory page that combines page context, search/filter controls, result summary, a governed Table for non-empty results, and governed Empty State for zero results.",
   "scope": "page",
