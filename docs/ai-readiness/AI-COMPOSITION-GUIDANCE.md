@@ -10,7 +10,7 @@ The canonical records live in:
 - `packages/contracts/ai/compositions/modal-list-detail.guidance.json`
 - `packages/contracts/ai/compositions/create-flow.guidance.json`
 
-All three records are currently **draft** pending Task 3 review.
+All three records are currently **draft** pending Task 3 review. Every structural region also records explicit ownership as `design-system`, `composition`, `product`, or `workflow`.
 
 Storybook renders these records for human review under **AI Readiness → Composition Guidance**. Storybook is not the source of truth.
 
