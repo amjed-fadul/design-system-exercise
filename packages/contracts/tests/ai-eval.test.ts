@@ -100,6 +100,7 @@ describe('Task 4 blind AI test pack', () => {
       agentReceivesOnlyAgentVisibleTaskData: true,
       neverExposeEvaluatorOnly: true,
       noCrossRunReuse: true,
+      generatedOutputReadableWithinTask: true,
       noRepositoryHistoryForAnswers: true,
       noExternalAnswerLookup: true,
       noHumanCorrectionDuringRun: true,
