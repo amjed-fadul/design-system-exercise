@@ -8,13 +8,28 @@
   "description": "Guidance for opening contextual record detail from a directory Table into a modal host that composes the non-modal governed Side Panel without changing the Side Panel public API.",
   "scope": "interaction",
   "componentDependencies": [
-    { "id": "dse.table", "minimumVersion": "1.0.0" },
-    { "id": "dse.side-panel", "minimumVersion": "1.0.0" },
-    { "id": "dse.button", "minimumVersion": "1.0.0" },
-    { "id": "dse.dialog", "minimumVersion": "1.0.0" }
+    {
+      "id": "dse.table",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.side-panel",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.button",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.dialog",
+      "minimumVersion": "1.0.0"
+    }
   ],
   "patternDependencies": [
-    { "id": "dse.pattern.application-shell", "minimumVersion": "1.0.0" }
+    {
+      "id": "dse.pattern.application-shell",
+      "minimumVersion": "1.0.0"
+    }
   ],
   "structure": [
     {
@@ -22,27 +37,38 @@
       "order": 1,
       "required": true,
       "role": "Open contextual detail from a genuine interactive control in the Table Action region; the Table row itself remains non-activating.",
-      "componentIds": ["dse.table", "dse.button"]
+      "componentIds": [
+        "dse.table",
+        "dse.button"
+      ],
+      "owner": "product"
     },
     {
       "key": "modal-host",
       "order": 2,
       "required": true,
-      "role": "A composition-owned modal host overlays the active workspace, owns modality/focus/background behavior, and contains the governed Side Panel."
+      "role": "A composition-owned modal host overlays the active workspace, owns modality/focus/background behavior, and contains the governed Side Panel.",
+      "owner": "composition"
     },
     {
       "key": "side-panel",
       "order": 3,
       "required": true,
       "role": "The governed Side Panel supplies the detail surface regions, scrolling body, anchored actions, and optional close affordance while remaining non-modal itself.",
-      "componentIds": ["dse.side-panel"]
+      "componentIds": [
+        "dse.side-panel"
+      ],
+      "owner": "design-system"
     },
     {
       "key": "nested-dialog",
       "order": 4,
       "required": false,
       "role": "Use governed Dialog for a nested consequential confirmation; while it is open, Dialog owns the active modal focus/keyboard interaction.",
-      "componentIds": ["dse.dialog"]
+      "componentIds": [
+        "dse.dialog"
+      ],
+      "owner": "design-system"
     }
   ],
   "rules": {
