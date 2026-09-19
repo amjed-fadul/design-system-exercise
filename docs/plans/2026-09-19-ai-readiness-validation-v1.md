@@ -99,21 +99,66 @@ Passed gates:
 
 **Review status:** approved by user. The canonical policy is `approved`.
 
-## Task 3 — Capture composition knowledge — ACTIVE
+## Task 3 — Capture composition knowledge — COMPLETE
 
-Document the missing composition knowledge exposed by the prototypes, starting only with compositions already evidenced in the repo.
+Created validated, machine-readable composition guidance for the three gaps identified by Task 1:
 
-Initial targets:
+1. **Directory Page** — Page Heading → search/result-summary controls → Table or Empty State.
+2. **Modal List → Detail** — Table action → composition-owned modal host → governed Side Panel → optional nested Dialog.
+3. **Create Flow** — Button trigger → governed Dialog → governed form controls → optional Inline Feedback → Dialog actions.
 
-- Directory page: Page Heading → controls/summary → Table or Empty State.
-- List → Detail: selected Table row → modal host → Side Panel → focus/background behavior.
-- Create flow: Dialog → form fields → feedback → actions.
+Canonical records:
 
-For each capture components, order, ownership, layout rules, responsive behavior, allowed local CSS, and forbidden alternatives.
+- `packages/contracts/ai/compositions/directory-page.guidance.json`
+- `packages/contracts/ai/compositions/modal-list-detail.guidance.json`
+- `packages/contracts/ai/compositions/create-flow.guidance.json`
 
-Storybook must visualize the approved composition guidance after it exists in machine-readable form. It must not become the only place where the composition rules live.
+Supporting artifacts:
 
-Do not add public React APIs unless Task 1/2 evidence proves they are needed.
+- schema: `packages/contracts/schema/composition-guidance.schema.json`
+- human guidance: `docs/ai-readiness/AI-COMPOSITION-GUIDANCE.md`
+- Storybook: **AI Readiness → Composition Guidance**
+
+Each record captures:
+
+- governed component/pattern dependencies and minimum versions;
+- ordered structural regions;
+- explicit ownership: `design-system`, `composition`, `product`, or `workflow`;
+- layout rules;
+- responsive rules;
+- RTL/LTR and mixed-direction rules;
+- accessibility/focus rules;
+- product/workflow behavior ownership;
+- allowed local CSS authority;
+- forbidden alternatives;
+- evidence/provenance.
+
+Important boundary decisions:
+
+- the records are **guidance-only** and create no public React API/runtime pattern;
+- the modal List → Detail host owns modality/focus/background behavior while Side Panel stays non-modal;
+- narrow-screen List → Detail remains explicitly **unresolved** rather than inventing a drawer/full-page/sheet behavior;
+- deterministic prototype fail-then-retry behavior is explicitly non-authoritative.
+
+Repository validation now protects schema validity, unique structure/rule IDs, dependency declarations, real public component/pattern resolution, minimum versions, and presence of all three required Task 3 records.
+
+**Implementation HEAD:** `cbad5637165415f2170abf261ab4f1096aad8590`  
+**CI:** run **525 — PASS** on that exact implementation HEAD.
+
+Passed gates:
+
+- frozen install;
+- contracts validation including Task 3 guidance;
+- tokens validation/build;
+- React build;
+- full tests;
+- TypeScript typecheck;
+- Storybook production build;
+- packed-package verification.
+
+**Gate:** PASS.
+
+**Review status:** awaiting user review. All three composition guidance records remain `draft`. Task 4 has not started.
 
 ## Task 4 — Create an AI test pack — NOT STARTED
 
@@ -195,4 +240,4 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 
 ## Execution rule
 
-Tasks are sequential. Tasks 1–2 are complete and approved. Task 3 is active. Do not begin Task 4 until Task 3 is complete and reviewed.
+Tasks are sequential. Tasks 1–2 are complete and approved. Task 3 is complete and awaiting review. Do not begin Task 4 until Task 3 is reviewed/approved.
