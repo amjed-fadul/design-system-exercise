@@ -2,8 +2,17 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import Ajv, { type AnySchema, type ErrorObject, type ValidateFunction } from 'ajv';
-import { loadComponentContracts, loadPatternContracts } from './load.js';
-import type { ComponentContract, PatternContract, ValidationResult } from './types.js';
+import {
+  loadAuthoringPolicies,
+  loadComponentContracts,
+  loadPatternContracts,
+} from './load.js';
+import type {
+  AiAuthoringPolicy,
+  ComponentContract,
+  PatternContract,
+  ValidationResult,
+} from './types.js';
 
 function readJson(url: URL): AnySchema {
   return JSON.parse(readFileSync(fileURLToPath(url), 'utf8')) as AnySchema;
@@ -12,10 +21,31 @@ function readJson(url: URL): AnySchema {
 const ajv = new Ajv({ allErrors: true, strict: true });
 const componentSchema = readJson(new URL('../schema/component-contract.schema.json', import.meta.url));
 const patternSchema = readJson(new URL('../schema/pattern-contract.schema.json', import.meta.url));
+const authoringPolicySchema = readJson(
+  new URL('../schema/ai-authoring-policy.schema.json', import.meta.url),
+);
 const componentValidator = ajv.compile(componentSchema);
 const patternValidator = ajv.compile(patternSchema);
+const authoringPolicyValidator = ajv.compile(authoringPolicySchema);
 const publicComponentId = /^dse\.(?!_)[a-z0-9.-]+$/;
 const internalComponentId = /^dse\._[a-z0-9.-]+$/;
+
+const requiredAuthoringRuleIds = [
+  'components.use-governed',
+  'components.no-invented-props',
+  'tokens.use-governed',
+  'tokens.no-raw-colors',
+  'css.local-only-with-authority',
+  'dimensions.require-authority',
+  'composition.no-storybook-inference',
+  'composition.repeated-rule-escalates',
+  'direction.use-logical-layout',
+  'direction.intrinsic-content-only',
+  'icons.mirror-only-when-directional',
+  'accessibility.preserve-governed-semantics',
+  'storybook.evidence-not-authority',
+  'uncertainty.do-not-guess',
+] as const;
 
 function formatErrors(errors: ErrorObject[] | null | undefined): string[] {
   return (errors ?? [])
@@ -58,6 +88,31 @@ export function validatePattern(candidate: unknown): ValidationResult {
   return runValidator(patternValidator, candidate);
 }
 
+export function validateAuthoringPolicy(candidate: unknown): ValidationResult {
+  const schemaResult = runValidator(authoringPolicyValidator, candidate);
+  if (!schemaResult.valid) return schemaResult;
+
+  const policy = candidate as AiAuthoringPolicy;
+  const errors: string[] = [];
+  const seenRuleIds = new Set<string>();
+
+  for (const rule of policy.rules) {
+    if (seenRuleIds.has(rule.id)) {
+      errors.push(`/rules: duplicate AI authoring rule id ${rule.id}`);
+    }
+    seenRuleIds.add(rule.id);
+  }
+
+  for (const requiredId of requiredAuthoringRuleIds) {
+    if (!seenRuleIds.has(requiredId)) {
+      errors.push(`/rules: missing required AI authoring rule ${requiredId}`);
+    }
+  }
+
+  errors.sort((a, b) => a.localeCompare(b));
+  return { valid: errors.length === 0, errors };
+}
+
 export function satisfiesMinimumVersion(actual: string, minimum: string): boolean {
   const actualParts = actual.split('.').map(Number);
   const minimumParts = minimum.split('.').map(Number);
@@ -80,6 +135,7 @@ export interface RepositoryValidationResult extends ValidationResult {
 export function validateRepositoryContracts(): RepositoryValidationResult {
   const components = loadComponentContracts();
   const patterns = loadPatternContracts();
+  const authoringPolicies = loadAuthoringPolicies();
   const errors: string[] = [];
   const seenIds = new Map<string, string>();
   const seenVersions = new Map<string, string>();
@@ -150,6 +206,22 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
       }
     }
   }
+
+  if (authoringPolicies.length !== 1) {
+    errors.push(
+      `${resolve(fileURLToPath(new URL('../ai/', import.meta.url)))}: expected exactly 1 AI authoring policy, found ${authoringPolicies.length}`,
+    );
+  }
+
+  for (const loaded of authoringPolicies) {
+    const result = validateAuthoringPolicy(loaded.contract);
+    for (const error of result.errors) errors.push(`${loaded.path}: ${error}`);
+    if (!result.valid) continue;
+
+    const policy = loaded.contract as AiAuthoringPolicy;
+    recordIdentity(policy.id, policy.version, loaded.path);
+  }
+
   errors.sort((a, b) => a.localeCompare(b));
   return {
     valid: errors.length === 0,
@@ -171,7 +243,7 @@ if (isCliEntry()) {
     process.exitCode = 1;
   } else {
     console.log(
-      `Validated ${result.componentCount} component contract${result.componentCount === 1 ? '' : 's'} and ${result.patternCount} pattern contract${result.patternCount === 1 ? '' : 's'}`,
+      `Validated ${result.componentCount} component contract${result.componentCount === 1 ? '' : 's'} and ${result.patternCount} pattern contract${result.patternCount === 1 ? '' : 's'} plus the AI authoring policy`,
     );
   }
 }
