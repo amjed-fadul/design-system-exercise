@@ -3,7 +3,7 @@
   "id": "dse.ai-eval-pack.v1",
   "kind": "ai-test-pack",
   "version": "1.0.0",
-  "status": "draft",
+  "status": "approved",
   "name": "AI Readiness Blind Authoring Pack V1",
   "taskIds": [
     "dse.ai-eval.projects-directory",
