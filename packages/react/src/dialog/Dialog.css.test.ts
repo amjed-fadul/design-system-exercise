@@ -26,7 +26,7 @@ describe('Dialog visual contract', () => {
 
     expect(css).toMatch(/\.dse-dialog__header\s*\{[^}]*padding-block-start:\s*var\(--dse-spacing-primitive-space-500\);[^}]*padding-block-end:\s*var\(--dse-spacing-primitive-space-200\);[^}]*padding-inline:\s*28px;[^}]*gap:\s*var\(--dse-spacing-primitive-space-300\);/s);
     expect(css).toMatch(/\.dse-dialog__body\s*\{[^}]*padding-block-start:\s*var\(--dse-spacing-primitive-space-400\);[^}]*padding-block-end:\s*20px;[^}]*padding-inline:\s*28px;[^}]*gap:\s*var\(--dse-spacing-primitive-space-400\);/s);
-    expect(css).toMatch(/\.dse-dialog__divider\s*\{[^}]*block-size:\s*1px;[^}]*background:\s*var\(--dse-color-semantic-border-subtle\)/s);
+    expect(css).toMatch(/\.dse-dialog__divider\s*\{[^}]*block-size:\s*var\(--dse-border-role-divider\);[^}]*background:\s*var\(--dse-color-semantic-border-subtle\)/s);
     expect(css).toMatch(/\.dse-dialog__actions\s*\{[^}]*padding-block:\s*20px;[^}]*padding-inline:\s*28px;[^}]*gap:\s*var\(--dse-spacing-primitive-space-300\);/s);
   });
 
@@ -36,6 +36,7 @@ describe('Dialog visual contract', () => {
     for (const token of [
       '--dse-color-semantic-fg-primary',
       '--dse-color-semantic-fg-secondary',
+      '--dse-border-role-divider',
       '--dse-spacing-primitive-space-100',
       '--dse-spacing-primitive-space-200',
       '--dse-spacing-primitive-space-300',

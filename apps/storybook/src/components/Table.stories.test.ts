@@ -71,9 +71,9 @@ describe('Table Storybook contract', () => {
     expect(module.SelectedRow.args?.rows?.some((row: any) => row.selected === true)).toBe(true);
     expect(module.WithoutFooter.args).toHaveProperty('footerText', undefined);
     expect(module.Narrow736.parameters?.tableWidth).toBe(736);
-    expect(module.Dark.globals?.theme).toBe('dark');
-    expect(module.Arabic.globals?.language).toBe('arabic');
-    expect(module.DarkArabic.globals).toEqual(
+    expect(module.Dark.parameters?.presentation?.theme).toBe('dark');
+    expect(module.Arabic.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabic.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.Arabic.args?.primaryLabel).toMatch(/[\u0600-\u06FF]/);
@@ -93,6 +93,8 @@ describe('Table Storybook contract', () => {
     expect(defaultHtml).toContain('<tfoot');
     expect(defaultHtml).toContain('scope="col"');
     expect(defaultHtml).toContain('aria-label="View Sara Ahmed details"');
+    expect(defaultHtml).toContain('max-inline-size:1168px');
+    expect(defaultHtml).toContain('min-inline-size:736px');
     expect(defaultHtml).not.toContain('role="grid"');
     expect(defaultHtml).not.toContain('type="checkbox"');
 
@@ -114,7 +116,7 @@ describe('Table Storybook contract', () => {
     expect(noFooterHtml).not.toContain('<tfoot');
   });
 
-  it('documents all three Figma authorities and the deliberate scoped-table boundary', async () => {
+  it('documents public/private contracts and the deliberate scoped-table boundary', async () => {
     const module = await loadStories();
     if (!module) return;
 
@@ -122,9 +124,6 @@ describe('Table Storybook contract', () => {
     expect(description).toMatch(/dse\.table@1\.0\.0/);
     expect(description).toMatch(/dse\._table-header@1\.0\.0/i);
     expect(description).toMatch(/dse\._table-row@1\.0\.0/i);
-    expect(description).toMatch(/152:3730/);
-    expect(description).toMatch(/152:3685/);
-    expect(description).toMatch(/152:3729/);
     expect(description).toMatch(/native|semantic/i);
     expect(description).toMatch(/no.*sorting|sorting.*not/i);
     expect(description).toMatch(/no.*pagination|pagination.*not/i);

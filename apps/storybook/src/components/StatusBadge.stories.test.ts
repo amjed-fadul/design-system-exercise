@@ -47,26 +47,25 @@ describe('Status Badge Storybook contract', () => {
 
     expect(module.Active.args?.label).toBe('Active');
     expect(module.InvitationPending.args?.label).toBe('Invitation pending');
-    expect(module.DarkActive.globals?.theme).toBe('dark');
-    expect(module.DarkInvitationPending.globals?.theme).toBe('dark');
-    expect(module.ArabicActive.globals?.language).toBe('arabic');
-    expect(module.ArabicInvitationPending.globals?.language).toBe('arabic');
+    expect(module.DarkActive.parameters?.presentation?.theme).toBe('dark');
+    expect(module.DarkInvitationPending.parameters?.presentation?.theme).toBe('dark');
+    expect(module.ArabicActive.parameters?.presentation?.language).toBe('arabic');
+    expect(module.ArabicInvitationPending.parameters?.presentation?.language).toBe('arabic');
     expect(module.ArabicActive.args?.label).toMatch(/[\u0600-\u06FF]/);
     expect(module.ArabicInvitationPending.args?.label).toMatch(/[\u0600-\u06FF]/);
-    expect(module.DarkArabicActive.globals).toEqual(
+    expect(module.DarkArabicActive.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
-    expect(module.DarkArabicInvitationPending.globals).toEqual(
+    expect(module.DarkArabicInvitationPending.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
   });
 
-  it('documents the exact neutral Figma and accessibility boundary', async () => {
+  it('documents the neutral visual and accessibility boundary', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.statusBadgeMeta.parameters?.docs?.description?.component ?? '';
-    expect(description).toMatch(/128:1821/);
     expect(description).toMatch(/28px|28 px/i);
     expect(description).toMatch(/5px.*10px|10px.*5px/i);
     expect(description).toMatch(/neutral/i);

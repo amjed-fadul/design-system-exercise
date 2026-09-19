@@ -67,7 +67,7 @@
   inline-size: 28px;
   block-size: 28px;
   flex: 0 0 28px;
-  border-radius: 999px;
+  border-radius: var(--dse-radius-shape-rounded);
 }
 
 .dse-radio-option__indicator {
@@ -77,14 +77,14 @@
   inline-size: var(--dse-icons-size-md);
   block-size: var(--dse-icons-size-md);
   border: var(--dse-border-width-strong) solid var(--dse-color-semantic-control-border);
-  border-radius: 999px;
+  border-radius: var(--dse-radius-shape-rounded);
 }
 
 .dse-radio-option__indicator::after {
   content: '';
   inline-size: var(--dse-spacing-primitive-space-200);
   block-size: var(--dse-spacing-primitive-space-200);
-  border-radius: 999px;
+  border-radius: var(--dse-radius-shape-rounded);
   background: var(--dse-color-semantic-control-selected);
   transform: scale(0);
 }

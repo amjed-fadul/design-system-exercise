@@ -121,6 +121,7 @@
     "--dse-radius-shape-control",
     "--dse-border-role-focus",
     "--dse-icons-size-md",
+    "--dse-spacing-primitive-space-300",
     "--dse-typography-semantic-label-default-family",
     "--dse-typography-semantic-label-default-size",
     "--dse-typography-semantic-label-default-weight",

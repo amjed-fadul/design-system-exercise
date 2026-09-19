@@ -46,6 +46,7 @@ function ControlledDemo() {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Controls/Radio Group',
   component: RadioGroup,
   decorators: [
@@ -74,7 +75,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.radio-group@1.0.0 with private dse._radio-option@1.0.0. Figma authorities: Radio Group 116:175 and _Radio Option 116:174. The runtime uses a native fieldset, legend, and same-named radio inputs; browser selection and keyboard behavior remain native. At least two uniquely valued options are required. Figma selected/state/showDescription are derived instead of public controls. Member preselection is a product fixture only, never the reusable component default.',
+          "**Contract**\n\nPublic: `dse.radio-group@1.0.0`  \nPrivate: `dse._radio-option@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nThe runtime uses a native fieldset, legend, and same-named radio inputs; browser selection and keyboard behavior remain native. At least two uniquely valued options are required. Selected state and description visibility are derived rather than public controls. Member preselection is a product fixture only, never the reusable component default.",
       },
     },
   },
@@ -197,7 +198,5 @@ export const Arabic: Story = {
     ],
     defaultValue: 'member',
   },
-  globals: {
-    language: 'arabic',
-  },
+  parameters: { presentation: { language: 'arabic' } },
 };

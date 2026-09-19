@@ -49,9 +49,9 @@ describe('Sidebar Storybook contract', () => {
     }
 
     expect(module.Compact.args?.mode).toBe('compact');
-    expect(module.DarkExpanded.globals?.theme).toBe('dark');
-    expect(module.ArabicExpanded.globals?.language).toBe('arabic');
-    expect(module.DarkArabicExpanded.globals).toEqual(
+    expect(module.DarkExpanded.parameters?.presentation?.theme).toBe('dark');
+    expect(module.ArabicExpanded.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabicExpanded.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.ArabicExpanded.args?.label).toMatch(/[\u0600-\u06FF]/);
@@ -65,8 +65,6 @@ describe('Sidebar Storybook contract', () => {
     const description = module.sidebarMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.sidebar@1\.0\.0/);
     expect(description).toMatch(/dse\._navigation-item@1\.0\.0/);
-    expect(description).toMatch(/146:166/);
-    expect(description).toMatch(/143:2948/);
     expect(description).toMatch(/aria-current|current route/i);
     expect(description).toMatch(/native link|anchor/i);
     expect(description).toMatch(/compact|expanded/i);

@@ -17,6 +17,9 @@ describe('Side Panel Storybook contract', () => {
     for (const publicControl of ['eyebrow', 'showClose', 'closeLabel']) {
       expect(argTypes).toHaveProperty(publicControl);
     }
+    for (const slot of ['header', 'children', 'actions', 'onClose', 'className', 'style']) {
+      expect(argTypes[slot]?.control).toBe(false);
+    }
     for (const forbidden of [
       'open',
       'onOpenChange',
@@ -53,9 +56,9 @@ describe('Side Panel Storybook contract', () => {
       expect(module[story], `missing story ${story}`).toBeDefined();
     }
 
-    expect(module.DarkMemberDetails.globals?.theme).toBe('dark');
-    expect(module.ArabicMemberDetails.globals?.language).toBe('arabic');
-    expect(module.DarkArabicMemberDetails.globals).toEqual(
+    expect(module.DarkMemberDetails.parameters?.presentation?.theme).toBe('dark');
+    expect(module.ArabicMemberDetails.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabicMemberDetails.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.ArabicMemberDetails.args?.eyebrow).toMatch(/[\u0600-\u06FF]/);
@@ -65,13 +68,12 @@ describe('Side Panel Storybook contract', () => {
     );
   });
 
-  it('documents Figma authority, non-modal semantics, scrolling ownership, and wrapper responsibilities', async () => {
+  it('documents non-modal semantics, scrolling ownership, and wrapper responsibilities', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.sidePanelMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.side-panel@1\.0\.0/);
-    expect(description).toMatch(/137:2/);
     expect(description).toMatch(/non-modal/i);
     expect(description).toMatch(/scroll/i);
     expect(description).toMatch(/focus/i);

@@ -42,6 +42,9 @@ if (!css.includes('var(--dse-color-semantic-surface-elevated)')) {
 if (!css.includes('var(--dse-radius-shape-overlay)')) {
   throw new Error('Dialog overlay radius token missing from built distribution');
 }
+if (!css.includes('var(--dse-border-role-divider)')) {
+  throw new Error('Dialog divider border token missing from built distribution');
+}
 if (!css.includes("url('./assets/x.svg')")) {
   throw new Error('Dialog close icon asset reference missing from built distribution');
 }

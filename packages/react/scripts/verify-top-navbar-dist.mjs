@@ -58,11 +58,12 @@ for (const forbidden of ['direction: ltr', 'flex-direction: row-reverse']) {
 
 for (const required of [
   '.dse-top-navbar',
-  'block-size: 64px',
+  'var(--dse-layout-primitive-top-height)',
   'inline-size: 100%',
   'gap: 20px',
   'var(--dse-color-semantic-surface-default)',
   'var(--dse-color-semantic-border-subtle)',
+  'var(--dse-border-role-divider)',
   'var(--dse-typography-semantic-body-small-family)',
 ]) {
   if (!css.includes(required)) throw new Error(`TopNavbar distributed CSS missing: ${required}`);

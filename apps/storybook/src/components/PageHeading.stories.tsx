@@ -50,6 +50,7 @@ function PageHeadingCanvas(args: PageHeadingProps) {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Navigation/Page Heading',
   component: PageHeading,
   args: {
@@ -71,7 +72,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Public contract: dse.page-heading@1.0.0 from Figma 142:2488. Page Heading owns one page h1, optional supporting description, one Breadcrumbs slot, and up to two page-level Button actions. Application Shell owns placement; product code supplies copy and outcomes. Search Field and primary navigation stay outside Page Heading. C16 now supplies the governed dse.breadcrumbs@1.0.0 implementation for the Breadcrumbs slot without expanding the Page Heading API.',
+          "**Contract**\n\n`dse.page-heading@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nPage Heading owns one page `h1`, optional supporting description, one Breadcrumbs slot, and up to two page-level Button actions. The Breadcrumbs slot uses the governed `dse.breadcrumbs@1.0.0` implementation. Application Shell owns placement; product code supplies copy and outcomes. Search Field and primary navigation stay outside Page Heading.",
       },
     },
   },
@@ -101,12 +102,12 @@ export const WithBreadcrumbs: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
   render: (args) => <PageHeadingCanvas {...(args as PageHeadingProps)} />,
 };
 
 export const Arabic: Story = {
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
   args: {
     title: 'أعضاء الفريق',
     description: 'إدارة الأعضاء والدعوات المعلقة في مساحة العمل.',
@@ -117,7 +118,7 @@ export const Arabic: Story = {
 };
 
 export const DarkArabic: Story = {
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
   args: {
     title: 'أعضاء الفريق',
     description: 'إدارة الأعضاء والدعوات المعلقة في مساحة العمل.',

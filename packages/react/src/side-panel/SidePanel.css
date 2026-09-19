@@ -7,7 +7,7 @@
   min-block-size: 612px;
   max-block-size: 100%;
   background: var(--dse-color-semantic-surface-raised);
-  border: 1px solid var(--dse-color-semantic-border-subtle);
+  border: var(--dse-border-role-container) solid var(--dse-color-semantic-border-subtle);
   border-radius: var(--dse-radius-shape-surface);
 }
 
@@ -64,8 +64,8 @@
 
 .dse-side-panel__header-divider,
 .dse-side-panel__footer-divider {
-  block-size: 1px;
-  flex: 0 0 1px;
+  block-size: var(--dse-border-role-divider);
+  flex: 0 0 var(--dse-border-role-divider);
   background: var(--dse-color-semantic-border-subtle);
 }
 

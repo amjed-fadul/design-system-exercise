@@ -1,0 +1,151 @@
+{
+  "$schema": "../schema/ai-authoring-policy.schema.json",
+  "id": "dse.ai-authoring-policy",
+  "kind": "ai-authoring-policy",
+  "version": "1.0.0",
+  "status": "approved",
+  "name": "AI Authoring Rules",
+  "scope": "product-ui-authoring",
+  "authorityOrder": [
+    "component-contracts",
+    "pattern-contracts",
+    "tokens",
+    "composition-guidance",
+    "product-figma-evidence"
+  ],
+  "rules": [
+    {
+      "id": "components.use-governed",
+      "category": "components",
+      "requirement": "must",
+      "statement": "Use an approved governed component or pattern whenever one exists for the required UI responsibility.",
+      "rationale": "Reimplementing governed behavior with custom markup or CSS bypasses the component contract, semantics, states, RTL behavior, and package boundary."
+    },
+    {
+      "id": "components.no-invented-props",
+      "category": "components",
+      "requirement": "must-not",
+      "statement": "Do not invent component props, variants, states, events, slots, or behaviors that are not declared by the approved contract.",
+      "rationale": "The public contract is the component API authority. Figma-only axes and Storybook fixture behavior do not create runtime API."
+    },
+    {
+      "id": "tokens.use-governed",
+      "category": "tokens",
+      "requirement": "must",
+      "statement": "Use an existing governed token when it already owns the visual or layout decision.",
+      "rationale": "Using the token preserves system intent, mode behavior, future updates, and machine-verifiable connectivity."
+    },
+    {
+      "id": "tokens.no-raw-colors",
+      "category": "tokens",
+      "requirement": "must-not",
+      "statement": "Do not author raw product UI colors when a semantic design-system color token is required.",
+      "rationale": "Raw product colors bypass Light/Dark semantics and make generated UI diverge from the governed system."
+    },
+    {
+      "id": "css.local-only-with-authority",
+      "category": "css",
+      "requirement": "may",
+      "statement": "Author local CSS only for product or composition decisions that are explicitly outside component ownership and have an approved authority.",
+      "rationale": "Custom CSS is sometimes necessary for product composition, but it must not become a hidden substitute for missing component or pattern governance."
+    },
+    {
+      "id": "dimensions.require-authority",
+      "category": "dimensions",
+      "requirement": "must",
+      "statement": "A local raw dimension must be supported by explicit product/Figma evidence or approved composition guidance when no governed token owns the value.",
+      "rationale": "A visually plausible number is not sufficient authority for an AI-generated layout."
+    },
+    {
+      "id": "composition.no-storybook-inference",
+      "category": "composition",
+      "requirement": "must-not",
+      "statement": "Do not infer product composition rules from Storybook fixture layout or finished prototype source.",
+      "rationale": "Storybook includes evidence-frame dimensions and answer implementations that are intentionally not product authoring authority."
+    },
+    {
+      "id": "composition.repeated-rule-escalates",
+      "category": "composition",
+      "requirement": "escalate",
+      "statement": "When the same non-trivial composition decision recurs across product surfaces, treat it as a candidate for approved composition guidance or a governed pattern instead of repeatedly inventing local CSS.",
+      "rationale": "Repeated human judgment is evidence that the design system may be missing reusable machine-readable knowledge."
+    },
+    {
+      "id": "direction.use-logical-layout",
+      "category": "direction",
+      "requirement": "must",
+      "statement": "Use logical layout properties and inherit the surrounding writing direction unless a narrower content direction is explicitly justified.",
+      "rationale": "Logical layout preserves RTL/LTR behavior without duplicating physical left/right implementations."
+    },
+    {
+      "id": "direction.intrinsic-content-only",
+      "category": "direction",
+      "requirement": "may",
+      "statement": "Set a narrower LTR or RTL direction only for content whose intrinsic direction is known from product semantics, such as an email address or project key.",
+      "rationale": "Mixed-direction product data sometimes needs isolation, but arbitrary direction overrides break shell and component mirroring."
+    },
+    {
+      "id": "icons.mirror-only-when-directional",
+      "category": "icons",
+      "requirement": "must",
+      "statement": "Mirror an icon in RTL only when approved asset or usage guidance identifies the icon as directional.",
+      "rationale": "Navigation arrows and chevrons may mirror, while semantic symbols such as close, search, and status icons generally must not be guessed as directional."
+    },
+    {
+      "id": "accessibility.preserve-governed-semantics",
+      "category": "accessibility",
+      "requirement": "must",
+      "statement": "Preserve the native and ARIA semantics, focus ownership, keyboard behavior, and accessible naming required by component and pattern contracts.",
+      "rationale": "Visual similarity does not make a generated composition valid if it changes the governed interaction or accessibility model."
+    },
+    {
+      "id": "storybook.evidence-not-authority",
+      "category": "storybook",
+      "requirement": "must",
+      "statement": "Treat Storybook as a human-visible evidence and evaluation surface, not as the source of truth for AI authoring decisions.",
+      "rationale": "Canonical authoring rules must remain machine-readable and independently consumable by an agent."
+    },
+    {
+      "id": "uncertainty.do-not-guess",
+      "category": "uncertainty",
+      "requirement": "escalate",
+      "statement": "When contracts, tokens, approved composition guidance, and supplied product evidence do not authorize a required decision, mark the decision unresolved instead of inventing a rule.",
+      "rationale": "An explicit gap is useful design-system evidence; an invented answer hides the gap and prevents reliable AI-readiness evaluation."
+    }
+  ],
+  "localCss": {
+    "allowedAuthorities": [
+      "approved-composition-guidance",
+      "product-figma-evidence"
+    ],
+    "forbidden": [
+      "raw product colors that bypass semantic color tokens",
+      "custom reimplementation of a governed component or pattern responsibility",
+      "invented component variants, states, props, events, or slots",
+      "copying Storybook fixture dimensions into product UI without independent authority"
+    ],
+    "escalateWhen": [
+      "no approved authority exists for a required styling decision",
+      "a non-trivial composition rule repeats across product surfaces",
+      "the requested UI requires behavior explicitly forbidden by the nearest governed component contract"
+    ]
+  },
+  "storybook": {
+    "role": "human-visible-evidence",
+    "may": [
+      "render canonical AI authoring rules for human review",
+      "visualize approved composition guidance after that guidance exists",
+      "host blind AI-generated outputs after generation for evaluation",
+      "use clearly labeled local evidence-frame dimensions for deterministic documentation and test canvases without granting those values product-authoring authority"
+    ],
+    "mustNot": [
+      "be the only source of an AI authoring rule",
+      "be supplied as answer implementation source during a blind generation task",
+      "turn evidence-frame dimensions into product authoring guidance"
+    ]
+  },
+  "provenance": {
+    "lastReviewed": "2026-09-19",
+    "audit": "docs/ai-readiness/AI-READINESS-CSS-AUDIT.md"
+  }
+}

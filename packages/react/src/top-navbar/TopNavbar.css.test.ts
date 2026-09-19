@@ -9,10 +9,12 @@ describe('Top Navbar CSS boundary', () => {
     const css = readFileSync(cssPath, 'utf8');
 
     expect(css).toContain('.dse-top-navbar');
-    expect(css).toMatch(/block-size:\s*64px/);
+    expect(css).toMatch(/block-size:\s*var\(--dse-layout-primitive-top-height\)/);
     expect(css).toMatch(/inline-size:\s*100%/);
     expect(css).toContain('var(--dse-color-semantic-surface-default)');
     expect(css).toContain('var(--dse-color-semantic-border-subtle)');
+    expect(css).toContain('var(--dse-border-role-divider)');
+    expect(css).toContain('var(--dse-layout-primitive-top-height)');
     expect(css).toContain('var(--dse-spacing-primitive-space-500)');
     expect(css).toMatch(/gap:\s*20px/);
   });

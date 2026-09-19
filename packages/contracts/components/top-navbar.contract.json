@@ -121,6 +121,8 @@
     "--dse-color-semantic-surface-default",
     "--dse-color-semantic-border-subtle",
     "--dse-color-semantic-fg-secondary",
+    "--dse-border-role-divider",
+    "--dse-layout-primitive-top-height",
     "--dse-spacing-primitive-space-500",
     "--dse-typography-semantic-body-small-family",
     "--dse-typography-semantic-body-small-size",

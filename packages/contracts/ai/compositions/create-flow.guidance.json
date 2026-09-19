@@ -1,0 +1,171 @@
+{
+  "$schema": "../../schema/composition-guidance.schema.json",
+  "id": "dse.composition.create-flow",
+  "kind": "composition-guidance",
+  "version": "1.0.0",
+  "status": "approved",
+  "name": "Create Flow",
+  "description": "Guidance for a short creation workflow opened from a page-level action into governed Dialog, with governed form controls, product-owned validation/request state, inline failure feedback, and a success outcome returned to the originating page.",
+  "scope": "flow",
+  "componentDependencies": [
+    {
+      "id": "dse.button",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.dialog",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.page-heading",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.text-field",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.radio-group",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.inline-feedback",
+      "minimumVersion": "1.0.0"
+    }
+  ],
+  "patternDependencies": [],
+  "structure": [
+    {
+      "key": "create-trigger",
+      "order": 1,
+      "required": true,
+      "role": "A governed Button opens the creation workflow; it may be composed in Page Heading actions when that placement is appropriate.",
+      "componentIds": [
+        "dse.button"
+      ],
+      "owner": "product"
+    },
+    {
+      "key": "dialog",
+      "order": 2,
+      "required": true,
+      "role": "Governed Dialog owns the modal surface, modal semantics, focus containment, Escape handling, and focus restoration.",
+      "componentIds": [
+        "dse.dialog"
+      ],
+      "owner": "design-system"
+    },
+    {
+      "key": "form-content",
+      "order": 3,
+      "required": true,
+      "role": "Compose the governed form controls required by the product data model; Text Field and Radio Group are evidenced examples, not mandatory fields for every create task.",
+      "componentIds": [
+        "dse.text-field",
+        "dse.radio-group"
+      ],
+      "owner": "product"
+    },
+    {
+      "key": "failure-feedback",
+      "order": 4,
+      "required": false,
+      "role": "Render governed Inline Feedback inside the Dialog when a recoverable request failure needs explicit explanation while preserving entered values.",
+      "componentIds": [
+        "dse.inline-feedback"
+      ],
+      "owner": "workflow"
+    },
+    {
+      "key": "dialog-actions",
+      "order": 5,
+      "required": true,
+      "role": "Compose governed Buttons in Dialog actions for cancellation and submission; product/workflow owns labels, pending restrictions, retry state, and outcomes.",
+      "componentIds": [
+        "dse.button"
+      ],
+      "owner": "workflow"
+    }
+  ],
+  "rules": {
+    "layout": [
+      {
+        "id": "layout.dialog-owns-surface",
+        "statement": "Use governed Dialog for the modal surface and place product form content only in its body/actions composition; do not recreate Dialog geometry with local CSS."
+      },
+      {
+        "id": "layout.trigger-placement",
+        "statement": "When the create action is page-level, prefer the governed Page Heading actions slot if the page already uses Page Heading; otherwise product composition owns trigger placement."
+      }
+    ],
+    "responsive": [
+      {
+        "id": "responsive.dialog-governed",
+        "statement": "Use the governed Dialog responsive/viewport behavior; do not substitute a drawer or sheet on narrow screens without separate approved guidance."
+      }
+    ],
+    "direction": [
+      {
+        "id": "direction.inherit",
+        "statement": "Dialog and form controls inherit the surrounding writing direction; only intrinsically directional product values may set a narrower direction."
+      }
+    ],
+    "accessibility": [
+      {
+        "id": "accessibility.labels",
+        "statement": "All form controls require the governed visible/accessibility labels defined by their contracts, and the Dialog close label must be localized for the surrounding language."
+      },
+      {
+        "id": "accessibility.dialog-focus",
+        "statement": "Rely on governed Dialog focus entry, containment, Escape handling, background inertness, and focus restoration instead of reimplementing those behaviors."
+      }
+    ],
+    "behavior": [
+      {
+        "id": "behavior.product-state",
+        "statement": "Open state, field values, validation, dirty state, request phase, retries, and success/failure outcomes belong to the product/workflow rather than Dialog."
+      },
+      {
+        "id": "behavior.validation-components",
+        "statement": "Product validation supplies the supported invalid/error state of governed form controls; do not invent validation APIs on Dialog."
+      },
+      {
+        "id": "behavior.failure-retains-input",
+        "statement": "For a recoverable create failure, keep entered values available for correction/retry and use governed Inline Feedback when an explanatory message is needed."
+      },
+      {
+        "id": "behavior.success-outcome",
+        "statement": "After successful creation, close the Dialog and update the originating product state; any success feedback on the page is product-owned."
+      },
+      {
+        "id": "behavior.demo-failure-not-rule",
+        "statement": "Deterministic fail-then-retry behavior used by Storybook prototypes is demo evidence only and must not be inferred as a product creation rule."
+      }
+    ]
+  },
+  "localCss": {
+    "allowed": [
+      {
+        "id": "css.form-slot-composition",
+        "statement": "Local CSS may arrange product-owned content inside Dialog slots only where no governed component or spacing token already owns that decision."
+      }
+    ],
+    "mustUseGovernedTokensWhenAvailable": true
+  },
+  "forbidden": [
+    "custom modal implementation when governed Dialog satisfies the requirement",
+    "inventing onSubmit, requestStatus, pending, validation, or dirty props on Dialog",
+    "reimplementing Dialog focus trap, Escape handling, backdrop, or focus restoration",
+    "treating prototype fail-then-retry timing as canonical product behavior",
+    "inventing a narrow drawer or sheet replacement without separate approved guidance"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-19",
+    "audit": "docs/ai-readiness/AI-READINESS-CSS-AUDIT.md",
+    "evidence": [
+      "packages/contracts/components/dialog.contract.json",
+      "apps/storybook/src/prototypes/ConnectedProductPrototype.tsx",
+      "apps/storybook/src/prototypes/ProjectsManagementPrototype.tsx"
+    ]
+  }
+}

@@ -48,6 +48,7 @@
     "--dse-color-semantic-fg-primary",
     "--dse-color-semantic-fg-secondary",
     "--dse-color-semantic-border-subtle",
+    "--dse-border-role-divider",
     "--dse-radius-shape-overlay",
     "--dse-spacing-primitive-space-100",
     "--dse-spacing-primitive-space-200",

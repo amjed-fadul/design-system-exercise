@@ -18,8 +18,8 @@ describe('Breadcrumbs CSS boundary', () => {
     expect(css).toMatch(/\.dse-breadcrumbs\s*\{[^}]*inline-size:\s*fit-content/);
     expect(css).toMatch(/\.dse-breadcrumbs\s*\{[^}]*max-inline-size:\s*100%/);
     expect(css).toMatch(/\.dse-breadcrumbs__list\s*\{[^}]*display:\s*flex/);
-    expect(css).toMatch(/\.dse-breadcrumbs__list\s*\{[^}]*gap:\s*8px/);
-    expect(css).toMatch(/\.dse-breadcrumb-link-item\s*\{[^}]*gap:\s*8px/);
+    expect(css).toMatch(/\.dse-breadcrumbs__list\s*\{[^}]*gap:\s*var\(--dse-spacing-semantic-gap-sm\)/);
+    expect(css).toMatch(/\.dse-breadcrumb-link-item\s*\{[^}]*gap:\s*var\(--dse-spacing-semantic-gap-sm\)/);
     expect(css).not.toMatch(/text-overflow:\s*ellipsis/);
     expect(css).not.toMatch(/overflow:\s*hidden/);
   });

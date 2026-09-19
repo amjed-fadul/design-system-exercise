@@ -1,32 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconButton, type IconButtonProps } from '@design-system-exercise/react';
 
-function CloseIcon() {
-  return (
-    <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-      <path
-        d="M5 5l10 10M15 5 5 15"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
+const xIconUrl = new URL(
+  '../../../../packages/react/src/assets/x.svg',
+  import.meta.url,
+).href;
 
-function ClearSearchIcon() {
+function SystemXIcon() {
   return (
-    <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-      <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <path
-        d="M8 8l4 4M12 8l-4 4"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
+    <span
+      aria-hidden="true"
+      style={{
+        display: 'block',
+        inlineSize: 'var(--dse-icons-size-md)',
+        blockSize: 'var(--dse-icons-size-md)',
+        background: 'currentColor',
+        WebkitMaskImage: `url("${xIconUrl}")`,
+        WebkitMaskPosition: 'center',
+        WebkitMaskRepeat: 'no-repeat',
+        WebkitMaskSize: 'contain',
+        maskImage: `url("${xIconUrl}")`,
+        maskPosition: 'center',
+        maskRepeat: 'no-repeat',
+        maskSize: 'contain',
+      }}
+    />
   );
 }
 
@@ -40,10 +38,11 @@ function localizedArgs(
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Controls/Icon Button',
   component: IconButton,
   args: {
-    icon: <CloseIcon />,
+    icon: <SystemXIcon />,
     'aria-label': 'Close',
     disabled: false,
   },
@@ -56,7 +55,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.icon-button@1.0.0. Figma authority: Icon Button node 110:1339. Use Icon Button for familiar compact commands such as closing a surface or clearing search. aria-label is required and owns the accessible name; the supplied icon is decorative. Hover, pressed, and focus-visible are browser/CSS-derived interaction states and are intentionally not public props. The target remains 40×40 with a 20×20 icon in Light/Dark and English/Arabic.',
+          "**Contract**\n\n`dse.icon-button@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nUse Icon Button for familiar compact commands such as closing a surface or clearing search. `aria-label` is required and owns the accessible name; the supplied icon is decorative. Hover, pressed, and focus-visible are browser/CSS-derived interaction states rather than public props. The target remains 40×40 with a 20×20 icon across themes and writing directions.",
       },
     },
   },
@@ -82,7 +81,7 @@ export const Playground: Story = {
 
 export const Close: Story = {
   args: {
-    icon: <CloseIcon />,
+    icon: <SystemXIcon />,
     'aria-label': 'Close',
   },
   render: (args, context) => (
@@ -92,7 +91,7 @@ export const Close: Story = {
 
 export const ClearSearch: Story = {
   args: {
-    icon: <ClearSearchIcon />,
+    icon: <SystemXIcon />,
     'aria-label': 'Clear search',
   },
   render: (args, context) => (
@@ -102,7 +101,7 @@ export const ClearSearch: Story = {
 
 export const Disabled: Story = {
   args: {
-    icon: <CloseIcon />,
+    icon: <SystemXIcon />,
     'aria-label': 'Close',
     disabled: true,
   },

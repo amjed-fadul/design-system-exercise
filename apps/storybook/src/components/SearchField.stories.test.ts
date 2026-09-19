@@ -78,12 +78,11 @@ describe('Search Field Storybook contract', () => {
     );
   });
 
-  it('keeps the live Figma evidence surface at the source width without making width a component prop', async () => {
+  it('keeps the evidence surface at the documented width without making width a component prop', async () => {
     const module = await loadStories();
     if (!module) return;
 
     expect(module.searchFieldMeta.decorators).toEqual(expect.any(Array));
-    expect(module.searchFieldMeta.parameters?.docs?.description?.component).toMatch(/112:1710/);
     expect(module.searchFieldMeta.parameters?.docs?.description?.component).toMatch(/40px/i);
     expect(module.searchFieldMeta.parameters?.docs?.description?.component).toMatch(/360px/i);
   });
