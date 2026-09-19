@@ -3,7 +3,7 @@
   "id": "dse.ai-authoring-policy",
   "kind": "ai-authoring-policy",
   "version": "1.0.0",
-  "status": "approved",
+  "status": "draft",
   "name": "AI Authoring Rules",
   "scope": "product-ui-authoring",
   "authorityOrder": [
@@ -116,8 +116,7 @@
   "localCss": {
     "allowedAuthorities": [
       "approved-composition-guidance",
-      "product-figma-evidence",
-      "storybook-evidence-frame"
+      "product-figma-evidence"
     ],
     "forbidden": [
       "raw product colors that bypass semantic color tokens",
@@ -136,7 +135,8 @@
     "may": [
       "render canonical AI authoring rules for human review",
       "visualize approved composition guidance after that guidance exists",
-      "host blind AI-generated outputs after generation for evaluation"
+      "host blind AI-generated outputs after generation for evaluation",
+      "use clearly labeled local evidence-frame dimensions for deterministic documentation and test canvases without granting those values product-authoring authority"
     ],
     "mustNot": [
       "be the only source of an AI authoring rule",
