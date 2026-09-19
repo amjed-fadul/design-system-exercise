@@ -59,7 +59,7 @@ Created a canonical, machine-readable AI authoring policy and wired it into repo
 
 Outputs:
 
-- `packages/contracts/ai/authoring-policy.json` — canonical policy, currently `draft` pending user review;
+- `packages/contracts/ai/authoring-policy.json` — canonical approved policy;
 - `packages/contracts/schema/ai-authoring-policy.schema.json` — validation schema;
 - `docs/ai-readiness/AI-AUTHORING-RULES.md` — human-readable usage guidance;
 - `AI Readiness/Authoring Rules` in Storybook — human-visible rendering directly backed by the canonical JSON.
