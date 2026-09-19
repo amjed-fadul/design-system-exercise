@@ -1,0 +1,159 @@
+{
+  "$schema": "../../../schema/ai-blind-authoring-task.schema.json",
+  "id": "dse.ai-eval.team-management",
+  "kind": "ai-blind-authoring-task",
+  "version": "1.0.0",
+  "status": "draft",
+  "name": "Team Management",
+  "caseType": "baseline-known",
+  "agentVisible": {
+    "productRequirement": {
+      "summary": "Build a Northstar Team & access management experience. Workspace admins need to browse members and pending invitations, search people, invite a member, inspect member detail, edit a role, and protect unsaved role changes.",
+      "userGoals": [
+        "Browse people with identity, role, status, and a record-specific details action.",
+        "Search members and invitations by name or email and understand active/invited counts.",
+        "Invite one person by email and choose a Member or Admin role.",
+        "Open joined-member details and edit the saved role.",
+        "If the admin tries to close detail with an unsaved role change, require an explicit keep-editing or discard decision."
+      ],
+      "dataFixtures": [
+        "Amal Hassan — Admin — Active.",
+        "Sara Ahmed — Member — Active.",
+        "Omar Khalid — Member — Active.",
+        "invitee.one@example.com — Member — Invitation pending.",
+        "invitee.two@example.com — Member — Invitation pending.",
+        "Email addresses are intrinsically LTR even when the surrounding UI is Arabic."
+      ],
+      "requiredStates": [
+        "Populated team directory.",
+        "Filtered directory and no-results state.",
+        "Invite-member modal with field validation, recoverable request failure, retry, and success.",
+        "Joined-member detail with role editing.",
+        "Save failure and success feedback.",
+        "Unsaved-change close guard using a consequential confirmation."
+      ],
+      "presentationModes": [
+        "English LTR and Arabic RTL.",
+        "Light and Dark.",
+        "Wide Application Shell and compact/narrow directory presentation.",
+        "For any contextual-detail behavior that approved guidance marks unresolved on narrow screens, report the unresolved decision instead of inventing a new model."
+      ]
+    },
+    "deliverable": {
+      "writeRoot": "apps/storybook/src/ai-readiness/evaluations/team-management/",
+      "requiredFiles": [
+        "TeamEvaluation.tsx",
+        "TeamEvaluation.css",
+        "TeamEvaluation.stories.tsx",
+        "AUTHORING-REPORT.md"
+      ],
+      "storyTitle": "AI Readiness/Evaluations/Team Management"
+    },
+    "executionRules": [
+      "Read only the shared agent-context allowlist from the test-pack manifest; do not read any denied source.",
+      "Do not inspect git history, pull-request diffs, other branches, tags, or earlier implementations to recover an answer.",
+      "Do not use external search or external code examples to locate this repository's previous implementation.",
+      "Use only public governed package APIs authorized by the supplied contracts and guidance.",
+      "Do not add or modify design-system components, contracts, patterns, tokens, or canonical guidance.",
+      "Write implementation files only inside the task writeRoot.",
+      "Use governed tokens when available and explain every remaining local raw dimension or local CSS decision in AUTHORING-REPORT.md.",
+      "When supplied authorities do not resolve a decision, record it as unresolved in AUTHORING-REPORT.md instead of guessing.",
+      "Do not ask a human to correct the implementation during the run."
+    ]
+  },
+  "evaluatorOnly": {
+    "expectedAuthorities": {
+      "components": [
+        "dse.page-heading",
+        "dse.breadcrumbs",
+        "dse.button",
+        "dse.search-field",
+        "dse.table",
+        "dse.empty-state",
+        "dse.status-badge",
+        "dse.side-panel",
+        "dse.text-field",
+        "dse.radio-group",
+        "dse.inline-feedback",
+        "dse.dialog"
+      ],
+      "patterns": [
+        "dse.pattern.application-shell"
+      ],
+      "compositions": [
+        "dse.composition.directory-page",
+        "dse.composition.modal-list-detail"
+      ]
+    },
+    "checks": [
+      {
+        "id": "team.components",
+        "category": "component-selection",
+        "requirement": "must",
+        "statement": "Use governed shell, heading, directory, detail, form, feedback, and dialog components rather than custom substitutes."
+      },
+      {
+        "id": "team.no-invented-api",
+        "category": "invented-api",
+        "requirement": "must-not",
+        "statement": "Do not invent public component props, variants, states, slots, or events."
+      },
+      {
+        "id": "team.css-authority",
+        "category": "custom-css",
+        "requirement": "must",
+        "statement": "Local CSS must remain in product/composition ownership and be explained in the authoring report."
+      },
+      {
+        "id": "team.raw-values",
+        "category": "raw-values",
+        "requirement": "must-not",
+        "statement": "Do not use unexplained raw product colors or duplicate governed spacing/layout values."
+      },
+      {
+        "id": "team.composition",
+        "category": "composition",
+        "requirement": "must",
+        "statement": "Follow approved Directory and Modal List → Detail guidance; invitation remains a product-owned short Dialog workflow rather than an invented component API."
+      },
+      {
+        "id": "team.accessibility",
+        "category": "accessibility",
+        "requirement": "must",
+        "statement": "Preserve accessible search/clear labels, record-specific detail actions, Dialog semantics, detail focus ownership, and unsaved-change confirmation semantics."
+      },
+      {
+        "id": "team.rtl",
+        "category": "rtl",
+        "requirement": "must",
+        "statement": "Use logical RTL/LTR layout and keep email addresses intrinsically LTR without forcing account/detail layouts LTR."
+      },
+      {
+        "id": "team.responsive",
+        "category": "responsive",
+        "requirement": "must",
+        "statement": "Directory presentation responds at the governed shell boundary and unresolved narrow detail is explicitly escalated."
+      },
+      {
+        "id": "team.visual",
+        "category": "visual-fidelity",
+        "requirement": "expected",
+        "statement": "The result should read as a coherent Northstar Team & access management screen using the supplied brief and governed system."
+      }
+    ],
+    "expectedEscalations": [
+      "Narrow-screen contextual member detail presentation is unresolved by current approved guidance and should be reported rather than invented."
+    ],
+    "contaminationSignals": [
+      "ConnectedProductPrototype",
+      "ProjectsManagementPrototype",
+      "dse-product-prototype__",
+      "imports from apps/storybook/src/prototypes",
+      "copying existing prototype/story class names or answer-source code"
+    ]
+  },
+  "provenance": {
+    "lastReviewed": "2026-09-19",
+    "plan": "docs/plans/2026-09-19-ai-readiness-validation-v1.md"
+  }
+}
