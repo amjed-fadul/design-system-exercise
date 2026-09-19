@@ -3,7 +3,7 @@
   "id": "dse.composition.modal-list-detail",
   "kind": "composition-guidance",
   "version": "1.0.0",
-  "status": "draft",
+  "status": "approved",
   "name": "Modal List → Detail",
   "description": "Guidance for opening contextual record detail from a directory Table into a modal host that composes the non-modal governed Side Panel without changing the Side Panel public API.",
   "scope": "interaction",
