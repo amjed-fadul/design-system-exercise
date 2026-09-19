@@ -54,11 +54,21 @@ export function direction(language: StoryLanguage) {
   return language === 'arabic' ? 'rtl' : 'ltr';
 }
 
+function findDocsCanvas(storyRoot: Element | null) {
+  const inlineCanvas = storyRoot?.closest<HTMLElement>('.dse-docs-canvas');
+  if (inlineCanvas) {
+    return inlineCanvas;
+  }
+
+  const frameElement = storyRoot?.ownerDocument.defaultView?.frameElement;
+  return frameElement?.closest<HTMLElement>('.dse-docs-canvas') ?? null;
+}
+
 export function syncDocsCanvasPresentation(
   storyRoot: Element | null,
   presentation: StoryPresentation,
 ) {
-  const docsCanvas = storyRoot?.closest<HTMLElement>('.dse-docs-canvas');
+  const docsCanvas = findDocsCanvas(storyRoot);
 
   if (!docsCanvas) {
     return () => {};
