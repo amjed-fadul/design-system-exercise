@@ -6,12 +6,13 @@ import type { LoadedContract } from './types.js';
 export const contractsRoot = fileURLToPath(new URL('../', import.meta.url));
 export const componentsDir = join(contractsRoot, 'components');
 export const patternsDir = join(contractsRoot, 'patterns');
+export const aiDir = join(contractsRoot, 'ai');
 
-function loadDirectory(directory: string): LoadedContract[] {
+function loadDirectory(directory: string, suffix: string): LoadedContract[] {
   if (!existsSync(directory)) return [];
 
   return readdirSync(directory)
-    .filter((name) => name.endsWith('.contract.json'))
+    .filter((name) => name.endsWith(suffix))
     .sort((a, b) => a.localeCompare(b))
     .map((name) => {
       const path = join(directory, name);
@@ -23,9 +24,13 @@ function loadDirectory(directory: string): LoadedContract[] {
 }
 
 export function loadComponentContracts(): LoadedContract[] {
-  return loadDirectory(componentsDir);
+  return loadDirectory(componentsDir, '.contract.json');
 }
 
 export function loadPatternContracts(): LoadedContract[] {
-  return loadDirectory(patternsDir);
+  return loadDirectory(patternsDir, '.contract.json');
+}
+
+export function loadAuthoringPolicies(): LoadedContract[] {
+  return loadDirectory(aiDir, '.policy.json');
 }
