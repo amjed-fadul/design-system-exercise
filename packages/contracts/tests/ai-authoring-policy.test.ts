@@ -25,6 +25,18 @@ describe('AI authoring policy', () => {
     expect(validateRepositoryContracts().valid).toBe(true);
   });
 
+  it('requires explicit authority for evaluation-only deterministic placeholders', () => {
+    const fixtureRule = policy.rules.find(
+      (rule) => rule.id === 'uncertainty.evaluation-placeholder',
+    ) as { statement?: string; rationale?: string } | undefined;
+
+    expect(fixtureRule).toBeDefined();
+    expect(fixtureRule?.statement).toMatch(/evaluation|demo/i);
+    expect(fixtureRule?.statement).toMatch(/deterministic placeholder/i);
+    expect(fixtureRule?.statement).toMatch(/production/i);
+    expect(fixtureRule?.rationale).toMatch(/unresolved/i);
+  });
+
   it('rejects duplicate rule ids', () => {
     const duplicate = structuredClone(policy);
     duplicate.rules.push({ ...duplicate.rules[0]! });
