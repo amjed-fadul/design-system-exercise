@@ -8,9 +8,9 @@ const preview = readFileSync(
 );
 
 describe('Storybook sidebar order', () => {
-  it('orders the top-level sections Foundations → Components → Patterns → Prototypes', () => {
+  it('orders the top-level sections Foundations → Components → Patterns → AI Readiness → Prototypes', () => {
     expect(preview).toContain(
-      "order: ['Foundations', 'Components', 'Patterns', 'Prototypes']",
+      "order: ['Foundations', 'Components', 'Patterns', 'AI Readiness', 'Prototypes']",
     );
   });
 });
