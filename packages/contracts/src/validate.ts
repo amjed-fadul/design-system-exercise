@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import Ajv, { type AnySchema, type ErrorObject, type ValidateFunction } from 'ajv';
+import { validateAiEvalRepository } from './ai-eval.js';
 import {
   loadAuthoringPolicies,
   loadComponentContracts,
@@ -390,6 +391,11 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
     }
   }
 
+  const aiEvalResult = validateAiEvalRepository();
+  for (const error of aiEvalResult.errors) {
+    errors.push(`AI eval: ${error}`);
+  }
+
   errors.sort((a, b) => a.localeCompare(b));
   return {
     valid: errors.length === 0,
@@ -411,7 +417,7 @@ if (isCliEntry()) {
     process.exitCode = 1;
   } else {
     console.log(
-      `Validated ${result.componentCount} component contract${result.componentCount === 1 ? '' : 's'} and ${result.patternCount} pattern contract${result.patternCount === 1 ? '' : 's'} plus the AI authoring policy and Task 3 composition guidance`,
+      `Validated ${result.componentCount} component contract${result.componentCount === 1 ? '' : 's'} and ${result.patternCount} pattern contract${result.patternCount === 1 ? '' : 's'} plus the AI authoring policy, Task 3 composition guidance, and Task 4 blind test pack`,
     );
   }
 }
