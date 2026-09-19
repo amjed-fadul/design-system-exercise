@@ -3,7 +3,7 @@
   "id": "dse.ai-eval.api-keys-management",
   "kind": "ai-blind-authoring-task",
   "version": "1.0.0",
-  "status": "draft",
+  "status": "approved",
   "name": "API Keys Management",
   "caseType": "generalization",
   "agentVisible": {
