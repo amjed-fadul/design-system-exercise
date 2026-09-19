@@ -26,6 +26,7 @@ interface GuidanceRecord {
     key: string;
     order: number;
     required: boolean;
+    owner: 'design-system' | 'composition' | 'product' | 'workflow';
     role: string;
     componentIds?: string[];
     patternIds?: string[];
@@ -166,7 +167,7 @@ function CompositionGuidancePage({
               <li key={region.key} data-composition-region={region.key}>
                 <strong>
                   {region.key}
-                  {region.required ? ' · required' : ' · optional'}
+                  {region.required ? ' · required' : ' · optional'} · owner: {region.owner}
                 </strong>
                 <p style={{ margin: 0 }}>{region.role}</p>
               </li>
