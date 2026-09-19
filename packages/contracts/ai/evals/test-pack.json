@@ -1,0 +1,60 @@
+{
+  "$schema": "../../schema/ai-test-pack.schema.json",
+  "id": "dse.ai-eval-pack.v1",
+  "kind": "ai-test-pack",
+  "version": "1.0.0",
+  "status": "draft",
+  "name": "AI Readiness Blind Authoring Pack V1",
+  "taskIds": [
+    "dse.ai-eval.projects-directory",
+    "dse.ai-eval.team-management",
+    "dse.ai-eval.api-keys-management"
+  ],
+  "agentContext": {
+    "allow": [
+      "packages/contracts/ai/authoring-policy.json",
+      "packages/contracts/ai/compositions/*.guidance.json",
+      "packages/contracts/components/*.contract.json",
+      "packages/contracts/patterns/*.contract.json",
+      "packages/tokens/src/**/*.tokens.json",
+      "packages/react/package.json",
+      "packages/patterns/package.json",
+      "packages/tokens/package.json"
+    ],
+    "deny": [
+      "apps/storybook/src/prototypes/**",
+      "apps/storybook/src/patterns/**",
+      "apps/storybook/src/components/**",
+      "apps/storybook/src/ai-readiness/AuthoringRules.stories.tsx",
+      "apps/storybook/src/ai-readiness/CompositionGuidance.stories.tsx",
+      "packages/react/src/**",
+      "packages/patterns/src/**",
+      "docs/ai-readiness/**"
+    ]
+  },
+  "blindProtocol": {
+    "freshSessionPerTask": true,
+    "freshWorktreePerTask": true,
+    "agentReceivesOnlyAgentVisibleTaskData": true,
+    "neverExposeEvaluatorOnly": true,
+    "noCrossRunReuse": true,
+    "noRepositoryHistoryForAnswers": true,
+    "noExternalAnswerLookup": true,
+    "noHumanCorrectionDuringRun": true
+  },
+  "evaluationDimensions": [
+    "component-selection",
+    "invented-api",
+    "custom-css",
+    "raw-values",
+    "composition",
+    "accessibility",
+    "rtl",
+    "responsive",
+    "visual-fidelity"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-19",
+    "plan": "docs/plans/2026-09-19-ai-readiness-validation-v1.md"
+  }
+}
