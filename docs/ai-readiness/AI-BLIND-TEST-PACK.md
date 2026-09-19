@@ -18,7 +18,8 @@ Every run must use:
 - a fresh agent session;
 - a fresh worktree;
 - no reuse of code/output from another evaluation run;
-- only the task's `agentVisible` data plus the shared allowed context;
+- generated files inside the current task's own `writeRoot` may be reread and edited during that run;
+- only the task's `agentVisible` data plus the shared allowed repository context;
 - no `evaluatorOnly` data in the prompt;
 - no repository history, PR diffs, other branches or tags to recover the old answer;
 - no external answer lookup;
