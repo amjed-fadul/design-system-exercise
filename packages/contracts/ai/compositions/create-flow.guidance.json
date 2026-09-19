@@ -8,11 +8,30 @@
   "description": "Guidance for a short creation workflow opened from a page-level action into governed Dialog, with governed form controls, product-owned validation/request state, inline failure feedback, and a success outcome returned to the originating page.",
   "scope": "flow",
   "componentDependencies": [
-    { "id": "dse.button", "minimumVersion": "1.0.0" },
-    { "id": "dse.dialog", "minimumVersion": "1.0.0" },
-    { "id": "dse.text-field", "minimumVersion": "1.0.0" },
-    { "id": "dse.radio-group", "minimumVersion": "1.0.0" },
-    { "id": "dse.inline-feedback", "minimumVersion": "1.0.0" }
+    {
+      "id": "dse.button",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.dialog",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.page-heading",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.text-field",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.radio-group",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.inline-feedback",
+      "minimumVersion": "1.0.0"
+    }
   ],
   "patternDependencies": [],
   "structure": [
@@ -21,35 +40,47 @@
       "order": 1,
       "required": true,
       "role": "A governed Button opens the creation workflow; it may be composed in Page Heading actions when that placement is appropriate.",
-      "componentIds": ["dse.button"]
+      "componentIds": [
+        "dse.button",
+        "dse.page-heading"
+      ]
     },
     {
       "key": "dialog",
       "order": 2,
       "required": true,
       "role": "Governed Dialog owns the modal surface, modal semantics, focus containment, Escape handling, and focus restoration.",
-      "componentIds": ["dse.dialog"]
+      "componentIds": [
+        "dse.dialog"
+      ]
     },
     {
       "key": "form-content",
       "order": 3,
       "required": true,
       "role": "Compose the governed form controls required by the product data model; Text Field and Radio Group are evidenced examples, not mandatory fields for every create task.",
-      "componentIds": ["dse.text-field", "dse.radio-group"]
+      "componentIds": [
+        "dse.text-field",
+        "dse.radio-group"
+      ]
     },
     {
       "key": "failure-feedback",
       "order": 4,
       "required": false,
       "role": "Render governed Inline Feedback inside the Dialog when a recoverable request failure needs explicit explanation while preserving entered values.",
-      "componentIds": ["dse.inline-feedback"]
+      "componentIds": [
+        "dse.inline-feedback"
+      ]
     },
     {
       "key": "dialog-actions",
       "order": 5,
       "required": true,
       "role": "Compose governed Buttons in Dialog actions for cancellation and submission; product/workflow owns labels, pending restrictions, retry state, and outcomes.",
-      "componentIds": ["dse.button"]
+      "componentIds": [
+        "dse.button"
+      ]
     }
   ],
   "rules": {
@@ -78,7 +109,7 @@
     "accessibility": [
       {
         "id": "accessibility.labels",
-        "statement": "All form controls require the governed visible/accessibility labels defined by their contracts, including localized Dialog close and Search/clear labels where those controls are used."
+        "statement": "All form controls require the governed visible/accessibility labels defined by their contracts, and the Dialog close label must be localized for the surrounding language."
       },
       {
         "id": "accessibility.dialog-focus",
