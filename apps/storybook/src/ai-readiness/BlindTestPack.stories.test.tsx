@@ -8,6 +8,15 @@ import * as stories from './BlindTestPack.stories';
 
 const tasks = [projects, team, apiKeys] as const;
 
+const renderedText = (html: string) =>
+  html
+    .replace(/<[^>]+>/g, '')
+    .replaceAll('&#x27;', "'")
+    .replaceAll('&quot;', '"')
+    .replaceAll('&amp;', '&')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>');
+
 describe('Task 4 Storybook blind test pack', () => {
   it('renders the canonical protocol and all three task briefs', () => {
     expect(stories.default.title).toBe('AI Readiness/Blind Test Pack');
@@ -15,16 +24,17 @@ describe('Task 4 Storybook blind test pack', () => {
     const html = renderToStaticMarkup(
       stories.Pack.render?.({} as never, { globals: {} } as never) as never,
     );
+    const text = renderedText(html);
 
-    expect(html).toContain(pack.name);
-    expect(html).toContain(pack.status);
+    expect(text).toContain(pack.name);
+    expect(text).toContain(pack.status);
 
     for (const task of tasks) {
-      expect(html).toContain(task.id);
-      expect(html).toContain(task.name);
-      expect(html).toContain(task.caseType);
-      expect(html).toContain(task.agentVisible.productRequirement.summary);
-      expect(html).toContain(task.agentVisible.deliverable.writeRoot);
+      expect(text).toContain(task.id);
+      expect(text).toContain(task.name);
+      expect(text).toContain(task.caseType);
+      expect(text).toContain(task.agentVisible.productRequirement.summary);
+      expect(text).toContain(task.agentVisible.deliverable.writeRoot);
     }
   });
 
