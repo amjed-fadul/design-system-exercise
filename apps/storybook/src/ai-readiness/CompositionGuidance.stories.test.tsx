@@ -11,6 +11,15 @@ const cases = [
   [createFlow, stories.CreateFlow],
 ] as const;
 
+const renderedText = (html: string) =>
+  html
+    .replace(/<[^>]+>/g, '')
+    .replaceAll('&#x27;', "'")
+    .replaceAll('&quot;', '"')
+    .replaceAll('&amp;', '&')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>');
+
 const allRules = (guidance: typeof directoryPage) => [
   ...guidance.rules.layout,
   ...guidance.rules.responsive,
@@ -28,25 +37,26 @@ describe('Task 3 Storybook composition guidance', () => {
       const html = renderToStaticMarkup(
         story.render?.({} as never, { globals: {} } as never) as never,
       );
+      const text = renderedText(html);
 
-      expect(html).toContain(guidance.id);
-      expect(html).toContain(guidance.name);
-      expect(html).toContain(guidance.status);
-      expect(html).toContain('Guidance only');
+      expect(text).toContain(guidance.id);
+      expect(text).toContain(guidance.name);
+      expect(text).toContain(guidance.status);
+      expect(text).toContain('Guidance only');
 
       for (const region of guidance.structure) {
-        expect(html).toContain(region.key);
-        expect(html).toContain(region.role);
-        expect(html).toContain(`owner: ${region.owner}`);
+        expect(text).toContain(region.key);
+        expect(text).toContain(region.role);
+        expect(text).toContain(`owner: ${region.owner}`);
       }
 
       for (const rule of allRules(guidance as typeof directoryPage)) {
-        expect(html).toContain(rule.id);
-        expect(html).toContain(rule.statement);
+        expect(text).toContain(rule.id);
+        expect(text).toContain(rule.statement);
       }
 
       for (const forbidden of guidance.forbidden) {
-        expect(html).toContain(forbidden);
+        expect(text).toContain(forbidden);
       }
     }
   });
