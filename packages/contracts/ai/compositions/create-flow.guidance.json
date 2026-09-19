@@ -138,6 +138,10 @@
         "statement": "After successful creation, close the Dialog and update the originating product state; any success feedback on the page is product-owned."
       },
       {
+        "id": "behavior.scope-boundary",
+        "statement": "Apply Create Flow when the primary product outcome is creation of the first-class product entity or record. Invite, invitation, add-member, and access-grant workflows remain a product-owned Dialog workflow unless separate approved guidance explicitly brings them into Create Flow scope."
+      },
+      {
         "id": "behavior.demo-failure-not-rule",
         "statement": "Deterministic fail-then-retry behavior used by Storybook prototypes is demo evidence only and must not be inferred as a product creation rule."
       }
@@ -160,7 +164,7 @@
     "inventing a narrow drawer or sheet replacement without separate approved guidance"
   ],
   "provenance": {
-    "lastReviewed": "2026-09-19",
+    "lastReviewed": "2026-09-20",
     "audit": "docs/ai-readiness/AI-READINESS-CSS-AUDIT.md",
     "evidence": [
       "packages/contracts/components/dialog.contract.json",
