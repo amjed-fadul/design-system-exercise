@@ -156,4 +156,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Policy: Story = {\n  render: () => <AuthoringRulesPage />,\n};
+export const Policy: Story = {
+  render: () => <AuthoringRulesPage />,
+};
