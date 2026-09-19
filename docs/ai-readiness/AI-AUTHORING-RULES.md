@@ -49,9 +49,11 @@ Storybook may use clearly labeled evidence-frame dimensions for deterministic do
 
 ## Unknown decisions
 
-If the available contracts, tokens, approved guidance, and product evidence do not authorize a decision, the AI must not infer the answer from a finished Storybook story or prototype.
+If the available contracts, tokens, approved guidance, and product evidence do not authorize a production decision, the AI must not infer the answer from a finished Storybook story or prototype.
 
-Record the decision as unresolved. That unresolved decision becomes evidence for the AI-readiness failure-classification phase.
+During an isolated evaluation or demo only, a deterministic placeholder may be used when an inspectable value is necessary and the production generation/allocation rule is unresolved. The placeholder must be explicitly identified as non-production evidence and must not imply a production format, allocation rule, or reusable product behavior.
+
+The underlying production decision must still be recorded as unresolved. That unresolved decision remains evidence for the AI-readiness failure-classification phase.
 
 ## Storybook
 
