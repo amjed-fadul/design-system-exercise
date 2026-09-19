@@ -245,7 +245,7 @@ Passed gates:
 
 Run one task at a time without correcting the agent during generation.
 
-**Run 001 — API Keys Management:** READY FOR FRESH AGENT on branch `ai-eval/api-keys-run-001`. The current orchestration chat is intentionally excluded from implementation because it has seen evaluator/answer context. See `docs/ai-readiness/runs/2026-09-19-api-keys-run-001.md`.
+**Run 001 — API Keys Management:** INVALID — workspace not mounted; no score. See `docs/ai-readiness/runs/2026-09-19-api-keys-run-001.md`.\n\n**Run 002 — API Keys Management:** READY FOR FRESH AGENT on branch `ai-eval/api-keys-run-002`. The current orchestration chat is intentionally excluded from implementation because it has seen evaluator/answer context.
 
 Capture:
 
