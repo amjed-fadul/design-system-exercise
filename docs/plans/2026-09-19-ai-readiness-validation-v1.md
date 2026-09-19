@@ -241,11 +241,11 @@ Passed gates:
 
 **Review status:** approved by user. The test pack and all three tasks are `approved`.
 
-## Task 5 — Run blind coding-agent evaluations — ACTIVE
+## Task 5 — Run blind coding-agent evaluations — COMPLETE
 
 Run one task at a time without correcting the agent during generation.
 
-**Run 001 — API Keys Management:** INVALID — workspace not mounted; no score. See `docs/ai-readiness/runs/2026-09-19-api-keys-run-001.md`.\n\n**Run 002 — API Keys Management:** COMPLETED — UNCLASSIFIED at `58b09882861596f328d20c7e8d726e6588fc71f8`. Evidence captured in `docs/ai-readiness/runs/2026-09-19-api-keys-run-002.md`.\n\n**Run 003 — Projects Directory:** COMPLETED — UNCLASSIFIED at `ea7d5cce008d3402fbe7519a2007c3b6c8b7b908`. Evidence captured in `docs/ai-readiness/runs/2026-09-19-projects-run-003.md`.\n\n**Run 004 — Team Management:** READY FOR FRESH AGENT on branch `ai-eval/team-management-run-004`. The current orchestration chat remains excluded from implementation because it has seen evaluator/answer context.
+**Run 001 — API Keys Management:** INVALID — workspace not mounted; no score. See `docs/ai-readiness/runs/2026-09-19-api-keys-run-001.md`.\n\n**Run 002 — API Keys Management:** COMPLETED — UNCLASSIFIED at `58b09882861596f328d20c7e8d726e6588fc71f8`. Evidence captured in `docs/ai-readiness/runs/2026-09-19-api-keys-run-002.md`.\n\n**Run 003 — Projects Directory:** COMPLETED — UNCLASSIFIED at `ea7d5cce008d3402fbe7519a2007c3b6c8b7b908`. Evidence captured in `docs/ai-readiness/runs/2026-09-19-projects-run-003.md`.\n\n**Run 004 — Team Management:** COMPLETED — captured at `7b55a739c6ff15c9c2a77d1d841aa90d581ed0eb`. Evidence captured in `docs/ai-readiness/runs/2026-09-19-team-run-004.md`.
 
 Capture:
 
@@ -261,20 +261,30 @@ Capture:
 
 Render the completed blind output in an isolated Storybook evaluation story when useful, but do not feed existing Storybook answer code to the agent.
 
-## Task 6 — Classify failures — NOT STARTED
+## Task 6 — Classify failures — COMPLETE
 
-Every failure must be classified as:
+Classification record:
 
-- Agent mistake;
-- Missing DS guidance;
-- Missing component capability;
-- Missing pattern;
-- Missing token;
-- Ambiguous contract.
+`docs/ai-readiness/AI-READINESS-TASK-6-CLASSIFICATION.md`
 
-Do not change the DS merely because the agent made a mistake.
+Valid blind runs:
 
-Use Storybook story IDs/screenshots as supporting evidence where they make the failure concrete.
+- API Keys Management — `58b09882861596f328d20c7e8d726e6588fc71f8`
+- Projects Directory — `ea7d5cce008d3402fbe7519a2007c3b6c8b7b908`
+- Team Management — `7b55a739c6ff15c9c2a77d1d841aa90d581ed0eb`
+
+Run 001 was excluded because the repository was not mounted; no implementation was produced.
+
+Task 6 found no proven missing component capability, missing runtime pattern, or missing token.
+
+Two system ambiguities were proven:
+
+1. evaluation-only deterministic fixture values versus the policy's do-not-guess rule;
+2. Create Flow scope for invite/add-member workflows.
+
+Both are classified as **Ambiguous contract**, not agent mistakes.
+
+**Gate:** PASS. Every actual finding has a classification and no design-system change has been made yet.
 
 ## Task 7 — Fix only proven DS gaps — NOT STARTED
 
@@ -305,4 +315,4 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 
 ## Execution rule
 
-Tasks are sequential. Tasks 1–4 are complete and approved. Task 5 is active. Run one blind task at a time and do not begin Task 6 until all Task 5 runs are captured.
+Tasks are sequential. Tasks 1–6 are complete. Task 7 has not started. Fix only the two proven Task 6 ambiguities, then rerun only the affected blind cases.
