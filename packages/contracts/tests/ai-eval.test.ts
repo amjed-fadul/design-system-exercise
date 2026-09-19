@@ -80,6 +80,7 @@ describe('Task 4 blind AI test pack', () => {
     );
 
     for (const denied of [
+      'packages/contracts/ai/evals/*.task.json',
       'apps/storybook/src/prototypes/**',
       'apps/storybook/src/patterns/**',
       'apps/storybook/src/components/**',
