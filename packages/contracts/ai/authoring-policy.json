@@ -106,6 +106,13 @@
       "rationale": "Canonical authoring rules must remain machine-readable and independently consumable by an agent."
     },
     {
+      "id": "uncertainty.evaluation-placeholder",
+      "category": "uncertainty",
+      "requirement": "may",
+      "statement": "During an isolated evaluation or demo, a deterministic placeholder value may be used only when the production generation or allocation rule is unresolved, the placeholder is explicitly labeled as non-production evidence, and it does not assert a production format, allocation rule, or reusable product behavior.",
+      "rationale": "Evaluation evidence sometimes needs an inspectable value even when production generation is unresolved; explicit non-production labeling preserves the unresolved system decision instead of hiding it behind a guessed product rule."
+    },
+    {
       "id": "uncertainty.do-not-guess",
       "category": "uncertainty",
       "requirement": "escalate",
