@@ -9,8 +9,8 @@ const preview = readFileSync(
   'utf8',
 );
 
-function createDocsCanvasHarness() {
-  const canvas = {
+function createCanvasElement() {
+  return {
     dataset: {} as Record<string, string | undefined>,
     dir: '',
     removeAttribute(name: string) {
@@ -19,14 +19,62 @@ function createDocsCanvasHarness() {
       }
     },
   };
+}
+
+function createInlineStoryHarness() {
+  const canvas = createCanvasElement();
 
   const storyRoot = {
     closest(selector: string) {
       return selector === '.dse-docs-canvas' ? canvas : null;
     },
+    ownerDocument: {
+      defaultView: {
+        frameElement: null,
+      },
+    },
   } as unknown as Element;
 
   return { canvas, storyRoot };
+}
+
+function createIframeStoryHarness() {
+  const canvas = createCanvasElement();
+
+  const frameElement = {
+    closest(selector: string) {
+      return selector === '.dse-docs-canvas' ? canvas : null;
+    },
+  };
+
+  const storyRoot = {
+    closest() {
+      return null;
+    },
+    ownerDocument: {
+      defaultView: {
+        frameElement,
+      },
+    },
+  } as unknown as Element;
+
+  return { canvas, storyRoot };
+}
+
+function expectDarkArabicPresentation(
+  canvas: ReturnType<typeof createCanvasElement>,
+) {
+  expect(canvas.dataset.theme).toBe('dark');
+  expect(canvas.dataset.language).toBe('ar');
+  expect(canvas.dir).toBe('rtl');
+}
+
+function expectPresentationCleanup(
+  canvas: ReturnType<typeof createCanvasElement>,
+) {
+  expect(canvas.dataset.theme).toBeUndefined();
+  expect(canvas.dataset.language).toBeUndefined();
+  expect(canvas.dir).toBe('');
 }
 
 describe('Storybook Docs playground theming', () => {
@@ -36,27 +84,38 @@ describe('Storybook Docs playground theming', () => {
     );
   });
 
-  it('applies the local story presentation to its Docs Canvas host', () => {
-    const { canvas, storyRoot } = createDocsCanvasHarness();
+  it('applies the local story presentation to an inline Docs Canvas host', () => {
+    const { canvas, storyRoot } = createInlineStoryHarness();
 
     const cleanup = syncDocsCanvasPresentation(storyRoot, {
       theme: 'dark',
       language: 'arabic',
     });
 
-    expect(canvas.dataset.theme).toBe('dark');
-    expect(canvas.dataset.language).toBe('ar');
-    expect(canvas.dir).toBe('rtl');
+    expectDarkArabicPresentation(canvas);
 
     cleanup();
 
-    expect(canvas.dataset.theme).toBeUndefined();
-    expect(canvas.dataset.language).toBeUndefined();
-    expect(canvas.dir).toBe('');
+    expectPresentationCleanup(canvas);
+  });
+
+  it('applies the local story presentation to the outer Docs Canvas for an iframe story', () => {
+    const { canvas, storyRoot } = createIframeStoryHarness();
+
+    const cleanup = syncDocsCanvasPresentation(storyRoot, {
+      theme: 'dark',
+      language: 'arabic',
+    });
+
+    expectDarkArabicPresentation(canvas);
+
+    cleanup();
+
+    expectPresentationCleanup(canvas);
   });
 
   it('does not overwrite a newer Canvas presentation during stale cleanup', () => {
-    const { canvas, storyRoot } = createDocsCanvasHarness();
+    const { canvas, storyRoot } = createIframeStoryHarness();
 
     const cleanup = syncDocsCanvasPresentation(storyRoot, {
       theme: 'dark',
