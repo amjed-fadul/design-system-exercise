@@ -26,7 +26,7 @@ function AuthoringRulesPage() {
               color: 'var(--dse-color-semantic-fg-secondary)',
             }}
           >
-            v{authoringPolicy.version}
+            v{authoringPolicy.version} · {authoringPolicy.status}
           </span>
         </div>
         <p style={{ margin: 0, color: 'var(--dse-color-semantic-fg-secondary)' }}>
