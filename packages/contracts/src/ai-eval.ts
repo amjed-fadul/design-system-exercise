@@ -39,6 +39,7 @@ const requiredTaskIds = [
 ] as const;
 
 const requiredAllowContext = [
+  'packages/contracts/ai/evals/test-pack.json',
   'packages/contracts/ai/authoring-policy.json',
   'packages/contracts/ai/compositions/*.guidance.json',
   'packages/contracts/components/*.contract.json',
@@ -53,6 +54,7 @@ const requiredDeniedContext = [
   'packages/react/src/**',
   'packages/patterns/src/**',
   'docs/ai-readiness/**',
+  'apps/storybook/src/ai-readiness/BlindTestPack.stories.tsx',
 ] as const;
 
 const requiredDimensions: AiEvalDimension[] = [
@@ -106,18 +108,6 @@ function setsEqual<T>(left: readonly T[], right: readonly T[]) {
     left.length === right.length &&
     left.every((item) => new Set(right).has(item))
   );
-}
-
-function versionAtLeast(actual: string, minimum: string): boolean {
-  const a = actual.split('.').map(Number);
-  const b = minimum.split('.').map(Number);
-  for (let index = 0; index < 3; index += 1) {
-    const av = a[index] ?? 0;
-    const bv = b[index] ?? 0;
-    if (av > bv) return true;
-    if (av < bv) return false;
-  }
-  return true;
 }
 
 export function validateAiEvalRepository(): ValidationResult {
