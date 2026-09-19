@@ -239,9 +239,9 @@ Passed gates:
 
 **Gate:** PASS.
 
-**Review status:** awaiting user review. The test pack and all three tasks remain `draft`. Task 5 has not started.
+**Review status:** approved by user. The test pack and all three tasks are `approved`.
 
-## Task 5 — Run Claude blind — NOT STARTED
+## Task 5 — Run blind coding-agent evaluations — ACTIVE
 
 Run one task at a time without correcting the agent during generation.
 
@@ -303,4 +303,4 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 
 ## Execution rule
 
-Tasks are sequential. Tasks 1–3 are complete and approved. Task 4 is complete and awaiting review. Do not begin Task 5 until Task 4 is reviewed/approved.
+Tasks are sequential. Tasks 1–4 are complete and approved. Task 5 is active. Run one blind task at a time and do not begin Task 6 until all Task 5 runs are captured.
