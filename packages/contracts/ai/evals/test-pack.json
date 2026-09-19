@@ -12,6 +12,7 @@
   ],
   "agentContext": {
     "allow": [
+      "packages/contracts/ai/evals/test-pack.json",
       "packages/contracts/ai/authoring-policy.json",
       "packages/contracts/ai/compositions/*.guidance.json",
       "packages/contracts/components/*.contract.json",
@@ -29,7 +30,8 @@
       "apps/storybook/src/ai-readiness/CompositionGuidance.stories.tsx",
       "packages/react/src/**",
       "packages/patterns/src/**",
-      "docs/ai-readiness/**"
+      "docs/ai-readiness/**",
+      "apps/storybook/src/ai-readiness/BlindTestPack.stories.tsx"
     ]
   },
   "blindProtocol": {
