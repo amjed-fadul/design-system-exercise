@@ -158,9 +158,9 @@ Passed gates:
 
 **Gate:** PASS.
 
-**Review status:** awaiting user review. All three composition guidance records remain `draft`. Task 4 has not started.
+**Review status:** approved by user. All three composition guidance records are `approved`.
 
-## Task 4 — Create an AI test pack — NOT STARTED
+## Task 4 — Create an AI test pack — ACTIVE
 
 Prepare 2–3 blind authoring tasks. The agent receives tokens, contracts, approved guidance/patterns, the authoring policy, and product requirements.
 
@@ -240,4 +240,4 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 
 ## Execution rule
 
-Tasks are sequential. Tasks 1–2 are complete and approved. Task 3 is complete and awaiting review. Do not begin Task 4 until Task 3 is reviewed/approved.
+Tasks are sequential. Tasks 1–3 are complete and approved. Task 4 is active. Do not begin Task 5 until Task 4 is complete and reviewed.
