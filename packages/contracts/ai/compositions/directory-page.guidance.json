@@ -1,0 +1,131 @@
+{
+  "$schema": "../../schema/composition-guidance.schema.json",
+  "id": "dse.composition.directory-page",
+  "kind": "composition-guidance",
+  "version": "1.0.0",
+  "status": "draft",
+  "name": "Directory Page",
+  "description": "Guidance for a workspace directory page that combines page context, search/filter controls, result summary, a governed Table for non-empty results, and governed Empty State for zero results.",
+  "scope": "page",
+  "componentDependencies": [
+    { "id": "dse.page-heading", "minimumVersion": "1.0.0" },
+    { "id": "dse.search-field", "minimumVersion": "1.0.0" },
+    { "id": "dse.table", "minimumVersion": "1.0.0" },
+    { "id": "dse.empty-state", "minimumVersion": "1.0.0" }
+  ],
+  "patternDependencies": [
+    { "id": "dse.pattern.application-shell", "minimumVersion": "1.0.0" }
+  ],
+  "structure": [
+    {
+      "key": "page-heading",
+      "order": 1,
+      "required": true,
+      "role": "Provide page title, description, breadcrumbs, and optional page-level actions through the governed Page Heading.",
+      "componentIds": ["dse.page-heading"]
+    },
+    {
+      "key": "directory-controls",
+      "order": 2,
+      "required": true,
+      "role": "Place the governed Search Field at logical inline-start and product-owned result summary at logical inline-end in wide layouts.",
+      "componentIds": ["dse.search-field"]
+    },
+    {
+      "key": "results",
+      "order": 3,
+      "required": true,
+      "role": "Render the governed Table when one or more results exist; render the governed Empty State instead when the result set is empty.",
+      "componentIds": ["dse.table", "dse.empty-state"]
+    }
+  ],
+  "rules": {
+    "layout": [
+      {
+        "id": "layout.region-gap",
+        "statement": "Use the governed layout region gap between Page Heading, directory controls, and the results region."
+      },
+      {
+        "id": "layout.controls-logical-ends",
+        "statement": "In wide layouts, arrange Search Field and result summary on one row with search at logical inline-start and summary at logical inline-end."
+      },
+      {
+        "id": "layout.search-width-authority",
+        "statement": "A constrained Search Field width may be used only when approved product/Figma evidence supplies that width; otherwise allow the container to determine available width."
+      },
+      {
+        "id": "layout.table-overflow-owner",
+        "statement": "When the governed Table minimum width exceeds available inline space, the directory results wrapper owns horizontal overflow rather than compressing Table below its contract."
+      }
+    ],
+    "responsive": [
+      {
+        "id": "responsive.controls-stack",
+        "statement": "Below the governed expanded-shell breakpoint, stack the directory controls vertically and allow the result summary to wrap."
+      },
+      {
+        "id": "responsive.no-invented-breakpoint",
+        "statement": "Derive the wide/compact transition from the governed Application Shell breakpoint; do not invent a new directory breakpoint from Storybook fixture widths."
+      }
+    ],
+    "direction": [
+      {
+        "id": "direction.logical-order",
+        "statement": "Use logical inline alignment so search/summary placement mirrors with the surrounding RTL/LTR direction without physical left/right rules."
+      },
+      {
+        "id": "direction.intrinsic-data",
+        "statement": "Product data with known intrinsic LTR direction, such as email addresses or project keys, may set a narrower LTR direction without changing the surrounding directory direction."
+      }
+    ],
+    "accessibility": [
+      {
+        "id": "accessibility.search-name",
+        "statement": "Search Field must have a product-appropriate accessible label and localized clear-button label."
+      },
+      {
+        "id": "accessibility.row-actions",
+        "statement": "Repeated Table actions must expose record-specific accessible names rather than relying on identical visible labels alone."
+      }
+    ],
+    "behavior": [
+      {
+        "id": "behavior.empty-switch",
+        "statement": "Filtering and result counts are product state; switch between Table and Empty State based on the actual result set instead of rendering fake empty rows."
+      },
+      {
+        "id": "behavior.selected-means-detail",
+        "statement": "If a Table row is visually selected, that selection represents association with open contextual detail, not bulk-selection state."
+      }
+    ]
+  },
+  "localCss": {
+    "allowed": [
+      {
+        "id": "css.controls-composition",
+        "statement": "Local composition CSS may arrange the Search Field and product summary because that layout is outside either component's public API."
+      },
+      {
+        "id": "css.product-evidenced-width",
+        "statement": "A local Search Field width is allowed only when the supplied product/Figma evidence explicitly owns the dimension."
+      }
+    ],
+    "mustUseGovernedTokensWhenAvailable": true
+  },
+  "forbidden": [
+    "custom search input when governed Search Field satisfies the requirement",
+    "custom table or grid replacing governed Table for the supported four-region directory",
+    "fake empty Table rows instead of governed Empty State",
+    "physical left/right layout rules for search and summary",
+    "copying Storybook evidence-frame dimensions into product UI without independent authority"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-19",
+    "audit": "docs/ai-readiness/AI-READINESS-CSS-AUDIT.md",
+    "evidence": [
+      "apps/storybook/src/patterns/ApplicationShell.stories.tsx",
+      "apps/storybook/src/prototypes/ConnectedProductPrototype.tsx",
+      "apps/storybook/src/prototypes/ProjectsManagementPrototype.tsx"
+    ]
+  }
+}
