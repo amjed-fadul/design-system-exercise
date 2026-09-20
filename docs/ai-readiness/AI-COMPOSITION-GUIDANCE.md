@@ -44,6 +44,7 @@ Defines the composition that the Side Panel contract deliberately leaves to its 
 The host owns:
 
 - modal dialog semantics;
+- overlay stacking using `--dse-elevation-plane-overlay` as its `z-index` authority;
 - background inertness;
 - focus entry/containment/restoration;
 - Escape behavior;
