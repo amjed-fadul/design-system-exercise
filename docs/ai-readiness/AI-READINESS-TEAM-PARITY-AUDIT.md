@@ -227,3 +227,11 @@ Next sequence:
 3. strengthen the Team agent-visible product brief only for product-specific fidelity decisions that are actually expected;
 4. rerun Team blind from the corrected baseline;
 5. perform the final gate using separate DS-compliance and product-fidelity criteria.
+
+
+## Correction status
+
+- **P1:** FIXED and verified — CI run 621 PASS on `79ef0b5211eb7727d3a48feacddb0d377f3cbe54`.
+- **P2:** FIXED and verified — CI run 623 PASS on `619de1ff468ae782d5bf64d343a82ae8b9e2f46a`.
+- **P3:** Team product-fidelity authority made agent-visible and verified — CI run 625 PASS on `d7b37a8bc835e31afec5991333c6e8c80cb52df6`.
+- **Run 010:** READY on `ai-eval/team-management-rerun-010` from the exact CI-625 baseline.
