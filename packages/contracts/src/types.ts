@@ -214,6 +214,8 @@ export interface AiTestPack {
     noRepositoryHistoryForAnswers: true;
     noExternalAnswerLookup: true;
     noHumanCorrectionDuringRun: true;
+    verificationCommandsMayTransitivelyProcessDeniedSource: true;
+    deniedSourceRemainsNonAuthoringContextDuringVerification: true;
   };
   evaluationDimensions: AiEvalDimension[];
   provenance: {
