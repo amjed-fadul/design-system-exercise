@@ -45,6 +45,11 @@ const requiredAllowContext = [
   'packages/contracts/components/*.contract.json',
   'packages/contracts/patterns/*.contract.json',
   'packages/tokens/src/**/*.tokens.json',
+  'package.json',
+  'apps/storybook/package.json',
+  'packages/react/package.json',
+  'packages/patterns/package.json',
+  'packages/tokens/package.json',
 ] as const;
 
 const requiredDeniedContext = [
