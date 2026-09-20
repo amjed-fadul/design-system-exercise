@@ -78,6 +78,8 @@ describe('Task 4 blind AI test pack', () => {
     expect(pack.agentContext.allow).toContain(
       'packages/contracts/ai/compositions/*.guidance.json',
     );
+    expect(pack.agentContext.allow).toContain('package.json');
+    expect(pack.agentContext.allow).toContain('apps/storybook/package.json');
 
     for (const denied of [
       'packages/contracts/ai/evals/*.task.json',
@@ -105,6 +107,8 @@ describe('Task 4 blind AI test pack', () => {
       noRepositoryHistoryForAnswers: true,
       noExternalAnswerLookup: true,
       noHumanCorrectionDuringRun: true,
+      verificationCommandsMayTransitivelyProcessDeniedSource: true,
+      deniedSourceRemainsNonAuthoringContextDuringVerification: true,
     });
   });
 });
