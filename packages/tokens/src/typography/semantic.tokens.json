@@ -5,7 +5,12 @@
       "modes": [
         "english",
         "arabic"
-      ]
+      ],
+      "selectorAttribute": "data-language",
+      "selectorValues": {
+        "english": "en",
+        "arabic": "ar"
+      }
     }
   },
   "english": {
