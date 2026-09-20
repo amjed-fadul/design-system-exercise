@@ -39,6 +39,18 @@ Requirement levels mean:
 - **may** — permitted only under the stated authority;
 - **escalate** — record the unresolved decision or candidate DS gap instead of guessing.
 
+## Token mode activation
+
+Mode-token sources expose their generated CSS activation contract directly in `$extensions.design-system-exercise`.
+
+Current governed mappings:
+
+- theme: `data-theme` with `light → light` and `dark → dark`;
+- language: `data-language` with `english → en` and `arabic → ar`;
+- layout: `data-layout` with `wide → wide` and `narrow → narrow`.
+
+Consumers may use these selectors because they are canonical token metadata. Do not infer selector conventions from generated CSS implementation source.
+
 ## Local CSS
 
 Local CSS is not automatically a failure.
