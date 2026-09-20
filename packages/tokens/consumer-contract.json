@@ -1,0 +1,47 @@
+{
+  "id": "dse.tokens.consumer-contract",
+  "kind": "token-consumer-contract",
+  "version": "1.0.0",
+  "status": "approved",
+  "css": {
+    "import": "@design-system-exercise/tokens/css",
+    "customProperty": {
+      "prefix": "--dse-",
+      "logicalPathSeparator": ".",
+      "cssSeparator": "-",
+      "modeNamesInVariable": false
+    },
+    "sourceLogicalPrefixes": {
+      "color/primitive.tokens.json": "color.primitive",
+      "color/semantic.tokens.json": "color.semantic",
+      "spacing/primitive.tokens.json": "spacing.primitive",
+      "spacing/semantic.tokens.json": "spacing.semantic",
+      "typography/primitive.tokens.json": "typography.primitive",
+      "typography/semantic.tokens.json": "typography.semantic",
+      "border/border.tokens.json": "border",
+      "radius/radius.tokens.json": "radius",
+      "layout/primitive.tokens.json": "layout.primitive",
+      "layout/semantic.tokens.json": "layout.semantic",
+      "icons/icons.tokens.json": "icons",
+      "elevation/elevation.tokens.json": "elevation"
+    },
+    "examples": [
+      {
+        "source": "layout/semantic.tokens.json",
+        "tokenPath": "detail.available-width",
+        "logicalPath": "layout.semantic.detail.available-width",
+        "cssVariable": "--dse-layout-semantic-detail-available-width"
+      },
+      {
+        "source": "color/semantic.tokens.json",
+        "tokenPath": "fg.primary",
+        "logicalPath": "color.semantic.fg.primary",
+        "cssVariable": "--dse-color-semantic-fg-primary"
+      }
+    ]
+  },
+  "provenance": {
+    "lastReviewed": "2026-09-20",
+    "reason": "Blind Team evaluation proved that token source JSON alone did not make generated CSS custom-property names unambiguous to an authoring agent."
+  }
+}
