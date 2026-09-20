@@ -154,6 +154,10 @@
         "statement": "Local composition CSS may create the overlay host and logical inline-end placement because modality/placement are intentionally outside Side Panel ownership."
       },
       {
+        "id": "css.modal-host-stacking",
+        "statement": "Use the governed --dse-elevation-plane-overlay token as the modal host z-index authority; do not invent a raw stacking value for the contextual detail host."
+      },
+      {
         "id": "css.edge-treatment",
         "statement": "Local composition CSS may flatten the Side Panel radii that physically meet the viewport edge when product evidence requires that attachment."
       },
@@ -172,7 +176,7 @@
     "allowing the outer host and nested Dialog to compete for focus trapping or Escape"
   ],
   "provenance": {
-    "lastReviewed": "2026-09-19",
+    "lastReviewed": "2026-09-20",
     "audit": "docs/ai-readiness/AI-READINESS-CSS-AUDIT.md",
     "evidence": [
       "packages/contracts/components/side-panel.contract.json",
