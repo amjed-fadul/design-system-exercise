@@ -331,7 +331,7 @@ Results:
 - A7 verification boundary: ambiguous evaluation protocol proven and fixed.
 - M1 `font-weight: 700` brand styling: agent mistake; no DS fix.
 
-A final API Keys proof rerun is required from the fully corrected baseline before Team Management rerun begins.
+Run 007 was invalidated before agent execution because it used an older baseline. Run 008 is READY FOR FRESH AGENT on `ai-eval/api-keys-rerun-008`, based exactly on verified HEAD `829e83ca3c7b75e7ee0018947e4f3ce245e277d9` (CI 601 PASS). Team Management rerun remains blocked until Run 008 is captured.
 
 Add a component/API only when evidence genuinely requires it.
 
@@ -358,4 +358,4 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 
 ## Execution rule
 
-Tasks are sequential. Tasks 1–6 are complete. Task 7 is active. Its two proven ambiguities are fixed and verified; API Keys rerun 005 is ready for a fresh agent. Team rerun follows only after Run 005 is captured.
+Tasks are sequential. Tasks 1–6 are complete. Task 7 is active. Run 008 is the current API Keys proof rerun from the fully corrected A1–A7 baseline. Team rerun follows only after Run 008 is captured.
