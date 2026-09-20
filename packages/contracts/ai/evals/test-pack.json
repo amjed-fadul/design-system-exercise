@@ -2,7 +2,7 @@
   "$schema": "../../schema/ai-test-pack.schema.json",
   "id": "dse.ai-eval-pack.v1",
   "kind": "ai-test-pack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "status": "approved",
   "name": "AI Readiness Blind Authoring Pack V1",
   "taskIds": [
@@ -20,7 +20,9 @@
       "packages/tokens/src/**/*.tokens.json",
       "packages/react/package.json",
       "packages/patterns/package.json",
-      "packages/tokens/package.json"
+      "packages/tokens/package.json",
+      "package.json",
+      "apps/storybook/package.json"
     ],
     "deny": [
       "packages/contracts/ai/evals/*.task.json",
@@ -44,7 +46,9 @@
     "generatedOutputReadableWithinTask": true,
     "noRepositoryHistoryForAnswers": true,
     "noExternalAnswerLookup": true,
-    "noHumanCorrectionDuringRun": true
+    "noHumanCorrectionDuringRun": true,
+    "verificationCommandsMayTransitivelyProcessDeniedSource": true,
+    "deniedSourceRemainsNonAuthoringContextDuringVerification": true
   },
   "evaluationDimensions": [
     "component-selection",
@@ -58,7 +62,7 @@
     "visual-fidelity"
   ],
   "provenance": {
-    "lastReviewed": "2026-09-19",
+    "lastReviewed": "2026-09-20",
     "plan": "docs/plans/2026-09-19-ai-readiness-validation-v1.md"
   }
 }
