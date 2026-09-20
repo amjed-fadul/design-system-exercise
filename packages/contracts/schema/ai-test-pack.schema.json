@@ -81,7 +81,9 @@
         "generatedOutputReadableWithinTask",
         "noRepositoryHistoryForAnswers",
         "noExternalAnswerLookup",
-        "noHumanCorrectionDuringRun"
+        "noHumanCorrectionDuringRun",
+        "verificationCommandsMayTransitivelyProcessDeniedSource",
+        "deniedSourceRemainsNonAuthoringContextDuringVerification"
       ],
       "properties": {
         "freshSessionPerTask": {
@@ -109,6 +111,12 @@
           "const": true
         },
         "generatedOutputReadableWithinTask": {
+          "const": true
+        },
+        "verificationCommandsMayTransitivelyProcessDeniedSource": {
+          "const": true
+        },
+        "deniedSourceRemainsNonAuthoringContextDuringVerification": {
           "const": true
         }
       }
