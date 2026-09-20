@@ -98,6 +98,38 @@ describe('Task 4 blind AI test pack', () => {
     }
   });
 
+  it('keeps Team product-fidelity requirements agent-visible', () => {
+    const team = tasks.find((task) => task.id === 'dse.ai-eval.team-management');
+    expect(team).toBeDefined();
+    const requirement = JSON.stringify(team?.agentVisible.productRequirement);
+
+    for (const expected of [
+      'Overview',
+      'Projects',
+      'Team & access',
+      'Settings',
+      'Northstar workspace',
+      'Signed in as Admin',
+      'Amal Hassan · Admin',
+      'Workspace / Team & access',
+      'Team members',
+      'amal@example.com',
+      'leila@example.com',
+      'daniel@example.com',
+      'jamal@example.com',
+      'maya@example.com',
+      'Current saved role',
+      'Use the workspace without managing people.',
+      'Invite people and manage members and roles.',
+      'Changes take effect only after you save.',
+      'Close',
+      'Save changes',
+      '360 CSS px',
+    ]) {
+      expect(requirement).toContain(expected);
+    }
+  });
+
   it('isolates each task into a unique evaluation write root and fresh run', () => {
     expect(new Set(tasks.map((task) => task.agentVisible.deliverable.writeRoot)).size).toBe(3);
     expect(pack.blindProtocol).toMatchObject({
