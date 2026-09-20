@@ -45,7 +45,7 @@ function BlindTestPackPage() {
           </span>
         </div>
         <p style={{ margin: 0 }}>
-          Three isolated blind authoring tasks. Task 5 must give Claude only the
+          Three isolated blind authoring tasks. Task 5 must give the fresh coding agent only the
           agent-visible payload and shared allowed context.
         </p>
       </header>
