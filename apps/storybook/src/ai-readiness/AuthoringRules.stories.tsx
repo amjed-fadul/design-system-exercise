@@ -18,6 +18,21 @@ const cardStyle = {
   borderRadius: 'var(--dse-radius-shape-surface)',
 } as const;
 
+interface ModeSource {
+  $extensions: {
+    'design-system-exercise': {
+      selectorAttribute: string;
+      selectorValues: Record<string, string>;
+    };
+  };
+}
+
+const tokenModeSources: Array<{ label: string; source: ModeSource }> = [
+  { label: 'theme', source: colorSemantic },
+  { label: 'language', source: typographySemantic },
+  { label: 'layout', source: layoutSemantic },
+];
+
 function AuthoringRulesPage() {
   return (
     <main
@@ -64,15 +79,11 @@ function AuthoringRulesPage() {
           Canonical activation metadata is read directly from token source JSON.
         </p>
         <div style={{ display: 'grid', gap: 'var(--dse-spacing-semantic-stack-md)' }}>
-          {[
-            ['theme', colorSemantic],
-            ['language', typographySemantic],
-            ['layout', layoutSemantic],
-          ].map(([label, source]) => {
+          {tokenModeSources.map(({ label, source }) => {
             const metadata = source.$extensions['design-system-exercise'];
             return (
-              <article key={label as string} style={cardStyle}>
-                <strong>{label as string}</strong>
+              <article key={label} style={cardStyle}>
+                <strong>{label}</strong>
                 <p style={{ margin: 0 }}>
                   Attribute: <code>{metadata.selectorAttribute}</code>
                 </p>
