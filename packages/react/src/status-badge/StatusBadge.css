@@ -3,6 +3,7 @@
   display: inline-flex;
   align-items: center;
   block-size: 28px;
+  inline-size: fit-content;
   flex: 0 0 auto;
   padding-block: 5px;
   padding-inline: 10px;
