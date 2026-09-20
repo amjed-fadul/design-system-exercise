@@ -1,9 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import authoringPolicy from '../../../../packages/contracts/ai/authoring-policy.json';
+import colorSemantic from '../../../../packages/tokens/src/color/semantic.tokens.json';
+import layoutSemantic from '../../../../packages/tokens/src/layout/semantic.tokens.json';
+import typographySemantic from '../../../../packages/tokens/src/typography/semantic.tokens.json';
 
 const sectionStyle = {
   display: 'grid',
   gap: 'var(--dse-spacing-semantic-stack-md)',
+} as const;
+
+const cardStyle = {
+  display: 'grid',
+  gap: 'var(--dse-spacing-semantic-stack-sm)',
+  padding: 'var(--dse-spacing-semantic-inset-lg)',
+  background: 'var(--dse-color-semantic-surface-raised)',
+  border: 'var(--dse-border-role-container) solid var(--dse-color-semantic-border-subtle)',
+  borderRadius: 'var(--dse-radius-shape-surface)',
 } as const;
 
 function AuthoringRulesPage() {
@@ -44,6 +56,37 @@ function AuthoringRulesPage() {
             <li key={authority}>{authority}</li>
           ))}
         </ol>
+      </section>
+
+      <section style={sectionStyle}>
+        <h2 style={{ margin: 0 }}>Token mode activation</h2>
+        <p style={{ margin: 0, color: 'var(--dse-color-semantic-fg-secondary)' }}>
+          Canonical activation metadata is read directly from token source JSON.
+        </p>
+        <div style={{ display: 'grid', gap: 'var(--dse-spacing-semantic-stack-md)' }}>
+          {[
+            ['theme', colorSemantic],
+            ['language', typographySemantic],
+            ['layout', layoutSemantic],
+          ].map(([label, source]) => {
+            const metadata = source.$extensions['design-system-exercise'];
+            return (
+              <article key={label as string} style={cardStyle}>
+                <strong>{label as string}</strong>
+                <p style={{ margin: 0 }}>
+                  Attribute: <code>{metadata.selectorAttribute}</code>
+                </p>
+                <ul style={{ margin: 0 }}>
+                  {Object.entries(metadata.selectorValues).map(([mode, value]) => (
+                    <li key={mode}>
+                      <code>{mode}</code> → <code>{value}</code>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
+        </div>
       </section>
 
       <section style={sectionStyle}>
