@@ -319,7 +319,19 @@ Run 005 — API Keys rerun: **COMPLETED** at `1f9bb1bd232626a95e573035d64a6a0b20
 
 A3 is classified as an **Ambiguous/incomplete contract**, not an agent mistake. The Application Shell contract now includes structured pattern `publicApi` metadata matching the runtime export and props. CI run 574 passed on exact fix HEAD `f66213e74cb3e77a1db5b960e504f0475dc9f1c4`.
 
-Run 006 — API Keys rerun is READY FOR FRESH AGENT on `ai-eval/api-keys-rerun-006` from verified baseline `f66213e74cb3e77a1db5b960e504f0475dc9f1c4`. Team Management rerun remains pending until Run 006 is captured, preserving sequential execution.
+Run 006 — API Keys rerun: **COMPLETED** at `65cfefdd99e67b7d5847c027890133eb949bf9ed`.
+
+Results:
+
+- A1 evaluation-placeholder ambiguity: RESOLVED.
+- A3 Application Shell consumer API: RESOLVED.
+- A4 token mode activation: new missing token consumer guidance proven and fixed.
+- A5 modal host stacking: new missing composition guidance proven and fixed.
+- A6 Storybook package authority: incomplete evaluation context proven and fixed.
+- A7 verification boundary: ambiguous evaluation protocol proven and fixed.
+- M1 `font-weight: 700` brand styling: agent mistake; no DS fix.
+
+A final API Keys proof rerun is required from the fully corrected baseline before Team Management rerun begins.
 
 Add a component/API only when evidence genuinely requires it.
 
