@@ -65,6 +65,19 @@ describe('Task 3 composition guidance', () => {
     expect(scopeRule?.statement).toMatch(/product-owned Dialog workflow/i);
   });
 
+  it('binds modal host stacking to the governed overlay elevation plane', () => {
+    const modalDetail = records.find(
+      (record) => record.id === 'dse.composition.modal-list-detail',
+    );
+    const stackingRule = modalDetail?.localCss.allowed.find(
+      (rule) => rule.id === 'css.modal-host-stacking',
+    );
+
+    expect(stackingRule).toBeDefined();
+    expect(stackingRule?.statement).toContain('--dse-elevation-plane-overlay');
+    expect(stackingRule?.statement).toMatch(/z-index/i);
+  });
+
   it('rejects duplicate rule ids across composition rule groups', () => {
     const duplicate = structuredClone(records[0]!);
     duplicate.rules.responsive.push({
