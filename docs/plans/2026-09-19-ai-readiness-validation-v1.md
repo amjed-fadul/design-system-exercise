@@ -352,7 +352,7 @@ After each fix:
 - update/regenerate corresponding Storybook evidence;
 - rerun only the affected blind task.
 
-## Task 8 — AI Readiness V1 gate — COMPLETE — FAIL
+## Task 8 — AI Readiness V1 gate — REOPENED
 
 AI Readiness V1 passes only when the blind test screens satisfy all of the following:
 
@@ -385,4 +385,20 @@ All system-caused gaps A1–A7 remain resolved.
 
 ## Execution rule
 
-Tasks 1–8 are complete. AI Readiness V1 final gate is FAIL because API Keys Run 008 omitted the authorized `data-language` mode selector. This is an agent mistake, not a DS gap. No further DS change is justified by the current evidence.
+Tasks 1–7 are complete. Task 8 is REOPENED after prototype-vs-blind parity review proved two additional system defects: missing public CSS-variable-name authority/validation for tokens, and StatusBadge intrinsic-width failure in CSS Grid. Product-shell differences are tracked separately as product-brief/evaluation-authority gaps rather than component bugs.
+
+
+### Task 8 parity-review correction
+
+A stricter prototype-vs-Team-evaluation review is recorded at:
+
+`docs/ai-readiness/AI-READINESS-TEAM-PARITY-AUDIT.md`
+
+It supersedes the earlier assumption that contract/API compliance alone was sufficient for the final visual-fidelity gate.
+
+New proven system findings:
+
+- **P1:** token source authority does not expose exact public CSS custom-property names, and evaluation CI does not reject unknown governed token references;
+- **P2:** StatusBadge does not enforce its contract-owned content-driven width when used as a CSS Grid item.
+
+Task 8 remains open until those system defects are corrected, product-specific fidelity requirements are made explicit where needed, Team is rerun blind, and the final gate is repeated.
