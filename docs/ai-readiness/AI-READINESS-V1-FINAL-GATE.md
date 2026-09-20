@@ -1,8 +1,10 @@
+> **Parity-audit correction:** This gate is superseded by `docs/ai-readiness/AI-READINESS-TEAM-PARITY-AUDIT.md`. A later visual parity review proved additional system defects that this gate did not detect. Task 8 is reopened.
+
 # AI Readiness V1 — Final Gate
 
 **Task:** 8 — AI Readiness V1 gate  
 **Date:** 2026-09-20  
-**Result:** **FAIL — one blind-agent defect remains**  
+**Result:** **SUPERSEDED — TASK 8 REOPENED AFTER PARITY AUDIT**  
 **Design System gap status:** **No unresolved system-caused gap proven**
 
 ## Evidence set
