@@ -80,6 +80,9 @@ describe('Task 4 blind AI test pack', () => {
     );
     expect(pack.agentContext.allow).toContain('package.json');
     expect(pack.agentContext.allow).toContain('apps/storybook/package.json');
+    expect(pack.agentContext.allow).toContain(
+      'packages/tokens/consumer-contract.json',
+    );
 
     for (const denied of [
       'packages/contracts/ai/evals/*.task.json',
