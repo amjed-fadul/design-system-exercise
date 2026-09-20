@@ -317,9 +317,9 @@ TDD evidence:
 
 Run 005 — API Keys rerun: **COMPLETED** at `1f9bb1bd232626a95e573035d64a6a0b20c70d48`. A1 is resolved. The run proved a new A3 contract gap: Application Shell exists at runtime but its approved pattern contract did not expose the consumer export/props required by a blind agent.
 
-A3 is classified as an **Ambiguous/incomplete contract**, not an agent mistake. A TDD fix is in progress to add structured pattern `publicApi` metadata without exposing implementation source or weakening the blind protocol.
+A3 is classified as an **Ambiguous/incomplete contract**, not an agent mistake. The Application Shell contract now includes structured pattern `publicApi` metadata matching the runtime export and props. CI run 574 passed on exact fix HEAD `f66213e74cb3e77a1db5b960e504f0475dc9f1c4`.
 
-Team Management rerun remains pending until the corrected API Keys rerun proves A3 resolved, preserving sequential execution.
+Run 006 — API Keys rerun is READY FOR FRESH AGENT on `ai-eval/api-keys-rerun-006` from verified baseline `f66213e74cb3e77a1db5b960e504f0475dc9f1c4`. Team Management rerun remains pending until Run 006 is captured, preserving sequential execution.
 
 Add a component/API only when evidence genuinely requires it.
 
