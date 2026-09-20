@@ -45,6 +45,7 @@ const requiredAllowContext = [
   'packages/contracts/components/*.contract.json',
   'packages/contracts/patterns/*.contract.json',
   'packages/tokens/src/**/*.tokens.json',
+  'packages/tokens/consumer-contract.json',
   'package.json',
   'apps/storybook/package.json',
   'packages/react/package.json',
