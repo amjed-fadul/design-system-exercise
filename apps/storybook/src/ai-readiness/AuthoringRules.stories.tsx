@@ -3,6 +3,15 @@ import authoringPolicy from '../../../../packages/contracts/ai/authoring-policy.
 import colorSemantic from '../../../../packages/tokens/src/color/semantic.tokens.json';
 import layoutSemantic from '../../../../packages/tokens/src/layout/semantic.tokens.json';
 import typographySemantic from '../../../../packages/tokens/src/typography/semantic.tokens.json';
+import colorSemantic from '../../../../packages/tokens/src/color/semantic.tokens.json';
+import layoutSemantic from '../../../../packages/tokens/src/layout/semantic.tokens.json';
+import typographySemantic from '../../../../packages/tokens/src/typography/semantic.tokens.json';
+
+const tokenModeSources = [
+  ['theme', colorSemantic],
+  ['language', typographySemantic],
+  ['layout', layoutSemantic],
+] as const;
 
 const sectionStyle = {
   display: 'grid',
@@ -136,6 +145,31 @@ function AuthoringRulesPage() {
               </p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section style={sectionStyle}>
+        <h2 style={{ margin: 0 }}>Token mode activation</h2>
+        <p style={{ margin: 0, color: 'var(--dse-color-semantic-fg-secondary)' }}>
+          Rendered from canonical token source metadata. These selectors are the generated CSS consumer contract.
+        </p>
+        <div style={{ display: 'grid', gap: 'var(--dse-spacing-semantic-stack-md)' }}>
+          {tokenModeSources.map(([label, source]) => {
+            const metadata = source.$extensions['design-system-exercise'];
+            return (
+              <article key={label} style={sectionStyle}>
+                <strong>{label}</strong>
+                <code>{metadata.selectorAttribute}</code>
+                <ul style={{ margin: 0 }}>
+                  {Object.entries(metadata.selectorValues).map(([mode, value]) => (
+                    <li key={mode}>
+                      <code>{mode}</code> → <code>{value}</code>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
         </div>
       </section>
 
