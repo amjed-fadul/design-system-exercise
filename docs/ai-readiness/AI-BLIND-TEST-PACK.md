@@ -1,6 +1,6 @@
 # AI Readiness Blind Test Pack V1
 
-Task 4 prepares the blind authoring pack that Task 5 will run with Claude.
+Task 4 prepares the blind authoring pack that Task 5 runs with a fresh coding agent.
 
 ## Canonical sources
 
@@ -9,7 +9,7 @@ Task 4 prepares the blind authoring pack that Task 5 will run with Claude.
 - Team task: `packages/contracts/ai/evals/team-management.task.json`
 - Generalization task: `packages/contracts/ai/evals/api-keys-management.task.json`
 
-The pack and all three tasks are currently **draft** pending Task 4 review.
+The pack and all three tasks are **approved**.
 
 ## Blind protocol
 
@@ -23,7 +23,9 @@ Every run must use:
 - no `evaluatorOnly` data in the prompt;
 - no repository history, PR diffs, other branches or tags to recover the old answer;
 - no external answer lookup;
-- no human correction during the run.
+- no human correction during the run;
+- verification commands may transitively compile/process denied repository source, but that does **not** make the denied source valid authoring context;
+- the agent must not inspect or reuse denied source discovered through verification output as implementation guidance.
 
 The generated implementation must stay inside that task's isolated Storybook evaluation directory.
 
@@ -37,7 +39,8 @@ Claude may read only:
 - public component contracts;
 - pattern contracts;
 - governed token sources;
-- package manifests needed to identify public packages/exports.
+- package manifests needed to identify public packages/exports;
+- the root package manifest and Storybook app package manifest, so the agent can discover the repository verification scripts and the correct Storybook framework package.
 
 Existing answer/evidence source is not agent context. The denylist explicitly includes current prototypes, pattern/component Storybook implementations, governed package source, and human AI-readiness docs.
 
@@ -87,7 +90,7 @@ Every task is evaluated on the same nine dimensions:
 8. responsive behavior;
 9. visual fidelity.
 
-The full `*.task.json` files are evaluator-owned and are explicitly denied from agent context. Task 5 must construct the Claude task payload from `agentVisible` only (via the contracts helper `buildAgentTaskPayload`). The task JSON stores expected authorities and detailed checks under `evaluatorOnly`; that section is for human/evaluator use and must never enter the Claude prompt.
+The full `*.task.json` files are evaluator-owned and are explicitly denied from agent context. Task 5 must construct the coding-agent task payload from `agentVisible` only (via the contracts helper `buildAgentTaskPayload`). The task JSON stores expected authorities and detailed checks under `evaluatorOnly`; that section is for human/evaluator use and must never enter the coding-agent prompt.
 
 ## Storybook
 
