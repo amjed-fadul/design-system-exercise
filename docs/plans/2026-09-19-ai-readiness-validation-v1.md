@@ -352,7 +352,7 @@ After each fix:
 - update/regenerate corresponding Storybook evidence;
 - rerun only the affected blind task.
 
-## Task 8 — AI Readiness V1 gate — NOT STARTED
+## Task 8 — AI Readiness V1 gate — COMPLETE — FAIL
 
 AI Readiness V1 passes only when the blind test screens satisfy all of the following:
 
@@ -367,6 +367,22 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 - acceptable visual/layout fidelity against the supplied requirement;
 - Storybook evidence is synchronized with the final machine-readable contracts/policy/guidance and does not contain contradictory authoring rules.
 
+Final record:
+
+`docs/ai-readiness/AI-READINESS-V1-FINAL-GATE.md`
+
+Final evidence matrix:
+
+- Projects Run 003: PASS across all nine dimensions (visual PASS*; no pixel target).
+- API Keys Run 008: PASS on component/API/CSS/raw-values/composition/accessibility/RTL/responsive; **FAIL on governed mode fidelity** because the agent omitted the explicit `data-language` activation attribute.
+- Team Run 009: PASS across all nine dimensions (visual PASS*; no pixel target).
+
+**Task 8 result: FAIL.**
+
+The remaining issue is agent mistake M2, not a missing Design System rule. Task 7 already supplied the canonical language mode activation authority. Do not change the DS to compensate for this miss.
+
+All system-caused gaps A1–A7 remain resolved.
+
 ## Execution rule
 
-Tasks are sequential. Tasks 1–7 are complete. Task 8 is next. API Keys and Team reruns proved all system-caused Task 7 gaps resolved. Agent mistakes remain evidence for Task 8 and must not trigger further DS changes.
+Tasks 1–8 are complete. AI Readiness V1 final gate is FAIL because API Keys Run 008 omitted the authorized `data-language` mode selector. This is an agent mistake, not a DS gap. No further DS change is justified by the current evidence.
