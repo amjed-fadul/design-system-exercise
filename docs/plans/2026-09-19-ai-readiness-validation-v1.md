@@ -286,7 +286,7 @@ Both are classified as **Ambiguous contract**, not agent mistakes.
 
 **Gate:** PASS. Every actual finding has a classification and no design-system change has been made yet.
 
-## Task 7 — Fix only proven DS gaps — ACTIVE
+## Task 7 — Fix only proven DS gaps — COMPLETE
 
 For system-caused failures, make the smallest correction: contract clarification, usage guidance, composition rule, token, or pattern.
 
@@ -333,6 +333,17 @@ Results:
 
 Run 007 was invalidated before agent execution because it used an older baseline. Run 008 is COMPLETED at `0de8fbd33733940eff0148726f2798ba95b03561`. It proves A1/A3/A5/A6/A7 resolved and the A4 machine authority available. One remaining defect, failure to apply `data-language`, is classified as agent mistake M2; no DS fix is justified. Team Management is now the active rerun for A2.
 
+Run 009 — Team Management rerun: **COMPLETED** at `fd87e55a2d79a8f99c30bf68e88ac192ed6de705`.
+
+Result:
+
+- A2 Create Flow invitation boundary: RESOLVED.
+- Invitation remains a product-owned short Dialog workflow.
+- No new missing component, pattern, token, or composition guidance was proven.
+- Narrow contextual detail remains the expected unresolved escalation.
+
+**Task 7 gate: PASS.** All system-caused gaps discovered by the blind evaluations have been corrected and re-proven. Remaining agent-authored defects are carried into Task 8 rather than prompting further DS changes.
+
 Add a component/API only when evidence genuinely requires it.
 
 After each fix:
@@ -358,4 +369,4 @@ AI Readiness V1 passes only when the blind test screens satisfy all of the follo
 
 ## Execution rule
 
-Tasks are sequential. Tasks 1–6 are complete. Task 7 is active. API Keys reruns are captured; all system-caused API Keys gaps are resolved. Team Management rerun is next to prove A2. Agent mistake M2 remains evidence for Task 8 and must not trigger a DS change.
+Tasks are sequential. Tasks 1–7 are complete. Task 8 is next. API Keys and Team reruns proved all system-caused Task 7 gaps resolved. Agent mistakes remain evidence for Task 8 and must not trigger further DS changes.
