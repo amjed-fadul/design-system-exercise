@@ -35,6 +35,42 @@ describe('dse.pattern.application-shell contract', () => {
     );
   });
 
+  it('declares the public consumer export and exact runtime props', () => {
+    const contract = readContract();
+    if (!contract) return;
+
+    expect(contract.publicApi.exportName).toBe('ApplicationShell');
+    expect(contract.publicApi.forwardNativeAttributes).toBe(false);
+    expect(contract.publicApi.props).toEqual([
+      expect.objectContaining({
+        name: 'sidebar',
+        required: true,
+        type: { component: 'dse.sidebar' },
+      }),
+      expect.objectContaining({
+        name: 'topNavbar',
+        required: true,
+        type: { component: 'dse.top-navbar' },
+      }),
+      expect.objectContaining({
+        name: 'pageHeading',
+        required: false,
+        type: { component: 'dse.page-heading' },
+      }),
+      expect.objectContaining({
+        name: 'children',
+        required: true,
+        type: { content: true },
+      }),
+      expect.objectContaining({
+        name: 'viewportMode',
+        required: false,
+        default: 'auto',
+        type: { enum: ['auto', 'expanded', 'compact'] },
+      }),
+    ]);
+  });
+
   it('keeps responsive layout ownership in the shell without taking workflow or product state', () => {
     const contract = readContract();
     if (!contract) return;
