@@ -49,7 +49,8 @@ The host owns:
 - Escape behavior;
 - placement below Application Shell Top Navbar;
 - logical inline-end attachment;
-- selected-row association.
+- selected-row association;
+- modal-host stacking through the governed `--dse-elevation-plane-overlay` z-index authority rather than an invented raw stacking value.
 
 ### Explicit unresolved behavior
 
