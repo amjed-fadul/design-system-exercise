@@ -1,0 +1,58 @@
+{
+  "id": "dse.ai-eval.api-keys-management",
+  "name": "API Keys Management",
+  "caseType": "generalization",
+  "agentVisible": {
+    "productRequirement": {
+      "summary": "Build a new Northstar API Keys management experience that does not already exist in the repository. Workspace admins need to browse and search keys, create a key with an access scope, inspect key metadata, and revoke a key with confirmation.",
+      "userGoals": [
+        "Browse API keys with name/prefix identity, access scope, status, and a record-specific details action.",
+        "Search keys by name or key prefix.",
+        "Create a key with a required display name and one access scope: Read only or Read and write.",
+        "Inspect key details including name, prefix, scope, status, created by, and created date.",
+        "Revoke an active key only after an explicit consequential confirmation."
+      ],
+      "dataFixtures": [
+        "Production deploy — prefix nsk_prod_7H2 — Read and write — Active — created by Amal Hassan.",
+        "Analytics reader — prefix nsk_analytics_4F9 — Read only — Active — created by Sara Ahmed.",
+        "Legacy integration — prefix nsk_legacy_2K1 — Read only — Revoked — created by Amal Hassan.",
+        "API key prefixes are intrinsically LTR even when the surrounding UI is Arabic.",
+        "This evaluation does not require revealing, copying, or storing an actual secret token value."
+      ],
+      "requiredStates": [
+        "Populated API-key directory.",
+        "Filtered directory and no-results state.",
+        "Create-key modal with validation and successful creation.",
+        "Key detail open with selected-row association.",
+        "Revoke confirmation and revoked outcome."
+      ],
+      "presentationModes": [
+        "English LTR and Arabic RTL.",
+        "Light and Dark.",
+        "Wide Application Shell and compact/narrow directory presentation.",
+        "For any contextual-detail behavior that approved guidance marks unresolved on narrow screens, report the unresolved decision instead of inventing a new model."
+      ]
+    },
+    "deliverable": {
+      "writeRoot": "apps/storybook/src/ai-readiness/evaluations/api-keys-management/",
+      "requiredFiles": [
+        "ApiKeysEvaluation.tsx",
+        "ApiKeysEvaluation.css",
+        "ApiKeysEvaluation.stories.tsx",
+        "AUTHORING-REPORT.md"
+      ],
+      "storyTitle": "AI Readiness/Evaluations/API Keys Management"
+    },
+    "executionRules": [
+      "Read only the shared agent-context allowlist from the test-pack manifest; do not read any denied source.",
+      "Do not inspect git history, pull-request diffs, other branches, tags, or earlier implementations to recover an answer.",
+      "Do not use external search or external code examples to locate or imitate an implementation.",
+      "Use only public governed package APIs authorized by the supplied contracts and guidance.",
+      "Do not add or modify design-system components, contracts, patterns, tokens, or canonical guidance.",
+      "Write implementation files only inside the task writeRoot.",
+      "Use governed tokens when available and explain every remaining local raw dimension or local CSS decision in AUTHORING-REPORT.md.",
+      "When supplied authorities do not resolve a decision, record it as unresolved in AUTHORING-REPORT.md instead of guessing.",
+      "Do not ask a human to correct the implementation during the run."
+    ]
+  }
+}
