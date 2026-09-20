@@ -2,41 +2,56 @@
   "$schema": "../../schema/ai-blind-authoring-task.schema.json",
   "id": "dse.ai-eval.team-management",
   "kind": "ai-blind-authoring-task",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "status": "approved",
   "name": "Team Management",
   "caseType": "baseline-known",
   "agentVisible": {
     "productRequirement": {
-      "summary": "Build a Northstar Team & access management experience. Workspace admins need to browse members and pending invitations, search people, invite a member, inspect member detail, edit a role, and protect unsaved role changes.",
+      "summary": "Build the Northstar Team members experience inside the standard Northstar workspace shell. Workspace admins need to browse members and pending invitations, search people, invite a member, inspect member detail, edit a role, and protect unsaved role changes. The product composition requirements below are explicit authority; do not recover implementation details from denied prototype source.",
       "userGoals": [
-        "Browse people with identity, role, status, and a record-specific details action.",
+        "Browse people with identity, email when supplied, role, status, and a record-specific details action.",
         "Search members and invitations by name or email and understand active/invited counts.",
         "Invite one person by email and choose a Member or Admin role.",
-        "Open joined-member details and edit the saved role.",
-        "If the admin tries to close detail with an unsaved role change, require an explicit keep-editing or discard decision."
+        "Open joined-member details showing identity, status, Current saved role, and an editable role choice.",
+        "Role choices show product descriptions: Member — Use the workspace without managing people.; Admin — Invite people and manage members and roles.",
+        "Member detail explains Changes take effect only after you save. and provides Close plus Save changes actions; Save changes is disabled when the draft matches the saved role.",
+        "If the admin tries to close detail with an unsaved role change, require an explicit keep-editing or discard decision.",
+        "Use the standard Northstar workspace shell content: Overview, Projects, Team & access, Settings; Team & access is current. Show Northstar workspace / Signed in as Admin in the Sidebar footer.",
+        "Top Navbar shows Northstar as the brand, Workspace administration as context, and Amal Hassan · Admin with Avatar initials AH as account identity.",
+        "Page Heading uses Team members, the supporting description Manage members and pending invitations in your workspace., Breadcrumbs Workspace / Team & access, and an Invite member action.",
+        "The Table footer reports the number of visible people shown."
       ],
       "dataFixtures": [
-        "Amal Hassan — Admin — Active.",
-        "Sara Ahmed — Member — Active.",
-        "Omar Khalid — Member — Active.",
-        "invitee.one@example.com — Member — Invitation pending.",
-        "invitee.two@example.com — Member — Invitation pending.",
-        "Email addresses are intrinsically LTR even when the surrounding UI is Arabic."
+        "Amal Hassan (you) — amal@example.com — initials AH — Admin — Active.",
+        "Sara Ahmed — sara@example.com — initials SA — Member — Active.",
+        "Omar Khalid — omar@example.com — initials OK — Member — Active.",
+        "Leila Ibrahim — leila@example.com — initials LI — Member — Active.",
+        "Daniel Chen — daniel@example.com — initials DC — Member — Active.",
+        "Has not joined yet — jamal@example.com — initials @ — Member — Invitation pending.",
+        "Has not joined yet — maya@example.com — initials @ — Member — Invitation pending.",
+        "Email addresses are intrinsically LTR even when the surrounding UI is Arabic.",
+        "Shell navigation labels are Overview, Projects, Team & access, Settings; Team & access is the current destination.",
+        "Sidebar footer copy is Northstar workspace and Signed in as Admin.",
+        "Top Navbar account identity is Amal Hassan · Admin with initials AH.",
+        "Breadcrumb hierarchy is Workspace / Team & access.",
+        "Role descriptions are Member — Use the workspace without managing people. and Admin — Invite people and manage members and roles."
       ],
       "requiredStates": [
-        "Populated team directory.",
+        "Populated team directory with the seven supplied people/invitations and an accurate Table footer count.",
         "Filtered directory and no-results state.",
         "Invite-member modal with field validation, recoverable request failure, retry, and success.",
-        "Joined-member detail with role editing.",
-        "Save failure and success feedback.",
+        "Joined-member detail with identity, status, Current saved role, descriptive role options, the save-effect note, Close action, and Save changes action.",
+        "Save failure and success feedback while retaining the role draft.",
         "Unsaved-change close guard using a consequential confirmation."
       ],
       "presentationModes": [
         "English LTR and Arabic RTL.",
         "Light and Dark.",
         "Wide Application Shell and compact/narrow directory presentation.",
-        "For any contextual-detail behavior that approved guidance marks unresolved on narrow screens, report the unresolved decision instead of inventing a new model."
+        "In wide presentation the Search control has product-authorized 360 CSS px inline width and the result summary sits at logical inline-end. Below the governed 1200 CSS-pixel shell boundary, stack the directory controls.",
+        "For any contextual-detail behavior that approved guidance marks unresolved on narrow screens, report the unresolved decision instead of inventing a new model.",
+        "Exact brand-mark, appearance-utility, and navigation glyph artwork remains product-asset authority; do not invent canonical assets when none are supplied."
       ]
     },
     "deliverable": {
@@ -75,7 +90,10 @@
         "dse.text-field",
         "dse.radio-group",
         "dse.inline-feedback",
-        "dse.dialog"
+        "dse.dialog",
+        "dse.avatar",
+        "dse.sidebar",
+        "dse.top-navbar"
       ],
       "patterns": [
         "dse.pattern.application-shell"
@@ -138,7 +156,7 @@
         "id": "team.visual",
         "category": "visual-fidelity",
         "requirement": "expected",
-        "statement": "The result should read as a coherent Northstar Team & access management screen using the supplied brief and governed system."
+        "statement": "Match the agent-visible Northstar shell, navigation/account/footer, Breadcrumbs, seven supplied records, 360 CSS-pixel wide Search evidence, Table footer count, and member-detail content hierarchy while using the governed system. Exact unsupplied glyph artwork is not scored."
       }
     ],
     "expectedEscalations": [
@@ -153,7 +171,7 @@
     ]
   },
   "provenance": {
-    "lastReviewed": "2026-09-19",
+    "lastReviewed": "2026-09-20",
     "plan": "docs/plans/2026-09-19-ai-readiness-validation-v1.md"
   }
 }
