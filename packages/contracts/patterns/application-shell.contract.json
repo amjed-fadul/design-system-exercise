@@ -104,7 +104,7 @@
     "mobile product navigation"
   ],
   "provenance": {
-    "lastReviewed": "2026-09-18",
+    "lastReviewed": "2026-09-20",
     "references": [
       "figma:tYCXBBYoQ92AUKVbND5WkG:68:494",
       "figma:tYCXBBYoQ92AUKVbND5WkG:606:2496",
@@ -112,5 +112,56 @@
       "docs/superpowers/plans/2026-09-17-patterns-implementation.md",
       "docs/superpowers/plans/2026-09-17-design-system-master-roadmap.md"
     ]
+  },
+  "publicApi": {
+    "exportName": "ApplicationShell",
+    "props": [
+      {
+        "name": "sidebar",
+        "description": "Required governed Sidebar element. Application Shell preserves the authored Sidebar content and supplies its resolved expanded or compact mode.",
+        "required": true,
+        "type": {
+          "component": "dse.sidebar"
+        }
+      },
+      {
+        "name": "topNavbar",
+        "description": "Required governed Top Navbar element rendered before navigation and main content.",
+        "required": true,
+        "type": {
+          "component": "dse.top-navbar"
+        }
+      },
+      {
+        "name": "pageHeading",
+        "description": "Optional governed Page Heading element rendered before page content inside the main region.",
+        "required": false,
+        "type": {
+          "component": "dse.page-heading"
+        }
+      },
+      {
+        "name": "children",
+        "description": "Required consumer-owned page content rendered inside the stable main content region without being remounted across shell mode changes.",
+        "required": true,
+        "type": {
+          "content": true
+        }
+      },
+      {
+        "name": "viewportMode",
+        "description": "Optional shell layout decision source. auto follows the governed 1200 CSS-pixel breakpoint; expanded and compact are deterministic overrides.",
+        "required": false,
+        "default": "auto",
+        "type": {
+          "enum": [
+            "auto",
+            "expanded",
+            "compact"
+          ]
+        }
+      }
+    ],
+    "forwardNativeAttributes": false
   }
 }
