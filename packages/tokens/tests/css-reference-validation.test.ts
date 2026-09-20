@@ -25,7 +25,7 @@ const collectAuthoredFiles = (dir: string): string[] => {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const path = join(dir, entry.name);
     if (entry.isDirectory()) return collectAuthoredFiles(path);
-    return /\.(css|tsx?|md)$/.test(entry.name) ? [path] : [];
+    return /\.(css|tsx?)$/.test(entry.name) ? [path] : [];
   });
 };
 
