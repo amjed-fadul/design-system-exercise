@@ -315,9 +315,11 @@ TDD evidence:
 - CI run **568**: RED — validator-removal test failed because the new policy rule was not yet required.
 - CI run **570**: GREEN on exact implementation HEAD `4f51b6a40bdc81161b5f065eb2f01d3e325595a2`.
 
-Run 005 — API Keys rerun: **READY FOR FRESH AGENT** on `ai-eval/api-keys-rerun-005`, based on the verified Task 7 implementation HEAD.
+Run 005 — API Keys rerun: **COMPLETED** at `1f9bb1bd232626a95e573035d64a6a0b20c70d48`. A1 is resolved. The run proved a new A3 contract gap: Application Shell exists at runtime but its approved pattern contract did not expose the consumer export/props required by a blind agent.
 
-Team Management rerun remains pending until Run 005 is captured, preserving sequential execution.
+A3 is classified as an **Ambiguous/incomplete contract**, not an agent mistake. A TDD fix is in progress to add structured pattern `publicApi` metadata without exposing implementation source or weakening the blind protocol.
+
+Team Management rerun remains pending until the corrected API Keys rerun proves A3 resolved, preserving sequential execution.
 
 Add a component/API only when evidence genuinely requires it.
 
