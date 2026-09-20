@@ -95,3 +95,89 @@ TDD:
 ## Next proof
 
 Run 007 must rerun API Keys blind from the verified `a322966b...` baseline and prove A1, A3, A4, and A5 are all resolved without human correction.
+
+
+## Run outcome
+
+Final HEAD: `65cfefdd99e67b7d5847c027890133eb949bf9ed`
+
+Independent post-push capture verified:
+
+- exactly one implementation commit ahead of bootstrap;
+- six changed files;
+- every change stayed inside the approved API Keys write root;
+- no denied-source or evaluator-only contamination signals.
+
+Agent verification:
+
+- 9/9 task-local tests: PASS;
+- scoped strict TypeScript check for the evaluation component: PASS;
+- staged whitespace check: clean;
+- Storybook metadata/full build not verified because the run lacked discoverable Storybook package authority and interpreted denied-source rules as forbidding transitive build processing.
+
+## A1 — evaluation-only placeholder — RESOLVED
+
+The run again avoided inventing production prefix/secret generation. New records use explicit evaluation-only “not generated” data and keep production allocation unresolved.
+
+## A3 — Application Shell public API — RESOLVED
+
+The run imported `ApplicationShell` from `@design-system-exercise/patterns` and used the exact contract-declared `topNavbar`, `sidebar`, `pageHeading`, `children`, and `viewportMode` API.
+
+## A4 — token mode activation authority — PROVEN
+
+The run correctly observed that allowlisted token JSON declared mode axes/modes but did not declare how generated CSS activates those modes. It used `data-theme`/`data-language` only as a Storybook-only assumption and explicitly refused to treat that as production authority.
+
+Independent inspection confirmed the token generator uses:
+
+- theme → `data-theme="light|dark"`;
+- language → `data-language="en|ar"`;
+- layout → `data-layout="wide|narrow"`.
+
+Before the Task 7 fix, this selector contract existed only in generator implementation, not in allowlisted machine-readable token sources.
+
+**Classification:** Missing token consumer guidance.
+
+Task 7 added selector activation metadata to all three canonical mode-token sources.
+
+## A5 — modal host stacking authority — PROVEN
+
+The run authored `z-index: 1000` because the modal composition required overlay stacking but the guidance did not explicitly bind the host to the governed elevation-plane token.
+
+The allowlisted elevation source already defines `elevation.plane.overlay`, but the composition guidance did not state that this value owns modal-host CSS stacking.
+
+**Classification:** Missing DS guidance.
+
+Task 7 added `css.modal-host-stacking`, requiring `z-index: var(--dse-elevation-plane-overlay)`.
+
+## A6 — Storybook package authority — PROVEN
+
+The task requires a Storybook story, but the blind allowlist did not expose:
+
+- root `package.json`;
+- `apps/storybook/package.json`.
+
+Therefore the fresh agent had no authorized way to discover that this repository uses `@storybook/react-vite` or the canonical Storybook verification scripts.
+
+**Classification:** Incomplete evaluation context.
+
+Task 7 added both manifests to the allowed context and validator requirements.
+
+## A7 — verification boundary — PROVEN
+
+The blind protocol denied answer-source files but did not state whether build/test commands may transitively compile/process them. The agent conservatively skipped full Storybook verification.
+
+**Classification:** Ambiguous evaluation protocol.
+
+Task 7 now explicitly allows verification commands to transitively process denied source while keeping that source forbidden as authoring context.
+
+## Agent mistake M1 — ungoverned brand weight
+
+Run 006 authored `font-weight: 700` for the Northstar brand slot without approved product/Figma authority and without a governed 700 token.
+
+**Classification:** Agent mistake.
+
+No design-system change is justified. A future clean rerun must avoid unexplained raw brand styling or provide valid authority.
+
+## Narrow detail
+
+The run correctly preserved narrow contextual detail as unresolved rather than inventing a drawer, sheet, route, or alternate model.
