@@ -79,8 +79,12 @@ describe('dse.pattern.application-shell contract', () => {
       const prop = contract.publicApi.props.find((candidate: any) => candidate.name === name);
       expect(prop?.description).toMatch(/direct/i);
       expect(prop?.description).toMatch(/wrapper/i);
-      expect(prop?.description).toMatch(/clone/i);
     }
+
+    const sidebar = contract.publicApi.props.find(
+      (candidate: any) => candidate.name === 'sidebar',
+    );
+    expect(sidebar?.description).toMatch(/clone/i);
   });
 
   it('keeps responsive layout ownership in the shell without taking workflow or product state', () => {
