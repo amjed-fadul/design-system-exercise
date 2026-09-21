@@ -73,13 +73,11 @@ describe('Radio Group Storybook contract', () => {
     expect(module.Arabic.args?.label).toBe('الدور');
   });
 
-  it('documents the exact Figma authorities and keeps Member preselection product-specific', async () => {
+  it('documents native group boundaries and keeps Member preselection product-specific', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.radioGroupMeta.parameters?.docs?.description?.component ?? '';
-    expect(description).toMatch(/116:175/);
-    expect(description).toMatch(/116:174/);
     expect(description).toMatch(/native/i);
     expect(description).toMatch(/at least two/i);
     expect(description).toMatch(/Member.*product|product.*Member/i);

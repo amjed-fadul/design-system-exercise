@@ -117,7 +117,10 @@
     "--dse-color-semantic-surface-default",
     "--dse-color-semantic-border-subtle",
     "--dse-color-semantic-state-hover",
-    "--dse-color-semantic-state-selected"
+    "--dse-color-semantic-state-selected",
+    "--dse-border-role-divider",
+    "--dse-spacing-primitive-space-200",
+    "--dse-spacing-primitive-space-500"
   ],
   "states": [
     {

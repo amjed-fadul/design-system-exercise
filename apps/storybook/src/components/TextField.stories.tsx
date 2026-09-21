@@ -15,6 +15,7 @@ function localizedArgs(args: TextFieldProps, language: string | undefined): Text
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Controls/Text Field',
   component: TextField,
   args: {
@@ -39,7 +40,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.text-field@1.0.0. Figma authority: Text Field node 112:263, composed with private _Input Control node 111:22. Text Field renders a native input with an explicit visible label, optional supporting/error message, native required/disabled/value/placeholder behavior, and semantic invalid state. Figma state and content axes are derived from native runtime behavior; the private size axis is not public. The public Text Field always uses the 44px default internal shell.',
+          "**Contract**\n\n`dse.text-field@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nText Field composes the private Input Control and renders a native input with an explicit visible label, optional supporting or error message, native required/disabled/value/placeholder behavior, and semantic invalid state. Interaction state and content axes are derived from native runtime behavior; the private size axis is not public. The public Text Field always uses the 44px default internal shell.",
       },
     },
   },

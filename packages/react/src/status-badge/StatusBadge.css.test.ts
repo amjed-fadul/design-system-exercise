@@ -18,6 +18,7 @@ describe('Status Badge visual contract', () => {
     expect(css).toMatch(/padding-block:\s*5px/);
     expect(css).toMatch(/padding-inline:\s*10px/);
     expect(css).not.toMatch(/inline-size:\s*\d+px/);
+    expect(css).toMatch(/inline-size:\s*fit-content/);
     expect(css).not.toContain('padding-left');
     expect(css).not.toContain('padding-right');
   });

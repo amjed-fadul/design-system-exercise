@@ -39,24 +39,23 @@ describe('Inline Feedback Storybook contract', () => {
       expect(module[story], `missing story ${story}`).toBeDefined();
     }
 
-    expect(module.DarkError.globals?.theme).toBe('dark');
-    expect(module.DarkSuccess.globals?.theme).toBe('dark');
-    expect(module.ArabicError.globals?.language).toBe('arabic');
-    expect(module.ArabicSuccess.globals?.language).toBe('arabic');
-    expect(module.DarkArabicError.globals).toEqual(
+    expect(module.DarkError.parameters?.presentation?.theme).toBe('dark');
+    expect(module.DarkSuccess.parameters?.presentation?.theme).toBe('dark');
+    expect(module.ArabicError.parameters?.presentation?.language).toBe('arabic');
+    expect(module.ArabicSuccess.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabicError.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
-    expect(module.DarkArabicSuccess.globals).toEqual(
+    expect(module.DarkArabicSuccess.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
   });
 
-  it('documents the exact Figma authority and semantic announcement boundary', async () => {
+  it('documents the semantic announcement boundary', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.inlineFeedbackMeta.parameters?.docs?.description?.component ?? '';
-    expect(description).toMatch(/127:30/);
     expect(description).toMatch(/role=alert|alert/i);
     expect(description).toMatch(/role=status|status/i);
     expect(description).toMatch(/showTitle.*derived|derived.*showTitle/i);

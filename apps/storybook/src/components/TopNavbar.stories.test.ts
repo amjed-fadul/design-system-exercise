@@ -50,9 +50,9 @@ describe('Top Navbar Storybook contract', () => {
     }
 
     expect(module.WithoutContext.args?.showContext).toBe(false);
-    expect(module.Dark.globals?.theme).toBe('dark');
-    expect(module.Arabic.globals?.language).toBe('arabic');
-    expect(module.DarkArabic.globals).toEqual(
+    expect(module.Dark.parameters?.presentation?.theme).toBe('dark');
+    expect(module.Arabic.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabic.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.Arabic.args?.contextLabel).toMatch(/[\u0600-\u06FF]/);
@@ -73,13 +73,12 @@ describe('Top Navbar Storybook contract', () => {
     expect(accountHtml).toContain('Amal Hassan · Admin');
   });
 
-  it('documents the Figma authority and shell/product/page ownership split', async () => {
+  it('documents the shell/product/page ownership split', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.topNavbarMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.top-navbar@1\.0\.0/);
-    expect(description).toMatch(/228:18954/);
     expect(description).toMatch(/64/);
     expect(description).toMatch(/Brand/i);
     expect(description).toMatch(/Account/i);

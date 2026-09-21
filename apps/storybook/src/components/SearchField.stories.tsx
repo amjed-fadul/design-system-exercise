@@ -13,6 +13,7 @@ function localizedArgs(args: SearchFieldProps, language: string | undefined): Se
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Controls/Search Field',
   component: SearchField,
   decorators: [
@@ -40,7 +41,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.search-field@1.0.0. Figma authority: Search Field node 112:1710, composed with the private compact _Input Control and governed Icon Button. The source evidence is 360px wide with a fixed 40px control height; width remains layout-owned and is not a Search Field prop. The runtime is a native search input with a required accessible name, fixed search icon, and a named clear action derived from whether the live query is filled. Figma state/content axes are derived. Invalid/error, loading, results, suggestions, result counts, and debouncing are intentionally outside the component boundary.',
+          "**Contract**\n\n`dse.search-field@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nSearch Field composes the private compact Input Control and governed Icon Button. Storybook evidence uses a 360px layout with a fixed 40px control height; width remains layout-owned and is not a Search Field prop. The runtime is a native search input with a required accessible name, fixed search icon, and a named clear action derived from whether the live query is filled. Invalid/error, loading, results, suggestions, result counts, and debouncing are outside the component boundary.",
       },
     },
   },

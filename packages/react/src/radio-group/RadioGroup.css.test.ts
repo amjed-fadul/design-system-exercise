@@ -49,6 +49,8 @@ describe('Radio Group visual contract', () => {
       /\.dse-radio-option__indicator\s*\{[^}]*inline-size:\s*var\(--dse-icons-size-md\)[^}]*block-size:\s*var\(--dse-icons-size-md\)/s,
     );
     expect(css).toMatch(/\.dse-radio-option__text\s*\{[^}]*gap:\s*2px/s);
+    expect(css).toContain('var(--dse-radius-shape-rounded)');
+    expect(css).not.toMatch(/border-radius:\s*999px/);
   });
 
   it('derives checked, hover, pressed, focus-visible, and disabled presentation from native state', () => {

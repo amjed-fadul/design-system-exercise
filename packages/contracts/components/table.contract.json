@@ -121,6 +121,8 @@
     "--dse-color-semantic-state-hover",
     "--dse-color-semantic-state-selected",
     "--dse-radius-shape-surface",
+    "--dse-border-role-container",
+    "--dse-spacing-primitive-space-400",
     "--dse-typography-semantic-label-default-family",
     "--dse-typography-semantic-label-default-size",
     "--dse-typography-semantic-label-default-weight",

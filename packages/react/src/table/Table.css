@@ -5,7 +5,7 @@
   overflow: clip;
   background: var(--dse-color-semantic-surface-default);
   border-radius: var(--dse-radius-shape-surface);
-  box-shadow: inset 0 0 0 1px var(--dse-color-semantic-border-subtle);
+  box-shadow: inset 0 0 0 var(--dse-border-role-container) var(--dse-color-semantic-border-subtle);
 }
 
 .dse-table {
@@ -40,7 +40,7 @@
 .dse-table__header-cell {
   box-sizing: border-box;
   block-size: 44px;
-  padding-block: 12px;
+  padding-block: var(--dse-spacing-primitive-space-300);
   color: var(--dse-color-semantic-fg-secondary);
   background: var(--dse-color-semantic-surface-section);
   font-family: var(--dse-typography-semantic-label-default-family);
@@ -67,7 +67,7 @@
   padding-block: 6px;
   vertical-align: middle;
   background: var(--dse-color-semantic-surface-default);
-  border-block-end: 1px solid var(--dse-color-semantic-border-subtle);
+  border-block-end: var(--dse-border-role-divider) solid var(--dse-color-semantic-border-subtle);
 }
 
 .dse-table__cell-primary {
@@ -77,15 +77,15 @@
 }
 
 .dse-table__cell-secondary {
-  padding-inline-start: 24px;
+  padding-inline-start: var(--dse-spacing-primitive-space-500);
 }
 
 .dse-table__cell-status {
-  padding-inline-start: 24px;
+  padding-inline-start: var(--dse-spacing-primitive-space-500);
 }
 
 .dse-table__cell-action {
-  padding-inline-start: 8px;
+  padding-inline-start: var(--dse-spacing-primitive-space-200);
   padding-inline-end: 20px;
 }
 
@@ -101,7 +101,7 @@
   box-sizing: border-box;
   block-size: 48px;
   padding-block-start: 14px;
-  padding-block-end: 16px;
+  padding-block-end: var(--dse-spacing-primitive-space-400);
   padding-inline: 20px;
   color: var(--dse-color-semantic-fg-secondary);
   background: var(--dse-color-semantic-surface-default);

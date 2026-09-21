@@ -1,0 +1,187 @@
+{
+  "$schema": "../../schema/composition-guidance.schema.json",
+  "id": "dse.composition.modal-list-detail",
+  "kind": "composition-guidance",
+  "version": "1.0.0",
+  "status": "approved",
+  "name": "Modal List → Detail",
+  "description": "Guidance for opening contextual record detail from a directory Table into a modal host that composes the non-modal governed Side Panel without changing the Side Panel public API.",
+  "scope": "interaction",
+  "componentDependencies": [
+    {
+      "id": "dse.table",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.side-panel",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.button",
+      "minimumVersion": "1.0.0"
+    },
+    {
+      "id": "dse.dialog",
+      "minimumVersion": "1.0.0"
+    }
+  ],
+  "patternDependencies": [
+    {
+      "id": "dse.pattern.application-shell",
+      "minimumVersion": "1.0.0"
+    }
+  ],
+  "structure": [
+    {
+      "key": "record-action",
+      "order": 1,
+      "required": true,
+      "role": "Open contextual detail from a genuine interactive control in the Table Action region; the Table row itself remains non-activating.",
+      "componentIds": [
+        "dse.table",
+        "dse.button"
+      ],
+      "owner": "product"
+    },
+    {
+      "key": "modal-host",
+      "order": 2,
+      "required": true,
+      "role": "A composition-owned modal host overlays the active workspace, owns modality/focus/background behavior, and contains the governed Side Panel.",
+      "owner": "composition"
+    },
+    {
+      "key": "side-panel",
+      "order": 3,
+      "required": true,
+      "role": "The governed Side Panel supplies the detail surface regions, scrolling body, anchored actions, and optional close affordance while remaining non-modal itself.",
+      "componentIds": [
+        "dse.side-panel"
+      ],
+      "owner": "design-system"
+    },
+    {
+      "key": "nested-dialog",
+      "order": 4,
+      "required": false,
+      "role": "Use governed Dialog for a nested consequential confirmation; while it is open, Dialog owns the active modal focus/keyboard interaction.",
+      "componentIds": [
+        "dse.dialog"
+      ],
+      "owner": "design-system"
+    }
+  ],
+  "rules": {
+    "layout": [
+      {
+        "id": "layout.overlay-does-not-squeeze",
+        "statement": "Overlay contextual detail above the existing directory; do not create a sibling column that squeezes or reflows the directory beside the Side Panel."
+      },
+      {
+        "id": "layout.shell-offset",
+        "statement": "When composed inside Application Shell, begin the modal detail host below the governed persistent Top Navbar and use the governed top-height value."
+      },
+      {
+        "id": "layout.detail-width",
+        "statement": "Use the governed detail available-width/Side Panel width authority rather than inventing a competing panel width."
+      },
+      {
+        "id": "layout.panel-fills-host",
+        "statement": "Side Panel fills the available modal-host block size so its governed body owns scrolling and its actions remain anchored."
+      }
+    ],
+    "responsive": [
+      {
+        "id": "responsive.wide-only-current-evidence",
+        "statement": "Current evidence governs the modal Side Panel composition for wide/available detail presentation only."
+      },
+      {
+        "id": "responsive.narrow-unresolved",
+        "statement": "Do not invent a narrow drawer, full-page detail, or alternate navigation model without approved product evidence or future composition guidance; escalate the narrow behavior as unresolved."
+      }
+    ],
+    "direction": [
+      {
+        "id": "direction.logical-inline-end",
+        "statement": "Attach contextual detail to logical inline-end using logical properties so physical placement mirrors in RTL."
+      },
+      {
+        "id": "direction.intrinsic-values",
+        "statement": "Intrinsic-LTR product values inside detail, such as emails and project keys, may isolate their own text direction without forcing the panel or host LTR."
+      }
+    ],
+    "accessibility": [
+      {
+        "id": "accessibility.modal-host",
+        "statement": "The composition-owned host exposes modal dialog semantics; the nested Side Panel remains its governed named non-modal region and must not gain aria-modal."
+      },
+      {
+        "id": "accessibility.background-inert",
+        "statement": "While detail is open, make the background shell inert and unavailable to assistive technology."
+      },
+      {
+        "id": "accessibility.focus-enter",
+        "statement": "Move focus into the detail host when it opens and keep keyboard focus contained within the active modal host."
+      },
+      {
+        "id": "accessibility.focus-restore",
+        "statement": "When detail closes, restore focus to the record action that opened it when that trigger still exists."
+      }
+    ],
+    "behavior": [
+      {
+        "id": "behavior.escape-close",
+        "statement": "Escape requests closure of the modal detail host when no nested governed Dialog currently owns modal interaction."
+      },
+      {
+        "id": "behavior.backdrop-close",
+        "statement": "Backdrop activation may close the contextual detail host only when the product interaction explicitly adopts that behavior; Side Panel itself does not own backdrop dismissal."
+      },
+      {
+        "id": "behavior.selected-association",
+        "statement": "Keep the corresponding Table row selected while its contextual detail is open; this remains contextual association rather than bulk selection."
+      },
+      {
+        "id": "behavior.nested-dialog-precedence",
+        "statement": "When a governed Dialog opens from detail, suspend competing host focus/Escape handling until the Dialog closes."
+      }
+    ]
+  },
+  "localCss": {
+    "allowed": [
+      {
+        "id": "css.modal-host-placement",
+        "statement": "Local composition CSS may create the overlay host and logical inline-end placement because modality/placement are intentionally outside Side Panel ownership."
+      },
+      {
+        "id": "css.modal-host-stacking",
+        "statement": "Use the governed --dse-elevation-plane-overlay token as the modal host z-index authority; do not invent a raw stacking value for the contextual detail host."
+      },
+      {
+        "id": "css.edge-treatment",
+        "statement": "Local composition CSS may flatten the Side Panel radii that physically meet the viewport edge when product evidence requires that attachment."
+      },
+      {
+        "id": "css.shadow-with-evidence",
+        "statement": "A local composition shadow is allowed only when product/Figma evidence supplies it because the current elevation tokens do not define shadow values."
+      }
+    ],
+    "mustUseGovernedTokensWhenAvailable": true
+  },
+  "forbidden": [
+    "adding modal, trapFocus, restoreFocus, escapeToClose, or backdrop props to Side Panel",
+    "making the entire Table row an activation target",
+    "placing Side Panel beside the directory in a shrinking split layout",
+    "inventing narrow-screen detail behavior from Storybook or prototype source",
+    "allowing the outer host and nested Dialog to compete for focus trapping or Escape"
+  ],
+  "provenance": {
+    "lastReviewed": "2026-09-20",
+    "audit": "docs/ai-readiness/AI-READINESS-CSS-AUDIT.md",
+    "evidence": [
+      "packages/contracts/components/side-panel.contract.json",
+      "apps/storybook/src/prototypes/ConnectedProductPrototype.tsx",
+      "apps/storybook/src/prototypes/ProjectsManagementPrototype.tsx"
+    ]
+  }
+}

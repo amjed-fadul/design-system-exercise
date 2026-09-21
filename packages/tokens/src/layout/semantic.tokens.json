@@ -5,7 +5,12 @@
       "modes": [
         "wide",
         "narrow"
-      ]
+      ],
+      "selectorAttribute": "data-layout",
+      "selectorValues": {
+        "wide": "wide",
+        "narrow": "narrow"
+      }
     }
   },
   "wide": {

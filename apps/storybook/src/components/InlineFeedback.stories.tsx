@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { InlineFeedback } from '@design-system-exercise/react';
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Feedback/Inline Feedback',
   component: InlineFeedback,
   decorators: [
@@ -25,7 +26,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Contract: dse.inline-feedback@1.0.0. Figma authority: Inline Feedback 127:30. intent is explicit: error renders role=alert and success renders role=status. The message is required and non-empty; title is optional and Figma showTitle is derived from title presence. The component never moves focus. Alert and Check geometry comes from the exact Figma assets while semantic token color adapts to theme. Recovery actions such as a Try again Button remain siblings supplied by the containing pattern; there is no action or dismiss slot.',
+          "**Contract**\n\n`dse.inline-feedback@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\n`intent` is explicit: error renders `role=alert` and success renders `role=status`. The message is required and non-empty; title is optional and `showTitle` is derived from title presence. The component never moves focus. Recovery actions such as a Try again Button remain siblings supplied by the containing pattern; there is no action or dismiss slot.",
       },
     },
   },
@@ -63,7 +64,7 @@ export const LongMessage: Story = {
 };
 
 export const DarkError: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
 };
 
 export const DarkSuccess: Story = {
@@ -72,7 +73,7 @@ export const DarkSuccess: Story = {
     title: 'Invitation sent',
     message: 'The invitation was sent. Access remains pending until the person joins.',
   },
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
 };
 
 export const ArabicError: Story = {
@@ -81,7 +82,7 @@ export const ArabicError: Story = {
     title: 'لم يتم حفظ التغييرات',
     message: 'ما زالت التغييرات غير محفوظة. اختياراتك محفوظة هنا ويمكنك المحاولة مرة أخرى.',
   },
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
 };
 
 export const ArabicSuccess: Story = {
@@ -90,7 +91,7 @@ export const ArabicSuccess: Story = {
     title: 'تم حفظ التغييرات',
     message: 'تم حفظ التغييرات بنجاح.',
   },
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
 };
 
 export const DarkArabicError: Story = {
@@ -99,7 +100,7 @@ export const DarkArabicError: Story = {
     title: 'لم يتم حفظ التغييرات',
     message: 'ما زالت التغييرات غير محفوظة. اختياراتك محفوظة هنا ويمكنك المحاولة مرة أخرى.',
   },
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
 };
 
 export const DarkArabicSuccess: Story = {
@@ -108,5 +109,5 @@ export const DarkArabicSuccess: Story = {
     title: 'تم حفظ التغييرات',
     message: 'تم حفظ التغييرات بنجاح.',
   },
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
 };

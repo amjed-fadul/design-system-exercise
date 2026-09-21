@@ -11,7 +11,7 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  gap: 8px;
+  gap: var(--dse-spacing-semantic-gap-sm);
   min-inline-size: 0;
   margin: 0;
   padding: 0;
@@ -30,7 +30,7 @@
 .dse-breadcrumb-link-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--dse-spacing-semantic-gap-sm);
 }
 
 .dse-breadcrumb-link-item .dse-link {

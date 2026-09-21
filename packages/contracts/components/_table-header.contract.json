@@ -79,6 +79,9 @@
   "tokenDependencies": [
     "--dse-color-semantic-surface-section",
     "--dse-color-semantic-fg-secondary",
+    "--dse-spacing-primitive-space-200",
+    "--dse-spacing-primitive-space-300",
+    "--dse-spacing-primitive-space-500",
     "--dse-typography-semantic-label-default-family",
     "--dse-typography-semantic-label-default-size",
     "--dse-typography-semantic-label-default-weight",

@@ -117,6 +117,8 @@
   "tokenDependencies": [
     "--dse-color-semantic-fg-primary",
     "--dse-color-semantic-fg-secondary",
+    "--dse-spacing-semantic-stack-sm",
+    "--dse-spacing-primitive-space-300",
     "--dse-typography-semantic-headline-page-family",
     "--dse-typography-semantic-headline-page-size",
     "--dse-typography-semantic-headline-page-weight",
@@ -141,7 +143,7 @@
       "The Actions slot accepts at most two rendered direct children, including Fragment-wrapped content. Governed Button components are the intended children and own their activation/loading/disabled behavior.",
       "DOM and reading order remain Breadcrumbs first, then the heading row, with title/description before Actions. Writing direction is inherited so Arabic places inline-start content and inline-end actions naturally without a separate RTL prop.",
       "The implementation fills the available host inline size instead of fixing the 1168px Figma example width. Long titles may wrap and the text region must be allowed to shrink before Actions.",
-      "Reviewed active local geometry is preserved: 10px between Breadcrumbs and the heading row, 4px between title and description, and 12px between multiple actions. The heading row uses space-between with no active fixed text-to-Actions gap; Figma stores itemSpacing=24 on that SPACE_BETWEEN row, but live child coordinates confirm it is inactive. These dimensions are local Figma geometry rather than governed token bindings.",
+      "Reviewed active local geometry is preserved: the 10px Breadcrumbs-to-heading-row gap remains a local component value; the 4px title-to-description stack binds to spacing.semantic.stack.sm; and the 12px multiple-action gap binds to spacing.primitive.space.300. The heading row uses space-between with no active fixed text-to-Actions gap; Figma stores itemSpacing=24 on that SPACE_BETWEEN row, but live child coordinates confirm it is inactive.",
       "Headline/page and Body/small typography plus semantic foreground colors inherit language and Light/Dark modes from tokens; Page Heading exposes no theme prop.",
       "Application Shell owns Page Heading placement in the content region. Product code owns title, description, hierarchy data, action labels and outcomes.",
       "Search Field, primary navigation, account/workspace identity, routing side effects, and modal titles stay outside Page Heading."

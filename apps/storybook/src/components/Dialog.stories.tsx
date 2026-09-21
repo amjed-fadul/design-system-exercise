@@ -74,6 +74,7 @@ function DialogCanvas(args: DialogProps) {
 }
 
 const meta = {
+  excludeStories: /.*Meta$/,
   title: 'Components/Feedback & Surfaces/Dialog',
   component: Dialog,
   args: {
@@ -87,17 +88,38 @@ const meta = {
     closeLabel: 'Close dialog',
   },
   argTypes: {
+    open: { control: false },
+    onOpenChange: {
+      control: false,
+      table: { type: { summary: '(open: boolean) => void' } },
+    },
     title: { control: 'text' },
     description: { control: 'text' },
+    children: {
+      control: false,
+      table: { type: { summary: 'ReactNode' } },
+    },
+    actions: {
+      control: false,
+      table: { type: { summary: 'ReactNode' } },
+    },
     showClose: { control: 'boolean' },
     closeLabel: { control: 'text' },
+    initialFocusRef: {
+      control: false,
+      table: { type: { summary: 'RefObject<HTMLElement>' } },
+    },
   },
   parameters: {
     layout: 'fullscreen',
     docs: {
+      story: {
+        inline: false,
+        height: '620px',
+      },
       description: {
         component:
-          'Contract: dse.dialog@1.0.0. Figma authority: Dialog node 133:6. Dialog is a controlled modal surface for a short blocking task or consequential choice. Runtime moves focus into the task, contains Tab navigation, returns focus on close, and treats background content as inert while open. Escape requests close even when the visible close Icon Button is hidden. Backdrop/outside clicks do not dismiss in v1. Dialog deliberately has no onSubmit, requestStatus, or visual business-state API; the containing pattern/workflow owns request progression, pending restrictions, validation, dirty checks, and action outcomes.',
+          "**Contract**\n\n`dse.dialog@1.0.0`\n\n**Runtime**\n\n`@design-system-exercise/react`\n\n**Guidance**\n\nDialog is a controlled modal surface for a short blocking task or consequential choice. Runtime moves focus into the task, contains Tab navigation, returns focus on close, and treats background content as inert while open. Escape requests close even when the visible close Icon Button is hidden. Backdrop or outside clicks do not dismiss in v1. Dialog deliberately has no `onSubmit`, `requestStatus`, or visual business-state API; the containing pattern or workflow owns request progression, validation, dirty checks, and action outcomes.",
       },
     },
   },
@@ -112,12 +134,12 @@ export const InviteMember: Story = {
 };
 
 export const DarkInviteMember: Story = {
-  globals: { theme: 'dark' },
+  parameters: { presentation: { theme: 'dark' } },
   render: (args) => <DialogCanvas {...(args as DialogProps)} />,
 };
 
 export const ArabicInviteMember: Story = {
-  globals: { language: 'arabic' },
+  parameters: { presentation: { language: 'arabic' } },
   args: {
     title: 'دعوة عضو',
     description: 'أرسل دعوة للانضمام إلى مساحة العمل.',
@@ -129,7 +151,7 @@ export const ArabicInviteMember: Story = {
 };
 
 export const DarkArabicInviteMember: Story = {
-  globals: { theme: 'dark', language: 'arabic' },
+  parameters: { presentation: { theme: 'dark', language: 'arabic' } },
   args: {
     title: 'دعوة عضو',
     description: 'أرسل دعوة للانضمام إلى مساحة العمل.',

@@ -35,6 +35,58 @@ describe('dse.pattern.application-shell contract', () => {
     );
   });
 
+  it('declares the public consumer export and exact runtime props', () => {
+    const contract = readContract();
+    if (!contract) return;
+
+    expect(contract.publicApi.exportName).toBe('ApplicationShell');
+    expect(contract.publicApi.forwardNativeAttributes).toBe(false);
+    expect(contract.publicApi.props).toEqual([
+      expect.objectContaining({
+        name: 'sidebar',
+        required: true,
+        type: { component: 'dse.sidebar', directElement: true },
+      }),
+      expect.objectContaining({
+        name: 'topNavbar',
+        required: true,
+        type: { component: 'dse.top-navbar', directElement: true },
+      }),
+      expect.objectContaining({
+        name: 'pageHeading',
+        required: false,
+        type: { component: 'dse.page-heading', directElement: true },
+      }),
+      expect.objectContaining({
+        name: 'children',
+        required: true,
+        type: { content: true },
+      }),
+      expect.objectContaining({
+        name: 'viewportMode',
+        required: false,
+        default: 'auto',
+        type: { enum: ['auto', 'expanded', 'compact'] },
+      }),
+    ]);
+  });
+
+  it('requires direct governed elements for clone-owned shell slots', () => {
+    const contract = readContract();
+    if (!contract) return;
+
+    for (const name of ['sidebar', 'topNavbar', 'pageHeading']) {
+      const prop = contract.publicApi.props.find((candidate: any) => candidate.name === name);
+      expect(prop?.description).toMatch(/direct/i);
+      expect(prop?.description).toMatch(/wrapper/i);
+    }
+
+    const sidebar = contract.publicApi.props.find(
+      (candidate: any) => candidate.name === 'sidebar',
+    );
+    expect(sidebar?.description).toMatch(/clone/i);
+  });
+
   it('keeps responsive layout ownership in the shell without taking workflow or product state', () => {
     const contract = readContract();
     if (!contract) return;

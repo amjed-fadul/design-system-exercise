@@ -1,0 +1,391 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://design-system-exercise.local/schema/product-context.schema.json",
+  "title": "Design System Exercise product context",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "id",
+    "kind",
+    "version",
+    "status",
+    "name",
+    "scope",
+    "patternId",
+    "componentDependencies",
+    "assets",
+    "composition",
+    "provenance"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^dse\\.product-context\\.[a-z0-9.-]+$"
+    },
+    "kind": {
+      "const": "product-context"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "approved",
+        "deprecated"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "const": "workspace-shell"
+    },
+    "patternId": {
+      "type": "string",
+      "pattern": "^dse\\.pattern\\.[a-z0-9.-]+$"
+    },
+    "componentDependencies": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^dse\\.(?!_)[a-z0-9.-]+$"
+      }
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "path",
+          "kind",
+          "usage",
+          "rendering",
+          "directional"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9.-]+$"
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^packages/contracts/ai/product-contexts/assets/[a-z0-9-]+\\.svg$"
+          },
+          "kind": {
+            "const": "svg"
+          },
+          "usage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rendering": {
+            "enum": [
+              "mask-currentColor",
+              "inline-currentColor"
+            ]
+          },
+          "directional": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "composition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "brand",
+        "topNavbar",
+        "sidebar"
+      ],
+      "properties": {
+        "brand": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "order",
+            "productName",
+            "productNameDirection",
+            "gap",
+            "mark"
+          ],
+          "properties": {
+            "order": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "uniqueItems": true,
+              "items": {
+                "enum": [
+                  "brand-mark",
+                  "product-name"
+                ]
+              }
+            },
+            "productName": {
+              "$ref": "#/definitions/localizedString"
+            },
+            "productNameDirection": {
+              "const": "ltr"
+            },
+            "gap": {
+              "$ref": "#/definitions/dimension"
+            },
+            "mark": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "inlineSize",
+                "blockSize",
+                "borderRadius",
+                "backgroundToken",
+                "typographyTokenPrefix"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "inlineSize": {
+                  "$ref": "#/definitions/dimension"
+                },
+                "blockSize": {
+                  "$ref": "#/definitions/dimension"
+                },
+                "borderRadius": {
+                  "$ref": "#/definitions/dimension"
+                },
+                "backgroundToken": {
+                  "$ref": "#/definitions/token"
+                },
+                "typographyTokenPrefix": {
+                  "type": "string",
+                  "pattern": "^typography\\.semantic\\.[a-z0-9.-]+$"
+                }
+              }
+            }
+          }
+        },
+        "topNavbar": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contextLabel",
+            "accountOrder",
+            "appearanceUtility",
+            "accountLabel",
+            "avatarInitials",
+            "accountGapToken",
+            "identityGapToken"
+          ],
+          "properties": {
+            "contextLabel": {
+              "$ref": "#/definitions/localizedString"
+            },
+            "accountOrder": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "uniqueItems": true,
+              "items": {
+                "enum": [
+                  "appearance-utility",
+                  "account-label",
+                  "avatar"
+                ]
+              }
+            },
+            "appearanceUtility": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "assetId",
+                "decorative",
+                "boxSize",
+                "sizeToken"
+              ],
+              "properties": {
+                "assetId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "decorative": {
+                  "const": true
+                },
+                "boxSize": {
+                  "$ref": "#/definitions/dimension"
+                },
+                "sizeToken": {
+                  "$ref": "#/definitions/token"
+                }
+              }
+            },
+            "accountLabel": {
+              "$ref": "#/definitions/localizedString"
+            },
+            "avatarInitials": {
+              "$ref": "#/definitions/localizedString"
+            },
+            "accountGapToken": {
+              "$ref": "#/definitions/token"
+            },
+            "identityGapToken": {
+              "$ref": "#/definitions/token"
+            }
+          }
+        },
+        "sidebar": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "destinations",
+            "footer"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/definitions/localizedString"
+            },
+            "destinations": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "label",
+                  "assetId"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "label": {
+                    "$ref": "#/definitions/localizedString"
+                  },
+                  "assetId": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            },
+            "footer": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "layout",
+                "primary",
+                "secondary",
+                "gap",
+                "primaryTypographyTokenPrefix",
+                "secondaryTypographyTokenPrefix"
+              ],
+              "properties": {
+                "layout": {
+                  "const": "stack"
+                },
+                "primary": {
+                  "$ref": "#/definitions/localizedString"
+                },
+                "secondary": {
+                  "$ref": "#/definitions/localizedString"
+                },
+                "gap": {
+                  "$ref": "#/definitions/dimension"
+                },
+                "primaryTypographyTokenPrefix": {
+                  "type": "string",
+                  "pattern": "^typography\\.semantic\\.[a-z0-9.-]+$"
+                },
+                "secondaryTypographyTokenPrefix": {
+                  "type": "string",
+                  "pattern": "^typography\\.semantic\\.[a-z0-9.-]+$"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lastReviewed",
+        "evidence"
+      ],
+      "properties": {
+        "lastReviewed": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "localizedString": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "en",
+        "ar"
+      ],
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ar": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "const": "px"
+        }
+      }
+    },
+    "token": {
+      "type": "string",
+      "pattern": "^--dse-[a-z0-9-]+$"
+    }
+  }
+}

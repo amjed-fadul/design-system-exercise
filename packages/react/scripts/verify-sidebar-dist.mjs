@@ -68,10 +68,14 @@ const css = readFileSync(cssUrl, 'utf8');
 for (const required of [
   '.dse-sidebar',
   '.dse-navigation-item',
-  "inline-size: 208px",
-  "inline-size: 64px",
+  'var(--dse-layout-primitive-nav-expanded)',
+  'var(--dse-layout-primitive-nav-compact)',
   'var(--dse-color-semantic-surface-section)',
   'var(--dse-color-semantic-border-subtle)',
+  'var(--dse-border-role-divider)',
+  'var(--dse-spacing-semantic-gap-sm)',
+  'var(--dse-spacing-primitive-space-700)',
+  'var(--dse-spacing-primitive-space-800)',
   'var(--dse-color-semantic-state-selected)',
   'var(--dse-color-semantic-focus-default)',
 ]) {

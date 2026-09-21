@@ -1,0 +1,208 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://design-system-exercise.local/schema/ai-authoring-policy.schema.json",
+  "title": "Design System Exercise AI Authoring Policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "id",
+    "kind",
+    "version",
+    "status",
+    "name",
+    "scope",
+    "authorityOrder",
+    "rules",
+    "localCss",
+    "storybook",
+    "provenance"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "id": {
+      "const": "dse.ai-authoring-policy"
+    },
+    "kind": {
+      "const": "ai-authoring-policy"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "approved",
+        "deprecated"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "const": "product-ui-authoring"
+    },
+    "authorityOrder": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "component-contracts",
+          "pattern-contracts",
+          "tokens",
+          "composition-guidance",
+          "product-context",
+          "product-figma-evidence"
+        ]
+      }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "category",
+          "requirement",
+          "statement",
+          "rationale"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9.-]+$"
+          },
+          "category": {
+            "enum": [
+              "components",
+              "tokens",
+              "css",
+              "dimensions",
+              "composition",
+              "direction",
+              "icons",
+              "accessibility",
+              "storybook",
+              "uncertainty"
+            ]
+          },
+          "requirement": {
+            "enum": [
+              "must",
+              "must-not",
+              "may",
+              "escalate"
+            ]
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "localCss": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowedAuthorities",
+        "forbidden",
+        "escalateWhen"
+      ],
+      "properties": {
+        "allowedAuthorities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "approved-composition-guidance",
+              "product-figma-evidence",
+              "approved-product-context"
+            ]
+          }
+        },
+        "forbidden": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "escalateWhen": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "storybook": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "may",
+        "mustNot"
+      ],
+      "properties": {
+        "role": {
+          "const": "human-visible-evidence"
+        },
+        "may": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "mustNot": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lastReviewed",
+        "audit"
+      ],
+      "properties": {
+        "lastReviewed": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "audit": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

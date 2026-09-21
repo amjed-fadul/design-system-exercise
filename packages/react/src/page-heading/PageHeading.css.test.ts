@@ -20,8 +20,8 @@ describe('Page Heading CSS boundary', () => {
     expect(css).toMatch(/gap:\s*10px/);
     expect(css).toMatch(/\.dse-page-heading__row\s*\{[^}]*justify-content:\s*space-between/);
     expect(css).not.toMatch(/\.dse-page-heading__row\s*\{[^}]*gap:\s*24px/);
-    expect(css).toMatch(/\.dse-page-heading__text\s*\{[^}]*gap:\s*4px/);
-    expect(css).toMatch(/\.dse-page-heading__actions\s*\{[^}]*gap:\s*12px/);
+    expect(css).toMatch(/\.dse-page-heading__text\s*\{[^}]*gap:\s*var\(--dse-spacing-semantic-stack-sm\)/);
+    expect(css).toMatch(/\.dse-page-heading__actions\s*\{[^}]*gap:\s*var\(--dse-spacing-primitive-space-300\)/);
   });
 
   it('uses governed page-heading/body typography and semantic foreground tokens', () => {
@@ -40,6 +40,8 @@ describe('Page Heading CSS boundary', () => {
       '--dse-typography-semantic-body-small-letter-spacing',
       '--dse-color-semantic-fg-primary',
       '--dse-color-semantic-fg-secondary',
+      '--dse-spacing-semantic-stack-sm',
+      '--dse-spacing-primitive-space-300',
     ]) {
       expect(css).toContain(token);
     }

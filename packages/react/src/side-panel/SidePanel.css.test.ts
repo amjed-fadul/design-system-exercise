@@ -17,7 +17,7 @@ describe('SidePanel visual contract', () => {
     expect(css).toMatch(/\.dse-side-panel\s*\{[^}]*inline-size:\s*var\(--dse-layout-primitive-detail-inline-width\);/s);
     expect(css).toMatch(/\.dse-side-panel\s*\{[^}]*block-size:\s*612px;[^}]*min-block-size:\s*612px;/s);
     expect(css).toContain('background: var(--dse-color-semantic-surface-raised)');
-    expect(css).toContain('border: 1px solid var(--dse-color-semantic-border-subtle)');
+    expect(css).toContain('border: var(--dse-border-role-container) solid var(--dse-color-semantic-border-subtle)');
     expect(css).toContain('border-radius: var(--dse-radius-shape-surface)');
   });
 
@@ -48,7 +48,7 @@ describe('SidePanel visual contract', () => {
     expect(css).toMatch(/\.dse-side-panel__header\s*\{[^}]*flex:\s*0 0 auto;/s);
     expect(css).toMatch(/\.dse-side-panel__actions\s*\{[^}]*flex:\s*0 0 auto;[^}]*align-items:\s*center;[^}]*justify-content:\s*space-between;[^}]*block-size:\s*80px;[^}]*padding-block:\s*var\(--dse-spacing-primitive-space-400\);[^}]*padding-inline:\s*var\(--dse-spacing-primitive-space-500\);[^}]*gap:\s*var\(--dse-spacing-primitive-space-300\);/s);
     expect(css).not.toMatch(/\.dse-side-panel__actions\s*\{[^}]*flex-wrap:/s);
-    expect(css).toMatch(/\.dse-side-panel__(header|footer)-divider[^}]*\{[^}]*block-size:\s*1px;[^}]*background:\s*var\(--dse-color-semantic-border-subtle\)/s);
+    expect(css).toMatch(/\.dse-side-panel__(header|footer)-divider[^}]*\{[^}]*block-size:\s*var\(--dse-border-role-divider\);[^}]*background:\s*var\(--dse-color-semantic-border-subtle\)/s);
   });
 
   it('uses logical geometry for LTR and RTL and the exact governed close asset', () => {

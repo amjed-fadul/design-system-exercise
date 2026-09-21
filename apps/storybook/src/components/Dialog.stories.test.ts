@@ -17,6 +17,9 @@ describe('Dialog Storybook contract', () => {
     for (const publicControl of ['title', 'description', 'showClose', 'closeLabel']) {
       expect(argTypes).toHaveProperty(publicControl);
     }
+    for (const nonVisual of ['open', 'onOpenChange', 'children', 'actions', 'initialFocusRef']) {
+      expect(argTypes[nonVisual]?.control).toBe(false);
+    }
     for (const forbidden of [
       'onSubmit',
       'requestStatus',
@@ -29,6 +32,14 @@ describe('Dialog Storybook contract', () => {
     ]) {
       expect(argTypes).not.toHaveProperty(forbidden);
     }
+  });
+
+  it('isolates each modal story from the shared Autodocs document', async () => {
+    const module = await loadStories();
+    if (!module) return;
+
+    expect(module.dialogMeta.parameters?.docs?.story?.inline).toBe(false);
+    expect(module.dialogMeta.parameters?.docs?.story?.height).toBe('620px');
   });
 
   it('covers Light/Dark × English/Arabic plus decision and title-only evidence', async () => {
@@ -46,22 +57,21 @@ describe('Dialog Storybook contract', () => {
       expect(module[story], `missing story ${story}`).toBeDefined();
     }
 
-    expect(module.DarkInviteMember.globals?.theme).toBe('dark');
-    expect(module.ArabicInviteMember.globals?.language).toBe('arabic');
-    expect(module.DarkArabicInviteMember.globals).toEqual(
+    expect(module.DarkInviteMember.parameters?.presentation?.theme).toBe('dark');
+    expect(module.ArabicInviteMember.parameters?.presentation?.language).toBe('arabic');
+    expect(module.DarkArabicInviteMember.parameters?.presentation).toEqual(
       expect.objectContaining({ theme: 'dark', language: 'arabic' }),
     );
     expect(module.ArabicInviteMember.args?.title).toMatch(/[\u0600-\u06FF]/);
     expect(module.WithoutDescription.args?.description).toBeUndefined();
   });
 
-  it('documents Figma authority, modal behavior, and workflow ownership', async () => {
+  it('documents modal behavior and workflow ownership', async () => {
     const module = await loadStories();
     if (!module) return;
 
     const description = module.dialogMeta.parameters?.docs?.description?.component ?? '';
     expect(description).toMatch(/dse\.dialog@1\.0\.0/);
-    expect(description).toMatch(/133:6/);
     expect(description).toMatch(/modal/i);
     expect(description).toMatch(/focus/i);
     expect(description).toMatch(/escape/i);

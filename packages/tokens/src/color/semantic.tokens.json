@@ -5,7 +5,12 @@
       "modes": [
         "light",
         "dark"
-      ]
+      ],
+      "selectorAttribute": "data-theme",
+      "selectorValues": {
+        "light": "light",
+        "dark": "dark"
+      }
     }
   },
   "light": {
