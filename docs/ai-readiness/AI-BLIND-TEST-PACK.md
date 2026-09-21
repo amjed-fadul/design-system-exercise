@@ -36,6 +36,7 @@ Claude may read only:
 - the test-pack manifest;
 - the approved AI authoring policy;
 - approved composition guidance;
+- approved product contexts referenced by the task, including canonical product assets;
 - public component contracts;
 - pattern contracts;
 - governed token sources;
@@ -58,7 +59,7 @@ Expected unresolved decision: current approved guidance does not define narrow c
 
 Type: **baseline-known**.
 
-Tests the same governed system in the Team & access domain: search members/invitations, invite a member, edit a role and guard unsaved changes.
+Tests the same governed system in the Team & access domain: search members/invitations, invite a member, edit a role and guard unsaved changes. The Team task now references the approved Northstar workspace-shell product context so product-specific shell composition and canonical shell assets are explicit authoring authority rather than hidden prototype knowledge.
 
 The existing Connected Product prototype is denied to the agent.
 
