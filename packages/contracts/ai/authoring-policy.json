@@ -2,7 +2,7 @@
   "$schema": "../schema/ai-authoring-policy.schema.json",
   "id": "dse.ai-authoring-policy",
   "kind": "ai-authoring-policy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "status": "approved",
   "name": "AI Authoring Rules",
   "scope": "product-ui-authoring",
@@ -11,6 +11,7 @@
     "pattern-contracts",
     "tokens",
     "composition-guidance",
+    "product-context",
     "product-figma-evidence"
   ],
   "rules": [
@@ -55,6 +56,13 @@
       "requirement": "must",
       "statement": "A local raw dimension must be supported by explicit product/Figma evidence or approved composition guidance when no governed token owns the value.",
       "rationale": "A visually plausible number is not sufficient authority for an AI-generated layout."
+    },
+    {
+      "id": "composition.use-product-context",
+      "category": "composition",
+      "requirement": "must",
+      "statement": "When an approved product context is supplied for the requested surface, use its product-specific slot content, asset references, ordering, localized copy, and authorized local dimensions instead of inventing replacements.",
+      "rationale": "Generic design-system components intentionally leave product content open; approved product context makes those recurring product decisions machine-readable without exposing finished prototype source."
     },
     {
       "id": "composition.no-storybook-inference",
@@ -123,7 +131,8 @@
   "localCss": {
     "allowedAuthorities": [
       "approved-composition-guidance",
-      "product-figma-evidence"
+      "product-figma-evidence",
+      "approved-product-context"
     ],
     "forbidden": [
       "raw product colors that bypass semantic color tokens",
@@ -152,7 +161,7 @@
     ]
   },
   "provenance": {
-    "lastReviewed": "2026-09-20",
+    "lastReviewed": "2026-09-21",
     "audit": "docs/ai-readiness/AI-READINESS-CSS-AUDIT.md"
   }
 }
