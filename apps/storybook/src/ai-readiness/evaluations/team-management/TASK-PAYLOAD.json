@@ -1,0 +1,78 @@
+{
+  "id": "dse.ai-eval.team-management",
+  "name": "Team Management",
+  "caseType": "baseline-known",
+  "agentVisible": {
+    "productRequirement": {
+      "summary": "Build the Northstar Team members experience inside the standard Northstar workspace shell. Workspace admins need to browse members and pending invitations, search people, invite a member, inspect member detail, edit a role, and protect unsaved role changes. The product composition requirements below are explicit authority; do not recover implementation details from denied prototype source.",
+      "userGoals": [
+        "Browse people with identity, email when supplied, role, status, and a record-specific details action.",
+        "Search members and invitations by name or email and understand active/invited counts.",
+        "Invite one person by email and choose a Member or Admin role.",
+        "Open joined-member details showing identity, status, Current saved role, and an editable role choice.",
+        "Role choices show product descriptions: Member — Use the workspace without managing people.; Admin — Invite people and manage members and roles.",
+        "Member detail explains Changes take effect only after you save. and provides Close plus Save changes actions; Save changes is disabled when the draft matches the saved role.",
+        "If the admin tries to close detail with an unsaved role change, require an explicit keep-editing or discard decision.",
+        "Use the standard Northstar workspace shell content: Overview, Projects, Team & access, Settings; Team & access is current. Show Northstar workspace / Signed in as Admin in the Sidebar footer.",
+        "Top Navbar shows Northstar as the brand, Workspace administration as context, and Amal Hassan · Admin with Avatar initials AH as account identity.",
+        "Page Heading uses Team members, the supporting description Manage members and pending invitations in your workspace., Breadcrumbs Workspace / Team & access, and an Invite member action.",
+        "The Table footer reports the number of visible people shown."
+      ],
+      "dataFixtures": [
+        "Amal Hassan (you) — amal@example.com — initials AH — Admin — Active.",
+        "Sara Ahmed — sara@example.com — initials SA — Member — Active.",
+        "Omar Khalid — omar@example.com — initials OK — Member — Active.",
+        "Leila Ibrahim — leila@example.com — initials LI — Member — Active.",
+        "Daniel Chen — daniel@example.com — initials DC — Member — Active.",
+        "Has not joined yet — jamal@example.com — initials @ — Member — Invitation pending.",
+        "Has not joined yet — maya@example.com — initials @ — Member — Invitation pending.",
+        "Email addresses are intrinsically LTR even when the surrounding UI is Arabic.",
+        "Shell navigation labels are Overview, Projects, Team & access, Settings; Team & access is the current destination.",
+        "Sidebar footer copy is Northstar workspace and Signed in as Admin.",
+        "Top Navbar account identity is Amal Hassan · Admin with initials AH.",
+        "Breadcrumb hierarchy is Workspace / Team & access.",
+        "Role descriptions are Member — Use the workspace without managing people. and Admin — Invite people and manage members and roles."
+      ],
+      "requiredStates": [
+        "Populated team directory with the seven supplied people/invitations and an accurate Table footer count.",
+        "Filtered directory and no-results state.",
+        "Invite-member modal with field validation, recoverable request failure, retry, and success.",
+        "Joined-member detail with identity, status, Current saved role, descriptive role options, the save-effect note, Close action, and Save changes action.",
+        "Save failure and success feedback while retaining the role draft.",
+        "Unsaved-change close guard using a consequential confirmation."
+      ],
+      "presentationModes": [
+        "English LTR and Arabic RTL.",
+        "Light and Dark.",
+        "Wide Application Shell and compact/narrow directory presentation.",
+        "In wide presentation the Search control has product-authorized 360 CSS px inline width and the result summary sits at logical inline-end. Below the governed 1200 CSS-pixel shell boundary, stack the directory controls.",
+        "For any contextual-detail behavior that approved guidance marks unresolved on narrow screens, report the unresolved decision instead of inventing a new model.",
+        "Use the approved Northstar workspace-shell product context for brand mark, canonical Sidebar icons, appearance utility glyph, account ordering, and Sidebar footer hierarchy. Production route URLs remain product-owned."
+      ]
+    },
+    "deliverable": {
+      "writeRoot": "apps/storybook/src/ai-readiness/evaluations/team-management/",
+      "requiredFiles": [
+        "TeamEvaluation.tsx",
+        "TeamEvaluation.css",
+        "TeamEvaluation.stories.tsx",
+        "AUTHORING-REPORT.md"
+      ],
+      "storyTitle": "AI Readiness/Evaluations/Team Management"
+    },
+    "executionRules": [
+      "Read only the shared agent-context allowlist from the test-pack manifest; do not read any denied source.",
+      "Do not inspect git history, pull-request diffs, other branches, tags, or earlier implementations to recover an answer.",
+      "Do not use external search or external code examples to locate this repository's previous implementation.",
+      "Use only public governed package APIs authorized by the supplied contracts and guidance.",
+      "Do not add or modify design-system components, contracts, patterns, tokens, or canonical guidance.",
+      "Write implementation files only inside the task writeRoot.",
+      "Use governed tokens when available and explain every remaining local raw dimension or local CSS decision in AUTHORING-REPORT.md.",
+      "When supplied authorities do not resolve a decision, record it as unresolved in AUTHORING-REPORT.md instead of guessing.",
+      "Do not ask a human to correct the implementation during the run."
+    ],
+    "productContextIds": [
+      "dse.product-context.northstar-workspace-shell"
+    ]
+  }
+}
