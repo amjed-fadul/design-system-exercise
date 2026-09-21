@@ -52,6 +52,7 @@ const requiredAuthoringRuleIds = [
   'tokens.no-raw-colors',
   'css.local-only-with-authority',
   'dimensions.require-authority',
+  'composition.use-product-context',
   'composition.no-storybook-inference',
   'composition.repeated-rule-escalates',
   'direction.use-logical-layout',
