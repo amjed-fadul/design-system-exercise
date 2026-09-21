@@ -70,6 +70,9 @@ export const CompactDirectory: Story = {
     viewportMode: 'compact',
     showMemberActions: false,
   },
+  globals: {
+    viewport: { value: 'desktop', isRotated: false },
+  },
 };
 
 export const MemberDetails: Story = {

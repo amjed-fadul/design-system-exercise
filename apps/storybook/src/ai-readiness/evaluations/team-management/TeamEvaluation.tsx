@@ -342,14 +342,26 @@ export function TeamEvaluation({
       app.inert = true;
       app.setAttribute('aria-hidden', 'true');
     }
+
     const host = modalHostRef.current;
     const focusTarget = host?.querySelector<HTMLElement>(
       'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
     );
     focusTarget?.focus();
 
+    return () => {
+      if (app) {
+        app.inert = false;
+        app.removeAttribute('aria-hidden');
+      }
+    };
+  }, [detailId]);
+
+  useEffect(() => {
+    if (!detailId || discardDialogOpen) return;
+
     function onKeyDown(event: KeyboardEvent) {
-      if (discardDialogOpen || !modalHostRef.current) return;
+      if (!modalHostRef.current) return;
       if (event.key === 'Escape') {
         event.preventDefault();
         closeMemberDetail();
@@ -379,10 +391,6 @@ export function TeamEvaluation({
     document.addEventListener('keydown', onKeyDown);
     return () => {
       document.removeEventListener('keydown', onKeyDown);
-      if (app) {
-        app.inert = false;
-        app.removeAttribute('aria-hidden');
-      }
     };
   }, [detailId, discardDialogOpen, isRoleDirty]);
 
