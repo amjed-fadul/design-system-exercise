@@ -57,6 +57,7 @@
           "pattern-contracts",
           "tokens",
           "composition-guidance",
+          "product-context",
           "product-figma-evidence"
         ]
       }
@@ -128,7 +129,8 @@
           "items": {
             "enum": [
               "approved-composition-guidance",
-              "product-figma-evidence"
+              "product-figma-evidence",
+              "approved-product-context"
             ]
           }
         },
