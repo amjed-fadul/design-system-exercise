@@ -83,6 +83,12 @@ describe('Task 4 blind AI test pack', () => {
     expect(pack.agentContext.allow).toContain(
       'packages/tokens/consumer-contract.json',
     );
+    expect(pack.agentContext.allow).toContain(
+      'packages/contracts/ai/product-contexts/*.context.json',
+    );
+    expect(pack.agentContext.allow).toContain(
+      'packages/contracts/ai/product-contexts/assets/*.svg',
+    );
 
     for (const denied of [
       'packages/contracts/ai/evals/*.task.json',
@@ -101,6 +107,9 @@ describe('Task 4 blind AI test pack', () => {
   it('keeps Team product-fidelity requirements agent-visible', () => {
     const team = tasks.find((task) => task.id === 'dse.ai-eval.team-management');
     expect(team).toBeDefined();
+    expect(team?.agentVisible.productContextIds).toEqual([
+      'dse.product-context.northstar-workspace-shell',
+    ]);
     const requirement = JSON.stringify(team?.agentVisible.productRequirement);
 
     for (const expected of [
