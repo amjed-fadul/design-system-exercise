@@ -234,4 +234,50 @@ Next sequence:
 - **P1:** FIXED and verified — CI run 621 PASS on `79ef0b5211eb7727d3a48feacddb0d377f3cbe54`.
 - **P2:** FIXED and verified — CI run 623 PASS on `619de1ff468ae782d5bf64d343a82ae8b9e2f46a`.
 - **P3:** Team product-fidelity authority made agent-visible and verified — CI run 625 PASS on `d7b37a8bc835e31afec5991333c6e8c80cb52df6`.
-- **Run 010:** READY on `ai-eval/team-management-rerun-010` from the exact CI-625 baseline.
+- **Run 010:** COMPLETED; static/component parity improved but human visual review exposed P5 product-shell authority/assets gap and agent mistake M3 (`showClose={false}`).
+- **P5:** FIXED and verified — CI run 650 PASS on `615f035e639ac943102a58ee6348b20fffc7655b`.
+
+
+## Finding P5 — missing Northstar product-shell authority and canonical assets
+
+**Classification:** product-context authority gap  
+**Severity:** Important for product fidelity
+
+Run 010 still showed weak Sidebar/Top Navbar fidelity even after the product brief was expanded:
+
+- Sidebar used letter placeholders instead of the reviewed Overview / Projects / Team / Settings icons;
+- Sidebar footer copy had no governed two-line composition hierarchy;
+- Top Navbar omitted the Northstar brand mark;
+- Top Navbar omitted the reviewed moon/appearance utility;
+- account slot ordering was not explicitly governed.
+
+The generic Top Navbar and Sidebar contracts intentionally leave these values product-owned, so changing their generic APIs would be incorrect.
+
+The correct fix is a product-context layer.
+
+### Correction
+
+Added approved machine-readable context:
+
+`packages/contracts/ai/product-contexts/northstar-workspace-shell.context.json`
+
+It defines:
+
+- Northstar brand mark + wordmark ordering and product-owned geometry;
+- Top Navbar context label;
+- appearance utility asset and account-slot ordering;
+- account label and Avatar initials;
+- canonical Sidebar labels/destinations;
+- canonical Sidebar nav SVG assets;
+- stacked Sidebar footer hierarchy and typography;
+- English/Arabic shell copy.
+
+Canonical shell assets were copied out of denied prototype/Storybook source into:
+
+`packages/contracts/ai/product-contexts/assets/`
+
+The authoring policy now places approved product context between composition guidance and product/Figma evidence, and permits product-context-authorized local CSS.
+
+The Team blind task references `dse.product-context.northstar-workspace-shell`; the test pack allowlist exposes the context and its SVG assets while prototype source remains denied.
+
+**Verification:** CI run 650 PASS on exact canonical HEAD `615f035e639ac943102a58ee6348b20fffc7655b`.
