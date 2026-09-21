@@ -8,12 +8,14 @@ import {
   loadComponentContracts,
   loadCompositionGuidance,
   loadPatternContracts,
+  loadProductContexts,
 } from './load.js';
 import type {
   AiAuthoringPolicy,
   ComponentContract,
   CompositionGuidance,
   PatternContract,
+  ProductContext,
   ValidationResult,
 } from './types.js';
 
@@ -30,11 +32,15 @@ const authoringPolicySchema = readJson(
 const compositionGuidanceSchema = readJson(
   new URL('../schema/composition-guidance.schema.json', import.meta.url),
 );
+const productContextSchema = readJson(
+  new URL('../schema/product-context.schema.json', import.meta.url),
+);
 
 const componentValidator = ajv.compile(componentSchema);
 const patternValidator = ajv.compile(patternSchema);
 const authoringPolicyValidator = ajv.compile(authoringPolicySchema);
 const compositionGuidanceValidator = ajv.compile(compositionGuidanceSchema);
+const productContextValidator = ajv.compile(productContextSchema);
 
 const publicComponentId = /^dse\.(?!_)[a-z0-9.-]+$/;
 const internalComponentId = /^dse\._[a-z0-9.-]+$/;
@@ -122,6 +128,42 @@ export function validateAuthoringPolicy(candidate: unknown): ValidationResult {
   for (const requiredId of requiredAuthoringRuleIds) {
     if (!seenRuleIds.has(requiredId)) {
       errors.push(`/rules: missing required AI authoring rule ${requiredId}`);
+    }
+  }
+
+  errors.sort((a, b) => a.localeCompare(b));
+  return { valid: errors.length === 0, errors };
+}
+
+export function validateProductContext(candidate: unknown): ValidationResult {
+  const schemaResult = runValidator(productContextValidator, candidate);
+  if (!schemaResult.valid) return schemaResult;
+
+  const context = candidate as ProductContext;
+  const errors: string[] = [];
+  const assetIds = new Set<string>();
+  const referencedAssets = new Set<string>();
+
+  for (const asset of context.assets) {
+    if (assetIds.has(asset.id)) {
+      errors.push(`/assets: duplicate product-context asset id ${asset.id}`);
+    }
+    assetIds.add(asset.id);
+  }
+
+  const composition = context.composition as {
+    topNavbar?: { appearanceUtility?: { assetId?: string } };
+    sidebar?: { destinations?: Array<{ assetId?: string }> };
+  };
+  const appearanceAsset = composition.topNavbar?.appearanceUtility?.assetId;
+  if (appearanceAsset) referencedAssets.add(appearanceAsset);
+  for (const destination of composition.sidebar?.destinations ?? []) {
+    if (destination.assetId) referencedAssets.add(destination.assetId);
+  }
+
+  for (const assetId of referencedAssets) {
+    if (!assetIds.has(assetId)) {
+      errors.push(`/composition: unresolved product-context asset ${assetId}`);
     }
   }
 
@@ -229,6 +271,7 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
   const patterns = loadPatternContracts();
   const authoringPolicies = loadAuthoringPolicies();
   const compositions = loadCompositionGuidance();
+  const productContexts = loadProductContexts();
 
   const errors: string[] = [];
   const seenIds = new Map<string, string>();
@@ -236,6 +279,7 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
   const publicComponentVersions = new Map<string, string>();
   const patternVersions = new Map<string, string>();
   const compositionIds = new Set<string>();
+  const productContextIds = new Set<string>();
 
   const recordIdentity = (id: string, version: string, path: string) => {
     const existingId = seenIds.get(id);
@@ -384,6 +428,27 @@ export function validateRepositoryContracts(): RepositoryValidationResult {
     }
   }
 
+  for (const loaded of productContexts) {
+    const result = validateProductContext(loaded.contract);
+    for (const error of result.errors) errors.push(`${loaded.path}: ${error}`);
+    if (!result.valid) continue;
+
+    const context = loaded.contract as ProductContext;
+    productContextIds.add(context.id);
+    recordIdentity(context.id, context.version, loaded.path);
+
+    const patternVersion = patternVersions.get(context.patternId);
+    if (!patternVersion) {
+      errors.push(`${loaded.path}: /patternId: unresolved pattern ${context.patternId}`);
+    }
+
+    for (const componentId of context.componentDependencies) {
+      if (!publicComponentVersions.has(componentId)) {
+        errors.push(`${loaded.path}: /componentDependencies: unresolved public component ${componentId}`);
+      }
+    }
+  }
+
   for (const requiredId of requiredCompositionIds) {
     if (!compositionIds.has(requiredId)) {
       errors.push(
@@ -418,7 +483,7 @@ if (isCliEntry()) {
     process.exitCode = 1;
   } else {
     console.log(
-      `Validated ${result.componentCount} component contract${result.componentCount === 1 ? '' : 's'} and ${result.patternCount} pattern contract${result.patternCount === 1 ? '' : 's'} plus the AI authoring policy, Task 3 composition guidance, and Task 4 blind test pack`,
+      `Validated ${result.componentCount} component contract${result.componentCount === 1 ? '' : 's'} and ${result.patternCount} pattern contract${result.patternCount === 1 ? '' : 's'} plus the AI authoring policy, product contexts, Task 3 composition guidance, and Task 4 blind test pack`,
     );
   }
 }
