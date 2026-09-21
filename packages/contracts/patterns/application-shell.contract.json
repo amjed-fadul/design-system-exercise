@@ -85,7 +85,8 @@
     "Verify resizing across the breakpoint changes shell/Sidebar presentation without resetting or remounting consumer state.",
     "Verify a short window scrolls the main region so page actions remain reachable by pointer and keyboard.",
     "Auto mode must not read browser globals unsafely during server rendering.",
-    "Expanded and compact evidence must preserve the same consumer children and navigation identity."
+    "Expanded and compact evidence must preserve the same consumer children and navigation identity.",
+    "Sidebar, Top Navbar, and optional Page Heading shell-slot props must receive the direct governed React elements; wrapper components are not accepted because Application Shell validates element identity and clones the Sidebar element to inject resolved mode."
   ],
   "forbidden": [
     "query state",
@@ -101,10 +102,11 @@
     "routing policy",
     "modal editor behavior",
     "detail workflow",
-    "mobile product navigation"
+    "mobile product navigation",
+    "wrapper components around governed shell-slot elements"
   ],
   "provenance": {
-    "lastReviewed": "2026-09-20",
+    "lastReviewed": "2026-09-21",
     "references": [
       "figma:tYCXBBYoQ92AUKVbND5WkG:68:494",
       "figma:tYCXBBYoQ92AUKVbND5WkG:606:2496",
@@ -118,26 +120,29 @@
     "props": [
       {
         "name": "sidebar",
-        "description": "Required governed Sidebar element. Application Shell preserves the authored Sidebar content and supplies its resolved expanded or compact mode.",
+        "description": "Required direct governed Sidebar React element. Pass <Sidebar ... /> itself, not a wrapper component that returns Sidebar, because Application Shell validates the element type and clones the direct element to supply the resolved expanded or compact mode.",
         "required": true,
         "type": {
-          "component": "dse.sidebar"
+          "component": "dse.sidebar",
+          "directElement": true
         }
       },
       {
         "name": "topNavbar",
-        "description": "Required governed Top Navbar element rendered before navigation and main content.",
+        "description": "Required direct governed Top Navbar React element rendered before navigation and main content. Pass <TopNavbar ... /> itself, not a wrapper component that returns TopNavbar, because Application Shell validates the direct element type.",
         "required": true,
         "type": {
-          "component": "dse.top-navbar"
+          "component": "dse.top-navbar",
+          "directElement": true
         }
       },
       {
         "name": "pageHeading",
-        "description": "Optional governed Page Heading element rendered before page content inside the main region.",
+        "description": "Optional direct governed Page Heading React element rendered before page content inside the main region. Pass <PageHeading ... /> itself, not a wrapper component that returns PageHeading, because Application Shell validates the direct element type.",
         "required": false,
         "type": {
-          "component": "dse.page-heading"
+          "component": "dse.page-heading",
+          "directElement": true
         }
       },
       {
