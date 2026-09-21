@@ -7,6 +7,7 @@ import {
   loadComponentContracts,
   loadCompositionGuidance,
   loadPatternContracts,
+  loadProductContexts,
 } from './load.js';
 import type {
   AiBlindAuthoringTask,
@@ -15,6 +16,7 @@ import type {
   ComponentContract,
   CompositionGuidance,
   PatternContract,
+  ProductContext,
   ValidationResult,
 } from './types.js';
 
@@ -46,6 +48,8 @@ const requiredAllowContext = [
   'packages/contracts/patterns/*.contract.json',
   'packages/tokens/src/**/*.tokens.json',
   'packages/tokens/consumer-contract.json',
+  'packages/contracts/ai/product-contexts/*.context.json',
+  'packages/contracts/ai/product-contexts/assets/*.svg',
   'package.json',
   'apps/storybook/package.json',
   'packages/react/package.json',
@@ -192,9 +196,15 @@ export function validateAiEvalRepository(): ValidationResult {
   }
 
   const compositions = new Map<string, CompositionGuidance>();
+  const productContexts = new Map<string, ProductContext>();
   for (const loaded of loadCompositionGuidance()) {
     const guidance = loaded.contract as CompositionGuidance;
     compositions.set(guidance.id, guidance);
+  }
+
+  for (const loaded of loadProductContexts()) {
+    const context = loaded.contract as ProductContext;
+    productContexts.set(context.id, context);
   }
 
   for (const task of tasks) {
@@ -213,6 +223,15 @@ export function validateAiEvalRepository(): ValidationResult {
       errors.push(
         `${task.id}: deliverable requiredFiles must be filenames relative to writeRoot`,
       );
+    }
+
+    for (const id of task.agentVisible.productContextIds ?? []) {
+      const context = productContexts.get(id);
+      if (!context || context.status !== 'approved') {
+        errors.push(
+          `${task.id}: agent references unresolved or unapproved product context ${id}`,
+        );
+      }
     }
 
     for (const id of task.evaluatorOnly.expectedAuthorities.components) {
