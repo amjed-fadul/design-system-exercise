@@ -18,7 +18,8 @@ When authoring product UI, resolve decisions in this order:
 2. Approved pattern contracts.
 3. Governed tokens.
 4. Approved composition guidance.
-5. Supplied product/Figma evidence.
+5. Approved product context.
+6. Supplied product/Figma evidence.
 
 A later source may fill a decision that earlier sources intentionally leave to the consumer, but it must not contradict an earlier contract.
 
@@ -55,9 +56,19 @@ Consumers may use these selectors because they are canonical token metadata. Do 
 
 Local CSS is not automatically a failure.
 
-For product UI, it is valid only when the decision belongs to product/composition ownership and is authorized by approved composition guidance or supplied product/Figma evidence.
+For product UI, it is valid only when the decision belongs to product/composition ownership and is authorized by approved composition guidance, approved product context, or supplied product/Figma evidence.
 
 Storybook may use clearly labeled evidence-frame dimensions for deterministic documentation/testing, but those values never grant authority to product UI.
+
+## Product context
+
+Approved product context is machine-readable product-specific authority layered on top of generic DS components/patterns. It can define recurring slot content, canonical asset references, localized shell copy, ordering, and product-owned dimensions without turning those decisions into generic component behavior.
+
+Current approved context:
+
+`packages/contracts/ai/product-contexts/northstar-workspace-shell.context.json`
+
+It owns the reviewed Northstar workspace shell content while Top Navbar, Sidebar, Avatar, and Application Shell remain generic governed building blocks.
 
 ## Unknown decisions
 
