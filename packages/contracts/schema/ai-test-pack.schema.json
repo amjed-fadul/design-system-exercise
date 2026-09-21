@@ -83,7 +83,8 @@
         "noExternalAnswerLookup",
         "noHumanCorrectionDuringRun",
         "verificationCommandsMayTransitivelyProcessDeniedSource",
-        "deniedSourceRemainsNonAuthoringContextDuringVerification"
+        "deniedSourceRemainsNonAuthoringContextDuringVerification",
+        "runtimeRenderSmokeRequired"
       ],
       "properties": {
         "freshSessionPerTask": {
@@ -117,6 +118,9 @@
           "const": true
         },
         "deniedSourceRemainsNonAuthoringContextDuringVerification": {
+          "const": true
+        },
+        "runtimeRenderSmokeRequired": {
           "const": true
         }
       }
