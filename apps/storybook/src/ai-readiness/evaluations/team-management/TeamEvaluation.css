@@ -1,0 +1,360 @@
+.team-evaluation {
+  min-block-size: 100vh;
+  color: var(--dse-color-semantic-fg-primary);
+  background-color: var(--dse-color-semantic-surface-canvas);
+  font-family: var(--dse-typography-semantic-body-default-family);
+  font-size: var(--dse-typography-semantic-body-default-size);
+  font-weight: var(--dse-typography-semantic-body-default-weight);
+  line-height: var(--dse-typography-semantic-body-default-line-height);
+}
+
+.team-evaluation,
+.team-evaluation * {
+  box-sizing: border-box;
+}
+
+.team-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--dse-color-semantic-fg-primary);
+  white-space: nowrap;
+}
+
+.team-brand-mark {
+  display: grid;
+  flex: 0 0 auto;
+  inline-size: 30px;
+  block-size: 30px;
+  place-items: center;
+  border-radius: 6px;
+  background-color: var(--dse-color-semantic-state-selected);
+  color: var(--dse-color-semantic-fg-primary);
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+}
+
+.team-brand-name {
+  white-space: nowrap;
+}
+
+.team-account,
+.team-account-identity {
+  display: flex;
+  align-items: center;
+}
+
+.team-account {
+  gap: var(--dse-spacing-semantic-gap-md);
+  white-space: nowrap;
+}
+
+.team-account-identity {
+  gap: var(--dse-spacing-primitive-space-300);
+}
+
+.team-appearance-utility {
+  display: grid;
+  flex: 0 0 auto;
+  inline-size: 40px;
+  block-size: 40px;
+  place-items: center;
+}
+
+.team-appearance-icon,
+.team-shell-icon {
+  display: block;
+  flex: 0 0 auto;
+  inline-size: var(--dse-icons-size-md);
+  block-size: var(--dse-icons-size-md);
+  background-color: currentColor;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+.team-appearance-icon {
+  mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/top-navbar-moon.svg');
+  -webkit-mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/top-navbar-moon.svg');
+}
+
+.team-shell-icon--overview {
+  mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-overview.svg');
+  -webkit-mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-overview.svg');
+}
+
+.team-shell-icon--projects {
+  mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-projects.svg');
+  -webkit-mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-projects.svg');
+}
+
+.team-shell-icon--team {
+  mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-team.svg');
+  -webkit-mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-team.svg');
+}
+
+.team-shell-icon--settings {
+  mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-settings.svg');
+  -webkit-mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-settings.svg');
+}
+
+.team-sidebar-footer-primary,
+.team-sidebar-footer-secondary {
+  display: block;
+}
+
+.team-sidebar-footer-primary {
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+}
+
+.team-sidebar-footer-secondary {
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-caption-default-family);
+  font-size: var(--dse-typography-semantic-caption-default-size);
+  font-weight: var(--dse-typography-semantic-caption-default-weight);
+  line-height: var(--dse-typography-semantic-caption-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-caption-default-letter-spacing);
+}
+
+.team-page-content {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: var(--dse-layout-semantic-region-gap);
+  margin-block-start: var(--dse-layout-semantic-region-gap);
+}
+
+.team-directory-controls {
+  display: flex;
+  min-inline-size: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dse-spacing-semantic-gap-md);
+}
+
+.team-search-field {
+  inline-size: 360px;
+  max-inline-size: 100%;
+  flex: 0 1 360px;
+}
+
+.team-result-summary {
+  margin: 0;
+  margin-inline-start: auto;
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+  text-align: end;
+}
+
+.team-detail-unresolved {
+  margin: 0;
+  padding-block: var(--dse-spacing-semantic-inset-sm);
+  padding-inline: var(--dse-spacing-semantic-inset-sm);
+  border-inline-start: var(--dse-border-role-divider) solid var(--dse-color-semantic-border-default);
+  color: var(--dse-color-semantic-fg-secondary);
+  background-color: var(--dse-color-semantic-surface-section);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+}
+
+.team-table-overflow {
+  inline-size: 100%;
+  min-inline-size: 0;
+  overflow-x: auto;
+}
+
+.team-table-identity {
+  display: flex;
+  min-inline-size: 0;
+  align-items: center;
+  gap: var(--dse-spacing-semantic-gap-sm);
+}
+
+.team-table-identity-copy {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: var(--dse-spacing-semantic-stack-sm);
+}
+
+.team-table-identity-name {
+  color: var(--dse-color-semantic-fg-primary);
+}
+
+.team-email {
+  color: var(--dse-color-semantic-fg-secondary);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.team-dialog-fields,
+.team-request-feedback,
+.team-detail-body,
+.team-role-editor {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+}
+
+.team-dialog-fields {
+  gap: var(--dse-spacing-semantic-gap-md);
+}
+
+.team-request-feedback {
+  align-items: flex-start;
+  gap: var(--dse-spacing-semantic-gap-sm);
+}
+
+.team-detail-overlay {
+  position: fixed;
+  z-index: var(--dse-elevation-plane-overlay);
+  inset-block-start: var(--dse-layout-semantic-top-height);
+  inset-block-end: 0;
+  inset-inline: 0;
+  display: flex;
+  justify-content: flex-end;
+  background-color: var(--dse-color-semantic-surface-overlay);
+}
+
+.team-detail-host {
+  inline-size: min(100%, var(--dse-layout-semantic-detail-available-width));
+  block-size: 100%;
+  min-block-size: 0;
+  outline: none;
+}
+
+.team-detail-panel {
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 0;
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.team-detail-header {
+  display: flex;
+  min-inline-size: 0;
+  align-items: center;
+  gap: var(--dse-spacing-semantic-gap-md);
+}
+
+.team-detail-header-copy {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: var(--dse-spacing-semantic-stack-sm);
+}
+
+.team-detail-header-copy h2 {
+  margin: 0;
+  color: var(--dse-color-semantic-fg-primary);
+  font-family: var(--dse-typography-semantic-title-component-family);
+  font-size: var(--dse-typography-semantic-title-component-size);
+  font-weight: var(--dse-typography-semantic-title-component-weight);
+  line-height: var(--dse-typography-semantic-title-component-line-height);
+  letter-spacing: var(--dse-typography-semantic-title-component-letter-spacing);
+}
+
+.team-detail-body {
+  gap: var(--dse-spacing-semantic-section-sm);
+}
+
+.team-detail-status,
+.team-invitation-detail {
+  display: flex;
+  align-items: center;
+  gap: var(--dse-spacing-semantic-gap-md);
+}
+
+.team-invitation-detail {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: var(--dse-spacing-semantic-stack-sm);
+}
+
+.team-detail-label {
+  display: block;
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-label-small-family);
+  font-size: var(--dse-typography-semantic-label-small-size);
+  font-weight: var(--dse-typography-semantic-label-small-weight);
+  line-height: var(--dse-typography-semantic-label-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-small-letter-spacing);
+}
+
+.team-saved-role {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  gap: var(--dse-spacing-semantic-stack-sm);
+}
+
+.team-save-note,
+.team-confirmation-copy {
+  margin: 0;
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+}
+
+.team-role-editor {
+  gap: var(--dse-spacing-semantic-gap-md);
+}
+
+.team-confirmation-copy {
+  max-inline-size: 100%;
+}
+
+.team-evaluation[data-layout='narrow'] .team-directory-controls {
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.team-evaluation[data-layout='narrow'] .team-search-field {
+  inline-size: 100%;
+  flex-basis: auto;
+}
+
+.team-evaluation[data-layout='narrow'] .team-result-summary {
+  align-self: flex-start;
+  margin-inline-start: 0;
+  text-align: start;
+}
+
+@media (max-width: 1199px) {
+  .team-directory-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .team-search-field {
+    inline-size: 100%;
+    flex-basis: auto;
+  }
+
+  .team-result-summary {
+    align-self: flex-start;
+    margin-inline-start: 0;
+    text-align: start;
+  }
+}
