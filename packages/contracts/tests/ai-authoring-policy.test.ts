@@ -55,6 +55,21 @@ describe('AI authoring policy', () => {
     );
   });
 
+  it('recognizes approved product context as product-specific authoring authority', () => {
+    expect(policy.authorityOrder).toEqual([
+      'component-contracts',
+      'pattern-contracts',
+      'tokens',
+      'composition-guidance',
+      'product-context',
+      'product-figma-evidence',
+    ]);
+    expect((policy.localCss as { allowedAuthorities?: string[] }).allowedAuthorities).toContain(
+      'approved-product-context',
+    );
+    expect(policy.rules.some((rule) => rule.id === 'composition.use-product-context')).toBe(true);
+  });
+
   it('rejects duplicate rule ids', () => {
     const duplicate = structuredClone(policy);
     duplicate.rules.push({ ...duplicate.rules[0]! });
