@@ -45,17 +45,17 @@ describe('dse.pattern.application-shell contract', () => {
       expect.objectContaining({
         name: 'sidebar',
         required: true,
-        type: { component: 'dse.sidebar' },
+        type: { component: 'dse.sidebar', directElement: true },
       }),
       expect.objectContaining({
         name: 'topNavbar',
         required: true,
-        type: { component: 'dse.top-navbar' },
+        type: { component: 'dse.top-navbar', directElement: true },
       }),
       expect.objectContaining({
         name: 'pageHeading',
         required: false,
-        type: { component: 'dse.page-heading' },
+        type: { component: 'dse.page-heading', directElement: true },
       }),
       expect.objectContaining({
         name: 'children',
@@ -69,6 +69,18 @@ describe('dse.pattern.application-shell contract', () => {
         type: { enum: ['auto', 'expanded', 'compact'] },
       }),
     ]);
+  });
+
+  it('requires direct governed elements for clone-owned shell slots', () => {
+    const contract = readContract();
+    if (!contract) return;
+
+    for (const name of ['sidebar', 'topNavbar', 'pageHeading']) {
+      const prop = contract.publicApi.props.find((candidate: any) => candidate.name === name);
+      expect(prop?.description).toMatch(/direct/i);
+      expect(prop?.description).toMatch(/wrapper/i);
+      expect(prop?.description).toMatch(/clone/i);
+    }
   });
 
   it('keeps responsive layout ownership in the shell without taking workflow or product state', () => {
