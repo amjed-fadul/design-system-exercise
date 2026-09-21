@@ -1,0 +1,186 @@
+{
+  "$schema": "../../schema/product-context.schema.json",
+  "id": "dse.product-context.northstar-workspace-shell",
+  "kind": "product-context",
+  "version": "1.0.0",
+  "status": "approved",
+  "name": "Northstar Workspace Shell",
+  "scope": "workspace-shell",
+  "patternId": "dse.pattern.application-shell",
+  "componentDependencies": [
+    "dse.top-navbar",
+    "dse.sidebar",
+    "dse.avatar"
+  ],
+  "assets": [
+    {
+      "id": "nav.overview",
+      "path": "packages/contracts/ai/product-contexts/assets/sidebar-overview.svg",
+      "kind": "svg",
+      "usage": "Sidebar Overview destination icon",
+      "rendering": "mask-currentColor",
+      "directional": false
+    },
+    {
+      "id": "nav.projects",
+      "path": "packages/contracts/ai/product-contexts/assets/sidebar-projects.svg",
+      "kind": "svg",
+      "usage": "Sidebar Projects destination icon",
+      "rendering": "mask-currentColor",
+      "directional": false
+    },
+    {
+      "id": "nav.team",
+      "path": "packages/contracts/ai/product-contexts/assets/sidebar-team.svg",
+      "kind": "svg",
+      "usage": "Sidebar Team & access destination icon",
+      "rendering": "mask-currentColor",
+      "directional": false
+    },
+    {
+      "id": "nav.settings",
+      "path": "packages/contracts/ai/product-contexts/assets/sidebar-settings.svg",
+      "kind": "svg",
+      "usage": "Sidebar Settings destination icon",
+      "rendering": "mask-currentColor",
+      "directional": false
+    },
+    {
+      "id": "utility.appearance",
+      "path": "packages/contracts/ai/product-contexts/assets/top-navbar-moon.svg",
+      "kind": "svg",
+      "usage": "Decorative appearance utility glyph in the reviewed shell evidence",
+      "rendering": "mask-currentColor",
+      "directional": false
+    }
+  ],
+  "composition": {
+    "brand": {
+      "order": [
+        "brand-mark",
+        "product-name"
+      ],
+      "productName": {
+        "en": "Northstar",
+        "ar": "Northstar"
+      },
+      "productNameDirection": "ltr",
+      "gap": {
+        "value": 14,
+        "unit": "px"
+      },
+      "mark": {
+        "text": "N",
+        "inlineSize": {
+          "value": 30,
+          "unit": "px"
+        },
+        "blockSize": {
+          "value": 30,
+          "unit": "px"
+        },
+        "borderRadius": {
+          "value": 6,
+          "unit": "px"
+        },
+        "backgroundToken": "--dse-color-semantic-state-selected",
+        "typographyTokenPrefix": "typography.semantic.label.default"
+      }
+    },
+    "topNavbar": {
+      "contextLabel": {
+        "en": "Workspace administration",
+        "ar": "إدارة مساحة العمل"
+      },
+      "accountOrder": [
+        "appearance-utility",
+        "account-label",
+        "avatar"
+      ],
+      "appearanceUtility": {
+        "assetId": "utility.appearance",
+        "decorative": true,
+        "boxSize": {
+          "value": 40,
+          "unit": "px"
+        },
+        "sizeToken": "--dse-icons-size-md"
+      },
+      "accountLabel": {
+        "en": "Amal Hassan · Admin",
+        "ar": "أمل حسن · مشرفة"
+      },
+      "avatarInitials": {
+        "en": "AH",
+        "ar": "أح"
+      },
+      "accountGapToken": "--dse-spacing-semantic-gap-md",
+      "identityGapToken": "--dse-spacing-primitive-space-300"
+    },
+    "sidebar": {
+      "label": {
+        "en": "WORKSPACE",
+        "ar": "مساحة العمل"
+      },
+      "destinations": [
+        {
+          "id": "overview",
+          "label": {
+            "en": "Overview",
+            "ar": "نظرة عامة"
+          },
+          "assetId": "nav.overview"
+        },
+        {
+          "id": "projects",
+          "label": {
+            "en": "Projects",
+            "ar": "المشاريع"
+          },
+          "assetId": "nav.projects"
+        },
+        {
+          "id": "team",
+          "label": {
+            "en": "Team & access",
+            "ar": "الفريق والصلاحيات"
+          },
+          "assetId": "nav.team"
+        },
+        {
+          "id": "settings",
+          "label": {
+            "en": "Settings",
+            "ar": "الإعدادات"
+          },
+          "assetId": "nav.settings"
+        }
+      ],
+      "footer": {
+        "layout": "stack",
+        "primary": {
+          "en": "Northstar workspace",
+          "ar": "مساحة نورث ستار"
+        },
+        "secondary": {
+          "en": "Signed in as Admin",
+          "ar": "تم تسجيل الدخول كمشرفة"
+        },
+        "gap": {
+          "value": 2,
+          "unit": "px"
+        },
+        "primaryTypographyTokenPrefix": "typography.semantic.label.default",
+        "secondaryTypographyTokenPrefix": "typography.semantic.caption.default"
+      }
+    }
+  },
+  "provenance": {
+    "lastReviewed": "2026-09-21",
+    "evidence": [
+      "figma:tYCXBBYoQ92AUKVbND5WkG:228:18954",
+      "figma:tYCXBBYoQ92AUKVbND5WkG:146:166",
+      "docs/ai-readiness/AI-READINESS-TEAM-PARITY-AUDIT.md"
+    ]
+  }
+}
