@@ -28,7 +28,7 @@ describe('Northstar workspace shell product context', () => {
 
     expect(context.composition.brand).toEqual(
       expect.objectContaining({
-        productName: 'Northstar',
+        productName: { en: 'Northstar', ar: 'Northstar' },
         order: ['brand-mark', 'product-name'],
       }),
     );
