@@ -153,6 +153,7 @@ describe('Task 4 blind AI test pack', () => {
       noHumanCorrectionDuringRun: true,
       verificationCommandsMayTransitivelyProcessDeniedSource: true,
       deniedSourceRemainsNonAuthoringContextDuringVerification: true,
+      runtimeRenderSmokeRequired: true,
     });
   });
 });
