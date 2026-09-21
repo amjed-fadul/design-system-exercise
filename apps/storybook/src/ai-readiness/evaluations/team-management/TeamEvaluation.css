@@ -1,0 +1,338 @@
+.team-eval-root {
+  min-block-size: 100vh;
+  color: var(--dse-color-semantic-fg-primary);
+  background: var(--dse-color-semantic-surface-canvas);
+}
+
+.team-eval-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-inline-size: max-content;
+}
+
+.team-eval-brand-mark {
+  display: inline-grid;
+  inline-size: 30px;
+  block-size: 30px;
+  place-items: center;
+  border-radius: 6px;
+  color: var(--dse-color-semantic-fg-primary);
+  background: var(--dse-color-semantic-state-selected);
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+}
+
+.team-eval-brand-name {
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+}
+
+.team-eval-account,
+.team-eval-account-identity {
+  display: inline-flex;
+  align-items: center;
+}
+
+.team-eval-account {
+  gap: var(--dse-spacing-semantic-gap-md);
+}
+
+.team-eval-account-identity {
+  gap: var(--dse-spacing-primitive-space-300);
+}
+
+.team-eval-account-label {
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+}
+
+.team-eval-appearance {
+  display: inline-grid;
+  inline-size: 40px;
+  block-size: 40px;
+  place-items: center;
+  color: var(--dse-color-semantic-fg-primary);
+}
+
+.team-eval-icon {
+  display: inline-block;
+  inline-size: var(--dse-icons-size-md);
+  block-size: var(--dse-icons-size-md);
+  flex: none;
+  background-color: currentColor;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+.team-eval-icon--overview {
+  mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-overview.svg');
+  -webkit-mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-overview.svg');
+}
+
+.team-eval-icon--projects {
+  mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-projects.svg');
+  -webkit-mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-projects.svg');
+}
+
+.team-eval-icon--team {
+  mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-team.svg');
+  -webkit-mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-team.svg');
+}
+
+.team-eval-icon--settings {
+  mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-settings.svg');
+  -webkit-mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/sidebar-settings.svg');
+}
+
+.team-eval-icon--appearance {
+  mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/top-navbar-moon.svg');
+  -webkit-mask-image: url('../../../../../../packages/contracts/ai/product-contexts/assets/top-navbar-moon.svg');
+}
+
+.team-eval-sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.team-eval-sidebar-footer > :first-child {
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+}
+
+.team-eval-sidebar-footer > :last-child {
+  color: var(--dse-color-semantic-fg-tertiary);
+  font-family: var(--dse-typography-semantic-caption-default-family);
+  font-size: var(--dse-typography-semantic-caption-default-size);
+  font-weight: var(--dse-typography-semantic-caption-default-weight);
+  line-height: var(--dse-typography-semantic-caption-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-caption-default-letter-spacing);
+}
+
+.team-eval-directory {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dse-layout-semantic-region-gap);
+  min-inline-size: 0;
+}
+
+.team-eval-directory-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--dse-spacing-semantic-gap-md);
+  min-inline-size: 0;
+}
+
+.team-eval-search {
+  inline-size: min(360px, 100%);
+  flex: none;
+}
+
+.team-eval-summary {
+  margin: 0;
+  margin-inline-start: auto;
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+  text-align: end;
+}
+
+.team-eval-table-region {
+  min-inline-size: 0;
+  overflow-x: auto;
+}
+
+.team-eval-person {
+  display: flex;
+  align-items: center;
+  gap: var(--dse-spacing-primitive-space-300);
+  min-inline-size: 0;
+}
+
+.team-eval-person-copy,
+.team-eval-detail-person-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-inline-size: 0;
+}
+
+.team-eval-person-copy {
+  gap: var(--dse-spacing-primitive-space-100);
+}
+
+.team-eval-person-name {
+  color: var(--dse-color-semantic-fg-primary);
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+}
+
+.team-eval-person-email,
+.team-eval-detail-person-copy > p {
+  margin: 0;
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+}
+
+.team-eval-evaluation-note {
+  margin: 0;
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+}
+
+.team-eval-detail-host {
+  position: fixed;
+  z-index: var(--dse-elevation-plane-overlay);
+  inset-block-start: var(--dse-layout-primitive-top-height);
+  inset-block-end: 0;
+  inset-inline: 0;
+  outline: none;
+}
+
+.team-eval-detail-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--dse-color-semantic-surface-overlay);
+}
+
+.team-eval-detail-panel {
+  position: relative;
+  inline-size: var(--dse-layout-semantic-detail-available-width);
+  max-inline-size: 100%;
+  block-size: 100%;
+  margin-inline-start: auto;
+}
+
+.team-eval-side-panel {
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.team-eval-detail-identity {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--dse-spacing-semantic-gap-md);
+  min-inline-size: 0;
+}
+
+.team-eval-detail-person-copy {
+  gap: var(--dse-spacing-primitive-space-100);
+}
+
+.team-eval-detail-person-copy > h2 {
+  margin: 0;
+  color: var(--dse-color-semantic-fg-primary);
+  font-family: var(--dse-typography-semantic-title-component-family);
+  font-size: var(--dse-typography-semantic-title-component-size);
+  font-weight: var(--dse-typography-semantic-title-component-weight);
+  line-height: var(--dse-typography-semantic-title-component-line-height);
+  letter-spacing: var(--dse-typography-semantic-title-component-letter-spacing);
+}
+
+.team-eval-detail-status {
+  display: inline-flex;
+  margin-block-start: var(--dse-spacing-primitive-space-100);
+}
+
+.team-eval-detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dse-spacing-primitive-space-500);
+}
+
+.team-eval-saved-role {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--dse-spacing-semantic-gap-md);
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+}
+
+.team-eval-saved-role > strong {
+  color: var(--dse-color-semantic-fg-primary);
+  font-family: var(--dse-typography-semantic-label-default-family);
+  font-size: var(--dse-typography-semantic-label-default-size);
+  font-weight: var(--dse-typography-semantic-label-default-weight);
+  line-height: var(--dse-typography-semantic-label-default-line-height);
+  letter-spacing: var(--dse-typography-semantic-label-default-letter-spacing);
+}
+
+.team-eval-role-note {
+  margin: 0;
+  color: var(--dse-color-semantic-fg-secondary);
+  font-family: var(--dse-typography-semantic-body-small-family);
+  font-size: var(--dse-typography-semantic-body-small-size);
+  font-weight: var(--dse-typography-semantic-body-small-weight);
+  line-height: var(--dse-typography-semantic-body-small-line-height);
+  letter-spacing: var(--dse-typography-semantic-body-small-letter-spacing);
+}
+
+.team-eval-detail-actions,
+.team-eval-confirm-actions,
+.team-eval-invite-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--dse-spacing-primitive-space-300);
+}
+
+.team-eval-invite-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dse-spacing-primitive-space-500);
+}
+
+@media (max-width: 1199px) {
+  .team-eval-directory-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .team-eval-search {
+    inline-size: min(360px, 100%);
+  }
+
+  .team-eval-summary {
+    margin-inline-start: 0;
+    text-align: start;
+  }
+}
