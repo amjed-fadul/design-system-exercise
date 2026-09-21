@@ -301,6 +301,9 @@
                       "component": {
                         "type": "string",
                         "pattern": "^dse\\.(?!_)[a-z0-9.-]+$"
+                      },
+                      "directElement": {
+                        "type": "boolean"
                       }
                     }
                   }
