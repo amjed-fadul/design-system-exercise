@@ -281,3 +281,28 @@ The authoring policy now places approved product context between composition gui
 The Team blind task references `dse.product-context.northstar-workspace-shell`; the test pack allowlist exposes the context and its SVG assets while prototype source remains denied.
 
 **Verification:** CI run 650 PASS on exact canonical HEAD `615f035e639ac943102a58ee6348b20fffc7655b`.
+
+
+## Finding P6 — Application Shell direct-element authority
+
+**Classification:** pattern contract/API clarity gap  
+**Severity:** Critical for runnable blind output
+
+Run 011 used wrapper components around governed Sidebar/Top Navbar elements. Application Shell rejects wrappers because it validates direct element identity and clones the Sidebar to supply resolved mode.
+
+The previous machine-readable pattern contract named the governed component but did not explicitly encode direct-element identity.
+
+**Correction:** `directElement: true` is now explicit for Application Shell Sidebar, Top Navbar, and Page Heading props; wrapper components are explicitly forbidden.
+
+## Finding P7 — runtime render verification missing
+
+**Classification:** evaluation methodology gap  
+**Severity:** Critical
+
+Run 011 passed tests, typecheck, and Storybook production build while the primary Storybook story threw immediately on render.
+
+**Correction:** blind protocol now requires a runtime render smoke, and the baseline Storybook test suite auto-discovers and renders blind `*Evaluation.tsx` outputs.
+
+**Verification:** CI run 664 PASS on `abb31714810ea0692d70b9bc29c7fa9daed433fd`.
+
+Run 011 is therefore runtime-failed and must not be visually scored. A fresh blind rerun is required.
