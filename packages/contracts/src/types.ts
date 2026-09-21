@@ -237,6 +237,7 @@ export interface AiTestPack {
     noHumanCorrectionDuringRun: true;
     verificationCommandsMayTransitivelyProcessDeniedSource: true;
     deniedSourceRemainsNonAuthoringContextDuringVerification: true;
+    runtimeRenderSmokeRequired: true;
   };
   evaluationDimensions: AiEvalDimension[];
   provenance: {
