@@ -2,7 +2,7 @@
   "$schema": "../../schema/ai-test-pack.schema.json",
   "id": "dse.ai-eval-pack.v1",
   "kind": "ai-test-pack",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "status": "approved",
   "name": "AI Readiness Blind Authoring Pack V1",
   "taskIds": [
@@ -51,7 +51,8 @@
     "noExternalAnswerLookup": true,
     "noHumanCorrectionDuringRun": true,
     "verificationCommandsMayTransitivelyProcessDeniedSource": true,
-    "deniedSourceRemainsNonAuthoringContextDuringVerification": true
+    "deniedSourceRemainsNonAuthoringContextDuringVerification": true,
+    "runtimeRenderSmokeRequired": true
   },
   "evaluationDimensions": [
     "component-selection",
