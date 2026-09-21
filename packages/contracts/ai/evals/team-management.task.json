@@ -2,7 +2,7 @@
   "$schema": "../../schema/ai-blind-authoring-task.schema.json",
   "id": "dse.ai-eval.team-management",
   "kind": "ai-blind-authoring-task",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "status": "approved",
   "name": "Team Management",
   "caseType": "baseline-known",
@@ -51,7 +51,7 @@
         "Wide Application Shell and compact/narrow directory presentation.",
         "In wide presentation the Search control has product-authorized 360 CSS px inline width and the result summary sits at logical inline-end. Below the governed 1200 CSS-pixel shell boundary, stack the directory controls.",
         "For any contextual-detail behavior that approved guidance marks unresolved on narrow screens, report the unresolved decision instead of inventing a new model.",
-        "Exact brand-mark, appearance-utility, and navigation glyph artwork remains product-asset authority; do not invent canonical assets when none are supplied."
+        "Use the approved Northstar workspace-shell product context for brand mark, canonical Sidebar icons, appearance utility glyph, account ordering, and Sidebar footer hierarchy. Production route URLs remain product-owned."
       ]
     },
     "deliverable": {
@@ -74,6 +74,9 @@
       "Use governed tokens when available and explain every remaining local raw dimension or local CSS decision in AUTHORING-REPORT.md.",
       "When supplied authorities do not resolve a decision, record it as unresolved in AUTHORING-REPORT.md instead of guessing.",
       "Do not ask a human to correct the implementation during the run."
+    ],
+    "productContextIds": [
+      "dse.product-context.northstar-workspace-shell"
     ]
   },
   "evaluatorOnly": {
@@ -171,7 +174,7 @@
     ]
   },
   "provenance": {
-    "lastReviewed": "2026-09-20",
+    "lastReviewed": "2026-09-21",
     "plan": "docs/plans/2026-09-19-ai-readiness-validation-v1.md"
   }
 }
