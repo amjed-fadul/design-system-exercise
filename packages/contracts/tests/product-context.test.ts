@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { loadProductContexts } from '../src/load.js';
@@ -50,10 +51,11 @@ describe('Northstar workspace shell product context', () => {
       }),
     );
 
-    const root = fileURLToPath(new URL('../', import.meta.url));
+    const repoRoot = fileURLToPath(new URL('../../../', import.meta.url));
     for (const asset of context.assets) {
-      expect(existsSync(fileURLToPath(new URL(`../${asset.path}`, import.meta.url))), asset.path).toBe(true);
-      const svg = readFileSync(fileURLToPath(new URL(`../${asset.path}`, import.meta.url)), 'utf8');
+      const assetPath = resolve(repoRoot, asset.path);
+      expect(existsSync(assetPath), asset.path).toBe(true);
+      const svg = readFileSync(assetPath, 'utf8');
       expect(svg).toContain('<svg');
     }
   });
