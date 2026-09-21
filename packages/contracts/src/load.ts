@@ -8,6 +8,7 @@ export const componentsDir = join(contractsRoot, 'components');
 export const patternsDir = join(contractsRoot, 'patterns');
 export const aiDir = join(contractsRoot, 'ai');
 export const compositionsDir = join(aiDir, 'compositions');
+export const productContextsDir = join(aiDir, 'product-contexts');
 export const evalsDir = join(aiDir, 'evals');
 
 function loadDirectory(directory: string, suffix: string): LoadedContract[] {
@@ -39,6 +40,10 @@ export function loadAuthoringPolicies(): LoadedContract[] {
 
 export function loadCompositionGuidance(): LoadedContract[] {
   return loadDirectory(compositionsDir, '.guidance.json');
+}
+
+export function loadProductContexts(): LoadedContract[] {
+  return loadDirectory(productContextsDir, '.context.json');
 }
 
 export function loadAiEvalTasks(): LoadedContract[] {
