@@ -139,6 +139,26 @@ export interface CompositionGuidance {
   };
 }
 
+export interface ProductContext {
+  id: string;
+  kind: 'product-context';
+  version: string;
+  status: 'draft' | 'approved' | 'deprecated';
+  name: string;
+  scope: 'workspace-shell';
+  patternId: string;
+  componentDependencies: string[];
+  assets: Array<{
+    id: string;
+    path: string;
+    kind: 'svg';
+    usage: string;
+    rendering: 'mask-currentColor' | 'inline-currentColor';
+    directional: boolean;
+  }>;
+  composition: unknown;
+}
+
 export type AiEvalDimension =
   | 'component-selection'
   | 'invented-api'
@@ -158,6 +178,7 @@ export interface AiBlindAuthoringTask {
   name: string;
   caseType: 'baseline-known' | 'generalization';
   agentVisible: {
+    productContextIds?: string[];
     productRequirement: {
       summary: string;
       userGoals: string[];
